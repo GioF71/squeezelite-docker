@@ -10,5 +10,6 @@ RUN chmod u+x /run-squeezelite.sh
 COPY squeezelite /etc/default
 
 ENV SQUEEZELITE_AUDIO_DEVICE default
+ENV SQUEEZELITE_NAME $(hostname -s)
 
 ENTRYPOINT ["/run-squeezelite.sh"]

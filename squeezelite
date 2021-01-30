@@ -3,8 +3,7 @@
 # installed at /etc/default/squeezelite by the maintainer scripts
 
 # The name for the squeezelite player:
-#SL_NAME="$(hostname -s)"
-SL_NAME="streamer-gustard-u12-squeezelite"
+SL_NAME="SQUEEZELITE_NAME"
 
 # ALSA output device:
 SL_SOUNDCARD="SQUEEZELITE_AUDIO_DEVICE"

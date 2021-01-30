@@ -11,5 +11,7 @@ COPY squeezelite /etc/default
 
 ENV SQUEEZELITE_AUDIO_DEVICE default
 ENV SQUEEZELITE_NAME $(hostname -s)
+ENV SQUEEZELITE_TIMEOUT 2
+ENV SQUEEZELITE_DELAY 500
 
 ENTRYPOINT ["/run-squeezelite.sh"]

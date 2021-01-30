@@ -1,4 +1,5 @@
-from debian:buster-slim
+ARG ARCH=
+from ${ARCH}debian:buster-slim
 
 RUN apt-get update
 RUN apt-get install squeezelite -y

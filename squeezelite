@@ -18,4 +18,4 @@ SL_SOUNDCARD="SQUEEZELITE_AUDIO_DEVICE"
 # Please do not include -z to make squeezelite daemonise itself.
 #SB_EXTRA_ARGS=""
 #SB_EXTRA_ARGS="-C 2 -D 500,dop"
-
+SB_EXTRA_ARGS="-C 2"

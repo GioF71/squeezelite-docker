@@ -13,7 +13,7 @@ if [ "$SQUEEZELITE_SPECIFY_SERVER" == "yes" ]; then \
     -C $SQUEEZELITE_TIMEOUT \
     -D $SQUEEZELITE_DELAY; \
 else \
-  echo "Server has not been specified"; \
+  echo "Server has not been specified, using discovery"; \
   /usr/bin/squeezelite \
     -n $SQUEEZELITE_NAME \
     -o $SQUEEZELITE_AUDIO_DEVICE \

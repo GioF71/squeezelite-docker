@@ -1,5 +1,4 @@
-ARG ARCH=
-from ${ARCH}debian:buster-slim
+from debian:buster-slim
 
 RUN apt-get update
 RUN apt-get install squeezelite -y
@@ -16,6 +15,6 @@ ENV SQUEEZELITE_DELAY 500
 ENV STARTUP_DELAY_SEC 0
 
 ENV SQUEEZELITE_SPECIFY_SERVER no
-ENV SQUEEZELITE_SERVER_PORT server
+ENV SQUEEZELITE_SERVER_PORT server:3483
 
 ENTRYPOINT ["/run-squeezelite.sh"]

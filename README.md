@@ -48,7 +48,7 @@ You can start mpd-alsa by simply typing:
 
 `docker run -d --rm --device /dev/snd --net host giof71/squeezelite:stable`
 
-Note that we need to allow the container to access the audio devices through /dev/snd. 
+Note that we need to allow the container to access the audio devices through /dev/snd.
 We also need to use the *host* network so the squeezelite instance can be discovered on your network.
 
 The following tables reports all the currently supported environment variables.
@@ -62,6 +62,8 @@ The following tables reports all the currently supported environment variables.
 | SQUEEZELITE_SPECIFY_SERVER | no | Set to yes if you want to specify the server |
 | SQUEEZELITE_SERVER_PORT | server:3483 | Server and port of the server |
 | STARTUP_DELAY_SEC   | 0 | Delay before starting the application. This can be useful if your container is set up to start automatically, so that you can resolve race conditions with mpd and with squeezelite if all those services run on the same audio device. I experienced issues with my Asus Tinkerboard, while the Raspberry Pi has never really needed this. Your mileage may vary. Feel free to report your personal experience. |
+| SQUEEZELITE_TIMEOUT | 2 | Device timeout in seconds |
+| SQUEEZELITE_OPTS |  | Other parameters to pass to Squeezelite. e.g. `SQUEEZELITE_OPTS='-r 705600,768000 -R vE::4:28:99:100:50'` to set the max sampling rates and upsampling settings. |
 
 ## Build
 
@@ -71,4 +73,3 @@ You can build (or rebuild) the image by opening a terminal from the root of the 
 
 It will take very little time even on a Raspberry Pi. When it's finished, you can run the container following the previous instructions.<br />
 Just be careful to use the tag you have built.
-

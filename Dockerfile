@@ -1,4 +1,4 @@
-from debian:stable-slim
+from debian:buster
 
 RUN apt-get update
 RUN apt-get install squeezelite -y

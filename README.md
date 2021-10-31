@@ -7,7 +7,8 @@ First and foremost, the reference to the awesome project:
 [Man page of SqueezeLite](https://ralph-irving.github.io/squeezelite.html)
 
 ## Links
-Source: [GitHub](https://github.com/giof71/squeezelite-docker)<br />
+
+Source: [GitHub](https://github.com/giof71/squeezelite-docker)  
 Images: [DockerHub](https://hub.docker.com/r/giof71/squeezelite)
 
 ## Why
@@ -38,7 +39,7 @@ Here is the [repository](https://hub.docker.com/repository/docker/giof71/squeeze
 
 Getting the image from DockerHub is as simple as typing:
 
-`docker pull giof71/squeezelite:stable`<br />
+`docker pull giof71/squeezelite:stable`
 
 You may want to pull the "stable" image as opposed to the "latest".
 
@@ -71,4 +72,3 @@ You can build (or rebuild) the image by opening a terminal from the root of the 
 
 It will take very little time even on a Raspberry Pi. When it's finished, you can run the container following the previous instructions.<br />
 Just be careful to use the tag you have built.
-

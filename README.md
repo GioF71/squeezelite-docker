@@ -80,7 +80,7 @@ Variable|Value
 SQUEEZELITE_RATES|44100,48000,88200,96000,176400,192000,352800,384000
 SQUEEZELITE_UPSAMPLING|v::4:28:95:105:45
 
-## An example
+## A few examples
 
 As an example, here you can find the docker run command I use for a Fiio E18, which supports up to 96kHz (but notably not 88.2kHz) enabling upsampling to 96kHz:
 
@@ -117,6 +117,31 @@ docker run \
 
 Note that the previous commands are interactive (`-it`) and that the container is automatically removed (`--rm`) when you kill squeezelite for example by using `CTRL-C`.
 You might want to use daemon flag (`-d`) and optionally a restart strategy (you might want to use `--restart unless-stopped` if you want your container to restart automatically, unless you explicitly stop it).
+
+Do you prefer to use docker-compose? Me too!
+Here is my docker-compose.yaml file for my office-pi, equipped with an hifiberry-pro hat (the one with the headphone amp).
+Full upsampling up to 352.8/384 kHz thanks to ArchImago.
+
+```text
+---
+version: "3.3"
+
+services:
+
+  squeezelite-tailscale:
+    image: localhost:5000/giof71/squeezelite:stable
+    container_name: squeezelite-tailscale
+    devices:
+      - /dev/snd:/dev/snd
+    environment:
+      - SQUEEZELITE_NAME=office-pi
+      - SQUEEZELITE_AUDIO_DEVICE=hw:CARD=sndrpihifiberry,DEV=0
+      - SQUEEZELITE_SERVER_PORT=100.110.65.116:3483
+      - SQUEEZELITE_RATES="44100,48000,88200,96000,176400,192000,352800,384000"
+      - SQUEEZELITE_UPSAMPLING="v::4:28:95:105:45"
+      - STARTUP_DELAY_SEC=0
+    restart: unless-stopped
+```
 
 ## Build
 You can build (or rebuild) the image by opening a terminal from the root of the repository and issuing the following command:

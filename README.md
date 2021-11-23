@@ -6,6 +6,11 @@ First and foremost, the reference to the awesome project:
 
 [Man page of SqueezeLite](https://ralph-irving.github.io/squeezelite.html)
 
+This page will also be useful when tuning the parameters.
+In case you want to play with upsampling, this page might be useful:
+
+[Archimago - MUSINGS: More fun with digital filters!](https://archimago.blogspot.com/2018/01/musings-more-fun-with-digital-filters.html)
+
 ## Links
 
 Source: [GitHub](https://github.com/giof71/squeezelite-docker)  
@@ -47,28 +52,74 @@ You may want to pull the "stable" image as opposed to the "latest".
 
 You can start mpd-alsa by simply typing:
 
-`docker run -d --rm --device /dev/snd --net host giof71/squeezelite:stable`
+`docker run -d --rm --network host --device /dev/snd --net host giof71/squeezelite:stable`
 
-Note that we need to allow the container to access the audio devices through /dev/snd. 
-We also need to use the *host* network so the squeezelite instance can be discovered on your network.
+Note that we need to allow the container to access the audio devices through /dev/snd.  
+We also need to use the *host* network so the squeezelite instance can be discovered on your network.  
 
 The following tables reports all the currently supported environment variables.
 
-| VARIABLE | DEFAULT | NOTES |
-| ------------------- | --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| SQUEEZELITE_AUDIO_DEVICE | default | The audio device. Common examples: hw:CARD=x20,DEV=0 or hw:CARD=DAC,DEV=0 for usb dac based on XMOS |
-| SQUEEZELITE_DELAY | 500 | maybe something like 500,dop if your DAC supports DoP |
-| SQUEEZELITE_NAME | SqueezeLite | Name of the SqueezeLite endpoint |
-| SQUEEZELITE_TIMEOUT | 2 | Device timeout in seconds |
-| SQUEEZELITE_SPECIFY_SERVER | no | Set to yes if you want to specify the server |
-| SQUEEZELITE_SERVER_PORT | server:3483 | Server and port of the server |
-| STARTUP_DELAY_SEC   | 0 | Delay before starting the application. This can be useful if your container is set up to start automatically, so that you can resolve race conditions with mpd and with squeezelite if all those services run on the same audio device. I experienced issues with my Asus Tinkerboard, while the Raspberry Pi has never really needed this. Your mileage may vary. Feel free to report your personal experience. |
+VARIABLE|DEFAULT|NOTES
+---|---|---
+SQUEEZELITE_AUDIO_DEVICE|default|The audio device. Common examples: hw:CARD=x20,DEV=0 or hw:CARD=DAC,DEV=0 for usb dac based on XMOS.
+SQUEEZELITE_DELAY|500|Set it to maybe something like 500,dop if your DAC supports DoP.
+SQUEEZELITE_NAME|SqueezeLite|Name of the SqueezeLite endpoint.
+SQUEEZELITE_TIMEOUT|2|Device timeout in seconds.
+<s>SQUEEZELITE_SPECIFY_SERVER</s>|<s>no</s>|<s>Set to yes if you want to specify the server.</s> Removed in any build since 2021-11-23.
+SQUEEZELITE_SERVER_PORT||Server and port of the server, for example: `squeezebox-server.local:3483` or `192.168.1.10:3483`. Do not specify the variable if you want to use the auto discovery feature.
+SQUEEZELITE_RATES||From squeezelite's man page for `-r`: Specify sample rates supported by the output device; this is required if the output device is switched off when squeezelite is started. The format is either a single maximum sample rate, a range of sample rates in the format `<min>-<max>`, or a comma-separated list of available rates. Delay is an optional time to wait when switching sample rates between tracks, in milliseconds.
+SQUEEZELITE_UPSAMPLING||From squeezelite's man page for `-u`, same as `-R`: Enable upsampling of played audio. The argument is optional; see RESAMPLING for more information. The options `-u` and `-R` are synonymous.
+STARTUP_DELAY_SEC|0|Delay before starting the application. This can be useful if your container is set up to start automatically, so that you can resolve race conditions with mpd and with squeezelite if all those services run on the same audio device. I experienced issues with my Asus Tinkerboard, while the Raspberry Pi has never really needed this. Your mileage may vary. Feel free to report your personal experience.
+
+In case you want to adopt Archimago's 'Goldilocks' suggestion, the variable should be set as follows:
+
+Variable|Value
+---|---
+SQUEEZELITE_RATES|44100,48000,88200,96000,176400,192000,352800,384000
+SQUEEZELITE_UPSAMPLING|v::4:28:95:105:45
+
+## An example
+
+As an example, here you can find the docker run command I use for a Fiio E18, which supports up to 96kHz (but notably not 88.2kHz) enabling upsampling to 96kHz:
+
+```text
+docker run \
+    -it \
+    --rm \
+    --name squeezelite \ 
+    -e SQUEEZELITE_NAME="FiioE18" \
+    -e SQUEEZELITE_SERVER="192.168.1.10:3483" \
+    -e SQUEEZELITE_AUDIO_DEVICE="hw:CARD=DACE18,DEV=0" \
+    -e SQUEEZELITE_RATES="96000" \
+    -e SQUEEZELITE_UPSAMPLING="v::4:28:95:105:45" \
+    --device /dev/snd \
+    giof71/squeezelite
+```
+
+Another example, with a Topping D10 USB DAC, which supports every sample rate including DSD, you might want to use the following:
+
+```text
+docker run \
+    -it \
+    --rm \
+    --name squeezelite \ 
+    -e SQUEEZELITE_NAME="ToppingD10" \
+    -e SQUEEZELITE_SERVER="192.168.1.10:3483" \
+    -e SQUEEZELITE_AUDIO_DEVICE="hw:CARD=D10,DEV=0" \
+    -e SQUEEZELITE_DELAY=500 \
+    -e SQUEEZELITE_RATES="44100,48000,88200,96000,176400,192000,352800,384000" \
+    -e SQUEEZELITE_UPSAMPLING="v::4:28:95:105:45" \
+    --device /dev/snd \
+    giof71/squeezelite
+```
+
+Note that the previous commands are interactive (`-it`) and that the container is automatically removed (`--rm`) when you kill squeezelite for example by using `CTRL-C`.
+You might want to use daemon flag (`-d`) and optionally a restart strategy (you might want to use `--restart unless-stopped` if you want your container to restart automatically, unless you explicitly stop it).
 
 ## Build
-
 You can build (or rebuild) the image by opening a terminal from the root of the repository and issuing the following command:
 
 `docker build . -t giof71/squeezelite`
 
-It will take very little time even on a Raspberry Pi. When it's finished, you can run the container following the previous instructions.<br />
+It will take very little time even on a Raspberry Pi. When it's finished, you can run the container following the previous instructions.  
 Just be careful to use the tag you have built.

@@ -1,5 +1,7 @@
 # squeezelite-docker - a Docker image for SqueezeLite
 
+Now with support for upsampling.
+
 ## Reference
 
 First and foremost, the reference to the awesome project:

@@ -87,7 +87,7 @@ A few environment variables have been deprecated, see the following table.
 
 Deprecated Variable|Deprecated Since|Comment
 ---|---|---
-SQUEEZELITE_SPECIFY_SERVER|2021-11-23|This variable is not used anymore, just set the SQUEEZELITE_SERVER_PORT
+SQUEEZELITE_SPECIFY_SERVER|2021-11-23|This variable is not used anymore, just set the SQUEEZELITE_SERVER_PORT variable
 
 ## A few examples
 

@@ -67,11 +67,12 @@ SQUEEZELITE_AUDIO_DEVICE|default|The audio device. Common examples: hw:CARD=x20,
 SQUEEZELITE_DELAY|500|Set it to maybe something like 500,dop if your DAC supports DoP.
 SQUEEZELITE_NAME|SqueezeLite|Name of the SqueezeLite endpoint.
 SQUEEZELITE_TIMEOUT|2|Device timeout in seconds.
-<s>SQUEEZELITE_SPECIFY_SERVER</s>|<s>no</s>|<s>Set to yes if you want to specify the server.</s> Removed in any build since 2021-11-23.
 SQUEEZELITE_SERVER_PORT||Server and port of the server, for example: `squeezebox-server.local:3483` or `192.168.1.10:3483`. Do not specify the variable if you want to use the auto discovery feature.
 SQUEEZELITE_RATES||From squeezelite's man page for `-r`: Specify sample rates supported by the output device; this is required if the output device is switched off when squeezelite is started. The format is either a single maximum sample rate, a range of sample rates in the format `<min>-<max>`, or a comma-separated list of available rates. Delay is an optional time to wait when switching sample rates between tracks, in milliseconds.
 SQUEEZELITE_UPSAMPLING||From squeezelite's man page for `-u`, same as `-R`: Enable upsampling of played audio. The argument is optional; see RESAMPLING for more information. The options `-u` and `-R` are synonymous.
 STARTUP_DELAY_SEC|0|Delay before starting the application. This can be useful if your container is set up to start automatically, so that you can resolve race conditions with mpd and with squeezelite if all those services run on the same audio device. I experienced issues with my Asus Tinkerboard, while the Raspberry Pi has never really needed this. Your mileage may vary. Feel free to report your personal experience.
+
+## Upsampling
 
 In case you want to adopt Archimago's 'Goldilocks' suggestion, the variable should be set as follows:
 
@@ -79,6 +80,14 @@ Variable|Value
 ---|---
 SQUEEZELITE_RATES|44100,48000,88200,96000,176400,192000,352800,384000
 SQUEEZELITE_UPSAMPLING|v::4:28:95:105:45
+
+## Notable changes to the configuration
+
+A few environment variables have been deprecated, see the following table.
+
+Deprecated Variable|Deprecated Since|Comment
+---|---|---
+SQUEEZELITE_SPECIFY_SERVER|2021-11-23|This variable is not used anymore, just set the SQUEEZELITE_SERVER_PORT
 
 ## A few examples
 
@@ -129,7 +138,7 @@ version: "3.3"
 services:
 
   squeezelite-tailscale:
-    image: localhost:5000/giof71/squeezelite:stable
+    image: giof71/squeezelite:stable
     container_name: squeezelite-tailscale
     devices:
       - /dev/snd:/dev/snd
@@ -144,6 +153,7 @@ services:
 ```
 
 ## Build
+
 You can build (or rebuild) the image by opening a terminal from the root of the repository and issuing the following command:
 
 `docker build . -t giof71/squeezelite`

@@ -35,8 +35,8 @@ This command will output one line if the current user does belong to the "docker
 The Dockerfile and the included scripts have been tested on the following distros:
 
 - Manjaro Linux with Gnome (amd64)
-- Asus Tinkerboard
-- Raspberry Pi 3 (but I have no reason to doubt it will also work on a Raspberry Pi 4/400)
+- DietPi on Asus Tinkerboard
+- Raspberry Pi OS on Raspberry Pi 3 (but I have no reason to doubt it will also work on a Raspberry Pi 4/400)
 
 As I test the Dockerfile on more platforms, I will update this list.
 

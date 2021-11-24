@@ -9,7 +9,7 @@ First and foremost, the reference to the awesome project:
 [Man page of SqueezeLite](https://ralph-irving.github.io/squeezelite.html)
 
 This page will also be useful when tuning the parameters.
-In case you want to play with upsampling, this page might be useful:
+In case you want to play with upsampling, this other page might be very helpful:
 
 [Archimago - MUSINGS: More fun with digital filters!](https://archimago.blogspot.com/2018/01/musings-more-fun-with-digital-filters.html)
 

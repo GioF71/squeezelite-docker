@@ -52,7 +52,7 @@ You may want to pull the "stable" image as opposed to the "latest".
 
 ## Usage
 
-You can start mpd-alsa by simply typing:
+You can start squeezelite by typing:
 
 `docker run -d --rm --network host --device /dev/snd --net host giof71/squeezelite:stable`
 

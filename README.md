@@ -74,7 +74,7 @@ STARTUP_DELAY_SEC|0|Delay before starting the application. This can be useful if
 
 ## Upsampling
 
-In case you want to adopt Archimago's 'Goldilocks' suggestion, the variable should be set as follows:
+In case you want to adopt Archimago's 'Goldilocks' suggestion, the variables should be set as follows:
 
 Variable|Value
 ---|---
@@ -87,11 +87,11 @@ A few environment variables have been deprecated, see the following table.
 
 Deprecated Variable|Deprecated Since|Comment
 ---|---|---
-SQUEEZELITE_SPECIFY_SERVER|2021-11-23|This variable is not used anymore, just set the SQUEEZELITE_SERVER_PORT variable
+SQUEEZELITE_SPECIFY_SERVER|2021-11-23|This variable is not required anymore: just set the SQUEEZELITE_SERVER_PORT variable
 
 ## A few examples
 
-As an example, here you can find the docker run command I use for a Fiio E18, which supports up to 96kHz (but notably not 88.2kHz) enabling upsampling to 96kHz:
+As an example, here you can find the docker run command I use for a Fiio E18, which supports sampling rates up to 96kHz (but notably not 88.2kHz) enabling upsampling to 96kHz:
 
 ```text
 docker run \

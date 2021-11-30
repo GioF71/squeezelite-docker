@@ -128,8 +128,8 @@ Note that the previous commands are interactive (`-it`) and that the container i
 You might want to use daemon flag (`-d`) and optionally a restart strategy (you might want to use `--restart unless-stopped` if you want your container to restart automatically, unless you explicitly stop it).
 
 Do you prefer to use docker-compose?
-Here is my docker-compose.yaml file for my office-pi, using tailscale networking, equipped with an hifiberry-pro hat (the one with the headphone amp).
-Full upsampling up to 352.8/384 kHz thanks to ArchImago.
+Here is my `docker-compose.yaml` file for my office-pi, using tailscale networking, equipped with an hifiberry-pro hat (the one with the headphone amp).
+Full upsampling up to 352.8/384 kHz thanks to [ArchImago](https://archimago.blogspot.com/).
 
 ```text
 ---

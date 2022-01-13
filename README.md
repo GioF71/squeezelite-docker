@@ -54,7 +54,7 @@ You may want to pull the "stable" image as opposed to the "latest".
 
 You can start squeezelite by typing:
 
-`docker run -d --rm --network host --device /dev/snd --net host giof71/squeezelite:stable`
+`docker run -d --rm --network host --device /dev/snd giof71/squeezelite:stable`
 
 Note that we need to allow the container to access the audio devices through /dev/snd.  
 We also need to use the *host* network so the squeezelite instance can be discovered on your network.  

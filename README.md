@@ -77,7 +77,7 @@ STARTUP_DELAY_SEC|0|Delay before starting the application. This can be useful if
 
 In case you want to adopt Archimago's 'Goldilocks' suggestion, the variables should be set as in the following table. Refer to the line which resembles the capabilities of your audio device.
 
-Variable|Dac Capabilities|Suggested value
+Variable|Audio Device Capabilities|Suggested value
 ---|---|---
 SQUEEZELITE_RATES|All sampling rates up to 384kHz|44100,48000,88200,96000,176400,192000,352800,384000
 SQUEEZELITE_RATES|All sampling rates up to 192kHz|44100,48000,88200,96000,176400,192000

@@ -57,7 +57,8 @@ You can start squeezelite by typing:
 `docker run -d --rm --network host --device /dev/snd giof71/squeezelite:stable`
 
 Note that we need to allow the container to access the audio devices through /dev/snd.  
-We also need to use the *host* network so the squeezelite instance can be discovered on your network.  
+We also need to use the *host* network mode so the squeezelite instance can be discovered on your network.  
+The host network mode is generally not necessary if you specify your server (and port) using the environment variable `SQUEEZELITE_SERVER_PORT`.
 
 The following tables reports all the currently supported environment variables.
 
@@ -91,7 +92,42 @@ SQUEEZELITE_SPECIFY_SERVER|2021-11-23|This variable is not required anymore: jus
 
 ## A few examples
 
-As an example, here you can find the docker run command I use for a Fiio E18, which supports sampling rates up to 96kHz (but notably not 88.2kHz) enabling upsampling to 96kHz:
+As contributed by [vespadj](https://github.com/vespadj) in [Issue #6](https://github.com/GioF71/squeezelite-docker/issues/6), have a look at this simple `docker-compose` service for the Raspberry Pi on its onboard headphone jack (I only added host network mode so the player is discoverable):
+
+```text
+---
+version: "3.3"
+
+services:
+  squeezelite:
+    image: giof71/squeezelite:stable
+    container_name: squeezelite
+    network_mode: host
+    devices: 
+      - /dev/snd:/dev/snd
+    environment:
+      - SQUEEZELITE_NAME=home-pi
+      - STARTUP_DELAY_SEC=1
+      - SQUEEZELITE_AUDIO_DEVICE=hw:CARD=Headphones,DEV=0
+    restart: unless-stopped
+```
+
+Please not that `STARTUP_DELAY_SEC` is optional.
+The equivalent `docker run` command should be the following:
+
+```text
+docker run \
+    -it \
+    --rm \
+    --name squeezelite \ 
+    --network host \
+    -e SQUEEZELITE_NAME="home-pi" \
+    -e SQUEEZELITE_AUDIO_DEVICE="hw:CARD=Headphones,DEV=0" \
+    --device /dev/snd \
+    giof71/squeezelite:stable
+```
+
+As another example, here you can find the docker run command I use for a Fiio E18, which supports sampling rates up to 96kHz (but notably not 88.2kHz) enabling upsampling to 96kHz:
 
 ```text
 docker run \
@@ -127,7 +163,6 @@ docker run \
 Note that the previous commands are interactive (`-it`) and that the container is automatically removed (`--rm`) when you kill squeezelite for example by using `CTRL-C`.
 You might want to use daemon flag (`-d`) and optionally a restart strategy (you might want to use `--restart unless-stopped` if you want your container to restart automatically, unless you explicitly stop it).
 
-Do you prefer to use docker-compose?
 Here is my `docker-compose.yaml` file for my office-pi, using tailscale networking, equipped with an hifiberry-pro hat (the one with the headphone amp).
 Full upsampling up to 352.8/384 kHz thanks to [ArchImago](https://archimago.blogspot.com/).
 
@@ -136,7 +171,6 @@ Full upsampling up to 352.8/384 kHz thanks to [ArchImago](https://archimago.blog
 version: "3.3"
 
 services:
-
   squeezelite-tailscale:
     image: giof71/squeezelite:stable
     container_name: squeezelite-tailscale
@@ -151,6 +185,9 @@ services:
       - STARTUP_DELAY_SEC=0
     restart: unless-stopped
 ```
+
+Note that `network_mode` is not specified because we are specifying the server we want to connect to.  
+When using `SQUEEZELITE_RATES` and `SQUEEZELITE_UPSAMPLING`, please be sure to use sampling rates that are effectively supported by your DAC.
 
 ## Build
 

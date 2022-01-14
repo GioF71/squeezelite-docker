@@ -82,7 +82,7 @@ Variable|Dac Capabilities|Suggested value
 SQUEEZELITE_RATES|All sampling rates up to 384kHz|44100,48000,88200,96000,176400,192000,352800,384000
 SQUEEZELITE_RATES|All sampling rates up to 192kHz|44100,48000,88200,96000,176400,192000
 SQUEEZELITE_RATES|All sampling rates up to 96kHz|44100,48000,88200,96000
-SQUEEZELITE_RATES|Typical USB Class 1 (88.2kHz is frequently not supported)|44100,48000,96000
+SQUEEZELITE_RATES|Typical USB Class 1 (88.2kHz is sometimes not supported)|44100,48000,96000
 SQUEEZELITE_UPSAMPLING|Anything higher than 44.1kHz|v::4:28:95:105:45
 
 The `SQUEEZELITE_RATES` displayed here are provided just as an example. You still should verify the capabilities of your particular audio device.

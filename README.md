@@ -69,7 +69,7 @@ SQUEEZELITE_AUDIO_DEVICE|default|The audio device. Common examples: hw:CARD=x20,
 SQUEEZELITE_PARAMS||Please refer to the squeezelite's [man page](https://ralph-irving.github.io/squeezelite.html) for `-a`.
 SQUEEZELITE_CODECS||Please refer to the squeezelite's [man page](https://ralph-irving.github.io/squeezelite.html) for `-c`.
 SQUEEZELITE_PRIORITY||Please refer to the squeezelite's [man page](https://ralph-irving.github.io/squeezelite.html) for `-p`.
-SQUEEZELITE_DELAY|500|Set it to maybe something like 500,dop if your DAC supports DoP.
+SQUEEZELITE_DELAY|500|Set it to maybe something like `500,dop` if your DAC supports DoP.
 SQUEEZELITE_NAME|SqueezeLite|Name of the SqueezeLite endpoint. Use an alphanumeric string without spaces and/or special characters.
 SQUEEZELITE_TIMEOUT|2|Device timeout in seconds.
 SQUEEZELITE_SERVER_PORT||Server and port of the server, for example: `squeezebox-server.local:3483` or `192.168.1.10:3483`. Do not specify the variable if you want to use the auto discovery feature. If you don't specify this variable, you will probably need to use host network mode. See the examples for some hints. The port can be omitted if not different from the default `3483`. So other possible valid values are `squeezebox-server.local` or `192.168.1.10`.

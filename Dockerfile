@@ -1,4 +1,4 @@
-from debian:bullseye-20211220-slim
+from debian:buster-20211220-slim
 
 RUN apt-get update
 RUN apt-get install squeezelite -y

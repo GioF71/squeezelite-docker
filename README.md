@@ -192,7 +192,7 @@ Note that the previous commands are interactive (`-it`) and that the container i
 You might want to use daemon flag (`-d`) and optionally a restart strategy (you might want to use `--restart unless-stopped` if you want your container to restart automatically, unless you explicitly stop it).
 
 Here is my `docker-compose.yaml` file for my office-pi, using tailscale networking, equipped with an hifiberry-pro hat (the one with the headphone amp).
-Full upsampling up to 352.8/384 kHz thanks to [ArchImago](https://archimago.blogspot.com/).
+Full upsampling up to 176.4/192 kHz thanks to [ArchImago](https://archimago.blogspot.com/).
 
 ```text
 ---
@@ -208,7 +208,7 @@ services:
       - SQUEEZELITE_NAME=office-pi
       - SQUEEZELITE_AUDIO_DEVICE=hw:CARD=sndrpihifiberry,DEV=0
       - SQUEEZELITE_SERVER_PORT=100.100.100.100:3483
-      - SQUEEZELITE_RATES="44100-384000"
+      - SQUEEZELITE_RATES="44100-192000"
       - SQUEEZELITE_UPSAMPLING="v::4:28:95:105:45"
       - STARTUP_DELAY_SEC=0
     restart: unless-stopped

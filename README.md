@@ -104,7 +104,7 @@ A few environment variables have been deprecated, see the following table.
 
 Deprecated Variable|Deprecated Since|Comment
 ---|---|---
-SQUEEZELITE_SPECIFY_SERVER|2021-11-23|This variable is not required anymore: just set the SQUEEZELITE_SERVER_PORT variable
+SQUEEZELITE_SPECIFY_SERVER|2021-11-23|This variable is not required anymore: just set the `SQUEEZELITE_SERVER_PORT` variable
 
 For the new variables introduced over time, see the following table.
 

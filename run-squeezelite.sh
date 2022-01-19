@@ -10,7 +10,9 @@ echo "=== END-- Available audio devices ==="
 echo ""
 
 # load presets
-source ./run-presets.sh
+echo "=== BEGIN Loading presets ==="
+source /run-presets.sh
+echo "=== END-- Loading presets ==="
 
 CMD_LINE="/usr/bin/squeezelite"
 
@@ -18,8 +20,7 @@ if [ -z "${PRESET}" ]; then
   echo "Preset has not been specified";
 else
   echo "Preset has been specified: $PRESET";
-
-  echo "Explicitly set properties are not overridden"
+  echo "Explicitly set properties will not be overridden"
   echo "Current SQUEEZELITE_AUDIO_DEVICE = $SQUEEZELITE_AUDIO_DEVICE"
   echo "Current SQUEEZELITE_RATES = $SQUEEZELITE_RATES"
   echo "Current SQUEEZELITE_UPSAMPLING = $SQUEEZELITE_UPSAMPLING"

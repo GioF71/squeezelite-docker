@@ -5,7 +5,7 @@ RUN apt-get install squeezelite -y
 RUN rm -rf /var/lib/apt/lists/*
 
 COPY run-squeezelite.sh /run-squeezelite.sh
-COPY run-squeezelite.sh /run-presets.sh
+COPY run-presets.sh /run-presets.sh
 RUN chmod u+x /run-squeezelite.sh
 RUN chmod u+x /run-presets.sh
 
@@ -26,5 +26,7 @@ ENV PRESET ""
 ENV SQUEEZELITE_PARAMS ""
 ENV SQUEEZELITE_CODECS ""
 ENV SQUEEZELITE_PRIORITY ""
+
+WORKDIR /
 
 ENTRYPOINT ["/run-squeezelite.sh"]

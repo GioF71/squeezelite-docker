@@ -64,6 +64,7 @@ The following tables reports all the currently supported environment variables.
 
 VARIABLE|DEFAULT|NOTES
 ---|---|---
+PRESET||You can now chose an existing preset. Preset currently can tune `SQUEEZELITE_AUDIO_DEVICE`, `SQUEEZELITE_RATES` and `SQUEEZELITE_UPSAMPLING` for you. See the `Available presets` table for reference.
 SQUEEZELITE_AUDIO_DEVICE|default|The audio device. Common examples: hw:CARD=x20,DEV=0 or hw:CARD=DAC,DEV=0 for usb dac based on XMOS.
 SQUEEZELITE_PARAMS||Please refer to the squeezelite's [man page](https://ralph-irving.github.io/squeezelite.html) for `-a`.
 SQUEEZELITE_CODECS||Please refer to the squeezelite's [man page](https://ralph-irving.github.io/squeezelite.html) for `-c`.
@@ -90,6 +91,13 @@ SQUEEZELITE_UPSAMPLING|Anything higher than 44.1kHz|v::4:28:95:105:45
 
 The `SQUEEZELITE_RATES` displayed here are provided just as an example. You still should verify the capabilities of your particular audio device.
 
+## Available presets
+
+Preset name|Availability date|Comment
+---|---|---
+goldilocks_up_to_384k|2022-01-19|Setup [goldilocks](https://archimago.blogspot.com/2018/01/musings-more-fun-with-digital-filters.html) upsampling for usb dac, up to 384kHz
+gustard-x12-goldilocks|2022-01-19|Setup [goldilocks](https://archimago.blogspot.com/2018/01/musings-more-fun-with-digital-filters.html) upsampling for usb dac, up to 384kHz, and also sets output device correctly for a Gustard X12 DAC
+
 ## Notable changes to the configuration
 
 A few environment variables have been deprecated, see the following table.
@@ -97,6 +105,17 @@ A few environment variables have been deprecated, see the following table.
 Deprecated Variable|Deprecated Since|Comment
 ---|---|---
 SQUEEZELITE_SPECIFY_SERVER|2021-11-23|This variable is not required anymore: just set the SQUEEZELITE_SERVER_PORT variable
+
+New variables
+
+Variable Name|Availability date|Comment
+---|---|---
+PRESET|2022-01-19|New feature
+SQUEEZELITE_RATES|2021-11-23|Added support for configuration option
+SQUEEZELITE_UPSAMPLING|2021-11-23|Added support for configuration option
+SQUEEZELITE_PARAMS|2022-01-19|Added support for configuration option
+SQUEEZELITE_CODECS|2022-01-19|Added support for configuration option
+SQUEEZELITE_PRIORITY|2022-01-19|Added support for configuration option
 
 ## A few examples
 

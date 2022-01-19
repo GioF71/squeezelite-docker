@@ -10,6 +10,9 @@ device_dac="hw:CARD=DAC,DEV=0"
 
 declare -A presets
 
+presets[goldilocks_up_to_384k.rates]=$rates_up_to_384k":200"
+presets[goldilocks_up_to_384k.upsampling]=$upsampling_goldilocks
+
 presets[gustard-x12-goldilocks.device]=$device_x20
 presets[gustard-x12-goldilocks.rates]=$rates_up_to_384k":200"
 presets[gustard-x12-goldilocks.upsampling]=$upsampling_goldilocks

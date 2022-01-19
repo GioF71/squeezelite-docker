@@ -111,9 +111,9 @@ For the new variables introduced over time, see the following table.
 
 New Variable|Availability Date|Comment
 :---|:---|:---
-PRESET|2022-01-19|New feature
 SQUEEZELITE_RATES|2021-11-23|Added support for configuration option
 SQUEEZELITE_UPSAMPLING|2021-11-23|Added support for configuration option
+PRESET|2022-01-19|New feature
 SQUEEZELITE_PARAMS|2022-01-19|Added support for configuration option
 SQUEEZELITE_CODECS|2022-01-19|Added support for configuration option
 SQUEEZELITE_PRIORITY|2022-01-19|Added support for configuration option

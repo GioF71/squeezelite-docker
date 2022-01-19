@@ -3,7 +3,7 @@
 upsampling_goldilocks="v::4:28:95:105:45"
 echo $upsampling_goldilocks
 
-rates_up_to_384k="44100,48000,88200,96000,176400,192000,352800,384000"
+rates_up_to_384k="44100-384000"
 
 device_x20="hw:CARD=x20,DEV=0"
 device_dac="hw:CARD=DAC,DEV=0"

@@ -65,7 +65,7 @@ The following tables reports all the currently supported environment variables.
 Variable|Default Value|Notes
 ---|---|---
 PRESET||You can now chose an existing preset. Presets can currently tune the values of `SQUEEZELITE_AUDIO_DEVICE`, `SQUEEZELITE_RATES` and `SQUEEZELITE_UPSAMPLING` for you. See the [Available presets](#available-presets) table for reference.
-SQUEEZELITE_AUDIO_DEVICE|default|The audio device. Common examples: hw:CARD=x20,DEV=0 or hw:CARD=DAC,DEV=0 for usb dac based on XMOS.
+SQUEEZELITE_AUDIO_DEVICE|default|The audio device. Common examples: `hw:CARD=x20,DEV=0` or `hw:CARD=DAC,DEV=0` for usb dac based on XMOS.
 SQUEEZELITE_PARAMS||Please refer to the squeezelite's [man page](https://ralph-irving.github.io/squeezelite.html) for `-a`.
 SQUEEZELITE_CODECS||Please refer to the squeezelite's [man page](https://ralph-irving.github.io/squeezelite.html) for `-c`.
 SQUEEZELITE_PRIORITY||Please refer to the squeezelite's [man page](https://ralph-irving.github.io/squeezelite.html) for `-p`.
@@ -83,9 +83,9 @@ In case you want to adopt Archimago's 'Goldilocks' suggestion, the variables sho
 
 Variable|Audio Device Capabilities|Suggested value
 ---|---|---
-SQUEEZELITE_RATES|All sampling rates up to 384kHz|44100,48000,88200,96000,176400,192000,352800,384000
-SQUEEZELITE_RATES|All sampling rates up to 192kHz|44100,48000,88200,96000,176400,192000
-SQUEEZELITE_RATES|All sampling rates up to 96kHz|44100,48000,88200,96000
+SQUEEZELITE_RATES|All sampling rates up to 384kHz|44100-384000
+SQUEEZELITE_RATES|All sampling rates up to 192kHz|44100-192000
+SQUEEZELITE_RATES|All sampling rates up to 96kHz|44100-96000
 SQUEEZELITE_RATES|Typical USB Class 1 (88.2kHz is sometimes not supported)|44100,48000,96000
 SQUEEZELITE_UPSAMPLING|Anything higher than 44.1kHz|v::4:28:95:105:45
 
@@ -181,7 +181,7 @@ docker run \
     -e SQUEEZELITE_SERVER="192.168.1.10:3483" \
     -e SQUEEZELITE_AUDIO_DEVICE="hw:CARD=D10,DEV=0" \
     -e SQUEEZELITE_DELAY=500 \
-    -e SQUEEZELITE_RATES="44100,48000,88200,96000,176400,192000,352800,384000" \
+    -e SQUEEZELITE_RATES="44100-384000" \
     -e SQUEEZELITE_UPSAMPLING="v::4:28:95:105:45" \
     --device /dev/snd \
     giof71/squeezelite
@@ -207,7 +207,7 @@ services:
       - SQUEEZELITE_NAME=office-pi
       - SQUEEZELITE_AUDIO_DEVICE=hw:CARD=sndrpihifiberry,DEV=0
       - SQUEEZELITE_SERVER_PORT=100.100.100.100:3483
-      - SQUEEZELITE_RATES="44100,48000,88200,96000,176400,192000,352800,384000"
+      - SQUEEZELITE_RATES="44100-384000"
       - SQUEEZELITE_UPSAMPLING="v::4:28:95:105:45"
       - STARTUP_DELAY_SEC=0
     restart: unless-stopped

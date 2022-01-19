@@ -17,6 +17,27 @@ else \
   CMD_LINE="$CMD_LINE -s $SQUEEZELITE_SERVER_PORT"; \
 fi
 
+if [ -z "${SQUEEZELITE_PARAMS}" ]; then \
+  echo "Variable SQUEEZELITE_PARAMS has not been specified"; \
+else \
+  echo "Variable SQUEEZELITE_PARAMS has been specified: $SQUEEZELITE_PARAMS"; \
+  CMD_LINE="$CMD_LINE -a $SQUEEZELITE_PARAMS"; \
+fi
+
+if [ -z "${SQUEEZELITE_CODECS}" ]; then \
+  echo "Variable SQUEEZELITE_CODECS has not been specified"; \
+else \
+  echo "Variable SQUEEZELITE_CODECS has been specified: $SQUEEZELITE_CODECS"; \
+  CMD_LINE="$CMD_LINE -c $SQUEEZELITE_CODECS"; \
+fi
+
+if [ -z "${SQUEEZELITE_PRIORITY}" ]; then \
+  echo "Variable SQUEEZELITE_PRIORITY has not been specified"; \
+else \
+  echo "Variable SQUEEZELITE_PRIORITY has been specified: $SQUEEZELITE_PRIORITY"; \
+  CMD_LINE="$CMD_LINE -p $SQUEEZELITE_PRIORITY"; \
+fi
+
 if [ -z "${SQUEEZELITE_RATES}" ]; then \
   echo "Rates not specified"; \
 else \

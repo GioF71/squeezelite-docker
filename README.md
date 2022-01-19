@@ -97,7 +97,7 @@ Preset name|Availability date|Set Device|Set Rates|Set Upsampling|Comment
 :---|:---|:---:|:---:|:---:|:---
 goldilocks_up_to_384k|2022-01-19|N|Y|Y|Setup [goldilocks](https://archimago.blogspot.com/2018/01/musings-more-fun-with-digital-filters.html) upsampling for usb dac, up to 384kHz
 gustard-x12-goldilocks|2022-01-19|Y|Y|Y|Setup [goldilocks](https://archimago.blogspot.com/2018/01/musings-more-fun-with-digital-filters.html) upsampling for usb dac, up to 384kHz, and also sets output device correctly for a Gustard X12 DAC
-gustard-x12|2022-01-19|Y|N|N
+gustard-x12|2022-01-19|Y|N|N|Set audio device for a Gustard X12 Dac
 
 ## Notable changes to the configuration
 

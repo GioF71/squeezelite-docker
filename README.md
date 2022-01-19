@@ -62,8 +62,8 @@ The host network mode is generally not necessary if you specify your server (and
 
 The following tables reports all the currently supported environment variables.
 
-Variable|Default Value|Notes
----|---|---
+Variable|Default|Notes
+:---|:---|:---
 PRESET||You can now chose an existing preset. Presets can currently tune the values of `SQUEEZELITE_AUDIO_DEVICE`, `SQUEEZELITE_RATES` and `SQUEEZELITE_UPSAMPLING` for you. See the [Available presets](#available-presets) table for reference.
 SQUEEZELITE_AUDIO_DEVICE|default|The audio device. Common examples: `hw:CARD=x20,DEV=0` or `hw:CARD=DAC,DEV=0` for usb dac based on XMOS.
 SQUEEZELITE_PARAMS||Please refer to the squeezelite's [man page](https://ralph-irving.github.io/squeezelite.html) for `-a`.
@@ -82,7 +82,7 @@ STARTUP_DELAY_SEC|0|Delay before starting the application. This can be useful if
 In case you want to adopt Archimago's 'Goldilocks' suggestion, the variables should be set as in the following table. Refer to the line which resembles the capabilities of your audio device.
 
 Variable|Audio Device Capabilities|Suggested value
----|---|---
+:---|:---|:---
 SQUEEZELITE_RATES|All sampling rates up to 384kHz|44100-384000
 SQUEEZELITE_RATES|All sampling rates up to 192kHz|44100-192000
 SQUEEZELITE_RATES|All sampling rates up to 96kHz|44100-96000
@@ -94,22 +94,23 @@ The `SQUEEZELITE_RATES` displayed here are provided just as an example. You stil
 ## Available presets
 
 Preset name|Availability date|Set Device|Set Rates|Set Upsampling|Comment
----|---|---|---|---|---
+:---|:---|:---:|:---:|:---:|:---
 goldilocks_up_to_384k|2022-01-19|N|Y|Y|Setup [goldilocks](https://archimago.blogspot.com/2018/01/musings-more-fun-with-digital-filters.html) upsampling for usb dac, up to 384kHz
 gustard-x12-goldilocks|2022-01-19|Y|Y|Y|Setup [goldilocks](https://archimago.blogspot.com/2018/01/musings-more-fun-with-digital-filters.html) upsampling for usb dac, up to 384kHz, and also sets output device correctly for a Gustard X12 DAC
+gustard-x12|2022-01-19|Y|N|N
 
 ## Notable changes to the configuration
 
 A few environment variables have been deprecated, see the following table.
 
 Deprecated Variable|Deprecated Since|Comment
----|---|---
+:---|:---|:---
 SQUEEZELITE_SPECIFY_SERVER|2021-11-23|This variable is not required anymore: just set the `SQUEEZELITE_SERVER_PORT` variable
 
 For the new variables introduced over time, see the following table.
 
 New Variable|Availability Date|Comment
----|---|---
+:---|:---|:---
 PRESET|2022-01-19|New feature
 SQUEEZELITE_RATES|2021-11-23|Added support for configuration option
 SQUEEZELITE_UPSAMPLING|2021-11-23|Added support for configuration option

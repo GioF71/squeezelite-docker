@@ -93,10 +93,10 @@ The `SQUEEZELITE_RATES` displayed here are provided just as an example. You stil
 
 ## Available presets
 
-Preset name|Availability date|Comment
----|---|---
-goldilocks_up_to_384k|2022-01-19|Setup [goldilocks](https://archimago.blogspot.com/2018/01/musings-more-fun-with-digital-filters.html) upsampling for usb dac, up to 384kHz
-gustard-x12-goldilocks|2022-01-19|Setup [goldilocks](https://archimago.blogspot.com/2018/01/musings-more-fun-with-digital-filters.html) upsampling for usb dac, up to 384kHz, and also sets output device correctly for a Gustard X12 DAC
+Preset name|Availability date|Set Device|Set Rates|Set Upsampling|Comment
+---|---|---|---|---|---
+goldilocks_up_to_384k|2022-01-19|N|Y|Y|Setup [goldilocks](https://archimago.blogspot.com/2018/01/musings-more-fun-with-digital-filters.html) upsampling for usb dac, up to 384kHz
+gustard-x12-goldilocks|2022-01-19|Y|Y|Y|Setup [goldilocks](https://archimago.blogspot.com/2018/01/musings-more-fun-with-digital-filters.html) upsampling for usb dac, up to 384kHz, and also sets output device correctly for a Gustard X12 DAC
 
 ## Notable changes to the configuration
 
@@ -106,9 +106,9 @@ Deprecated Variable|Deprecated Since|Comment
 ---|---|---
 SQUEEZELITE_SPECIFY_SERVER|2021-11-23|This variable is not required anymore: just set the SQUEEZELITE_SERVER_PORT variable
 
-New variables
+For the new variables introduced over time, see the following table.
 
-Variable Name|Availability date|Comment
+New Variable|Availability Date|Comment
 ---|---|---
 PRESET|2022-01-19|New feature
 SQUEEZELITE_RATES|2021-11-23|Added support for configuration option

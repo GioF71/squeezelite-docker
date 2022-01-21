@@ -250,5 +250,5 @@ release|ubuntu-focal|ubuntu:focal|1.8|Ubuntu Repositories|ubuntu-focal, squeezel
 
 Please note that the [main](https://github.com/GioF71/squeezelite-docker) branch is currently the same as the [release/stable](https://github.com/GioF71/squeezelite-docker/tree/release/stable) branch.  
 This might change in the future. I am currently using `debian:buster` as the base image because I am experiencing high cpu usage on the Raspberry Pi 3b (Raspbian OS Buster being the host o.s.) with `debian:bullseye` based images. Not so with the `debian-bullseye` image along with the squeelite binary from SourceForge.  
-So this is why `latest` is currently same as `sourceforge-bullseye` and `stable` is same as `buster`.
+So this is why `latest` is currently same as `sourceforge-bullseye` and `stable` is same as `buster`.  
 Also, the `ubuntu-focal` are currently not very interesting as they feature the same version as `debian:buster`, and I am not willing to use non-lts versions of ubuntu, which change way too frequently. So I might drop those builds in the near future. 

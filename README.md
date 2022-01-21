@@ -6,7 +6,7 @@ Now with support for upsampling.
 
 First and foremost, the reference to the awesome project:
 
-[Man page of SqueezeLite](https://ralph-irving.github.io/squeezelite.html)
+[Man page of SqueezeLite](https://ralph-irving.github.io/squeezelite.html)  
 [SqueezeLite binaries on SourceForge](https://sourceforge.net/projects/lmsclients/files/squeezelite/linux/)
 
 This page will also be useful when tuning the parameters.

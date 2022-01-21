@@ -237,7 +237,7 @@ Just be careful to use the tag you have built.
 
 This repository has multiple branches. Each of them feature different base images and different way to obtain the squeezelite binary. See the following table for the details.
 
-Branch Type|Name|Base Image|SqueezeLite Version|SqueezeLite Origin|Docker Hub Tags
+Branch Type|:Name:|:Base Image:|:SqueezeLite Version:|:SqueezeLite Origin:|:Docker Hub Tags
 ---|---|---|---|---|---
 release|latest|debian:bullseye|1.9.9|SourceForge|latest
 release|stable|debian:buster|1.8|Debian Repositories|stable

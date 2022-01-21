@@ -7,6 +7,7 @@ Now with support for upsampling.
 First and foremost, the reference to the awesome project:
 
 [Man page of SqueezeLite](https://ralph-irving.github.io/squeezelite.html)
+[SqueezeLite binaries on SourceForge](https://sourceforge.net/projects/lmsclients/files/squeezelite/linux/)
 
 This page will also be useful when tuning the parameters.
 In case you want to play with upsampling, this other page might be very helpful:
@@ -248,5 +249,5 @@ release|sourceforge-bullseye|debian:bullseye|1.9.9|SourceForge|sourceforge-bulls
 release|ubuntu-focal|ubuntu:focal|1.8|Ubuntu Repositories|ubuntu-focal, squeezelite-1.8-ubuntu-focal*
 
 Please note that the [main](https://github.com/GioF71/squeezelite-docker) branch is currently the same as the [release/stable](https://github.com/GioF71/squeezelite-docker/tree/release/stable) branch.  
-This might change in the future. I am currently using debian buster as the base image because I am experiencing high cpu usage with debian bullseye base images. Not so with the debian bullseye image along with the squeelite binary from source.  
-So this is why "latest" is currently same as "sourceforge-bullseye" and "stable" is same as "buster".
+This might change in the future. I am currently using `debian:buster` as the base image because I am experiencing high cpu usage on the Raspberry Pi 3b (Raspbian OS Buster being the host o.s.) with `debian:bullseye` based images. Not so with the `debian-bullseye` image along with the squeelite binary from SourceForge.  
+So this is why `latest` is currently same as `sourceforge-bullseye` and `stable` is same as `buster`.

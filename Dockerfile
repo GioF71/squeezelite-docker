@@ -4,6 +4,9 @@ RUN apt-get update
 RUN apt-get install squeezelite -y
 RUN rm -rf /var/lib/apt/lists/*
 
+## test binary
+RUN /usr/bin/squeezelite -?
+
 COPY run-squeezelite.sh /run-squeezelite.sh
 COPY run-presets.sh /run-presets.sh
 RUN chmod u+x /run-squeezelite.sh

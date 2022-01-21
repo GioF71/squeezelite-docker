@@ -77,6 +77,7 @@ SQUEEZELITE_TIMEOUT|2|Device timeout in seconds.
 SQUEEZELITE_SERVER_PORT||Server and port of the server, for example: `squeezebox-server.local:3483` or `192.168.1.10:3483`. Do not specify the variable if you want to use the auto discovery feature. If you don't specify this variable, you will probably need to use host network mode. See the examples for some hints. The port can be omitted if not different from the default `3483`. So other possible valid values are `squeezebox-server.local` or `192.168.1.10`.
 SQUEEZELITE_RATES||From squeezelite's [man page](https://ralph-irving.github.io/squeezelite.html) for `-r`: Specify sample rates supported by the output device; this is required if the output device is switched off when squeezelite is started. The format is either a single maximum sample rate, a range of sample rates in the format `<min>-<max>`, or a comma-separated list of available rates. Delay is an optional time to wait when switching sample rates between tracks, in milliseconds. Switch back to the author of this repository: it is recommended to specify sample rates that are effectively supported by your audio device.
 SQUEEZELITE_UPSAMPLING||From squeezelite's [man page](https://ralph-irving.github.io/squeezelite.html) for `-u`, same as `-R`: Enable upsampling of played audio. The argument is optional; see RESAMPLING for more information. The options `-u` and `-R` are synonymous.
+SQUEEZELITE_STREAM_AND_OUTPUT_BUFFER_SIZE||From squeezelite's [man page](https://ralph-irving.github.io/squeezelite.html) for `-b`: Specify internal stream and output buffer sizes in kilobytes. Default is 2048:3446.
 STARTUP_DELAY_SEC|0|Delay before starting the application. This can be useful if your container is set up to start automatically, so that you can resolve race conditions with mpd and with squeezelite if all those services run on the same audio device. I experienced issues with my Asus Tinkerboard, while the Raspberry Pi has never really needed this. Your mileage may vary. Feel free to report your personal experience.
 
 ## Upsampling
@@ -119,10 +120,14 @@ PRESET|2022-01-19|New feature
 SQUEEZELITE_PARAMS|2022-01-19|Added support for configuration option
 SQUEEZELITE_CODECS|2022-01-19|Added support for configuration option
 SQUEEZELITE_PRIORITY|2022-01-19|Added support for configuration option
+SQUEEZELITE_MIXER_DEVICE|2022-01-21|Added support for configuration option
+SQUEEZELITE_MAC_ADDRESS|2022-01-21|Added support for configuration option
+SQUEEZELITE_MODEL_NAME|2022-01-21|Added support for configuration option
+SQUEEZELITE_STREAM_AND_OUTPUT_BUFFER_SIZE|2022-01-21|Added support for configuration option
 
 ## A few examples
 
-As contributed by [vespadj](https://github.com/vespadj) in [Issue #6](https://github.com/GioF71/squeezelite-docker/issues/6), have a look at this simple `docker-compose` service for the Raspberry Pi on its onboard headphone jack (I only added host network mode so the player is discoverable):
+As contributed by [vespadj](https://github.com/vespadj) in [Issue #6](https://github.com/GioF71/squeezelite-docker/issues/6), have a look at this simple `docker-compose` service for the Raspberry Pi using its onboard headphone jack as the output device (I only added host network mode so the player is discoverable):
 
 ```text
 ---

@@ -1,7 +1,6 @@
 #!/bin/bash
 
 upsampling_goldilocks="v::4:28:95:105:45"
-echo $upsampling_goldilocks
 
 rates_up_to_384k="44100-384000"
 

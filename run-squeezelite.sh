@@ -74,6 +74,55 @@ else
   echo "Final SQUEEZELITE_UPSAMPLING = $SQUEEZELITE_UPSAMPLING"
 fi
 
+if [ -z "${SQUEEZELITE_AUDIO_DEVICE}" ]; then
+  echo "Variable SQUEEZELITE_AUDIO_DEVICE has not been specified";
+else
+  echo "Variable SQUEEZELITE_AUDIO_DEVICE has been specified: $SQUEEZELITE_AUDIO_DEVICE";
+  CMD_LINE="$CMD_LINE -o $SQUEEZELITE_AUDIO_DEVICE";
+fi
+
+if [ -z "${SQUEEZELITE_MIXER_DEVICE}" ]; then
+  echo "Variable SQUEEZELITE_MIXER_DEVICE has not been specified";
+else
+  echo "Variable SQUEEZELITE_MIXER_DEVICE has been specified: $SQUEEZELITE_MIXER_DEVICE";
+  CMD_LINE="$CMD_LINE -O $SQUEEZELITE_MIXER_DEVICE";
+fi
+
+if [ -z "${SQUEEZELITE_MAC_ADDRESS}" ]; then
+  echo "Variable SQUEEZELITE_MAC_ADDRESS not specified";
+else
+  echo "Variable SQUEEZELITE_MAC_ADDRESS specified: $SQUEEZELITE_MAC_ADDRESS";
+  CMD_LINE="$CMD_LINE -m $SQUEEZELITE_MAC_ADDRESS";
+fi
+
+if [ -z "${SQUEEZELITE_NAME}" ]; then
+  echo "Variable SQUEEZELITE_NAME has not been specified";
+else
+  echo "Variable SQUEEZELITE_NAME has been specified: $SQUEEZELITE_NAME";
+  CMD_LINE="$CMD_LINE -n $SQUEEZELITE_NAME";
+fi
+
+if [ -z "${SQUEEZELITE_MODEL_NAME}" ]; then
+  echo "Variable SQUEEZELITE_MODEL_NAME has not been specified";
+else
+  echo "Variable SQUEEZELITE_MODEL_NAME has been specified: $SQUEEZELITE_MODEL_NAME";
+  CMD_LINE="$CMD_LINE -M $SQUEEZELITE_MODEL_NAME";
+fi
+
+if [ -z "${SQUEEZELITE_TIMEOUT}" ]; then
+  echo "Variable SQUEEZELITE_TIMEOUT has not been specified";
+else
+  echo "Variable SQUEEZELITE_TIMEOUT has been specified: $SQUEEZELITE_TIMEOUT";
+  CMD_LINE="$CMD_LINE -C $SQUEEZELITE_TIMEOUT";
+fi
+
+if [ -z "${SQUEEZELITE_DELAY}" ]; then
+  echo "Variable SQUEEZELITE_DELAY has not been specified";
+else
+  echo "Variable SQUEEZELITE_DELAY has been specified: $SQUEEZELITE_DELAY";
+  CMD_LINE="$CMD_LINE -D $SQUEEZELITE_TIMEOUT";
+fi
+
 if [ -z "${SQUEEZELITE_SERVER_PORT}" ]; then
   echo "Variable SQUEEZELITE_SERVER_PORT has not been specified, using discovery";
 else
@@ -115,8 +164,6 @@ else
   echo "Variable SQUEEZELITE_UPSAMPLING specified: $SQUEEZELITE_UPSAMPLING";
   CMD_LINE="$CMD_LINE -R $SQUEEZELITE_UPSAMPLING";
 fi
-
-CMD_LINE="$CMD_LINE -n $SQUEEZELITE_NAME -o $SQUEEZELITE_AUDIO_DEVICE -C $SQUEEZELITE_TIMEOUT -D $SQUEEZELITE_DELAY"
 
 echo "Command Line:"
 echo "$CMD_LINE"

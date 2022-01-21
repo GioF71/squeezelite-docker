@@ -65,12 +65,14 @@ The following tables reports all the currently supported environment variables.
 Variable|Default|Notes
 :---|:---|:---
 PRESET||You can now chose an existing preset. Presets can currently tune the values of `SQUEEZELITE_AUDIO_DEVICE`, `SQUEEZELITE_RATES` and `SQUEEZELITE_UPSAMPLING` for you. See the [Available presets](#available-presets) table for reference.
-SQUEEZELITE_AUDIO_DEVICE|default|The audio device. Common examples: `hw:CARD=x20,DEV=0` or `hw:CARD=DAC,DEV=0` for usb dac based on XMOS.
+SQUEEZELITE_AUDIO_DEVICE||The audio device. Common examples: `hw:CARD=x20,DEV=0` or `hw:CARD=DAC,DEV=0` for usb dac based on XMOS. If left empty, the default alsa device is used.
 SQUEEZELITE_PARAMS||Please refer to the squeezelite's [man page](https://ralph-irving.github.io/squeezelite.html) for `-a`.
 SQUEEZELITE_CODECS||Please refer to the squeezelite's [man page](https://ralph-irving.github.io/squeezelite.html) for `-c`.
 SQUEEZELITE_PRIORITY||Please refer to the squeezelite's [man page](https://ralph-irving.github.io/squeezelite.html) for `-p`.
 SQUEEZELITE_DELAY|500|Set it to maybe something like `500,dop` if your DAC supports DoP.
-SQUEEZELITE_NAME|SqueezeLite|Name of the SqueezeLite endpoint. Use an alphanumeric string without spaces and/or special characters.
+SQUEEZELITE_NAME||Name of the SqueezeLite endpoint. Use an alphanumeric string without spaces and/or special characters.
+SQUEEZELITE_MODEL_NAME||Name of the SqueezeLite model name. Use an alphanumeric string without spaces and/or special characters.
+SQUEEZELITE_MAC_ADDRESS||Mac Address of the SqueezeLite player. The format must be colon-delimited hexadecimal, for example: ab:cd:ef:12:34:56.
 SQUEEZELITE_TIMEOUT|2|Device timeout in seconds.
 SQUEEZELITE_SERVER_PORT||Server and port of the server, for example: `squeezebox-server.local:3483` or `192.168.1.10:3483`. Do not specify the variable if you want to use the auto discovery feature. If you don't specify this variable, you will probably need to use host network mode. See the examples for some hints. The port can be omitted if not different from the default `3483`. So other possible valid values are `squeezebox-server.local` or `192.168.1.10`.
 SQUEEZELITE_RATES||From squeezelite's [man page](https://ralph-irving.github.io/squeezelite.html) for `-r`: Specify sample rates supported by the output device; this is required if the output device is switched off when squeezelite is started. The format is either a single maximum sample rate, a range of sample rates in the format `<min>-<max>`, or a comma-separated list of available rates. Delay is an optional time to wait when switching sample rates between tracks, in milliseconds. Switch back to the author of this repository: it is recommended to specify sample rates that are effectively supported by your audio device.

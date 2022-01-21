@@ -247,4 +247,6 @@ release|sourceforge-buster|debian:buster|1.9.9|SourceForge|sourceforge-buster, s
 release|sourceforge-bullseye|debian:bullseye|1.9.9|SourceForge|sourceforge-bullseye, squeezelite-1.9.9-sourceforge-bullseye*
 release|ubuntu-focal|ubuntu:focal|1.8|Ubuntu Repositories|ubuntu-focal, squeezelite-1.8-ubuntu-focal*
 
-This might change in the future. I am currently using debian buster as the base image because I am experiencing high cpu usage with debian bullseye base images. Not so with the debian bullseye image along with the squeelite binary from source. So this is why "latest" is currently same as "sourceforge-bullseye" and "stable" is same as "buster".
+Please note that the [main](https://github.com/GioF71/squeezelite-docker) branch is currently the same as the [release/stable](https://github.com/GioF71/squeezelite-docker/tree/release/stable) branch.  
+This might change in the future. I am currently using debian buster as the base image because I am experiencing high cpu usage with debian bullseye base images. Not so with the debian bullseye image along with the squeelite binary from source.  
+So this is why "latest" is currently same as "sourceforge-bullseye" and "stable" is same as "buster".

@@ -70,7 +70,7 @@ SQUEEZELITE_PARAMS||Please refer to the squeezelite's [man page](https://ralph-i
 SQUEEZELITE_CODECS||Please refer to the squeezelite's [man page](https://ralph-irving.github.io/squeezelite.html) for `-c`.
 SQUEEZELITE_PRIORITY||Please refer to the squeezelite's [man page](https://ralph-irving.github.io/squeezelite.html) for `-p`.
 SQUEEZELITE_DELAY|500|Set it to maybe something like `500,dop` if your DAC supports DoP.
-SQUEEZELITE_NAME||Name of the SqueezeLite endpoint. Use an alphanumeric string without spaces and/or special characters.
+SQUEEZELITE_NAME||Name of the SqueezeLite player. Use an alphanumeric string without spaces and/or special characters.
 SQUEEZELITE_MODEL_NAME||Name of the SqueezeLite model name. Use an alphanumeric string without spaces and/or special characters.
 SQUEEZELITE_MAC_ADDRESS||Mac Address of the SqueezeLite player. The format must be colon-delimited hexadecimal, for example: ab:cd:ef:12:34:56.
 SQUEEZELITE_TIMEOUT|2|Device timeout in seconds.

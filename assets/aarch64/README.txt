@@ -1,1 +1,1 @@
-Put the file <squeezelite-VERSION-aarch64.tar.gz> here.
+Put the binary fine "squeezelite" for the aarch architecture here.

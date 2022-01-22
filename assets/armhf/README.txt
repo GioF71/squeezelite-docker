@@ -1,1 +1,1 @@
-Put the file <squeezelite-VERSION-armhf.tar.gz> here.
+Put the binary fine "squeezelite" for the armhf architecture here.

@@ -1,1 +1,1 @@
-Put the file <squeezelite-pulse-VERSION-x86_64.tar.gz> here.
+Put the binary fine "squeezelite" for the x64_64 architecture here.

@@ -49,5 +49,6 @@ docker build . \
 
 #docker build . \
 #    --build-arg BASE_IMAGE=${expanded_base_image} \
-#    --build-arg DOWNLOAD_FROM_SOURCEFORGE=Y
+#    --build-arg DOWNLOAD_FROM_SOURCEFORGE="Y" \
+#    -t $tag
 

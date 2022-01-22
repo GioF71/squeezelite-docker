@@ -1,7 +1,30 @@
 ARG BASE_IMAGE
 ARG DOWNLOAD_FROM_SOURCEFORGE
 
-FROM $BASE_IMAGE
+FROM ${BASE_IMAGE}
+RUN mkdir /stage0
+COPY copier.sh /stage0
+RUN chmod 755 /stage0/copier.sh
+
+# copy assets
+RUN mkdir /assets
+RUN mkdir /assets/sourceforge -p
+RUN mkdir /assets/sourceforge/aarch64 -p
+RUN mkdir /assets/sourceforge/armhf -p
+RUN mkdir /assets/sourceforge/x86_64 -p
+
+COPY assets/aarch64 /assets/sourceforge/aarch64/
+COPY assets/armhf /assets/sourceforge/armhf/
+COPY assets/x86_64 /assets/sourceforge/x86_64/
+
+RUN echo "Assets:"
+RUN ls -la /assets/sourceforge/
+
+RUN /bin/bash -c '/stage0/copier.sh'
+
+
+
+FROM ${BASE_IMAGE}
 
 RUN apt-get update
 

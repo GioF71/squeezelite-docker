@@ -13,8 +13,13 @@ RUN chmod u+x /install/*
 # copy assets
 RUN mkdir /assets
 RUN mkdir /assets/sourceforge -p
+RUN mkdir /assets/sourceforge/aarch64 -p
+RUN mkdir /assets/sourceforge/armhf -p
+RUN mkdir /assets/sourceforge/x86_64 -p
 
-COPY assets/*/*.tar.gz /assets/sourceforge/
+COPY assets/aarch64 /assets/sourceforge/aarch64/
+COPY assets/armhf /assets/sourceforge/armhf/
+COPY assets/x86_64 /assets/sourceforge/x86_64/
 
 RUN echo "Assets:"
 RUN ls -la /assets/sourceforge/

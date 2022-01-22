@@ -3,20 +3,21 @@ ARG DOWNLOAD_FROM_SOURCEFORGE
 
 FROM $BASE_IMAGE
 
-#RUN echo $DOWNLOAD_FROM_SOURCEFORGE
-
 RUN apt-get update
 
-#RUN echo "AFTER apt-get update"
-
-#RUN echo $DOWNLOAD_FROM_SOURCEFORGE
-#RUN echo "Download from SourceForge ["$DOWNLOAD_FROM_SOURCEFORGE"]"
-#RUN echo "BEFORE COPY INSTALL"
 RUN mkdir /install
 
-COPY install/sl_repo_install.sh /install
-COPY install/sl_sourceforge_download.sh /install
+COPY install/*.sh /install/
 RUN chmod u+x /install/*
+
+# copy assets
+RUN mkdir /assets
+RUN mkdir /assets/sourceforge -p
+
+COPY assets/*/*.tar.gz /assets/sourceforge/
+
+RUN echo "Assets:"
+RUN ls -la /assets/sourceforge/
 
 #RUN echo "DOWNLOAD_FROM_SOURCEFORGE =["${DOWNLOAD_FROM_SOURCEFORGE}"]"
 #RUN if [ "$DOWNLOAD_FROM_SOURCEFORGE" == "Y" ]; then \
@@ -26,13 +27,17 @@ else \
     /install/sl_repo_install.sh; \
 fi'
 
-#RUN apt-get install squeezelite -y
+# remove assets
+RUN rm -Rf /assets
+
+# remove scripts
+RUN rm -Rf /install
 
 ## test binary in both cases
 RUN /usr/bin/squeezelite -?
 
 RUN rm -rf /var/lib/apt/lists/*
-RUN rm -Rf /install
+
 
 COPY run-squeezelite.sh /run-squeezelite.sh
 COPY run-presets.sh /run-presets.sh

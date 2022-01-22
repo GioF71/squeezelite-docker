@@ -4,7 +4,7 @@ FROM ${BASE_IMAGE}
 ARG DOWNLOAD_FROM_SOURCEFORGE
 
 RUN mkdir /stage0
-COPY asset_copier.sh /stage0
+COPY /install/asset_copier.sh /stage0
 RUN chmod 755 /stage0/asset_copier.sh
 
 RUN echo "disable cache 001"

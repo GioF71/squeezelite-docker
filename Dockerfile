@@ -24,8 +24,6 @@ COPY assets/x86_64 /assets/sourceforge/x86_64/
 RUN echo "Assets:"
 RUN ls -la /assets/sourceforge/
 
-#RUN echo "DOWNLOAD_FROM_SOURCEFORGE =["${DOWNLOAD_FROM_SOURCEFORGE}"]"
-#RUN if [ "$DOWNLOAD_FROM_SOURCEFORGE" == "Y" ]; then \
 RUN /bin/bash -c 'if [[ -z "${DOWNLOAD_FROM_SOURCEFORGE}" || "${DOWNLOAD_FROM_SOURCEFORGE}" == "Y" ]]; then \
    /install/sl_sourceforge_download.sh; \
 else \

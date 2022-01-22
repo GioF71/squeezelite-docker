@@ -1,11 +1,38 @@
-FROM debian:buster-20211220-slim
+ARG BASE_IMAGE
+ARG DOWNLOAD_FROM_SOURCEFORGE
+
+FROM $BASE_IMAGE
+
+#RUN echo $DOWNLOAD_FROM_SOURCEFORGE
 
 RUN apt-get update
-RUN apt-get install squeezelite -y
-RUN rm -rf /var/lib/apt/lists/*
 
-## test binary
+#RUN echo "AFTER apt-get update"
+
+#RUN echo $DOWNLOAD_FROM_SOURCEFORGE
+#RUN echo "Download from SourceForge ["$DOWNLOAD_FROM_SOURCEFORGE"]"
+#RUN echo "BEFORE COPY INSTALL"
+RUN mkdir /install
+
+COPY install/sl_repo_install.sh /install
+COPY install/sl_sourceforge_download.sh /install
+RUN chmod u+x /install/*
+
+#RUN echo "DOWNLOAD_FROM_SOURCEFORGE =["${DOWNLOAD_FROM_SOURCEFORGE}"]"
+#RUN if [ "$DOWNLOAD_FROM_SOURCEFORGE" == "Y" ]; then \
+RUN /bin/bash -c 'if [[ -z "${DOWNLOAD_FROM_SOURCEFORGE}" || "${DOWNLOAD_FROM_SOURCEFORGE}" == "Y" ]]; then \
+   /install/sl_sourceforge_download.sh; \
+else \
+    /install/sl_repo_install.sh; \
+fi'
+
+#RUN apt-get install squeezelite -y
+
+## test binary in both cases
 RUN /usr/bin/squeezelite -?
+
+RUN rm -rf /var/lib/apt/lists/*
+RUN rm -Rf /install
 
 COPY run-squeezelite.sh /run-squeezelite.sh
 COPY run-presets.sh /run-presets.sh

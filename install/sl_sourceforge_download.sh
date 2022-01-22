@@ -28,12 +28,15 @@ mkdir -p /app/download
 cd /app/download
 ls -la
 tar -xvzf squeezelite.tar.gz
+
+echo "no-cache"
 ls -la
 
-mkdir /app/bin
-mv /app/download/squeezelite /app/bin/squeezelite
-ln -s /app/bin/squeezelite /usr/bin/squeezelite
+mv /app/download/squeezelite /usr/bin/squeezelite
 
 rm /app/download -Rf
 
+chmod 755 /usr/bin/squeezelite
+
+ls -la /usr/bin/squeezelite
 apt purge wget -y

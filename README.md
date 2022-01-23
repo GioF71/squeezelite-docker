@@ -248,7 +248,7 @@ release|sourceforge-buster|debian:buster|1.9.9|SourceForge|sourceforge-buster, s
 release|sourceforge-bullseye|debian:bullseye|1.9.9|SourceForge|sourceforge-bullseye, squeezelite-1.9.9-sourceforge-bullseye*
 release|ubuntu-focal|ubuntu:focal|1.8|Ubuntu Repositories|ubuntu-focal, squeezelite-1.8-ubuntu-focal*
 
-Please note that the [main](https://github.com/GioF71/squeezelite-docker) branch is currently the same as the [release/stable](https://github.com/GioF71/squeezelite-docker/tree/release/stable) branch.  
+Please note that the [main](https://github.com/GioF71/squeezelite-docker/tree/main) branch is currently the same as the [release/stable](https://github.com/GioF71/squeezelite-docker/tree/release/stable) branch.  
 This might change in the future. I am currently using `debian:buster` as the base image because I am experiencing high cpu usage on the Raspberry Pi 3b (Raspbian OS Buster being the host o.s.) with `debian:bullseye` based images. Not so with the `debian-bullseye` image along with the squeelite binary from SourceForge.  
 So this is why `latest` is currently same as `sourceforge-bullseye` and `stable` is same as `buster` image.  
 Also, the `ubuntu-focal` images are currently not very interesting as they feature the same version as the `debian:buster` images, and I am not willing to use non-lts versions of ubuntu, which change way too frequently. So I might drop those builds in the near future.

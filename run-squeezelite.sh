@@ -172,6 +172,13 @@ else
   CMD_LINE="$CMD_LINE -b $SQUEEZELITE_STREAM_AND_OUTPUT_BUFFER_SIZE";
 fi
 
+if [ -z "${SQUEEZELITE_BUFFER_SIZE}" ]; then
+  echo "Variable SQUEEZELITE_BUFFER_SIZE not specified";
+else
+  echo "Variable SQUEEZELITE_BUFFER_SIZE specified: $SQUEEZELITE_BUFFER_SIZE";
+  CMD_LINE="$CMD_LINE -b $SQUEEZELITE_BUFFER_SIZE";
+fi
+
 echo "Command Line:"
 echo "$CMD_LINE"
 

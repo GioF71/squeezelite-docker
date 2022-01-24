@@ -63,7 +63,7 @@ The host network mode is generally not necessary if you specify your server (and
 
 The following tables reports all the currently supported environment variables.
 
-Variable|Corresponding Option|Default|Notes
+Variable|Option|Default|Notes
 :---|:---|:---|:---
 PRESET|||You can now chose an existing preset. Presets can currently tune the values of `SQUEEZELITE_AUDIO_DEVICE`, `SQUEEZELITE_RATES` and `SQUEEZELITE_UPSAMPLING` for you. See the [Available presets](#available-presets) table for reference.
 SQUEEZELITE_AUDIO_DEVICE|-o||The audio device. Common examples: `hw:CARD=x20,DEV=0` or `hw:CARD=DAC,DEV=0` for usb dac based on XMOS. If left empty, the default alsa device is used.

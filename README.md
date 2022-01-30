@@ -236,21 +236,20 @@ You can build (or rebuild) the image by opening a terminal from the root of the 
 It will take very little time even on a Raspberry Pi. When it's finished, you can run the container following the previous instructions.  
 Just be careful to use the tag you have built.
 
-## Branches and Docker Hub tags
+## Docker Hub tags
 
-This repository has multiple branches. Each of them feature different base images and different way to obtain the squeezelite binary. See the following table for the details.
+From this repository I create all the versions of the image. Each of them feature different base images and different way to obtain the squeezelite binary. See the following table for the details.
 
-Branch Type|Name|Base Image|SqueezeLite Version|SqueezeLite Origin|Docker Hub Tags
+Tag|Base Image|SqueezeLite Version|SqueezeLite Origin|Docker Hub Tags
 :---|:---:|:---:|:---:|:---:|:---
-release|latest|debian:bullseye|1.9.9|SourceForge|latest
-release|stable|debian:buster|1.8|Debian Repositories|stable
-release|bullseye|debian:bullseye|1.9.8|Debian Repositories|bullseye, squeezelite-1.9.8-bullseye*
-release|buster|debian:buster|1.8|Debian Repositories|buster, squeezelite-1.8-buster*
-release|sourceforge-buster|debian:buster|1.9.9|SourceForge|sourceforge-buster, squeezelite-1.9.9-sourceforge-buster*
-release|sourceforge-bullseye|debian:bullseye|1.9.9|SourceForge|sourceforge-bullseye, squeezelite-1.9.9-sourceforge-bullseye*
-release|ubuntu-focal|ubuntu:focal|1.8|Ubuntu Repositories|ubuntu-focal, squeezelite-1.8-ubuntu-focal*
+latest|debian:bullseye|1.9.9|SourceForge|latest
+stable|debian:buster|1.8|Debian Repositories|stable
+bullseye|debian:bullseye|1.9.8|Debian Repositories|bullseye, squeezelite-1.9.8-bullseye*
+buster|debian:buster|1.8|Debian Repositories|buster, squeezelite-1.8-buster*
+sourceforge-buster|debian:buster|1.9.9|SourceForge|sourceforge-buster, squeezelite-1.9.9-sourceforge-buster*
+sourceforge-bullseye|debian:bullseye|1.9.9|SourceForge|sourceforge-bullseye, squeezelite-1.9.9-sourceforge-bullseye*
+ubuntu-focal|ubuntu:focal|1.8|Ubuntu Repositories|ubuntu-focal, squeezelite-1.8-ubuntu-focal*
 
-Please note that the [main](https://github.com/GioF71/squeezelite-docker/tree/main) branch is currently the same as the [release/stable](https://github.com/GioF71/squeezelite-docker/tree/release/stable) branch.  
-This might change in the future. I am currently using `debian:buster` as the base image because I am experiencing high cpu usage on the Raspberry Pi 3b (Raspbian OS Buster being the host o.s.) with `debian:bullseye` based images. Not so with the `debian-bullseye` image along with the squeelite binary from SourceForge.  
+This situation might change in the future. I am currently using `debian:buster` as the base image because I am experiencing high cpu usage on the Raspberry Pi 3b (Raspbian OS Buster being the host o.s.) with `debian:bullseye` based images. Not so with the `debian-bullseye` image along with the squeelite binary from SourceForge.  
 So this is why `latest` is currently same as `sourceforge-bullseye` and `stable` is same as `buster` image.  
 Also, the `ubuntu-focal` images are currently not very interesting as they feature the same version as the `debian:buster` images, and I am not willing to use non-lts versions of ubuntu, which change way too frequently. So I might drop those builds in the near future.

@@ -248,7 +248,7 @@ bullseye|debian:bullseye|1.9.8|Debian Repositories|squeezelite-1.9.8-bullseye*
 buster|debian:buster|1.8|Debian Repositories|squeezelite-1.8-buster, squeezelite-1.8-buster-RELEASE_DATE
 sourceforge-buster|debian:buster|1.9.9|SourceForge|squeezelite-1.9.9-sourceforge-buster, squeezelite-1.9.9-sourceforge-buster-RELEASE_DATE
 sourceforge-bullseye|debian:bullseye|1.9.9|SourceForge|squeezelite-1.9.9-sourceforge-bullseye, squeezelite-1.9.9-sourceforge-bullseye-RELEASE_DATE
-ubuntu-focal|ubuntu:focal|1.8|Ubuntu Repositories|squeezelite-1.8-ubuntu-focal, queezelite-1.8-ubuntu-focal-RELEASE_DATE
+ubuntu-focal|ubuntu:focal|1.8|Ubuntu Repositories|squeezelite-1.8-ubuntu-focal, squeezelite-1.8-ubuntu-focal-RELEASE_DATE
 
 This situation might change in the future. I am currently using `debian:buster` as the base image because I am experiencing high cpu usage on the Raspberry Pi 3b (Raspbian OS Buster being the host o.s.) with `debian:bullseye` based images. Not so with the `debian-bullseye` image along with the squeelite binary from SourceForge.  
 So this is why `latest` is currently same as `sourceforge-bullseye` and `stable` is same as `buster` image.  

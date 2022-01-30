@@ -241,7 +241,7 @@ Just be careful to use the tag you have built.
 From this repository I create all the versions of the image. Each of them feature different base images and different way to obtain the squeezelite binary. See the following table for the details.
 
 Tag|Base Image|SqueezeLite Version|SqueezeLite Origin|Docker Hub Tags
-:---|:---:|:---:|:---:|:---:|:---
+:---|:---:|:---:|:---:|:---
 latest|debian:bullseye|1.9.9|SourceForge|latest
 stable|debian:buster|1.8|Debian Repositories|stable
 bullseye|debian:bullseye|1.9.8|Debian Repositories|bullseye, squeezelite-1.9.8-bullseye*

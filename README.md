@@ -244,7 +244,7 @@ Tag|Base Image|SqueezeLite Version|SqueezeLite Origin|Additional Tags
 :---|:---:|:---:|:---:|:---
 latest|debian:bullseye|1.9.9|SourceForge|
 stable|debian:buster|1.8|Debian Repositories|
-bullseye|debian:bullseye|1.9.8|Debian Repositories|squeezelite-1.9.8-bullseye*
+bullseye|debian:bullseye|1.9.8|Debian Repositories|squeezelite-1.9.8-bullseye, squeezelite-1.9.8-bullseye-RELEASE_DATE
 buster|debian:buster|1.8|Debian Repositories|squeezelite-1.8-buster, squeezelite-1.8-buster-RELEASE_DATE
 sourceforge-buster|debian:buster|1.9.9|SourceForge|squeezelite-1.9.9-sourceforge-buster, squeezelite-1.9.9-sourceforge-buster-RELEASE_DATE
 sourceforge-bullseye|debian:bullseye|1.9.9|SourceForge|squeezelite-1.9.9-sourceforge-bullseye, squeezelite-1.9.9-sourceforge-bullseye-RELEASE_DATE

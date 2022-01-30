@@ -240,15 +240,15 @@ Just be careful to use the tag you have built.
 
 From this repository I create all the versions of the image. Each of them feature different base images and different way to obtain the squeezelite binary. See the following table for the details.
 
-Tag|Base Image|SqueezeLite Version|SqueezeLite Origin|Docker Hub Tags
+Tag|Base Image|SqueezeLite Version|SqueezeLite Origin|Additional Tags
 :---|:---:|:---:|:---:|:---
-latest|debian:bullseye|1.9.9|SourceForge|latest
-stable|debian:buster|1.8|Debian Repositories|stable
-bullseye|debian:bullseye|1.9.8|Debian Repositories|bullseye, squeezelite-1.9.8-bullseye*
-buster|debian:buster|1.8|Debian Repositories|buster, squeezelite-1.8-buster*
-sourceforge-buster|debian:buster|1.9.9|SourceForge|sourceforge-buster, squeezelite-1.9.9-sourceforge-buster*
-sourceforge-bullseye|debian:bullseye|1.9.9|SourceForge|sourceforge-bullseye, squeezelite-1.9.9-sourceforge-bullseye*
-ubuntu-focal|ubuntu:focal|1.8|Ubuntu Repositories|ubuntu-focal, squeezelite-1.8-ubuntu-focal*
+latest|debian:bullseye|1.9.9|SourceForge|
+stable|debian:buster|1.8|Debian Repositories|
+bullseye|debian:bullseye|1.9.8|Debian Repositories|squeezelite-1.9.8-bullseye*
+buster|debian:buster|1.8|Debian Repositories|squeezelite-1.8-buster*
+sourceforge-buster|debian:buster|1.9.9|SourceForge|squeezelite-1.9.9-sourceforge-buster*
+sourceforge-bullseye|debian:bullseye|1.9.9|SourceForge|squeezelite-1.9.9-sourceforge-bullseye*
+ubuntu-focal|ubuntu:focal|1.8|Ubuntu Repositories|squeezelite-1.8-ubuntu-focal*
 
 This situation might change in the future. I am currently using `debian:buster` as the base image because I am experiencing high cpu usage on the Raspberry Pi 3b (Raspbian OS Buster being the host o.s.) with `debian:bullseye` based images. Not so with the `debian-bullseye` image along with the squeelite binary from SourceForge.  
 So this is why `latest` is currently same as `sourceforge-bullseye` and `stable` is same as `buster` image.  

@@ -2,8 +2,8 @@
 
 declare -A base_images
 
-base_images[buster]=debian:buster-20211220-slim
-base_images[bullseye]=debian:bullseye-20211220-slim
+base_images[buster]=debian:buster-20220125-slim
+base_images[bullseye]=debian:bullseye-20220125-slim
 base_images[focal]=ubuntu:focal-20220105
 
 DEFAULT_BASE_IMAGE=bullseye

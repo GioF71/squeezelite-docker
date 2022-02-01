@@ -45,7 +45,7 @@ echo "Tag: ["$tag"]"
 docker build . \
     --build-arg BASE_IMAGE=${expanded_base_image} \
     --build-arg DOWNLOAD_FROM_SOURCEFORGE=${download} \
-    -t $tag
+    -t giof71/squeezelite:$tag
 
 #docker build . \
 #    --build-arg BASE_IMAGE=${expanded_base_image} \

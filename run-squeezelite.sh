@@ -6,6 +6,7 @@ DEFAULT_SQUEEZELITE_TIMEOUT=2
 
 if [ -z "${STARTUP_DELAY_SEC}" ]; then
   STARTUP_DELAY_SEC=$DEFAULT_STARTUP_DELAY_SEC;
+  echo "Loading default for STARTUP_DELAY_SEC: ["$STARTUP_DELAY_SEC"]"
 fi
 
 echo "About to sleep for $STARTUP_DELAY_SEC second(s)"

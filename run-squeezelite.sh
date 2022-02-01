@@ -24,6 +24,7 @@ source /run-presets.sh
 echo "=== END-- Loading presets ==="
 
 CMD_LINE="/usr/bin/squeezelite"
+echo "Initializing command line: ["$CMD_LINE"]"
 
 if [ -z "${PRESET}" ]; then
   echo "Preset has not been specified";
@@ -190,7 +191,6 @@ else
   CMD_LINE="$CMD_LINE -b $SQUEEZELITE_BUFFER_SIZE";
 fi
 
-echo "Command Line:"
-echo "$CMD_LINE"
+echo "Command Line: ["$CMD_LINE"]"
 
 eval $CMD_LINE

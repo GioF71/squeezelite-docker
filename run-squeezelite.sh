@@ -1,5 +1,13 @@
 #!/bin/bash
 
+DEFAULT_STARTUP_DELAY_SEC=0
+DEFAULT_SQUEEZELITE_DELAY=2
+DEFAULT_SQUEEZELITE_TIMEOUT=2
+
+if [ -z "${STARTUP_DELAY_SEC}" ]; then
+  STARTUP_DELAY_SEC=$DEFAULT_STARTUP_DELAY_SEC;
+fi
+
 echo "About to sleep for $STARTUP_DELAY_SEC second(s)"
 sleep $STARTUP_DELAY_SEC
 echo "Ready to start."
@@ -110,18 +118,21 @@ else
 fi
 
 if [ -z "${SQUEEZELITE_TIMEOUT}" ]; then
-  echo "Variable SQUEEZELITE_TIMEOUT has not been specified";
+  echo "Variable SQUEEZELITE_TIMEOUT has not been specified, using default $DEFAULT_SQUEEZELITE_TIMEOUT";
+  SQUEEZELITE_TIMEOUT=$DEFAULT_SQUEEZELITE_TIMEOUT;
 else
   echo "Variable SQUEEZELITE_TIMEOUT has been specified: $SQUEEZELITE_TIMEOUT";
   CMD_LINE="$CMD_LINE -C $SQUEEZELITE_TIMEOUT";
 fi
+CMD_LINE="$CMD_LINE -C $SQUEEZELITE_TIMEOUT";
 
 if [ -z "${SQUEEZELITE_DELAY}" ]; then
-  echo "Variable SQUEEZELITE_DELAY has not been specified";
+  echo "Variable SQUEEZELITE_DELAY has not been specified, using default $DEFAULT_SQUEEZELITE_DELAY";
+  SQUEEZELITE_DELAY=$DEFAULT_SQUEEZELITE_DELAY;
 else
   echo "Variable SQUEEZELITE_DELAY has been specified: $SQUEEZELITE_DELAY";
-  CMD_LINE="$CMD_LINE -D $SQUEEZELITE_DELAY";
 fi
+CMD_LINE="$CMD_LINE -D $SQUEEZELITE_DELAY";
 
 if [ -z "${SQUEEZELITE_SERVER_PORT}" ]; then
   echo "Variable SQUEEZELITE_SERVER_PORT has not been specified, using discovery";

@@ -300,4 +300,4 @@ Also, the `ubuntu-focal` images are currently not very interesting as they featu
 
 Release Date|Major Changes
 ---|---
-2022-02-02|Allow combination of presets, fixed incorrect mapping for SQUEEZELITE_DELAY, add 'extremus' upsample setting.
+2022-02-02|Allow combination of presets, fixed incorrect mapping for SQUEEZELITE_DELAY, add 'extremus' upsample setting, defined rates presets

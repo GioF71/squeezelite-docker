@@ -1,5 +1,14 @@
 #!/bin/bash
 
+DEFAULT_STARTUP_DELAY_SEC=0
+DEFAULT_SQUEEZELITE_DELAY=500
+DEFAULT_SQUEEZELITE_TIMEOUT=2
+
+if [ -z "${STARTUP_DELAY_SEC}" ]; then
+  STARTUP_DELAY_SEC=$DEFAULT_STARTUP_DELAY_SEC;
+  echo "Setting default value for STARTUP_DELAY_SEC: ["$STARTUP_DELAY_SEC"]"
+fi
+
 echo "About to sleep for $STARTUP_DELAY_SEC second(s)"
 sleep $STARTUP_DELAY_SEC
 echo "Ready to start."
@@ -11,64 +20,75 @@ echo ""
 
 # load presets
 echo "=== BEGIN Loading presets ==="
-source /run-presets.sh
+source run-presets.sh
 echo "=== END-- Loading presets ==="
 
 CMD_LINE="/usr/bin/squeezelite"
+echo "Initializing command line: ["$CMD_LINE"]"
 
 if [ -z "${PRESET}" ]; then
   echo "Preset has not been specified";
 else
-  echo "Preset has been specified: $PRESET";
+  echo "Presets have been specified: ["$PRESET"]";
   echo "Explicitly set properties will not be overridden"
   echo "Current SQUEEZELITE_AUDIO_DEVICE = $SQUEEZELITE_AUDIO_DEVICE"
   echo "Current SQUEEZELITE_RATES = $SQUEEZELITE_RATES"
   echo "Current SQUEEZELITE_UPSAMPLING = $SQUEEZELITE_UPSAMPLING"
 
+  OLD_IFS=$IFS
+  IFS=',';
+  read -rasplitIFS<<< "$PRESET";
+  IFS=$OLD_IFS
+
   current_key=""
   current_value=""
-
-  if [[ -z "${SQUEEZELITE_AUDIO_DEVICE}" || "${SQUEEZELITE_AUDIO_DEVICE}" == "default" ]]; then
-    current_key=$PRESET".device"
-    current_value=${presets[${current_key}]}
-    if [[ -v current_value ]]; then
-      echo "Setting SQUEEZELITE_AUDIO_DEVICE to ["$current_value"]"
-      SQUEEZELITE_AUDIO_DEVICE=$current_value
-    else
-      echo "Key ["$current_key"] not found"
+  for current_preset in "${splitIFS[@]}"; do
+    if ! [ -z "${current_preset}" ]; then
+      echo "Processing current preset: ["$current_preset"]";
+      # device in preset
+      if [[ -z "${SQUEEZELITE_AUDIO_DEVICE}" || "${SQUEEZELITE_AUDIO_DEVICE}" == "default" ]]; then
+        current_key=$current_preset".device"
+        current_value=${presets[${current_key}]}
+        if [[ -v current_value ]]; then
+          echo "Setting SQUEEZELITE_AUDIO_DEVICE to ["$current_value"]"
+          SQUEEZELITE_AUDIO_DEVICE=$current_value
+        else
+          echo "Key ["$current_key"] not found"
+        fi
+      else
+        echo "SQUEEZELITE_AUDIO_DEVICE already set to ["$SQUEEZELITE_AUDIO_DEVICE"]"
+      fi
+      # rates in preset
+      if [[ -z "${SQUEEZELITE_RATES}" || "${SQUEEZELITE_RATES}" == "" ]]; then
+        current_key=$current_preset".rates"
+        current_value=${presets[${current_key}]}
+        if [[ -v current_value ]]; then
+          current_value=${presets[${current_key}]}
+          echo "Setting SQUEEZELITE_RATES to ["$current_value"]"
+          SQUEEZELITE_RATES=$current_value
+        else
+          echo "Key ["$current_key"] not found"
+        fi
+      else
+        echo "SQUEEZELITE_RATES already set to ["$SQUEEZELITE_RATES"]"
+      fi
+      # upsampling in preset
+      if [[ -z "${SQUEEZELITE_UPSAMPLING}" || "${SQUEEZELITE_UPSAMPLING}" == "" ]]; then
+        current_key=$current_preset".upsampling"
+        current_value=${presets[${current_key}]}
+        if [[ -v current_value ]]; then
+          current_value=${presets[${current_key}]}
+          echo "Setting SQUEEZELITE_UPSAMPLING to ["$current_value"]"
+          SQUEEZELITE_UPSAMPLING=$current_value
+        else
+          echo "Key ["$current_key"] not found"
+        fi
+      else
+        echo "SQUEEZELITE_UPSAMPLING already set to ["$SQUEEZELITE_UPSAMPLING"]"
+      fi
     fi
-  else
-    echo "SQUEEZELITE_AUDIO_DEVICE already set to ["$SQUEEZELITE_AUDIO_DEVICE"]"
-  fi
-
-  if [[ -z "${SQUEEZELITE_RATES}" || "${SQUEEZELITE_RATES}" == "" ]]; then
-    current_key=$PRESET".rates"
-    current_value=${presets[${current_key}]}
-    if [[ -v current_value ]]; then
-      current_value=${presets[${current_key}]}
-      echo "Setting SQUEEZELITE_RATES to ["$current_value"]"
-      SQUEEZELITE_RATES=$current_value
-    else
-      echo "Key ["$current_key"] not found"
-    fi
-  else
-    echo "SQUEEZELITE_RATES already set to ["$SQUEEZELITE_RATES"]"
-  fi
-
-  if [[ -z "${SQUEEZELITE_UPSAMPLING}" || "${SQUEEZELITE_UPSAMPLING}" == "" ]]; then
-    current_key=$PRESET".upsampling"
-    current_value=${presets[${current_key}]}
-    if [[ -v current_value ]]; then
-      current_value=${presets[${current_key}]}
-      echo "Setting SQUEEZELITE_UPSAMPLING to ["$current_value"]"
-      SQUEEZELITE_UPSAMPLING=$current_value
-    else
-      echo "Key ["$current_key"] not found"
-    fi
-  else
-    echo "SQUEEZELITE_UPSAMPLING already set to ["$SQUEEZELITE_UPSAMPLING"]"
-  fi
-
+  done;
+  # summary of preset values
   echo "Final SQUEEZELITE_AUDIO_DEVICE = $SQUEEZELITE_AUDIO_DEVICE"
   echo "Final SQUEEZELITE_RATES = $SQUEEZELITE_RATES"
   echo "Final SQUEEZELITE_UPSAMPLING = $SQUEEZELITE_UPSAMPLING"
@@ -78,7 +98,7 @@ if [ -z "${SQUEEZELITE_AUDIO_DEVICE}" ]; then
   echo "Variable SQUEEZELITE_AUDIO_DEVICE has not been specified";
 else
   echo "Variable SQUEEZELITE_AUDIO_DEVICE has been specified: $SQUEEZELITE_AUDIO_DEVICE";
-  CMD_LINE="$CMD_LINE -o $SQUEEZELITE_AUDIO_DEVICE";
+  CMD_LINE="$CMD_LINE -o "$SQUEEZELITE_AUDIO_DEVICE;
 fi
 
 if [ -z "${SQUEEZELITE_MIXER_DEVICE}" ]; then
@@ -110,18 +130,21 @@ else
 fi
 
 if [ -z "${SQUEEZELITE_TIMEOUT}" ]; then
-  echo "Variable SQUEEZELITE_TIMEOUT has not been specified";
+  echo "Variable SQUEEZELITE_TIMEOUT has not been specified, using default $DEFAULT_SQUEEZELITE_TIMEOUT";
+  SQUEEZELITE_TIMEOUT=$DEFAULT_SQUEEZELITE_TIMEOUT;
 else
   echo "Variable SQUEEZELITE_TIMEOUT has been specified: $SQUEEZELITE_TIMEOUT";
   CMD_LINE="$CMD_LINE -C $SQUEEZELITE_TIMEOUT";
 fi
+CMD_LINE="$CMD_LINE -C $SQUEEZELITE_TIMEOUT";
 
 if [ -z "${SQUEEZELITE_DELAY}" ]; then
-  echo "Variable SQUEEZELITE_DELAY has not been specified";
+  echo "Variable SQUEEZELITE_DELAY has not been specified, using default $DEFAULT_SQUEEZELITE_DELAY";
+  SQUEEZELITE_DELAY=$DEFAULT_SQUEEZELITE_DELAY;
 else
   echo "Variable SQUEEZELITE_DELAY has been specified: $SQUEEZELITE_DELAY";
-  CMD_LINE="$CMD_LINE -D $SQUEEZELITE_DELAY";
 fi
+CMD_LINE="$CMD_LINE -D $SQUEEZELITE_DELAY";
 
 if [ -z "${SQUEEZELITE_SERVER_PORT}" ]; then
   echo "Variable SQUEEZELITE_SERVER_PORT has not been specified, using discovery";
@@ -168,9 +191,9 @@ fi
 if [ -z "${SQUEEZELITE_BUFFER_SIZE}" ]; then
   echo "Variable SQUEEZELITE_BUFFER_SIZE not specified";
   if [ -z "${SQUEEZELITE_STREAM_AND_OUTPUT_BUFFER_SIZE}" ]; then
-    echo "Variable SQUEEZELITE_STREAM_AND_OUTPUT_BUFFER_SIZE not specified";
+    echo "Variable SQUEEZELITE_STREAM_AND_OUTPUT_BUFFER_SIZE (DEPRECATED) not specified";
   else
-    echo "Variable SQUEEZELITE_STREAM_AND_OUTPUT_BUFFER_SIZE specified: $SQUEEZELITE_STREAM_AND_OUTPUT_BUFFER_SIZE";
+    echo "Variable SQUEEZELITE_STREAM_AND_OUTPUT_BUFFER_SIZE (DEPRECATED) specified: $SQUEEZELITE_STREAM_AND_OUTPUT_BUFFER_SIZE";
     CMD_LINE="$CMD_LINE -b $SQUEEZELITE_STREAM_AND_OUTPUT_BUFFER_SIZE";
   fi
 else
@@ -178,7 +201,7 @@ else
   CMD_LINE="$CMD_LINE -b $SQUEEZELITE_BUFFER_SIZE";
 fi
 
-echo "Command Line:"
-echo "$CMD_LINE"
+echo "Command Line: ["$CMD_LINE"]"
+echo $CMD_LINE
 
 eval $CMD_LINE

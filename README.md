@@ -301,3 +301,4 @@ Also, the `ubuntu-focal` images are currently not very interesting as they featu
 Release Date|Major Changes
 ---|---
 2022-02-02|Allow combination of presets, fixed incorrect mapping for SQUEEZELITE_DELAY, add 'extremus' upsample setting, defined rates presets
+2022-01-30|Added images with SourceForge binaries (version 1.9.9), SQUEEZELITE_STREAM_AND_OUTPUT_BUFFER_SIZE renamed to SQUEEZELITE_BUFFER

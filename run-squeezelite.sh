@@ -120,7 +120,7 @@ if [ -z "${SQUEEZELITE_DELAY}" ]; then
   echo "Variable SQUEEZELITE_DELAY has not been specified";
 else
   echo "Variable SQUEEZELITE_DELAY has been specified: $SQUEEZELITE_DELAY";
-  CMD_LINE="$CMD_LINE -D $SQUEEZELITE_TIMEOUT";
+  CMD_LINE="$CMD_LINE -D $SQUEEZELITE_DELAY";
 fi
 
 if [ -z "${SQUEEZELITE_SERVER_PORT}" ]; then

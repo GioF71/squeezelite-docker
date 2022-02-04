@@ -46,7 +46,7 @@ jobs:
             with:
                 context: .
                 build-args: |
-                    BASE_IMAGE=${{ matrix.BASE_IMAGE }}
+                    BASE_IMAGE=${{ matrix.base }}
                     DOWNLOAD_FROM_SOURCEFORGE=${{ matrix.sourceforge }}
                 platforms: linux/amd64
                 push: true

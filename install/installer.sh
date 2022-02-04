@@ -20,7 +20,7 @@ echo $DOWNLOADED_BIN
         echo $ARCH; \
         SL_URL=""; \
         apt-get update; \
-        apt-get install wget -y; \
+        apt-get install wget ca-certificates -y; \
         apt-get install libasound2 --no-install-recommends -y; \
         if [ "$ARCH" == "armv7l" ]; then \
             SL_URL=$URL_armv7l; \

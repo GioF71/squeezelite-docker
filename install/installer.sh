@@ -32,7 +32,6 @@ echo $DOWNLOADED_BIN
             echo "Unsupported platform ["$ARCH"]"; \
         fi && \
         echo "Downloading for architecture [$ARCH]"; \
-        update-ca-certificates -f; \
         wget $SL_URL -O /assets/sourceforge/squeezelite.tar.gz --no-check-certificate; \
         mkdir /assets/sourceforge/expanded; \
         tar xzvf /assets/sourceforge/squeezelite.tar.gz -C /assets/sourceforge/expanded; \

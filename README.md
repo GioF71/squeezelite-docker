@@ -65,7 +65,7 @@ The following tables reports all the currently supported environment variables.
 
 Variable|SqueezeLite corresponding option|Default|Notes
 :---|:---:|:---:|:---
-PRESET|||You can now chose an existing preset. Presets can currently tune the values of `SQUEEZELITE_AUDIO_DEVICE`, `SQUEEZELITE_RATES` and `SQUEEZELITE_UPSAMPLING` for you. See the [Available presets](#available-presets) table for reference.
+PRESET|||You can now chose an existing preset. Presets can currently tune the values of `SQUEEZELITE_AUDIO_DEVICE`, `SQUEEZELITE_RATES` and `SQUEEZELITE_UPSAMPLING` for you. See the [Available presets](#available-presets) table for reference. Presets can be combined (separe with a comma `,`), but keep in mind that the first preset setting a variable has the priority: that variable cannot be overwritten by other presets.
 SQUEEZELITE_AUDIO_DEVICE|-o||The audio device. Common examples: `hw:CARD=x20,DEV=0` or `hw:CARD=DAC,DEV=0` for usb dac based on XMOS. If left empty, the default alsa device is used.
 SQUEEZELITE_PARAMS|-a||Please refer to the squeezelite's [man page](https://ralph-irving.github.io/squeezelite.html) for `-a`.
 SQUEEZELITE_CODECS|-c||Please refer to the squeezelite's [man page](https://ralph-irving.github.io/squeezelite.html) for `-c`.

@@ -22,10 +22,7 @@ jobs:
             uses: actions/checkout@v2
         -
             name: Set Release Tag
-            run: |
-                base = "$(cut -d ':' -f2 <<< '${{ matrix.base }}')" \
-                echo "RELEASE_TAG=${{ secrets.DOCKER_USERNAME }}/squeezelite:${base}" \
-                >> $GITHUB_ENV
+            run: .github/set-release-tag.sh
         -
             name: Set up QEMU
             uses: docker/setup-qemu-action@v1

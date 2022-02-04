@@ -106,8 +106,8 @@ gustard-x12|2022-02-02|Y|N|N|Sets device for Gustard X12 DAC
 hifiberry-dac-plus|2022-02-02|Y|N|N|Sets device for the HifiBerry Dac+
 goldilocks|2022-01-19|N|N|Y|Setup [goldilocks](https://archimago.blogspot.com/2018/01/musings-more-fun-with-digital-filters.html) upsampling for usb dac, rates must be set with another preset or explicitly using the variable `SQUEEZELITE_RATES`. Corresponds to `v::4:28:95:105:45`
 extremus|2022-01-19|N|N|Y|Setup [extremus](https://archimago.blogspot.com/2018/11/musings-raspberry-pi-3-b-touch.html) upsampling for usb dac, rates must be set with another preset or explicitly using the variable `SQUEEZELITE_RATES`. Corresponds to `v::3.05:28:99.7:100:45`
-archimago-goldilocks|N|N|Y|Alias for `goldilocks`, name feels more appropriate
-archimago-extremus|N|N|Y|Alias for `extremus`, name feels more appropriate
+archimago-goldilocks|2022-02-04|N|N|Y|Alias for `goldilocks`, name feels more appropriate
+archimago-extremus|2022-02-04|N|N|Y|Alias for `extremus`, name feels more appropriate
 rates_up_to_96k|2022-02-02|N|Y|N|Set rates to `44100-96000`
 rates_up_to_192k|2022-02-02|N|Y|N|Set rates to `44100-192000`
 rates_up_to_384k|2022-02-02|N|Y|N|Set rates to `44100-384000`
@@ -271,11 +271,24 @@ services:
 
 ## Build
 
-You can build (or rebuild) the image by opening a terminal from the root of the repository and issuing the following command:
+You can build (or rebuild) the image by opening a terminal and using the convenience script `build.sh`.
+This script accepts a few parameters:
 
-`docker build . -t giof71/squeezelite`
+Parameter|Default|Description
+:---|:---:|:---
+-d|N|Use repository (`N`) or download from SourceForge (`Y`)
+-b|bulleye|Base image, you can choose among `bullseye`, `buster` and `focal`
+-t|latest|The last part of the tag, by default it will be giof71/squeezelite:latest
 
-It will take very little time even on a Raspberry Pi. When it's finished, you can run the container following the previous instructions.  
+Example:
+
+Command|Expected Result
+:---|:---
+./build.sh|Builds from Debian Bullseye, using the binary version from the repos, use the `latest` tag
+./build.sh -d N -b bullseye -t latest|Same as above, but everything is explicitly specified
+./build.sh -d Y -b buster -t buster-sf|Builds from Debian Buster, download from SourceForge, use `buster-sf` as the tag.
+
+It will take a few minutes of your time even on a Raspberry Pi. When it's finished, you can run the container following the previous instructions.  
 Just be careful to use the tag you have built.
 
 ## Docker Hub tags
@@ -296,9 +309,15 @@ This situation might change in the future. I am currently using `debian:buster` 
 So this is why `latest` is currently same as `sourceforge-bullseye` and `stable` is same as `buster` image.  
 Also, the `ubuntu-focal` images are currently not very interesting as they feature the same version as the `debian:buster` images, and I am not willing to use non-lts versions of ubuntu, which change way too frequently. So I might drop those builds in the near future.
 
+## Errata
+
+A few images build with SourceForge binaries report wrong and/or misleading tag names: buster version apparently would appear to contain SqueezeLite version 1.8 and bullseye tags would appear to contain SqueezeLite version 1.9.8. In both cases, the SqueezeLite version is instead 1.9.9.
+Sorry for the inconvenience, this is now fixed.
+
 ## Release History
 
 Release Date|Major Changes
 ---|---
+2022-02-04|Simplified build process (not multistage anymore), reduced image sizes, documented the convenience build.sh script, corrected sourceforge tag names (were 1.9.8 or 1.8 instead of 1.9.9)
 2022-02-02|Allow combination of presets, fixed incorrect mapping for SQUEEZELITE_DELAY, add 'extremus' upsample setting, defined rates presets
 2022-01-30|Added images with SourceForge binaries (version 1.9.9), SQUEEZELITE_STREAM_AND_OUTPUT_BUFFER_SIZE renamed to SQUEEZELITE_BUFFER

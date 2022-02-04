@@ -1,7 +1,7 @@
 #!/bin/bash
 
 TAG_FAMILY="sourceforge-bullseye"
-TAG_SL_VERSION="squeezelite-1.9.8"
+TAG_SL_VERSION="squeezelite-1.9.9"
 
 TODAY=`date +%F`
 echo "TODAY: "$TODAY

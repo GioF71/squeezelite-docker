@@ -25,6 +25,9 @@ jobs:
             run: |
                 base="$(cut -d ':' -f2 <<< '${{ matrix.base }}')"
                 echo "RELEASE_TAG=${{secrets.DOCKER_USERNAME}}/squeezelite:${base}" >> $GITHUB_ENV
+                if [ base = "bullseye-20220125-slim" ]; \
+                then echo "${{secrets.DOCKER_USERNAME}}/squeezelite:latest"; fi \
+                >> $GITHUB_ENV
         -
             name: Set up QEMU
             uses: docker/setup-qemu-action@v1

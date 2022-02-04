@@ -9,6 +9,7 @@ base_images[focal]=ubuntu:focal-20220105
 DEFAULT_BASE_IMAGE=bullseye
 DEFAULT_SOURCEFORGE_DOWNLOAD=N
 DEFAULT_TAG=latest
+
 download=$DEFAULT_SOURCEFORGE_DOWNLOAD
 tag=$DEFAULT_TAG
 
@@ -21,24 +22,23 @@ do
     esac
 done
 
-echo "base_image: $base_image";
-echo "sourceforge download: $sd";
-echo "tag: $tag";
+#echo "base_image: $base_image";
+#echo "sourceforge download: $sd";
+#echo "tag: $tag";
 
 if [ -z "${base_image}" ]; then
   base_image=$DEFAULT_BASE_IMAGE
 fi
 
-#if [ -z "${sd}" && ]; then
-if [ "${download}" == "Y" ]; then  
+if [[ "${download}" == "Y" || "${download}" == "y" ]]; then  
   download="Y"
-elif [ "${download}" == "N" ]; then  
+else
   download="N"
 fi
 
 expanded_base_image=${base_images[$base_image]}
-echo "Base Image: ["$expanded_base_image"]"
 
+echo "Base Image: ["$expanded_base_image"]"
 echo "Download from SourceForge: ["$download"]"
 echo "Tag: ["$tag"]"
 

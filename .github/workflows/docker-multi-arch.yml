@@ -22,7 +22,9 @@ jobs:
             uses: actions/checkout@v2
         -
             name: Set Release Tag
-            run: .github/set-release-tag.sh
+            run: |
+                chmod +x "${GITHUB_WORKSPACE}/.github/set-release-tag.sh"
+                .github/set-release-tag.sh
         -
             name: Set up QEMU
             uses: docker/setup-qemu-action@v1

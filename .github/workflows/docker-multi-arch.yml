@@ -23,8 +23,8 @@ jobs:
         -
             name: Set Release Tag
             run: |
-                chmod +x "${GITHUB_WORKSPACE}/.github/set-release-tag.sh"
-                .github/set-release-tag.sh
+                base="$(cut -d ':' -f2 <<< '${{ matrix.base }}')"
+                echo "RELEASE_TAG=${{secrets.DOCKER_USERNAME}}/squeezelite:${base}" >> $GITHUB_ENV
         -
             name: Set up QEMU
             uses: docker/setup-qemu-action@v1

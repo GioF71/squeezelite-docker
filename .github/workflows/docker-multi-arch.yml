@@ -24,7 +24,7 @@ jobs:
             name: Set Release Tag
             run: |
                 base="$(cut -d ':' -f2 <<< '${{ matrix.base }}')"
-                if [ base = "bullseye-20220125-slim" ] && [ "${{ matrix.sourceforge }}" = "Y" ]; \
+                if [ "${base}" = "bullseye-20220125-slim" ] && [ "${{ matrix.sourceforge }}" = "Y" ]; \
                 then echo "RELEASE_TAG=${{secrets.DOCKER_USERNAME}}/squeezelite:${base},${{secrets.DOCKER_USERNAME}}/squeezelite:latest"; \
                 else echo "RELEASE_TAG=${{secrets.DOCKER_USERNAME}}/squeezelite:${base}"; fi \
                 >> $GITHUB_ENV

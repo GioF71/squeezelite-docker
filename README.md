@@ -309,10 +309,15 @@ This situation might change in the future. I am currently using `debian:buster` 
 So this is why `latest` is currently same as `sourceforge-bullseye` and `stable` is same as `buster` image.  
 Also, the `ubuntu-focal` images are currently not very interesting as they feature the same version as the `debian:buster` images, and I am not willing to use non-lts versions of ubuntu, which change way too frequently. So I might drop those builds in the near future.
 
+## Errata
+
+A few images build with SourceForge binaries report wrong and/or misleading tag names: buster version apparently would appear to contain SqueezeLite version 1.8 and bullseye tags would appear to contain SqueezeLite version 1.9.8. In both cases, the SqueezeLite version is instead 1.9.9.
+Sorry for the inconvenience, this is now fixed.
+
 ## Release History
 
 Release Date|Major Changes
 ---|---
-2022-02-04|Simplified build process (not multistage anymore), reduced image sizes, documented the convenience build.sh script
+2022-02-04|Simplified build process (not multistage anymore), reduced image sizes, documented the convenience build.sh script, corrected sourceforge tag names (were 1.9.8 or 1.8 instead of 1.9.9)
 2022-02-02|Allow combination of presets, fixed incorrect mapping for SQUEEZELITE_DELAY, add 'extremus' upsample setting, defined rates presets
 2022-01-30|Added images with SourceForge binaries (version 1.9.9), SQUEEZELITE_STREAM_AND_OUTPUT_BUFFER_SIZE renamed to SQUEEZELITE_BUFFER

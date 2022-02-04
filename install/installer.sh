@@ -20,7 +20,7 @@ echo $DOWNLOADED_BIN
         echo $ARCH; \
         SL_URL=""; \
         apt-get update; \
-        apt-get install curl wget ca-certificates -y; \
+        apt-get install wget -y; \
         apt-get install libasound2 --no-install-recommends -y; \
         if [ "$ARCH" == "armv7l" ]; then \
             SL_URL=$URL_armv7l; \
@@ -33,7 +33,7 @@ echo $DOWNLOADED_BIN
         fi && \
         echo "Downloading for architecture [$ARCH]"; \
         update-ca-certificates -f; \
-        wget $SL_URL -O /assets/sourceforge/squeezelite.tar.gz; \
+        wget $SL_URL -O /assets/sourceforge/squeezelite.tar.gz --no-check-certificate; \
         mkdir /assets/sourceforge/expanded; \
         tar xzvf /assets/sourceforge/squeezelite.tar.gz -C /assets/sourceforge/expanded; \
         ls -la /assets/sourceforge/expanded/; \

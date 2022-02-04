@@ -4,12 +4,18 @@ on:
     push:
         branches:
             - main
+            - dev
         tags:
             - '*'
 
 jobs:
     release:
         runs-on: ubuntu-latest
+        strategy:
+            fail-fast: false
+            matrix:
+                base: [ 'debian:bullseye-20220125-slim', 'debian:buster-20220125-slim', 'ubuntu:focal-20220105' ]
+                sourceforge: [ 'Y', 'N' ]
         steps:
         -
             name: Checkout
@@ -17,9 +23,8 @@ jobs:
         -
             name: Set Release Tag
             run: |
-                if [ "${GITHUB_REF#refs/*/}" = "main" ]; \
-                then echo "RELEASE_TAG=latest"; \
-                else echo "RELEASE_TAG=${GITHUB_REF#refs/*/}"; fi \
+                base = "$(cut -d ':' -f2 <<< '${ matrix.base }')" \
+                echo "RELEASE_TAG=${ secrets.DOCKER_USERNAME }/squeezelite:${ base }" \
                 >> $GITHUB_ENV
         -
             name: Set up QEMU
@@ -41,6 +46,7 @@ jobs:
             uses: docker/build-push-action@v2
             with:
                 context: .
-                platforms: linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64/v8
+                build-args: BASE_IMAGE=${{ matrix.BASE_IMAGE }},DOWNLOAD_FROM_SOURCEFORGE=${{ matrix.sourceforge }}
+                platforms: linux/amd64
                 push: true
-                tags: ${{ secrets.DOCKER_USERNAME }}/squeezelite:${{ env.RELEASE_TAG }}
+                tags: ${{ env.RELEASE_TAG }}

@@ -23,10 +23,10 @@ jobs:
         -
             name: Set Release Tag
             run: |
-                base="$(cut -d ':' -f2 <<< '${{ matrix.base }}')"
-                echo "RELEASE_TAG=${{secrets.DOCKER_USERNAME}}/squeezelite:${base}" >> $GITHUB_ENV
+                base="$(cut -d ':' -f2 <<< '${{ matrix.base }}')" \
                 if [ base = "bullseye-20220125-slim" ]; \
-                then echo "${{secrets.DOCKER_USERNAME}}/squeezelite:latest"; fi \
+                then echo "RELEASE_TAG=${{secrets.DOCKER_USERNAME}}/squeezelite:${base},${{secrets.DOCKER_USERNAME}}/squeezelite:latest"; \
+                else echo "RELEASE_TAG=${{secrets.DOCKER_USERNAME}}/squeezelite:${base}"; fi \
                 >> $GITHUB_ENV
         -
             name: Set up QEMU
@@ -51,6 +51,6 @@ jobs:
                 build-args: |
                     BASE_IMAGE=${{ matrix.base }}
                     DOWNLOAD_FROM_SOURCEFORGE=${{ matrix.sourceforge }}
-                platforms: linux/amd64
+                platforms: linux/amd64,linux/arm/v7
                 push: true
                 tags: ${{ env.RELEASE_TAG }}

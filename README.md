@@ -311,7 +311,7 @@ Also, the `ubuntu-focal` images are currently not very interesting as they featu
 
 ## Errata
 
-A few images build with SourceForge binaries report wrong and/or misleading tag names: buster version apparently would appear to contain SqueezeLite version 1.8 and bullseye tags would appear to contain SqueezeLite version 1.9.8. In both cases, the SqueezeLite version is instead 1.9.9.
+A few images build with SourceForge binaries report wrong and/or misleading tag names: some buster tags apparently would appear to contain SqueezeLite version 1.8 and some bullseye tags would appear to contain SqueezeLite version 1.9.8. In both cases, the included SqueezeLite version is instead 1.9.9.
 Sorry for the inconvenience, this is now fixed.
 
 ## Release History

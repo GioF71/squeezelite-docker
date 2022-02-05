@@ -2,6 +2,11 @@
 
 Now with support for upsampling and presets for maximum convenience.
 
+## Available Archs on Docker Hub
+- linux/arm/v7
+- linux/amd64
+- linux/arm64/v8
+
 ## Reference
 
 First and foremost, the reference to the awesome project:

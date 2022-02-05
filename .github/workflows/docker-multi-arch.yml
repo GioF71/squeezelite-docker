@@ -42,12 +42,14 @@ jobs:
                     then distro_id="ubuntu-focal"; \
                 fi
                 tags="${{secrets.DOCKER_USERNAME}}/squeezelite:${squeezelite_version}${distro_id},${{secrets.DOCKER_USERNAME}}/squeezelite:${squeezelite_version}${distro_id}-${date}"
-                if [ "${base}" = "bullseye" ] && [ "${{ matrix.sourceforge }}" = "Y" ]; \
-                then \ 
+                if [ "${base}" = "bullseye" ] && [ "${{ matrix.sourceforge }}" = "Y" ]; then \ 
                     echo "RELEASE_TAGS=${tags},${{secrets.DOCKER_USERNAME}}/squeezelite:latest"; \
-                elif [ "${base}" = "buster" ] && [ "${{ matrix.sourceforge }}" = "N" ]; \
-                then \
-                    echo "RELEASE_TAGS=${tags},${{secrets.DOCKER_USERNAME}}/squeezelite:stable"; \
+                elif [ "${base}" = "buster" ] && [ "${{ matrix.sourceforge }}" = "N" ]; then \
+                    echo "RELEASE_TAGS=${tags},${{secrets.DOCKER_USERNAME}}/squeezelite:${distro_id},${{secrets.DOCKER_USERNAME}}/squeezelite:stable"; \
+                elif [ "${base}" = "bullseye" ] && [ "${{ matrix.sourceforge }}" = "N" ]; then \ 
+                    echo "RELEASE_TAGS=${tags},${{secrets.DOCKER_USERNAME}}/squeezelite:${distro_id}"; \
+                elif [ "${base}" = "focal" ] && [ "${{ matrix.sourceforge }}" = "N" ]; then \ 
+                    echo "RELEASE_TAGS=${tags},${{secrets.DOCKER_USERNAME}}/squeezelite:${distro_id}"; \
                 else \
                     echo "RELEASE_TAGS=${tags}"; \
                 fi \

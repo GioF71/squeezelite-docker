@@ -25,19 +25,19 @@ jobs:
             name: Set Release Tag
             run: |
                 date=$(date '+%Y-%m-%d')
-                binary_version=""
-                if [ "${{ matrix.sourceforge }}" = "Y" ]; \
-                    then binary_version="squeezelite-1.9.9-sourceforge-"; \
-                else \
-                    if [ "${{ matrix.base }}" = "debian:bullseye-20220125-slim" ]; \
-                        then binary_version="squeezelite-1.9.8-"; \
-                    else \
-                        binary_version="squeezelite-1.8-"; \
-                    fi
-                fi
                 base="$(cut -d ':' -f2 <<< '${{ matrix.base }}')"
                 base="$(cut -d '-' -f1 <<< ${base})"
-                tags="${{secrets.DOCKER_USERNAME}}/squeezelite:${binary_version}${base},${{secrets.DOCKER_USERNAME}}/squeezelite:${binary_version}${base}-${date}"
+                squeezelite_version=""
+                if [ "${{ matrix.sourceforge }}" = "Y" ]; \
+                    then squeezelite_version="squeezelite-1.9.9-sourceforge-"; \
+                else \
+                    if [ "${{ base }}" = "bullseye" ]; \
+                        then squeezelite_version="squeezelite-1.9.8-"; \
+                    else \
+                        squeezelite_version="squeezelite-1.8-"; \
+                    fi
+                fi
+                tags="${{secrets.DOCKER_USERNAME}}/squeezelite:${squeezelite_version}${base},${{secrets.DOCKER_USERNAME}}/squeezelite:${squeezelite_version}${base}-${date}"
                 if [ "${base}" = "bullseye" ] && [ "${{ matrix.sourceforge }}" = "Y" ]; \
                 then echo "RELEASE_TAGS=${tags},${{secrets.DOCKER_USERNAME}}/squeezelite:latest"; \
                 elif [ "${base}" = "buster" ] && [ "${{ matrix.sourceforge }}" = "N" ]; \

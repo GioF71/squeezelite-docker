@@ -28,6 +28,7 @@ jobs:
                 base="$(cut -d ':' -f2 <<< '${{ matrix.base }}')"
                 base="$(cut -d '-' -f1 <<< ${base})"
                 squeezelite_version=""
+                distro_id=${base}
                 if [ "${{ matrix.sourceforge }}" = "Y" ]; \
                     then squeezelite_version="squeezelite-1.9.9-sourceforge-"; \
                 else \
@@ -37,7 +38,10 @@ jobs:
                         squeezelite_version="squeezelite-1.8-"; \
                     fi
                 fi
-                tags="${{secrets.DOCKER_USERNAME}}/squeezelite:${squeezelite_version}${base},${{secrets.DOCKER_USERNAME}}/squeezelite:${squeezelite_version}${base}-${date}"
+                if [ "${base}" = "focal" ]; \
+                    then distro_id="ubuntu-focal"; \
+                fi
+                tags="${{secrets.DOCKER_USERNAME}}/squeezelite:${squeezelite_version}${distro_id},${{secrets.DOCKER_USERNAME}}/squeezelite:${squeezelite_version}${distro_id}-${date}"
                 if [ "${base}" = "bullseye" ] && [ "${{ matrix.sourceforge }}" = "Y" ]; \
                 then echo "RELEASE_TAGS=${tags},${{secrets.DOCKER_USERNAME}}/squeezelite:latest"; \
                 elif [ "${base}" = "buster" ] && [ "${{ matrix.sourceforge }}" = "N" ]; \

@@ -27,7 +27,7 @@ jobs:
                 date=$(date '+%Y-%m-%d')
                 sourceforge=""
                 if [ "${{ matrix.sourceforge }}" = "Y" ]; \
-                then sourceforge="sourceforge-"; fi
+                then sourceforge="squeezelite-1.9.9-sourceforge-"; fi
                 base="$(cut -d ':' -f2 <<< '${{ matrix.base }}')"
                 base="$(cut -d '-' -f1 <<< ${base})"
                 tags="${{secrets.DOCKER_USERNAME}}/squeezelite:${sourceforge}${base},${{secrets.DOCKER_USERNAME}}/squeezelite:${sourceforge}${base}-${date}"

@@ -1,6 +1,13 @@
 # squeezelite-docker - a Docker image for SqueezeLite
 
-Now with support for upsampling and presets for maximum convenience.
+Now with support for upsampling and presets for maximum convenience.  
+Now also with support for arm64 thanks to [Der-Henning](https://github.com/Der-Henning/)
+
+## Available Archs on Docker Hub
+
+- linux/amd64
+- linux/arm/v7
+- linux/arm64/v8
 
 ## Reference
 
@@ -318,6 +325,7 @@ Sorry for the inconvenience, this is now fixed.
 
 Release Date|Major Changes
 ---|---
+2022-02-05|Automated builds thanks to [Der-Henning](https://github.com/Der-Henning/), Builds for amd64 also thanks to [Der-Henning](https://github.com/Der-Henning/), the README.md you are reading now is copied to the image under path `/app/doc/README.md`.
 2022-02-04|Simplified build process (not multistage anymore), reduced image sizes, documented the convenience build.sh script, corrected sourceforge tag names (were 1.9.8 or 1.8 instead of 1.9.9)
 2022-02-02|Allow combination of presets, fixed incorrect mapping for SQUEEZELITE_DELAY, add 'extremus' upsample setting, defined rates presets
 2022-01-30|Added images with SourceForge binaries (version 1.9.9), SQUEEZELITE_STREAM_AND_OUTPUT_BUFFER_SIZE renamed to SQUEEZELITE_BUFFER

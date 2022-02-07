@@ -48,6 +48,10 @@ ENV SQUEEZELITE_PRIORITY ""
 ENV SQUEEZELITE_STREAM_AND_OUTPUT_BUFFER_SIZE ""
 ENV SQUEEZELITE_BUFFER_SIZE ""
 
+RUN mkdir /app/doc
+
+COPY README.md /app/doc
+
 WORKDIR /app/bin
 
 ENTRYPOINT ["/app/bin/run-squeezelite.sh"]

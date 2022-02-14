@@ -89,4 +89,3 @@ jobs:
                 user: ${{ secrets.DOCKER_USERNAME }}
                 pass: ${{ secrets.DOCKER_PASSWORD }}
                 readme: ./README.md
-                description: Run squeezelite on docker.

@@ -328,7 +328,7 @@ Sorry for the inconvenience, this is now fixed.
 
 Release Date|Major Changes
 :---|:---
-2022-02-14|Reviewed the preset table layout on `README.md` file
+2022-02-14|Reviewed the preset table layout on `README.md` file (docker hub compatibitily)
 2022-02-14|Added automatic synchronization of `README.md` file with the corresponding [repository](https://hub.docker.com/r/giof71/squeezelite) on [Docker Hub](https://hub.docker.com)
 2022-02-14|Focal tag is now `focal` instead of `ubuntu-focal`
 2022-02-14|Added preset `no-dsd` which excludes DSD codec

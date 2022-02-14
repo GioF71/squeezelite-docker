@@ -87,6 +87,34 @@ else
       else
         echo "SQUEEZELITE_UPSAMPLING already set to ["$SQUEEZELITE_UPSAMPLING"]"
       fi
+      # codecs in preset
+      if [[ -z "${SQUEEZELITE_CODECS}" || "${SQUEEZELITE_CODECS}" == "" ]]; then
+        current_key=$current_preset".codecs"
+        current_value=${presets[${current_key}]}
+        if [[ -v current_value ]]; then
+          current_value=${presets[${current_key}]}
+          echo "Setting SQUEEZELITE_CODECS to ["$current_value"]"
+          SQUEEZELITE_CODECS=$current_value
+        else
+          echo "Key ["$current_key"] not found"
+        fi
+      else
+        echo "SQUEEZELITE_CODECS already set to ["$SQUEEZELITE_CODECS"]"
+      fi
+      # exclude codecs in preset
+      if [[ -z "${SQUEEZELITE_EXCLUDE_CODECS}" || "${SQUEEZELITE_EXCLUDE_CODECS}" == "" ]]; then
+        current_key=$current_preset".exclude-codecs"
+        current_value=${presets[${current_key}]}
+        if [[ -v current_value ]]; then
+          current_value=${presets[${current_key}]}
+          echo "Setting SQUEEZELITE_EXCLUDE_CODECS to ["$current_value"]"
+          SQUEEZELITE_EXCLUDE_CODECS=$current_value
+        else
+          echo "Key ["$current_key"] not found"
+        fi
+      else
+        echo "SQUEEZELITE_EXCLUDE_CODECS already set to ["$SQUEEZELITE_EXCLUDE_CODECS"]"
+      fi
     fi
   done;
   # summary of preset values

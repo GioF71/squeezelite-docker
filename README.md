@@ -105,34 +105,35 @@ The `SQUEEZELITE_RATES` displayed here are provided just as an example. You stil
 
 ## Available presets
 
-Preset name|Availability date|Set Device|Set Rates|Set Upsampling|Comment
-:---|:---:|:---:|:---:|:---:|:---
-dac|2022-02-02|Y|N|N|Sets device for typical xmos dac named "DAC"
-x20|2022-02-02|Y|N|N|Sets device for typical xmos dac named "x20"
-topping-d10|2022-02-02|Y|N|N|Sets device for Topping D10 Dac
-gustard-x12|2022-02-02|Y|N|N|Sets device for Gustard X12 DAC
-hifiberry-dac-plus|2022-02-02|Y|N|N|Sets device for the HifiBerry Dac+
-goldilocks|2022-01-19|N|N|Y|Setup [goldilocks](https://archimago.blogspot.com/2018/01/musings-more-fun-with-digital-filters.html) upsampling for usb dac, rates must be set with another preset or explicitly using the variable `SQUEEZELITE_RATES`. Corresponds to `v::4:28:95:105:45`
-extremus|2022-01-19|N|N|Y|Setup [extremus](https://archimago.blogspot.com/2018/11/musings-raspberry-pi-3-b-touch.html) upsampling for usb dac, rates must be set with another preset or explicitly using the variable `SQUEEZELITE_RATES`. Corresponds to `v::3.05:28:99.7:100:45`
-archimago-goldilocks|2022-02-04|N|N|Y|Alias for `goldilocks`, name feels more appropriate
-archimago-extremus|2022-02-04|N|N|Y|Alias for `extremus`, name feels more appropriate
-rates_up_to_96k|2022-02-02|N|Y|N|Set rates to `44100-96000`
-rates_up_to_192k|2022-02-02|N|Y|N|Set rates to `44100-192000`
-rates_up_to_384k|2022-02-02|N|Y|N|Set rates to `44100-384000`
-rates_up_to_768k|2022-02-02|N|Y|N|Set rates to `44100-768000`
-rates_2x_only|2022-02-02|N|Y|N|Set rates to `88200,96000`
-rates_4x_only|2022-02-02|N|Y|N|Set rates to `176400,192000`
-rates_8x_only|2022-02-02|N|Y|N|Set rates to `352800,384000`
-rates_16x_only|2022-02-02|N|Y|N|Set rates to `705600,768000`
-goldilocks_up_to_96k|2022-01-19|N|Y|Y|Setup [goldilocks](https://archimago.blogspot.com/2018/01/musings-more-fun-with-digital-filters.html) upsampling for usb dac, up to 96kHz
-goldilocks_up_to_192k|2022-01-19|N|Y|Y|Setup [goldilocks](https://archimago.blogspot.com/2018/01/musings-more-fun-with-digital-filters.html) upsampling for usb dac, up to 192kHz
-goldilocks_up_to_384k|2022-01-19|N|Y|Y|Setup [goldilocks](https://archimago.blogspot.com/2018/01/musings-more-fun-with-digital-filters.html) upsampling for usb dac, up to 384kHz
-goldilocks_up_to_768k|2022-01-19|N|Y|Y|Setup [goldilocks](https://archimago.blogspot.com/2018/01/musings-more-fun-with-digital-filters.html) upsampling for usb dac, up to 768kHz
-goldilocks_2x_only|2022-01-19|N|Y|Y|Setup [goldilocks](https://archimago.blogspot.com/2018/01/musings-more-fun-with-digital-filters.html) upsampling for usb dac, along with 2x rates only
-goldilocks_4x_only|2022-01-19|N|Y|Y|Setup [goldilocks](https://archimago.blogspot.com/2018/01/musings-more-fun-with-digital-filters.html) upsampling for usb dac, along with 4x rates only
-goldilocks_8x_only|2022-01-19|N|Y|Y|Setup [goldilocks](https://archimago.blogspot.com/2018/01/musings-more-fun-with-digital-filters.html) upsampling for usb dac, along with 8x rates only
-goldilocks_16x_only|2022-01-19|N|Y|Y|Setup [goldilocks](https://archimago.blogspot.com/2018/01/musings-more-fun-with-digital-filters.html) upsampling for usb dac, along with 16x rates only
-gustard-x12-goldilocks|2022-01-19|Y|Y|Y|Setup [goldilocks](https://archimago.blogspot.com/2018/01/musings-more-fun-with-digital-filters.html) upsampling for usb dac, up to 384kHz, and also sets output device correctly for a Gustard X12 DAC
+Preset name|Availability date|Set Device|Set Rates|Set Upsampling|Set Codecs|Set Excluded Codecs|Comment
+:---|:---:|:---:|:---:|:---:|:---:|:---:|:---
+dac|2022-02-02|Y|N|N|N|N|Sets device for typical xmos dac named "DAC"
+x20|2022-02-02|Y|N|N|N|N|Sets device for typical xmos dac named "x20"
+topping-d10|2022-02-02|Y|N|N|N|N|Sets device for Topping D10 Dac
+gustard-x12|2022-02-02|Y|N|N|N|N|Sets device for Gustard X12 DAC
+hifiberry-dac-plus|2022-02-02|Y|N|N|N|N|Sets device for the HifiBerry Dac+
+goldilocks|2022-01-19|N|N|Y|N|N|Setup [goldilocks](https://archimago.blogspot.com/2018/01/musings-more-fun-with-digital-filters.html) upsampling for usb dac, rates must be set with another preset or explicitly using the variable `SQUEEZELITE_RATES`. Corresponds to `v::4:28:95:105:45`
+extremus|2022-01-19|N|N|Y|N|N|Setup [extremus](https://archimago.blogspot.com/2018/11/musings-raspberry-pi-3-b-touch.html) upsampling for usb dac, rates must be set with another preset or explicitly using the variable `SQUEEZELITE_RATES`. Corresponds to `v::3.05:28:99.7:100:45`
+archimago-goldilocks|2022-02-04|N|N|Y|N|N|Alias for `goldilocks`, name feels more appropriate
+archimago-extremus|2022-02-04|N|N|Y|N|N|Alias for `extremus`, name feels more appropriate
+rates_up_to_96k|2022-02-02|N|Y|N|N|N|Set rates to `44100-96000`
+rates_up_to_192k|2022-02-02|N|Y|N|N|N|Set rates to `44100-192000`
+rates_up_to_384k|2022-02-02|N|Y|N|N|N|Set rates to `44100-384000`
+rates_up_to_768k|2022-02-02|N|Y|N|N|N|Set rates to `44100-768000`
+rates_2x_only|2022-02-02|N|Y|N|N|N|Set rates to `88200,96000`
+rates_4x_only|2022-02-02|N|Y|N|N|N|Set rates to `176400,192000`
+rates_8x_only|2022-02-02|N|Y|N|N|N|Set rates to `352800,384000`
+rates_16x_only|2022-02-02|N|Y|N|N|N|Set rates to `705600,768000`
+goldilocks_up_to_96k|2022-01-19|N|Y|Y|N|N|Setup [goldilocks](https://archimago.blogspot.com/2018/01/musings-more-fun-with-digital-filters.html) upsampling for usb dac, up to 96kHz
+goldilocks_up_to_192k|2022-01-19|N|Y|Y|N|N|Setup [goldilocks](https://archimago.blogspot.com/2018/01/musings-more-fun-with-digital-filters.html) upsampling for usb dac, up to 192kHz
+goldilocks_up_to_384k|2022-01-19|N|Y|Y|N|N|Setup [goldilocks](https://archimago.blogspot.com/2018/01/musings-more-fun-with-digital-filters.html) upsampling for usb dac, up to 384kHz
+goldilocks_up_to_768k|2022-01-19|N|Y|Y|N|N|Setup [goldilocks](https://archimago.blogspot.com/2018/01/musings-more-fun-with-digital-filters.html) upsampling for usb dac, up to 768kHz
+goldilocks_2x_only|2022-01-19|N|Y|Y|N|N|Setup [goldilocks](https://archimago.blogspot.com/2018/01/musings-more-fun-with-digital-filters.html) upsampling for usb dac, along with 2x rates only
+goldilocks_4x_only|2022-01-19|N|Y|Y|N|N|Setup [goldilocks](https://archimago.blogspot.com/2018/01/musings-more-fun-with-digital-filters.html) upsampling for usb dac, along with 4x rates only
+goldilocks_8x_only|2022-01-19|N|Y|Y|N|N|Setup [goldilocks](https://archimago.blogspot.com/2018/01/musings-more-fun-with-digital-filters.html) upsampling for usb dac, along with 8x rates only
+goldilocks_16x_only|2022-01-19|N|Y|Y|N|N|Setup [goldilocks](https://archimago.blogspot.com/2018/01/musings-more-fun-with-digital-filters.html) upsampling for usb dac, along with 16x rates only
+gustard-x12-goldilocks|2022-01-19|Y|Y|Y|N|N|Setup [goldilocks](https://archimago.blogspot.com/2018/01/musings-more-fun-with-digital-filters.html) upsampling for usb dac, up to 384kHz, and also sets output device correctly for a Gustard X12 DAC
+no-dsd|N|N|N|N|N|Y|Exclude dsd codec
 
 ## Notable changes to the configuration
 
@@ -327,8 +328,8 @@ Sorry for the inconvenience, this is now fixed.
 
 Release Date|Major Changes
 ---|---
-2022-02-14|Added support for excluded codecs (SQUEEZELITE_EXCLUDE_CODECS for the `-e` option). Add README synchronization.
+2022-02-14|Added support for excluded codecs (environment variable `SQUEEZELITE_EXCLUDE_CODECS` for the `-e` option). Add preset `no-dsd` which excludes DSD codec. Add README.md automatic synchronization with [Docker Hub](https://hub.docker.com).
 2022-02-05|Automated builds thanks to [Der-Henning](https://github.com/Der-Henning/), Builds for arm64 also thanks to [Der-Henning](https://github.com/Der-Henning/), the README.md you are reading now is copied to the image under path `/app/doc/README.md`.
-2022-02-04|Simplified build process (not multistage anymore), reduced image sizes, documented the convenience build.sh script, corrected sourceforge tag names (were 1.9.8 or 1.8 instead of 1.9.9)
-2022-02-02|Allow combination of presets, fixed incorrect mapping for SQUEEZELITE_DELAY, add 'extremus' upsample setting, defined rates presets
-2022-01-30|Added images with SourceForge binaries (version 1.9.9), SQUEEZELITE_STREAM_AND_OUTPUT_BUFFER_SIZE renamed to SQUEEZELITE_BUFFER
+2022-02-04|Simplified build process (not multistage anymore), reduced image sizes, documented the convenience build.sh script, corrected sourceforge tag names (were 1.9.8 or 1.8 instead of 1.9.9).
+2022-02-02|Allow combination of presets, fixed incorrect mapping for SQUEEZELITE_DELAY, add 'extremus' upsample setting, defined rates presets.
+2022-01-30|Added images with SourceForge binaries (version 1.9.9),  `SQUEEZELITE_STREAM_AND_OUTPUT_BUFFER_SIZE` renamed to `SQUEEZELITE_BUFFER`.

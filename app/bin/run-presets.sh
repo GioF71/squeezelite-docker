@@ -84,3 +84,4 @@ presets[gustard-x12-goldilocks.device]=$device_x20
 presets[gustard-x12-goldilocks.rates]=$rates_up_to_384k":"$rate_delay
 presets[gustard-x12-goldilocks.upsampling]=$upsampling_goldilocks
 
+presets[no-dsd.exclude-codecs]=dsd

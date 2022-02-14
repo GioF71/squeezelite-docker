@@ -82,8 +82,8 @@ jobs:
                 platforms: linux/amd64,linux/arm/v7,linux/arm64/v8
                 push: true
                 tags: ${{ env.RELEASE_TAGS }}
-
-        - name: Docker Hub README & description sync
+        - 
+            name: Docker Hub README & description sync
             uses: meeDamian/sync-readme@v1.0.6
             with:
                 user: ${{ secrets.DOCKER_USERNAME }}

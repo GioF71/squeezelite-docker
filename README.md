@@ -327,7 +327,7 @@ Sorry for the inconvenience, this is now fixed.
 
 Release Date|Major Changes
 ---|---
-2022-02-14|Added support for excluded codecs (SQUEEZELITE_EXCLUDE_CODECS for the `-e` option).
+2022-02-14|Added support for excluded codecs (SQUEEZELITE_EXCLUDE_CODECS for the `-e` option). Add README synchronization.
 2022-02-05|Automated builds thanks to [Der-Henning](https://github.com/Der-Henning/), Builds for arm64 also thanks to [Der-Henning](https://github.com/Der-Henning/), the README.md you are reading now is copied to the image under path `/app/doc/README.md`.
 2022-02-04|Simplified build process (not multistage anymore), reduced image sizes, documented the convenience build.sh script, corrected sourceforge tag names (were 1.9.8 or 1.8 instead of 1.9.9)
 2022-02-02|Allow combination of presets, fixed incorrect mapping for SQUEEZELITE_DELAY, add 'extremus' upsample setting, defined rates presets

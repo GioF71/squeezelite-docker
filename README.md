@@ -132,7 +132,7 @@ goldilocks_2x_only|2022-01-19|Rates, Upsampling|Setup [goldilocks](https://archi
 goldilocks_4x_only|2022-01-19|Rates, Upsampling|Setup [goldilocks](https://archimago.blogspot.com/2018/01/musings-more-fun-with-digital-filters.html) upsampling for usb dac, along with 4x rates only
 goldilocks_8x_only|2022-01-19|Rates, Upsampling|Setup [goldilocks](https://archimago.blogspot.com/2018/01/musings-more-fun-with-digital-filters.html) upsampling for usb dac, along with 8x rates only
 goldilocks_16x_only|2022-01-19|Rates, Upsampling|Setup [goldilocks](https://archimago.blogspot.com/2018/01/musings-more-fun-with-digital-filters.html) upsampling for usb dac, along with 16x rates only
-gustard-x12-goldilocks|2022-01-19|Device,Rates, Upsampling|Setup [goldilocks](https://archimago.blogspot.com/2018/01/musings-more-fun-with-digital-filters.html) upsampling for usb dac, up to 384kHz, and also sets output device correctly for a Gustard X12 DAC
+gustard-x12-goldilocks|2022-01-19|Device, Rates, Upsampling|Setup [goldilocks](https://archimago.blogspot.com/2018/01/musings-more-fun-with-digital-filters.html) upsampling for usb dac, up to 384kHz, and also sets output device correctly for a Gustard X12 DAC
 no-dsd|2022-02-14|Excluded Codecs|Exclude dsd codec
 
 ## Notable changes to the configuration
@@ -329,20 +329,20 @@ Sorry for the inconvenience, this is now fixed.
 Release Date|Major Changes
 :---|:---
 2022-02-14|Reviewed the preset table layout on `README.md` file
-||Added automatic synchronization of `README.md` file with the corresponding [repository](https://hub.docker.com/r/giof71/squeezelite) on [Docker Hub](https://hub.docker.com)
-||Focal tag is now `focal` instead of `ubuntu-focal`
-||Added preset `no-dsd` which excludes DSD codec
-||Added support for excluded codecs (environment variable `SQUEEZELITE_EXCLUDE_CODECS` for the `-e` option)
+2022-02-14|Added automatic synchronization of `README.md` file with the corresponding [repository](https://hub.docker.com/r/giof71/squeezelite) on [Docker Hub](https://hub.docker.com)
+2022-02-14|Focal tag is now `focal` instead of `ubuntu-focal`
+2022-02-14|Added preset `no-dsd` which excludes DSD codec
+2022-02-14|Added support for excluded codecs (environment variable `SQUEEZELITE_EXCLUDE_CODECS` for the `-e` option)
 2022-02-05|Automated builds thanks to [Der-Henning](https://github.com/Der-Henning/)
-||Builds for arm64 now available also thanks to [Der-Henning](https://github.com/Der-Henning/)
-||The `README.md` file is copied to the image at the path `/app/doc/README.md`
+2022-02-05|Builds for arm64 now available also thanks to [Der-Henning](https://github.com/Der-Henning/)
+2022-02-05|The `README.md` file is copied to the image at the path `/app/doc/README.md`
 2022-02-04|Simplified build process (not multistage anymore)
-||Reduced image sizes
-||Documented the convenience build.sh script
-||Corrected sourceforge tag names: sourceforge tags names were wrongly suggesting that the included SqueezeLite binary was at version 1.9.8 or 1.8 instead of version 1.9.9
+2022-02-04|Reduced image sizes
+2022-02-04|Documented the convenience build.sh script
+2022-02-04|Corrected sourceforge tag names: sourceforge tags names were wrongly suggesting that the included SqueezeLite binary was at version 1.9.8 or 1.8 instead of version 1.9.9
 2022-02-02|Allowed combination of presets
-||Fixed incorrect mapping for SQUEEZELITE_DELAY
-||Added `extremus` upsample setting
-||Rate presets defined
+2022-02-02|Fixed incorrect mapping for SQUEEZELITE_DELAY
+2022-02-02|Added `extremus` upsample setting
+2022-02-02|Rate presets defined
 2022-01-30|Added images with SourceForge binaries (version 1.9.9)
-||Variable `SQUEEZELITE_STREAM_AND_OUTPUT_BUFFER_SIZE` renamed to `SQUEEZELITE_BUFFER`
+2022-01-30|Variable `SQUEEZELITE_STREAM_AND_OUTPUT_BUFFER_SIZE` renamed to `SQUEEZELITE_BUFFER`

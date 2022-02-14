@@ -84,7 +84,7 @@ jobs:
                 tags: ${{ env.RELEASE_TAGS }}
 
         - name: Docker Hub README & description sync
-            - uses: meeDamian/sync-readme@v1.0.6
+            uses: meeDamian/sync-readme@v1.0.6
             with:
                 user: ${{ secrets.DOCKER_USERNAME }}
                 pass: ${{ secrets.DOCKER_PASSWORD }}

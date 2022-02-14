@@ -88,4 +88,5 @@ jobs:
             with:
                 user: ${{ secrets.DOCKER_USERNAME }}
                 pass: ${{ secrets.DOCKER_PASSWORD }}
+                slug: ${{ secrets.DOCKER_USERNAME }}/squeezelite
                 readme: ./README.md

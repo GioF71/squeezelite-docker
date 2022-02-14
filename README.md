@@ -133,7 +133,7 @@ goldilocks_4x_only|2022-01-19|N|Y|Y|N|N|Setup [goldilocks](https://archimago.blo
 goldilocks_8x_only|2022-01-19|N|Y|Y|N|N|Setup [goldilocks](https://archimago.blogspot.com/2018/01/musings-more-fun-with-digital-filters.html) upsampling for usb dac, along with 8x rates only
 goldilocks_16x_only|2022-01-19|N|Y|Y|N|N|Setup [goldilocks](https://archimago.blogspot.com/2018/01/musings-more-fun-with-digital-filters.html) upsampling for usb dac, along with 16x rates only
 gustard-x12-goldilocks|2022-01-19|Y|Y|Y|N|N|Setup [goldilocks](https://archimago.blogspot.com/2018/01/musings-more-fun-with-digital-filters.html) upsampling for usb dac, up to 384kHz, and also sets output device correctly for a Gustard X12 DAC
-no-dsd|N|N|N|N|N|Y|Exclude dsd codec
+no-dsd|2022-02-14|N|N|N|N|Y|Exclude dsd codec
 
 ## Notable changes to the configuration
 

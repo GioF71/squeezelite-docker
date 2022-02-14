@@ -27,10 +27,11 @@ CMD_LINE="/usr/bin/squeezelite"
 echo "Initializing command line: ["$CMD_LINE"]"
 
 if [ -z "${PRESET}" ]; then
-  echo "Preset has not been specified";
+  echo "No presets have been specified";
 else
   echo "Presets have been specified: ["$PRESET"]";
   echo "Explicitly set properties will not be overridden"
+  echo "Presets are executed in order of appearance"
   echo "Current SQUEEZELITE_AUDIO_DEVICE = $SQUEEZELITE_AUDIO_DEVICE"
   echo "Current SQUEEZELITE_RATES = $SQUEEZELITE_RATES"
   echo "Current SQUEEZELITE_UPSAMPLING = $SQUEEZELITE_UPSAMPLING"
@@ -167,6 +168,13 @@ else
   CMD_LINE="$CMD_LINE -c $SQUEEZELITE_CODECS";
 fi
 
+if [ -z "${SQUEEZELITE_EXCLUDE_CODECS}" ]; then
+  echo "Variable SQUEEZELITE_EXCLUDE_CODECS has not been specified";
+else
+  echo "Variable SQUEEZELITE_EXCLUDE_CODECS has been specified: $SQUEEZELITE_EXCLUDE_CODECS";
+  CMD_LINE="$CMD_LINE -e $SQUEEZELITE_EXCLUDE_CODECS";
+fi
+
 if [ -z "${SQUEEZELITE_PRIORITY}" ]; then
   echo "Variable SQUEEZELITE_PRIORITY has not been specified";
 else
@@ -202,6 +210,4 @@ else
 fi
 
 echo "Command Line: ["$CMD_LINE"]"
-echo $CMD_LINE
-
 eval $CMD_LINE

@@ -24,8 +24,6 @@ rates_up_to_192k="$rate_44-$rate_192"
 rates_up_to_384k="$rate_44-$rate_384"
 rates_up_to_768k="$rate_44-$rate_768"
 
-#rates_96k=$rate_96
-
 device_x20="hw:CARD=x20,DEV=0"
 device_dac="hw:CARD=DAC,DEV=0"
 device_gustard_x12=$device_x20
@@ -47,8 +45,6 @@ presets[extremus.upsampling]=$upsampling_extremus
 
 presets[archimago-goldilocks.upsampling]=$upsampling_goldilocks
 presets[archimago-extremus.upsampling]=$upsampling_extremus
-
-
 
 presets[rates_96k.rates]=$rate_96":"$rate_delay
 presets[rates_2x_only.rates]=$rates_2x_only":"$rate_delay

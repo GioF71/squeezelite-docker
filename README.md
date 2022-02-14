@@ -76,6 +76,7 @@ PRESET|||You can now choose to set variables using predefined presets. Presets c
 SQUEEZELITE_AUDIO_DEVICE|-o||The audio device. Common examples: `hw:CARD=x20,DEV=0` or `hw:CARD=DAC,DEV=0` for usb dac based on XMOS. If left empty, the default alsa device is used.
 SQUEEZELITE_PARAMS|-a||Please refer to the squeezelite's [man page](https://ralph-irving.github.io/squeezelite.html) for `-a`.
 SQUEEZELITE_CODECS|-c||Please refer to the squeezelite's [man page](https://ralph-irving.github.io/squeezelite.html) for `-c`.
+SQUEEZELITE_EXCLUDE_CODECS|-e||Please refer to the squeezelite's [man page](https://ralph-irving.github.io/squeezelite.html) for `-e`.
 SQUEEZELITE_PRIORITY|-p||Please refer to the squeezelite's [man page](https://ralph-irving.github.io/squeezelite.html) for `-p`.
 SQUEEZELITE_DELAY|-D|500|Set it to maybe something like `500,dop` if your DAC supports DoP.
 SQUEEZELITE_NAME|-n||Name of the SqueezeLite player. Use an alphanumeric string without spaces and/or special characters.
@@ -146,6 +147,7 @@ For the new variables introduced over time, see the following table.
 
 New Variable|Availability Date|Comment
 :---|:---|:---
+SQUEEZELITE_EXCLUDE_CODECS|2022-02-14|Added support for configuration option
 SQUEEZELITE_RATES|2021-11-23|Added support for configuration option
 SQUEEZELITE_UPSAMPLING|2021-11-23|Added support for configuration option
 PRESET|2022-01-19|New feature
@@ -325,7 +327,8 @@ Sorry for the inconvenience, this is now fixed.
 
 Release Date|Major Changes
 ---|---
-2022-02-05|Automated builds thanks to [Der-Henning](https://github.com/Der-Henning/), Builds for amd64 also thanks to [Der-Henning](https://github.com/Der-Henning/), the README.md you are reading now is copied to the image under path `/app/doc/README.md`.
+2022-02-14|Added support for excluded codecs (SQUEEZELITE_EXCLUDE_CODECS for the `-e` option).
+2022-02-05|Automated builds thanks to [Der-Henning](https://github.com/Der-Henning/), Builds for arm64 also thanks to [Der-Henning](https://github.com/Der-Henning/), the README.md you are reading now is copied to the image under path `/app/doc/README.md`.
 2022-02-04|Simplified build process (not multistage anymore), reduced image sizes, documented the convenience build.sh script, corrected sourceforge tag names (were 1.9.8 or 1.8 instead of 1.9.9)
 2022-02-02|Allow combination of presets, fixed incorrect mapping for SQUEEZELITE_DELAY, add 'extremus' upsample setting, defined rates presets
 2022-01-30|Added images with SourceForge binaries (version 1.9.9), SQUEEZELITE_STREAM_AND_OUTPUT_BUFFER_SIZE renamed to SQUEEZELITE_BUFFER

@@ -39,7 +39,7 @@ jobs:
                     fi
                 fi
                 if [ "${base}" = "focal" ]; \
-                    then distro_id="ubuntu-focal"; \
+                    then distro_id="focal"; \
                 fi
                 tags="${{secrets.DOCKER_USERNAME}}/squeezelite:${squeezelite_version}${distro_id},${{secrets.DOCKER_USERNAME}}/squeezelite:${squeezelite_version}${distro_id}-${date}"
                 if [ "${base}" = "bullseye" ] && [ "${{ matrix.sourceforge }}" = "Y" ]; then \

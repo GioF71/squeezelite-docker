@@ -49,9 +49,15 @@ ENV SQUEEZELITE_PRIORITY ""
 ENV SQUEEZELITE_STREAM_AND_OUTPUT_BUFFER_SIZE ""
 ENV SQUEEZELITE_BUFFER_SIZE ""
 
+ENV DISPLAY_PRESETS ""
+
 RUN mkdir /app/doc
+RUN mkdir /app/assets
+
+VOLUME '/app/assets/additional-presets.conf'
 
 COPY README.md /app/doc
+COPY app/assets/builtin-presets.conf /app/assets/
 
 WORKDIR /app/bin
 

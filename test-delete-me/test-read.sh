@@ -15,10 +15,24 @@ do
     value=`echo "$(sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//'<<<"${value}")"`
     if [[ -n "$key" && -n "$value" ]]; then 
       echo $key"="$value  
+      custom_presets[$key]=$value
+    elif [ -n "$key" ]; then
+      echo "Empty value"
+    else
+      echo "Invalid key"
     fi
-    IFS=$OLD_IFS
-  else 
-    echo "<<<EMPTY_LINE>>>"
+  #else 
+  #  echo "<<<EMPTY_LINE>>>"
   fi
+  IFS=$OLD_IFS
 done < "$input"
+
+sz=`echo "${#custom_presets[@]}"`
+
+echo "Loaded [$sz] presets"
+
+for key in "${!custom_presets[@]}"; do
+    echo "Key:   ${key}"
+    echo "Value: ${custom_presets[$key]}"
+done
 

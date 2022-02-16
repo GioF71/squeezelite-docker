@@ -1,5 +1,6 @@
 #!/bin/bash
 
+## HARD coded presets
 upsampling_goldilocks="v::4:28:95:105:45"
 upsampling_extremus="v::3.05:28:99.7:100:45"
 rate_delay=200
@@ -15,6 +16,7 @@ rate_384="384000"
 rate_704="705600"
 rate_768="768000"
 
+rates_96k=$rate_96
 rates_2x_only="$rate_88,$rate_96"
 rates_4x_only="$rate_176,$rate_192"
 rates_8x_only="$rate_352,$rate_384"
@@ -24,21 +26,7 @@ rates_up_to_192k="$rate_44-$rate_192"
 rates_up_to_384k="$rate_44-$rate_384"
 rates_up_to_768k="$rate_44-$rate_768"
 
-device_x20="hw:CARD=x20,DEV=0"
-device_dac="hw:CARD=DAC,DEV=0"
-device_gustard_x12=$device_x20
-device_topping_d10="hw:CARD=D10,DEV=0"
-device_hifiberry_dac_plus="hw:CARD=sndrpihifiberry,DEV=0"
-device_fiio_e18="hw:CARD=DACE18,DEV=0"
-
 declare -A presets
-
-presets[dac.device]=$device_dac
-presets[x20.device]=$device_x20
-presets[topping-d10.device]=$device_topping_d10
-presets[hifiberry-dac-plus.device]=$device_hifiberry_dac_plus
-presets[gustard-x12.device]=$device_gustard_x12
-presets[fiio-e18]=$device_fiio_e18
 
 presets[goldilocks.upsampling]=$upsampling_goldilocks
 presets[extremus.upsampling]=$upsampling_extremus
@@ -80,8 +68,35 @@ presets[goldilocks_up_to_384k.upsampling]=$upsampling_goldilocks
 presets[goldilocks_up_to_768k.rates]=$rates_up_to_768k":"$rate_delay
 presets[goldilocks_up_to_768k.upsampling]=$upsampling_goldilocks
 
-presets[gustard-x12-goldilocks.device]=$device_x20
-presets[gustard-x12-goldilocks.rates]=$rates_up_to_384k":"$rate_delay
-presets[gustard-x12-goldilocks.upsampling]=$upsampling_goldilocks
+function load_preset_file() {
+    echo "Loading $2 Presets..."
+    while IFS= read -r line
+    do
+        if [[ -n "$line" && ! $line = \#* ]]; then
+            key="$(cut -d '=' -f1 <<< ${line})"
+            keyLen=`echo ${#key}`
+            value=${line#*=} 
+            echo "Loading preset [$key]=[$value]"
+            presets[$key]=$value
+    fi
+    done < "$1"
+    echo "Finished loading $2 presets"
+}
 
-presets[no-dsd.exclude-codecs]=dsd
+# load presets
+load_preset_file "/app/assets/builtin-presets.conf" "built-in"
+
+additional_presets_file="/app/assets/additional-presets.conf"
+if [ -f $additional_presets_file ]; then
+    load_preset_file $additional_presets_file "additional"
+else
+    echo "No additional preset file found"
+fi
+
+sz=`echo "${#presets[@]}"`
+echo "There are [$sz] available presets"
+if [[ "${DISPLAY_PRESETS}" == "Y" || "${DISPLAY_PRESETS}" == "y" ]]; then  
+    for key in "${!presets[@]}"; do
+        echo "PRESET ["$key"]=["${presets[$key]}"]"
+    done
+fi

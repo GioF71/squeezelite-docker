@@ -88,10 +88,59 @@ SQUEEZELITE_RATES|-r||From squeezelite's [man page](https://ralph-irving.github.
 SQUEEZELITE_UPSAMPLING|-u, -R||From squeezelite's [man page](https://ralph-irving.github.io/squeezelite.html) for `-u`, same as `-R`: Enable upsampling of played audio. The argument is optional; see RESAMPLING for more information. The options `-u` and `-R` are synonymous.
 SQUEEZELITE_BUFFER_SIZE|-b||From squeezelite's [man page](https://ralph-irving.github.io/squeezelite.html) for `-b`: Specify internal stream and output buffer sizes in kilobytes. Default is 2048:3446.
 STARTUP_DELAY_SEC||0|Delay before starting the application. This can be useful if your container is set up to start automatically, so that you can resolve race conditions with mpd and with squeezelite if all those services run on the same audio device. I experienced issues with my Asus Tinkerboard, while the Raspberry Pi has never really needed this. Your mileage may vary. Feel free to report your personal experience.
+DISPLAY_PRESETS|||Set to Y if you want to see the presets on the container output
+
+It is possible to add and additional preset configuration file using the volume `/app/assets/additional-presets.conf`.
+
+## Volumes
+
+Volume|Description
+:---|:---
+/app/assets/additional-presets.conf|Additional preset file
+
+### Additional preset file
+
+A preset file is a text file with a pair `key=value` on each line.
+You can specify `.device`, `.upsampling`, `.rates`, `.codecs`, `.exclude-codecs` for each preset.
+Just check `/app/assets/builtin-presets.conf` to understand how to create the other presets you might want to add.
+Blank lines are allowed, as well as commented lines.
+
+For example, the following file defines a preset named `fancy-usb-dac` for a specific dac:
+
+```text
+# my super-fancy-hi-end dac
+super-amazing-dac.device="hw:CARD=super-amazing-dac,DEV=0"
+```
+
+### Example docker-compose with an additional preset file
+
+See a docker-compose example using an additional preset file. The example assumes that the additional preset file is `./config/additional.conf`.
+The additional preset file is used in combination with other presets for [upsampling](#upsampling) using the [goldilocks](https://archimago.blogspot.com/2018/01/musings-more-fun-with-digital-filters.html) settings: `archimago-goldilocks` and `rates_up_to_384k`:
+
+```code
+---
+version: "3"
+
+services:
+  squeezelite-super-amazing-dac:
+    image: giof71/squeezelite:latest
+    container_name: squeezelite-super-amazing-dac
+    devices:
+      - /dev/snd:/dev/snd
+    environment:
+      - PRESET=super-amazing-dac,archimago-goldilocks,rates_up_to_384k
+      - SQUEEZELITE_NAME=super-amazing-dac
+      - SQUEEZELITE_SERVER_PORT=192.168.1.10
+      - DISPLAY_PRESETS=Y
+    volumes:
+      - ./config/additional.conf:/app/assets/additional-presets.conf
+```
+
+See the [Available presets](#available-presets) table for reference.
 
 ## Upsampling
 
-In case you want to adopt Archimago's 'Goldilocks' suggestion, the variables should be set as in the following table. Refer to the line which resembles the capabilities of your audio device.
+In case you want to apply the [Archimago's Goldilocks](https://archimago.blogspot.com/2018/01/musings-more-fun-with-digital-filters.html) suggestion, the variables should be set as in the following table. Refer to the line which resembles the capabilities of your audio device.
 
 Variable|Audio Device Capabilities|Suggested value
 :---|:---:|:---
@@ -112,6 +161,8 @@ x20|2022-02-02|Device|Sets device for typical xmos dac named "x20"
 topping-d10|2022-02-02|Device|Sets device for Topping D10 Dac
 gustard-x12|2022-02-02|Device|Sets device for Gustard X12 DAC
 hifiberry-dac-plus|2022-02-02|Device|Sets device for the HifiBerry Dac+
+ifi-zen-dac|2022-02-16|Device|Sets device for the Ifi Zen Dac
+fiio-e18|2022-02-16|Device|Sets device for a Fiio E18 Dac
 goldilocks|2022-01-19|Upsampling|Setup [goldilocks](https://archimago.blogspot.com/2018/01/musings-more-fun-with-digital-filters.html) upsampling for usb dac, rates must be set with another preset or explicitly using the variable `SQUEEZELITE_RATES`. Corresponds to `v::4:28:95:105:45`
 extremus|2022-01-19|Upsampling|Setup [extremus](https://archimago.blogspot.com/2018/11/musings-raspberry-pi-3-b-touch.html) upsampling for usb dac, rates must be set with another preset or explicitly using the variable `SQUEEZELITE_RATES`. Corresponds to `v::3.05:28:99.7:100:45`
 archimago-goldilocks|2022-02-04|Upsampling|Alias for `goldilocks`, name feels more appropriate
@@ -326,23 +377,53 @@ Sorry for the inconvenience, this is now fixed.
 
 ## Release History
 
-Release Date|Major Changes
+### 2022-02-16
+
+Feature|Description
 :---|:---
-2022-02-14|Reviewed the preset table layout on `README.md` file (docker hub compatibitily)
-2022-02-14|Added automatic synchronization of `README.md` file with the corresponding [repository](https://hub.docker.com/r/giof71/squeezelite) on [Docker Hub](https://hub.docker.com)
-2022-02-14|Focal tag is now `focal` instead of `ubuntu-focal`
-2022-02-14|Added preset `no-dsd` which excludes DSD codec
-2022-02-14|Added support for excluded codecs (environment variable `SQUEEZELITE_EXCLUDE_CODECS` for the `-e` option)
-2022-02-05|Automated builds thanks to [Der-Henning](https://github.com/Der-Henning/)
-2022-02-05|Builds for arm64 now available also thanks to [Der-Henning](https://github.com/Der-Henning/)
-2022-02-05|The `README.md` file is copied to the image at the path `/app/doc/README.md`
-2022-02-04|Simplified build process (not multistage anymore)
-2022-02-04|Reduced image sizes
-2022-02-04|Documented the convenience build.sh script
-2022-02-04|Corrected sourceforge tag names: sourceforge tags names were wrongly suggesting that the included SqueezeLite binary was at version 1.9.8 or 1.8 instead of version 1.9.9
-2022-02-02|Allowed combination of presets
-2022-02-02|Fixed incorrect mapping for SQUEEZELITE_DELAY
-2022-02-02|Added `extremus` upsample setting
-2022-02-02|Rate presets defined
-2022-01-30|Added images with SourceForge binaries (version 1.9.9)
-2022-01-30|Variable `SQUEEZELITE_STREAM_AND_OUTPUT_BUFFER_SIZE` renamed to `SQUEEZELITE_BUFFER`
+Reviewed the presets loading mechanism|Defined a `builtin-presets.conf` file
+Add DISPLAY_PRESETS environment variable|Allows to see all the preset values
+Allow custom preset files through the volume `/app/assets/additional-presets.conf`|You can now inject custom presets for greater customizability
+
+### 2022-02-14
+
+Feature|Description
+:---|:---
+Preset table documentation|Reviewed the preset table layout on `README.md` file (docker hub compatibitily)
+README.md sync|Added automatic synchronization of `README.md` file with the corresponding [repository](https://hub.docker.com/r/giof71/squeezelite) on [Docker Hub](https://hub.docker.com)
+Tag fragment `focal` tag|Focal tag is now `focal` instead of `ubuntu-focal`
+Preset to disable dsd|Added preset `no-dsd` which excludes DSD codec
+Excluded codecs|Added support for excluded codecs (environment variable `SQUEEZELITE_EXCLUDE_CODECS` for the `-e` option)
+
+### 2022-02-05
+
+Feature|Description
+:---|:---
+Automated builds|Automated builds thanks to [Der-Henning](https://github.com/Der-Henning/)
+Arm64 support|Builds for arm64 now available also thanks to [Der-Henning](https://github.com/Der-Henning/)
+README.md inclusion|The `README.md` file is copied to the image at the path `/app/doc/README.md`
+
+### 2022-02-04
+
+Feature|Description
+:---|:---
+Build simplified|Simplified build process (not multistage anymore)
+Image size reduction|Reduced image sizes (one line installation)
+Convenience script doc|Documented the convenience build.sh script
+Sourceforge tag correction|Corrected sourceforge tag names: sourceforge tags names were wrongly suggesting that the included SqueezeLite binary was at version 1.9.8 or 1.8 instead of version 1.9.9
+
+### 2022-02-02
+
+Feature|Description
+:---|:---
+Preset combination|Allowed combination of presets
+SQUEEZELITE_DELAY fix|Fixed incorrect mapping for SQUEEZELITE_DELAY
+`extremus` upsampling|Added `extremus` upsample setting
+Rates|Rate presets defined
+
+### 2022-01-30
+
+Feature|Description
+:---|:---
+Sourceforce|Added images with SourceForge binaries (version 1.9.9)
+SQUEEZELITE_BUFFER|Variable `SQUEEZELITE_STREAM_AND_OUTPUT_BUFFER_SIZE` renamed to `SQUEEZELITE_BUFFER`

@@ -87,8 +87,11 @@ SQUEEZELITE_SERVER_PORT|-s||Server and port of the server, for example: `squeeze
 SQUEEZELITE_RATES|-r||From squeezelite's [man page](https://ralph-irving.github.io/squeezelite.html) for `-r`: Specify sample rates supported by the output device; this is required if the output device is switched off when squeezelite is started. The format is either a single maximum sample rate, a range of sample rates in the format `<min>-<max>`, or a comma-separated list of available rates. Delay is an optional time to wait when switching sample rates between tracks, in milliseconds. Switch back to the author of this repository: it is recommended to specify sample rates that are effectively supported by your audio device.
 SQUEEZELITE_UPSAMPLING|-u, -R||From squeezelite's [man page](https://ralph-irving.github.io/squeezelite.html) for `-u`, same as `-R`: Enable upsampling of played audio. The argument is optional; see RESAMPLING for more information. The options `-u` and `-R` are synonymous.
 SQUEEZELITE_BUFFER_SIZE|-b||From squeezelite's [man page](https://ralph-irving.github.io/squeezelite.html) for `-b`: Specify internal stream and output buffer sizes in kilobytes. Default is 2048:3446.
-STARTUP_DELAY_SEC||0|Delay before starting the application. This can be useful if your container is set up to start automatically, so that you can resolve race conditions with mpd and with squeezelite if all those services run on the same audio device. I experienced issues with my Asus Tinkerboard, while the Raspberry Pi has never really needed this. Your mileage may vary. Feel free to report your personal experience.
 DISPLAY_PRESETS|||Set to Y if you want to see the presets on the container output
+SQUEEZELITE_VOLUME_CONTROL|-V||From squeezelite's [man page](https://ralph-irving.github.io/squeezelite.html) for `-V`: Use the given ALSA `control` for volume adjustment during playback. This prevents the use of software volume control within squeezelite. This option is mutually exclusive with the `-U` option. If neither `-U` nor `-V` options are provided, no ALSA controls are adjusted while running squeezelite and software volume control is used instead. Only applicable when using ALSA output.
+SQUEEZELITE_UNMUTE|-U||From squeezelite's [man page](https://ralph-irving.github.io/squeezelite.html) for `-U`: Unmute the given ALSA `control` at daemon startup and set it to full volume. Use software volume adjustment for playback. This option is mutually exclusive with the -V option. Only applicable when using ALSA output.
+SQUEEZELITE_LINEAR_VOLUME|-X||Set to `Y` to enable. From squeezelite's [man page](https://ralph-irving.github.io/squeezelite.html) for `-X`: Use linear volume adjustments instead of in terms of dB (only for hardware volume control).
+STARTUP_DELAY_SEC||0|Delay before starting the application. This can be useful if your container is set up to start automatically, so that you can resolve race conditions with mpd and with squeezelite if all those services run on the same audio device. Also, it might be useful if you want to use multiple squeezelite instances on the same host, by enabling you to stagger the start process of the containers. I observed that Logitech Media Server tends to not apply the existing settings (specifically volume and last.fm scrobbling in my case) to the devices if there are more than one on the same host, so staggering the startup process seems to resolve the issue.
 
 It is possible to add and additional preset configuration file using the volume `/app/assets/additional-presets.conf`.
 
@@ -211,6 +214,9 @@ SQUEEZELITE_MAC_ADDRESS|2022-01-21|Added support for configuration option
 SQUEEZELITE_MODEL_NAME|2022-01-21|Added support for configuration option
 SQUEEZELITE_STREAM_AND_OUTPUT_BUFFER_SIZE|2022-01-21|Added support for configuration option
 SQUEEZELITE_BUFFER_SIZE|2022-01-24|Previous variable was too long.
+SQUEEZELITE_VOLUME_CONTROL|2022-02-23|Added support for configuration option
+SQUEEZELITE_UNMUTE|2022-02-23|Added support for configuration option
+SQUEEZELITE_LINEAR_VOLUME|2022-02-23|Added support for configuration option
 
 ## A few examples
 
@@ -336,7 +342,7 @@ You can build (or rebuild) the image by opening a terminal and using the conveni
 This script accepts a few parameters:
 
 Parameter|Default|Description
-:---|:---:|:---
+:---:|:---:|:---
 -d|N|Use repository (`N`) or download from SourceForge (`Y`)
 -b|bullseye|Base image, you can choose among `bullseye`, `buster` and `focal`
 -t|latest|The last part of the tag, by default it will be giof71/squeezelite:latest
@@ -377,6 +383,14 @@ Sorry for the inconvenience, this is now fixed.
 
 ## Release History
 
+### 2022-02-23
+
+Feature|Description
+:---|:---
+Repo update|The command `apt-get upgrade` is executed during the image build phase, so the image is up-to-date with the most current packages available at the release date
+Add Volume Control support|Add support for the unmute `-V` switch (See the `SQUEEZELITE_VOLUME_CONTROL` variable)
+Add Unmute support|Add support for the unmute `-U` switch (See the `SQUEEZELITE_UNMUTE` variable)
+Add Linear volume adjustment support|Add support for linear volume adjustments using the `-X` switch (See the `SQUEEZELITE_LINEAR_VOLUME` variable)
 ### 2022-02-16
 
 Feature|Description

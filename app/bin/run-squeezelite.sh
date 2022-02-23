@@ -239,5 +239,37 @@ else
   CMD_LINE="$CMD_LINE -b $SQUEEZELITE_BUFFER_SIZE";
 fi
 
+if [ -z "${SQUEEZELITE_UNMUTE}" ]; then
+  echo "Variable SQUEEZELITE_UNMUTE not specified";
+else
+  echo "Variable SQUEEZELITE_UNMUTE specified: $SQUEEZELITE_UNMUTE";
+  CMD_LINE="$CMD_LINE -U $SQUEEZELITE_UNMUTE";
+fi
+
+if [ -z "${SQUEEZELITE_VOLUME_CONTROL}" ]; then
+  echo "Variable SQUEEZELITE_VOLUME_CONTROL not specified";
+else
+  echo "Variable SQUEEZELITE_VOLUME_CONTROL specified: $SQUEEZELITE_VOLUME_CONTROL";
+  CMD_LINE="$CMD_LINE -V $SQUEEZELITE_VOLUME_CONTROL";
+fi
+
+if [ -z "${SQUEEZELITE_LINEAR_VOLUME}" ]; then
+  echo "Variable SQUEEZELITE_LINEAR_VOLUME not specified";
+else
+  echo "Variable SQUEEZELITE_LINEAR_VOLUME specified: $SQUEEZELITE_LINEAR_VOLUME";
+  linear=${SQUEEZELITE_LINEAR_VOLUME^^}
+  echo "linear: $linear";
+  if [ "$linear" == "Y" ]; then
+    echo "Variable SQUEEZELITE_LINEAR_VOLUME set to enabled.";
+    CMD_LINE="$CMD_LINE -X";
+  else 
+    if [ "$linear" == "N" ]; then
+      echo "Variable SQUEEZELITE_LINEAR_VOLUME set to disabled.";
+    else
+      echo "Variable SQUEEZELITE_LINEAR_VOLUME invalid value: $SQUEEZELITE_LINEAR_VOLUME";
+    fi
+  fi
+fi
+
 echo "Command Line: ["$CMD_LINE"]"
 eval $CMD_LINE

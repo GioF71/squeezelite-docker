@@ -27,10 +27,11 @@ CMD_LINE="/usr/bin/squeezelite"
 echo "Initializing command line: ["$CMD_LINE"]"
 
 if [ -z "${PRESET}" ]; then
-  echo "Preset has not been specified";
+  echo "No presets have been specified";
 else
   echo "Presets have been specified: ["$PRESET"]";
   echo "Explicitly set properties will not be overridden"
+  echo "Presets are executed in order of appearance"
   echo "Current SQUEEZELITE_AUDIO_DEVICE = $SQUEEZELITE_AUDIO_DEVICE"
   echo "Current SQUEEZELITE_RATES = $SQUEEZELITE_RATES"
   echo "Current SQUEEZELITE_UPSAMPLING = $SQUEEZELITE_UPSAMPLING"
@@ -86,12 +87,42 @@ else
       else
         echo "SQUEEZELITE_UPSAMPLING already set to ["$SQUEEZELITE_UPSAMPLING"]"
       fi
+      # codecs in preset
+      if [[ -z "${SQUEEZELITE_CODECS}" || "${SQUEEZELITE_CODECS}" == "" ]]; then
+        current_key=$current_preset".codecs"
+        current_value=${presets[${current_key}]}
+        if [[ -v current_value ]]; then
+          current_value=${presets[${current_key}]}
+          echo "Setting SQUEEZELITE_CODECS to ["$current_value"]"
+          SQUEEZELITE_CODECS=$current_value
+        else
+          echo "Key ["$current_key"] not found"
+        fi
+      else
+        echo "SQUEEZELITE_CODECS already set to ["$SQUEEZELITE_CODECS"]"
+      fi
+      # exclude codecs in preset
+      if [[ -z "${SQUEEZELITE_EXCLUDE_CODECS}" || "${SQUEEZELITE_EXCLUDE_CODECS}" == "" ]]; then
+        current_key=$current_preset".exclude-codecs"
+        current_value=${presets[${current_key}]}
+        if [[ -v current_value ]]; then
+          current_value=${presets[${current_key}]}
+          echo "Setting SQUEEZELITE_EXCLUDE_CODECS to ["$current_value"]"
+          SQUEEZELITE_EXCLUDE_CODECS=$current_value
+        else
+          echo "Key ["$current_key"] not found"
+        fi
+      else
+        echo "SQUEEZELITE_EXCLUDE_CODECS already set to ["$SQUEEZELITE_EXCLUDE_CODECS"]"
+      fi
     fi
   done;
   # summary of preset values
   echo "Final SQUEEZELITE_AUDIO_DEVICE = $SQUEEZELITE_AUDIO_DEVICE"
   echo "Final SQUEEZELITE_RATES = $SQUEEZELITE_RATES"
   echo "Final SQUEEZELITE_UPSAMPLING = $SQUEEZELITE_UPSAMPLING"
+  echo "Final SQUEEZELITE_CODECS = $SQUEEZELITE_CODECS"
+  echo "Final SQUEEZELITE_EXCLUDE_CODECS = $SQUEEZELITE_EXCLUDE_CODECS"
 fi
 
 if [ -z "${SQUEEZELITE_AUDIO_DEVICE}" ]; then
@@ -167,6 +198,13 @@ else
   CMD_LINE="$CMD_LINE -c $SQUEEZELITE_CODECS";
 fi
 
+if [ -z "${SQUEEZELITE_EXCLUDE_CODECS}" ]; then
+  echo "Variable SQUEEZELITE_EXCLUDE_CODECS has not been specified";
+else
+  echo "Variable SQUEEZELITE_EXCLUDE_CODECS has been specified: $SQUEEZELITE_EXCLUDE_CODECS";
+  CMD_LINE="$CMD_LINE -e $SQUEEZELITE_EXCLUDE_CODECS";
+fi
+
 if [ -z "${SQUEEZELITE_PRIORITY}" ]; then
   echo "Variable SQUEEZELITE_PRIORITY has not been specified";
 else
@@ -201,7 +239,37 @@ else
   CMD_LINE="$CMD_LINE -b $SQUEEZELITE_BUFFER_SIZE";
 fi
 
-echo "Command Line: ["$CMD_LINE"]"
-echo $CMD_LINE
+if [ -z "${SQUEEZELITE_UNMUTE}" ]; then
+  echo "Variable SQUEEZELITE_UNMUTE not specified";
+else
+  echo "Variable SQUEEZELITE_UNMUTE specified: $SQUEEZELITE_UNMUTE";
+  CMD_LINE="$CMD_LINE -U $SQUEEZELITE_UNMUTE";
+fi
 
+if [ -z "${SQUEEZELITE_VOLUME_CONTROL}" ]; then
+  echo "Variable SQUEEZELITE_VOLUME_CONTROL not specified";
+else
+  echo "Variable SQUEEZELITE_VOLUME_CONTROL specified: $SQUEEZELITE_VOLUME_CONTROL";
+  CMD_LINE="$CMD_LINE -V $SQUEEZELITE_VOLUME_CONTROL";
+fi
+
+if [ -z "${SQUEEZELITE_LINEAR_VOLUME}" ]; then
+  echo "Variable SQUEEZELITE_LINEAR_VOLUME not specified";
+else
+  echo "Variable SQUEEZELITE_LINEAR_VOLUME specified: $SQUEEZELITE_LINEAR_VOLUME";
+  linear=${SQUEEZELITE_LINEAR_VOLUME^^}
+  echo "linear: $linear";
+  if [ "$linear" == "Y" ]; then
+    echo "Variable SQUEEZELITE_LINEAR_VOLUME set to enabled.";
+    CMD_LINE="$CMD_LINE -X";
+  else 
+    if [ "$linear" == "N" ]; then
+      echo "Variable SQUEEZELITE_LINEAR_VOLUME set to disabled.";
+    else
+      echo "Variable SQUEEZELITE_LINEAR_VOLUME invalid value: $SQUEEZELITE_LINEAR_VOLUME";
+    fi
+  fi
+fi
+
+echo "Command Line: ["$CMD_LINE"]"
 eval $CMD_LINE

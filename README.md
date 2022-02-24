@@ -72,25 +72,78 @@ The following tables reports all the currently supported environment variables.
 
 Variable|SqueezeLite corresponding option|Default|Notes
 :---|:---:|:---:|:---
-PRESET|||You can now choose to set variables using predefined presets. Presets can currently tune the values of `SQUEEZELITE_AUDIO_DEVICE`, `SQUEEZELITE_RATES` and `SQUEEZELITE_UPSAMPLING` for you. See the [Available presets](#available-presets) table for reference. Presets can be combined (the separator must be a comma `,`), but keep in mind that the first preset setting a variable has the priority: that variable cannot be overwritten by other presets.
+PRESET|||You can now choose to set variables using predefined presets. Presets can currently tune the values of `SQUEEZELITE_AUDIO_DEVICE`, `SQUEEZELITE_RATES`, `SQUEEZELITE_UPSAMPLING`, `SQUEEZELITE_CODECS` and `SQUEEZELITE_EXCLUDE_CODECS` for you. See the [Available presets](#available-presets) table for reference. Presets can be combined (the separator must be a comma `,`), but keep in mind that the first preset setting a variable has the priority: one set by a preset, a variable cannot be overwritten by subsequent presets.
 SQUEEZELITE_AUDIO_DEVICE|-o||The audio device. Common examples: `hw:CARD=x20,DEV=0` or `hw:CARD=DAC,DEV=0` for usb dac based on XMOS. If left empty, the default alsa device is used.
-SQUEEZELITE_PARAMS|-a||Please refer to the squeezelite's [man page](https://ralph-irving.github.io/squeezelite.html) for `-a`.
-SQUEEZELITE_CODECS|-c||Please refer to the squeezelite's [man page](https://ralph-irving.github.io/squeezelite.html) for `-c`.
-SQUEEZELITE_PRIORITY|-p||Please refer to the squeezelite's [man page](https://ralph-irving.github.io/squeezelite.html) for `-p`.
+SQUEEZELITE_PARAMS|-a||Please refer to the squeezelite's man page for `-a`.
+SQUEEZELITE_CODECS|-c||Please refer to the squeezelite's man page for `-c`.
+SQUEEZELITE_EXCLUDE_CODECS|-e||Please refer to the squeezelite's man page for `-e`.
+SQUEEZELITE_PRIORITY|-p||Please refer to the squeezelite's man page for `-p`.
 SQUEEZELITE_DELAY|-D|500|Set it to maybe something like `500,dop` if your DAC supports DoP.
 SQUEEZELITE_NAME|-n||Name of the SqueezeLite player. Use an alphanumeric string without spaces and/or special characters.
 SQUEEZELITE_MODEL_NAME|-M||Name of the SqueezeLite model name. Use an alphanumeric string without spaces and/or special characters.
 SQUEEZELITE_MAC_ADDRESS|-m||Mac Address of the SqueezeLite player. The format must be colon-delimited hexadecimal, for example: `ab:cd:ef:12:34:56`.
 SQUEEZELITE_TIMEOUT|-C|2|Device timeout in seconds.
 SQUEEZELITE_SERVER_PORT|-s||Server and port of the server, for example: `squeezebox-server.local:3483` or `192.168.1.10:3483`. Do not specify the variable if you want to use the auto discovery feature. If you don't specify this variable, you will probably need to use host network mode. See the examples for some hints. The port can be omitted if not different from the default `3483`. So other possible valid values are `squeezebox-server.local` or `192.168.1.10`.
-SQUEEZELITE_RATES|-r||From squeezelite's [man page](https://ralph-irving.github.io/squeezelite.html) for `-r`: Specify sample rates supported by the output device; this is required if the output device is switched off when squeezelite is started. The format is either a single maximum sample rate, a range of sample rates in the format `<min>-<max>`, or a comma-separated list of available rates. Delay is an optional time to wait when switching sample rates between tracks, in milliseconds. Switch back to the author of this repository: it is recommended to specify sample rates that are effectively supported by your audio device.
-SQUEEZELITE_UPSAMPLING|-u, -R||From squeezelite's [man page](https://ralph-irving.github.io/squeezelite.html) for `-u`, same as `-R`: Enable upsampling of played audio. The argument is optional; see RESAMPLING for more information. The options `-u` and `-R` are synonymous.
-SQUEEZELITE_BUFFER_SIZE|-b||From squeezelite's [man page](https://ralph-irving.github.io/squeezelite.html) for `-b`: Specify internal stream and output buffer sizes in kilobytes. Default is 2048:3446.
-STARTUP_DELAY_SEC||0|Delay before starting the application. This can be useful if your container is set up to start automatically, so that you can resolve race conditions with mpd and with squeezelite if all those services run on the same audio device. I experienced issues with my Asus Tinkerboard, while the Raspberry Pi has never really needed this. Your mileage may vary. Feel free to report your personal experience.
+SQUEEZELITE_RATES|-r||From squeezelite's man page for `-r`: Specify sample rates supported by the output device; this is required if the output device is switched off when squeezelite is started. The format is either a single maximum sample rate, a range of sample rates in the format `<min>-<max>`, or a comma-separated list of available rates. Delay is an optional time to wait when switching sample rates between tracks, in milliseconds. Switch back to the author of this repository: it is recommended to specify sample rates that are effectively supported by your audio device.
+SQUEEZELITE_UPSAMPLING|-u, -R||From squeezelite's man page for `-u`, same as `-R`: Enable upsampling of played audio. The argument is optional; see RESAMPLING for more information. The options `-u` and `-R` are synonymous.
+SQUEEZELITE_BUFFER_SIZE|-b||From squeezelite's man page for `-b`: Specify internal stream and output buffer sizes in kilobytes. Default is 2048:3446.
+DISPLAY_PRESETS|||Set to Y if you want to see the presets on the container output
+SQUEEZELITE_VOLUME_CONTROL|-V||From squeezelite's man page for `-V`: Use the given ALSA `control` for volume adjustment during playback. This prevents the use of software volume control within squeezelite. This option is mutually exclusive with the `-U` option. If neither `-U` nor `-V` options are provided, no ALSA controls are adjusted while running squeezelite and software volume control is used instead. Only applicable when using ALSA output.
+SQUEEZELITE_UNMUTE|-U||From squeezelite's man page for `-U`: Unmute the given ALSA `control` at daemon startup and set it to full volume. Use software volume adjustment for playback. This option is mutually exclusive with the -V option. Only applicable when using ALSA output.
+SQUEEZELITE_LINEAR_VOLUME|-X||Set to `Y` to enable. From squeezelite's man page for `-X`: Use linear volume adjustments instead of in terms of dB (only for hardware volume control).
+STARTUP_DELAY_SEC||0|Delay before starting the application. This can be useful if your container is set up to start automatically, so that you can resolve race conditions with mpd and with squeezelite if all those services run on the same audio device. Also, it might be useful if you want to use multiple squeezelite instances on the same host, by enabling you to stagger the start process of the containers. I observed that Logitech Media Server tends to not apply the existing settings (specifically volume and last.fm scrobbling in my case) to the devices if there are more than one on the same host, so staggering the startup process seems to resolve the issue.
+
+It is possible to add and additional preset configuration file using the volume `/app/assets/additional-presets.conf`.
+
+## Volumes
+
+Volume|Description
+:---|:---
+/app/assets/additional-presets.conf|Additional preset file
+
+### Additional preset file
+
+A preset file is a text file with a pair `key=value` on each line.
+You can specify `.device`, `.upsampling`, `.rates`, `.codecs`, `.exclude-codecs` for each preset.
+Just check `/app/assets/builtin-presets.conf` to understand how to create the other presets you might want to add.
+Blank lines are allowed, as well as commented lines.
+
+For example, the following file defines a preset named `fancy-usb-dac` for a specific dac:
+
+```text
+# my super-fancy-hi-end dac
+super-amazing-dac.device="hw:CARD=super-amazing-dac,DEV=0"
+```
+
+### Example docker-compose with an additional preset file
+
+See a docker-compose example using an additional preset file. The example assumes that the additional preset file is `./config/additional.conf`.
+The additional preset file is used in combination with other presets for [upsampling](#upsampling) using the goldilocks settings: `archimago-goldilocks` and `rates_up_to_384k`:
+
+```code
+---
+version: "3"
+
+services:
+  squeezelite-super-amazing-dac:
+    image: giof71/squeezelite:latest
+    container_name: squeezelite-super-amazing-dac
+    devices:
+      - /dev/snd:/dev/snd
+    environment:
+      - PRESET=super-amazing-dac,archimago-goldilocks,rates_up_to_384k
+      - SQUEEZELITE_NAME=super-amazing-dac
+      - SQUEEZELITE_SERVER_PORT=192.168.1.10
+      - DISPLAY_PRESETS=Y
+    volumes:
+      - ./config/additional.conf:/app/assets/additional-presets.conf
+```
+
+See the [Available presets](#available-presets) table for reference.
 
 ## Upsampling
 
-In case you want to adopt Archimago's 'Goldilocks' suggestion, the variables should be set as in the following table. Refer to the line which resembles the capabilities of your audio device.
+In case you want to apply the [Archimago's Goldilocks](https://archimago.blogspot.com/2018/01/musings-more-fun-with-digital-filters.html) suggestion, the variables should be set as in the following table. Refer to the line which resembles the capabilities of your audio device.
 
 Variable|Audio Device Capabilities|Suggested value
 :---|:---:|:---
@@ -104,34 +157,37 @@ The `SQUEEZELITE_RATES` displayed here are provided just as an example. You stil
 
 ## Available presets
 
-Preset name|Availability date|Set Device|Set Rates|Set Upsampling|Comment
-:---|:---:|:---:|:---:|:---:|:---
-dac|2022-02-02|Y|N|N|Sets device for typical xmos dac named "DAC"
-x20|2022-02-02|Y|N|N|Sets device for typical xmos dac named "x20"
-topping-d10|2022-02-02|Y|N|N|Sets device for Topping D10 Dac
-gustard-x12|2022-02-02|Y|N|N|Sets device for Gustard X12 DAC
-hifiberry-dac-plus|2022-02-02|Y|N|N|Sets device for the HifiBerry Dac+
-goldilocks|2022-01-19|N|N|Y|Setup [goldilocks](https://archimago.blogspot.com/2018/01/musings-more-fun-with-digital-filters.html) upsampling for usb dac, rates must be set with another preset or explicitly using the variable `SQUEEZELITE_RATES`. Corresponds to `v::4:28:95:105:45`
-extremus|2022-01-19|N|N|Y|Setup [extremus](https://archimago.blogspot.com/2018/11/musings-raspberry-pi-3-b-touch.html) upsampling for usb dac, rates must be set with another preset or explicitly using the variable `SQUEEZELITE_RATES`. Corresponds to `v::3.05:28:99.7:100:45`
-archimago-goldilocks|2022-02-04|N|N|Y|Alias for `goldilocks`, name feels more appropriate
-archimago-extremus|2022-02-04|N|N|Y|Alias for `extremus`, name feels more appropriate
-rates_up_to_96k|2022-02-02|N|Y|N|Set rates to `44100-96000`
-rates_up_to_192k|2022-02-02|N|Y|N|Set rates to `44100-192000`
-rates_up_to_384k|2022-02-02|N|Y|N|Set rates to `44100-384000`
-rates_up_to_768k|2022-02-02|N|Y|N|Set rates to `44100-768000`
-rates_2x_only|2022-02-02|N|Y|N|Set rates to `88200,96000`
-rates_4x_only|2022-02-02|N|Y|N|Set rates to `176400,192000`
-rates_8x_only|2022-02-02|N|Y|N|Set rates to `352800,384000`
-rates_16x_only|2022-02-02|N|Y|N|Set rates to `705600,768000`
-goldilocks_up_to_96k|2022-01-19|N|Y|Y|Setup [goldilocks](https://archimago.blogspot.com/2018/01/musings-more-fun-with-digital-filters.html) upsampling for usb dac, up to 96kHz
-goldilocks_up_to_192k|2022-01-19|N|Y|Y|Setup [goldilocks](https://archimago.blogspot.com/2018/01/musings-more-fun-with-digital-filters.html) upsampling for usb dac, up to 192kHz
-goldilocks_up_to_384k|2022-01-19|N|Y|Y|Setup [goldilocks](https://archimago.blogspot.com/2018/01/musings-more-fun-with-digital-filters.html) upsampling for usb dac, up to 384kHz
-goldilocks_up_to_768k|2022-01-19|N|Y|Y|Setup [goldilocks](https://archimago.blogspot.com/2018/01/musings-more-fun-with-digital-filters.html) upsampling for usb dac, up to 768kHz
-goldilocks_2x_only|2022-01-19|N|Y|Y|Setup [goldilocks](https://archimago.blogspot.com/2018/01/musings-more-fun-with-digital-filters.html) upsampling for usb dac, along with 2x rates only
-goldilocks_4x_only|2022-01-19|N|Y|Y|Setup [goldilocks](https://archimago.blogspot.com/2018/01/musings-more-fun-with-digital-filters.html) upsampling for usb dac, along with 4x rates only
-goldilocks_8x_only|2022-01-19|N|Y|Y|Setup [goldilocks](https://archimago.blogspot.com/2018/01/musings-more-fun-with-digital-filters.html) upsampling for usb dac, along with 8x rates only
-goldilocks_16x_only|2022-01-19|N|Y|Y|Setup [goldilocks](https://archimago.blogspot.com/2018/01/musings-more-fun-with-digital-filters.html) upsampling for usb dac, along with 16x rates only
-gustard-x12-goldilocks|2022-01-19|Y|Y|Y|Setup [goldilocks](https://archimago.blogspot.com/2018/01/musings-more-fun-with-digital-filters.html) upsampling for usb dac, up to 384kHz, and also sets output device correctly for a Gustard X12 DAC
+Preset name|Availability date|Set Properties|Comment
+:---|:---:|:---:|:---
+dac|2022-02-02|Device|Sets device for typical xmos dac named "DAC"
+x20|2022-02-02|Device|Sets device for typical xmos dac named "x20"
+topping-d10|2022-02-02|Device|Sets device for Topping D10 Dac
+gustard-x12|2022-02-02|Device|Sets device for Gustard X12 DAC
+hifiberry-dac-plus|2022-02-02|Device|Sets device for the HifiBerry Dac+
+ifi-zen-dac|2022-02-16|Device|Sets device for the Ifi Zen Dac
+fiio-e18|2022-02-16|Device|Sets device for a Fiio E18 Dac
+goldilocks|2022-01-19|Upsampling|Setup goldilocks upsampling for usb dac, rates must be set with another preset or explicitly using the variable `SQUEEZELITE_RATES`. Corresponds to `v::4:28:95:105:45`
+extremus|2022-01-19|Upsampling|Setup [extremus](https://archimago.blogspot.com/2018/11/musings-raspberry-pi-3-b-touch.html) upsampling for usb dac, rates must be set with another preset or explicitly using the variable `SQUEEZELITE_RATES`. Corresponds to `v::3.05:28:99.7:100:45`
+archimago-goldilocks|2022-02-04|Upsampling|Alias for `goldilocks`, name feels more appropriate
+archimago-extremus|2022-02-04|Upsampling|Alias for `extremus`, name feels more appropriate
+rates_up_to_96k|2022-02-02|Rates|Set rates to `44100-96000`
+rates_up_to_192k|2022-02-02|Rates|Set rates to `44100-192000`
+rates_up_to_384k|2022-02-02|Rates|Set rates to `44100-384000`
+rates_up_to_768k|2022-02-02|Rates|Set rates to `44100-768000`
+rates_2x_only|2022-02-02|Rates|Set rates to `88200,96000`
+rates_4x_only|2022-02-02|Rates|Set rates to `176400,192000`
+rates_8x_only|2022-02-02|Rates|Set rates to `352800,384000`
+rates_16x_only|2022-02-02|Rates|Set rates to `705600,768000`
+goldilocks_up_to_96k|2022-01-19|Rates, Upsampling|Setup goldilocks upsampling for usb dac, up to 96kHz
+goldilocks_up_to_192k|2022-01-19|Rates, Upsampling|Setup goldilocks upsampling for usb dac, up to 192kHz
+goldilocks_up_to_384k|2022-01-19|Rates, Upsampling|Setup goldilocks upsampling for usb dac, up to 384kHz
+goldilocks_up_to_768k|2022-01-19|Rates, Upsampling|Setup goldilocks upsampling for usb dac, up to 768kHz
+goldilocks_2x_only|2022-01-19|Rates, Upsampling|Setup goldilocks upsampling for usb dac, along with 2x rates only
+goldilocks_4x_only|2022-01-19|Rates, Upsampling|Setup goldilocks upsampling for usb dac, along with 4x rates only
+goldilocks_8x_only|2022-01-19|Rates, Upsampling|Setup goldilocks upsampling for usb dac, along with 8x rates only
+goldilocks_16x_only|2022-01-19|Rates, Upsampling|Setup goldilocks upsampling for usb dac, along with 16x rates only
+gustard-x12-goldilocks|2022-01-19|Device, Rates, Upsampling|Setup goldilocks upsampling for usb dac, up to 384kHz, and also sets output device correctly for a Gustard X12 DAC
+no-dsd|2022-02-14|Excluded Codecs|Exclude dsd codec
 
 ## Notable changes to the configuration
 
@@ -146,6 +202,7 @@ For the new variables introduced over time, see the following table.
 
 New Variable|Availability Date|Comment
 :---|:---|:---
+SQUEEZELITE_EXCLUDE_CODECS|2022-02-14|Added support for configuration option
 SQUEEZELITE_RATES|2021-11-23|Added support for configuration option
 SQUEEZELITE_UPSAMPLING|2021-11-23|Added support for configuration option
 PRESET|2022-01-19|New feature
@@ -157,6 +214,9 @@ SQUEEZELITE_MAC_ADDRESS|2022-01-21|Added support for configuration option
 SQUEEZELITE_MODEL_NAME|2022-01-21|Added support for configuration option
 SQUEEZELITE_STREAM_AND_OUTPUT_BUFFER_SIZE|2022-01-21|Added support for configuration option
 SQUEEZELITE_BUFFER_SIZE|2022-01-24|Previous variable was too long.
+SQUEEZELITE_VOLUME_CONTROL|2022-02-23|Added support for configuration option
+SQUEEZELITE_UNMUTE|2022-02-23|Added support for configuration option
+SQUEEZELITE_LINEAR_VOLUME|2022-02-23|Added support for configuration option
 
 ## A few examples
 
@@ -282,7 +342,7 @@ You can build (or rebuild) the image by opening a terminal and using the conveni
 This script accepts a few parameters:
 
 Parameter|Default|Description
-:---|:---:|:---
+:---:|:---:|:---
 -d|N|Use repository (`N`) or download from SourceForge (`Y`)
 -b|bullseye|Base image, you can choose among `bullseye`, `buster` and `focal`
 -t|latest|The last part of the tag, by default it will be giof71/squeezelite:latest
@@ -305,12 +365,12 @@ From this repository I create all the versions of the image. Each of them featur
 Tag|Base Image|SqueezeLite Version|SqueezeLite Origin|Additional Tags
 :---|:---:|:---:|:---:|:---
 latest|debian:bullseye|1.9.9|SourceForge|
-stable|debian:buster|1.8|Debian Repositories|
-bullseye|debian:bullseye|1.9.8|Debian Repositories|squeezelite-1.9.8-bullseye, squeezelite-1.9.8-bullseye-RELEASE_DATE
+stable|debian:buster|1.8|Debian Repo|
+bullseye|debian:bullseye|1.9.8|Debian Repo|squeezelite-1.9.8-bullseye, squeezelite-1.9.8-bullseye-RELEASE_DATE
 buster|debian:buster|1.8|Debian Repositories|squeezelite-1.8-buster, squeezelite-1.8-buster-RELEASE_DATE
 sourceforge-buster|debian:buster|1.9.9|SourceForge|squeezelite-1.9.9-sourceforge-buster, squeezelite-1.9.9-sourceforge-buster-RELEASE_DATE
 sourceforge-bullseye|debian:bullseye|1.9.9|SourceForge|squeezelite-1.9.9-sourceforge-bullseye, squeezelite-1.9.9-sourceforge-bullseye-RELEASE_DATE
-ubuntu-focal|ubuntu:focal|1.8|Ubuntu Repositories|squeezelite-1.8-ubuntu-focal, squeezelite-1.8-ubuntu-focal-RELEASE_DATE
+ubuntu-focal|ubuntu:focal|1.8|Ubuntu Repo|squeezelite-1.8-ubuntu-focal, squeezelite-1.8-ubuntu-focal-RELEASE_DATE
 
 This situation might change in the future. I am currently using `debian:buster` as the base image because I am experiencing high cpu usage on the Raspberry Pi 3b (Raspbian OS Buster being the host o.s.) with `debian:bullseye` based images. Not so with the `debian-bullseye` image along with the squeelite binary from SourceForge.  
 So this is why `latest` is currently same as `sourceforge-bullseye` and `stable` is same as `buster` image.  
@@ -323,9 +383,61 @@ Sorry for the inconvenience, this is now fixed.
 
 ## Release History
 
-Release Date|Major Changes
----|---
-2022-02-05|Automated builds thanks to [Der-Henning](https://github.com/Der-Henning/), Builds for amd64 also thanks to [Der-Henning](https://github.com/Der-Henning/), the README.md you are reading now is copied to the image under path `/app/doc/README.md`.
-2022-02-04|Simplified build process (not multistage anymore), reduced image sizes, documented the convenience build.sh script, corrected sourceforge tag names (were 1.9.8 or 1.8 instead of 1.9.9)
-2022-02-02|Allow combination of presets, fixed incorrect mapping for SQUEEZELITE_DELAY, add 'extremus' upsample setting, defined rates presets
-2022-01-30|Added images with SourceForge binaries (version 1.9.9), SQUEEZELITE_STREAM_AND_OUTPUT_BUFFER_SIZE renamed to SQUEEZELITE_BUFFER
+### 2022-02-23
+
+Feature|Description
+:---|:---
+Repo update|The command `apt-get upgrade` is executed during the image build phase, so the image is up-to-date with the most current packages available at the release date
+Add Volume Control support|Add support for the unmute `-V` switch (See the `SQUEEZELITE_VOLUME_CONTROL` variable)
+Add Unmute support|Add support for the unmute `-U` switch (See the `SQUEEZELITE_UNMUTE` variable)
+Add Linear volume adjustment support|Add support for linear volume adjustments using the `-X` switch (See the `SQUEEZELITE_LINEAR_VOLUME` variable)
+### 2022-02-16
+
+Feature|Description
+:---|:---
+Reviewed the presets loading mechanism|Defined a `builtin-presets.conf` file
+Add DISPLAY_PRESETS environment variable|Allows to see all the preset values
+Allow custom preset files through the volume `/app/assets/additional-presets.conf`|You can now inject custom presets for greater customizability
+
+### 2022-02-14
+
+Feature|Description
+:---|:---
+Preset table documentation|Reviewed the preset table layout on `README.md` file (docker hub compatibitily)
+README.md sync|Added automatic synchronization of `README.md` file with the corresponding [repository](https://hub.docker.com/r/giof71/squeezelite) on [Docker Hub](https://hub.docker.com)
+Tag fragment `focal` tag|Focal tag is now `focal` instead of `ubuntu-focal`
+Preset to disable dsd|Added preset `no-dsd` which excludes DSD codec
+Excluded codecs|Added support for excluded codecs (environment variable `SQUEEZELITE_EXCLUDE_CODECS` for the `-e` option)
+
+### 2022-02-05
+
+Feature|Description
+:---|:---
+Automated builds|Automated builds thanks to [Der-Henning](https://github.com/Der-Henning/)
+Arm64 support|Builds for arm64 now available also thanks to [Der-Henning](https://github.com/Der-Henning/)
+README.md inclusion|The `README.md` file is copied to the image at the path `/app/doc/README.md`
+
+### 2022-02-04
+
+Feature|Description
+:---|:---
+Build simplified|Simplified build process (not multistage anymore)
+Image size reduction|Reduced image sizes (one line installation)
+Convenience script doc|Documented the convenience build.sh script
+Sourceforge tag correction|Corrected sourceforge tag names: sourceforge tags names were wrongly suggesting that the included SqueezeLite binary was at version 1.9.8 or 1.8 instead of version 1.9.9
+
+### 2022-02-02
+
+Feature|Description
+:---|:---
+Preset combination|Allowed combination of presets
+SQUEEZELITE_DELAY fix|Fixed incorrect mapping for SQUEEZELITE_DELAY
+`extremus` upsampling|Added `extremus` upsample setting
+Rates|Rate presets defined
+
+### 2022-01-30
+
+Feature|Description
+:---|:---
+Sourceforce|Added images with SourceForge binaries (version 1.9.9)
+SQUEEZELITE_BUFFER|Variable `SQUEEZELITE_STREAM_AND_OUTPUT_BUFFER_SIZE` renamed to `SQUEEZELITE_BUFFER`

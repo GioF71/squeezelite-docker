@@ -39,7 +39,7 @@ jobs:
                     fi
                 fi
                 if [ "${base}" = "focal" ]; \
-                    then distro_id="ubuntu-focal"; \
+                    then distro_id="focal"; \
                 fi
                 tags="${{secrets.DOCKER_USERNAME}}/squeezelite:${squeezelite_version}${distro_id},${{secrets.DOCKER_USERNAME}}/squeezelite:${squeezelite_version}${distro_id}-${date}"
                 if [ "${base}" = "bullseye" ] && [ "${{ matrix.sourceforge }}" = "Y" ]; then \
@@ -82,3 +82,12 @@ jobs:
                 platforms: linux/amd64,linux/arm/v7,linux/arm64/v8
                 push: true
                 tags: ${{ env.RELEASE_TAGS }}
+        - 
+            name: Docker Hub README & description sync
+            uses: meeDamian/sync-readme@v1.0.6
+            with:
+                user: ${{ secrets.DOCKER_USERNAME }}
+                pass: ${{ secrets.DOCKER_PASSWORD }}
+                slug: ${{ secrets.DOCKER_USERNAME }}/squeezelite
+                readme: ./README.md
+                description: Run squeezelite on docker

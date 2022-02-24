@@ -20,6 +20,7 @@ echo $DOWNLOADED_BIN
         echo $ARCH; \
         SL_URL=""; \
         apt-get update; \
+        DEBIAN_FRONTEND=noninteractive apt-get upgrade -y; \
         apt-get install wget -y; \
         apt-get install libasound2 --no-install-recommends -y; \
         if [ "$ARCH" == "armv7l" ]; then \
@@ -43,6 +44,7 @@ echo $DOWNLOADED_BIN
         rm -Rf /assets; \
     else \
         apt-get update; \
+        DEBIAN_FRONTEND=noninteractive apt-get upgrade -y; \
         apt-get install squeezelite --no-install-recommends -y; \
         rm -rf \"/var/lib/apt/lists/*\"; \
     fi'

@@ -383,6 +383,12 @@ Sorry for the inconvenience, this is now fixed.
 
 ## Release History
 
+### 2022-02-24
+
+Feature|Description
+:---|:---
+README.md sync|Created Action for README.md synchronization
+
 ### 2022-02-23
 
 Feature|Description
@@ -391,6 +397,7 @@ Repo update|The command `apt-get upgrade` is executed during the image build pha
 Add Volume Control support|Add support for the unmute `-V` switch (See the `SQUEEZELITE_VOLUME_CONTROL` variable)
 Add Unmute support|Add support for the unmute `-U` switch (See the `SQUEEZELITE_UNMUTE` variable)
 Add Linear volume adjustment support|Add support for linear volume adjustments using the `-X` switch (See the `SQUEEZELITE_LINEAR_VOLUME` variable)
+
 ### 2022-02-16
 
 Feature|Description

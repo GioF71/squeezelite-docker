@@ -60,6 +60,7 @@ RUN mkdir /app/assets
 VOLUME '/app/assets/additional-presets.conf'
 
 COPY README.md /app/doc
+COPY RELEASE.md /app/doc
 COPY app/assets/builtin-presets.conf /app/assets/
 
 WORKDIR /app/bin

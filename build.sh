@@ -2,9 +2,9 @@
 
 declare -A base_images
 
-base_images[buster]=debian:buster-20220125-slim
-base_images[bullseye]=debian:bullseye-20220125-slim
-base_images[focal]=ubuntu:focal-20220105
+base_images[buster]=debian:buster-20220228-slim
+base_images[bullseye]=debian:bullseye-20220228-slim
+base_images[focal]=ubuntu:focal-20220302
 
 DEFAULT_BASE_IMAGE=bullseye
 DEFAULT_SOURCEFORGE_DOWNLOAD=N

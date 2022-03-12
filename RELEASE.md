@@ -2,6 +2,13 @@
 
 ## Releases
 
+### 2022-03-12
+
+Feature|Description
+:---|:---
+Base Image Bump|Bump to debian buster-20220228-slim, debian bullseye-20220228-slim, ubuntu focal-20220302
+Quarantined old build binaries|Moved to `old/bin`, will be removed soon if everything works properly
+
 ### 2022-02-24
 
 Feature|Description

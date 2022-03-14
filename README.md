@@ -43,10 +43,13 @@ This command will output one line if the current user does belong to the "docker
 The Dockerfile and the included scripts have been tested on the following distros:
 
 - Manjaro Linux with Gnome (amd64)
-- DietPi on Asus Tinkerboard
-- Raspberry Pi OS on Raspberry Pi 3 (but I have no reason to doubt it will also work on a Raspberry Pi 4/400)
+- DietPi on Asus Tinkerboard (ok with Buster, not so ok with bullesys, see below)
+- Raspberry Pi OS on Raspberry Pi 3/4. I tested both 32bit and 64bit. Pi 400 is not tested (quite sadly, I don't own one)
+- Manjaro KDE 64bit on Raspberry Pi 4
 
-As I test the Dockerfile on more platforms, I will update this list.
+As I test the Dockerfile on more platforms, I will update this list.  
+
+Update (as per 2022-03-12): I am having issues with the latest DietPi Bullseye on Tinkerboard: I could not run the containers (workaround [here](https://github.com/MichaIng/DietPi/issues/4980) and, even after that, there is terrible distortion). I suggest either revert to buster or wait until docker support improves. I'll do my best to keep this page updated.
 
 ## Get the image
 
@@ -188,6 +191,18 @@ goldilocks_8x_only|2022-01-19|Rates, Upsampling|Setup goldilocks upsampling for 
 goldilocks_16x_only|2022-01-19|Rates, Upsampling|Setup goldilocks upsampling for usb dac, along with 16x rates only
 gustard-x12-goldilocks|2022-01-19|Device, Rates, Upsampling|Setup goldilocks upsampling for usb dac, up to 384kHz, and also sets output device correctly for a Gustard X12 DAC
 no-dsd|2022-02-14|Excluded Codecs|Exclude dsd codec
+
+## Multiple Configurations on the same dac, and multi-dac configurations
+
+I am using the same host and I am connecting two dacs. I (generally) do not play on both DACs at the same time, but I like to have multiple configurations a click away from the Logitech Media Server web interface.
+If you are interested, have a look at the following sample `docker-compose.yaml` files:
+
+Scenario|Link to config file
+:---|:---
+One DAC, multiple configurations|[single-dac-multi-config-docker-compose.yaml](https://gist.github.com/GioF71/41c3f5e3c99af6f1ec9472c0b15944b0)
+Two DACs, multiple configurations|[dual-dac-multi-config-docker-compose.yaml](https://gist.github.com/GioF71/3b5906bc2da1ea291d33fd36b6a3f636)
+
+Remember to always specify the SQUEEZELITE_SERVER_PORT for these compose files, otherwise the player discovery on Logitech Media Server with not be able to find all the configured players.
 
 ## Notable changes to the configuration
 

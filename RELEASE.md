@@ -2,6 +2,14 @@
 
 ## Releases
 
+### 2022-03-14
+
+Feature|Description
+:---|:---
+Successful tests on arm64|See the Prerequisites section of the [`README.md`](https://github.com/GioF71/squeezelite-docker/blob/main/README.md) file.
+Sad DietPi Tinkerboard updates|See the Prerequisites section of the [`README.md`](https://github.com/GioF71/squeezelite-docker/blob/main/README.md) file.
+Removed old build binaries|Quarantined files removed
+
 ### 2022-03-12
 
 Feature|Description

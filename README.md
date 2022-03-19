@@ -40,16 +40,26 @@ You can verify whether your user belongs to the "docker" group with the followin
 
 This command will output one line if the current user does belong to the "docker" group, otherwise there will be no output.
 
-The Dockerfile and the included scripts have been tested on the following distros:
+The Dockerfile and the included scripts have been tested on the following setups:
+
+Hardware|Operating System|Result|Comment
+:---|:---|:---|:---
+Generic Amd64|Manjaro Gnome|OK|No issues encountered
+Generic Amd64|Linux Mint 20.x|OK|No issues encountered
+Raspberry Pi 3/4|Raspberry Pi OS 32bit|OK|No issues encountered
+Raspberry Pi 3/4|Manjaro KDE 64bit|OK|No issues encountered
+Asus Tinkerboard|DietPi Bullseye|KO|Horrible distortion and high cpu usage. As far I remember, this scenario used to be ok some time ago with the Debian Buster based build of DietPi
 
 - Manjaro Linux with Gnome (amd64)
-- DietPi on Asus Tinkerboard (ok with Buster, not so ok with bullesys, see below)
+- DietPi on Asus Tinkerboard (ok with Debian Buster, not so ok with Debian Bullseye, see below)
 - Raspberry Pi OS on Raspberry Pi 3/4. I tested both 32bit and 64bit. Pi 400 is not tested (quite sadly, I don't own one)
 - Manjaro KDE 64bit on Raspberry Pi 4
 
 As I test the Dockerfile on more platforms, I will update this list.  
 
-Update (as per 2022-03-12): I am having issues with the latest DietPi Bullseye on Tinkerboard: I could not run the containers (workaround [here](https://github.com/MichaIng/DietPi/issues/4980) and, even after that, there is terrible distortion). I suggest either revert to buster or wait until docker support improves. I'll do my best to keep this page updated.
+Update (as per 2022-03-12): I am having issues with the latest DietPi Bullseye on the Asus Tinkerboard: initially, I could not run any containers (workaround [here](https://github.com/MichaIng/DietPi/issues/4980) and, even though that issue has been somehow solved, I experience terrible distortion.  
+I suggest either revert to older builds of DietPi Buster or wait until docker support improves.  
+I'll do my best to keep this page updated with regards to this situation.
 
 ## Get the image
 
@@ -57,9 +67,9 @@ Here is the [repository](https://hub.docker.com/repository/docker/giof71/squeeze
 
 Getting the image from DockerHub is as simple as typing:
 
-`docker pull giof71/squeezelite:stable`
+`docker pull giof71/squeezelite:latest`
 
-You may want to pull the "stable" image as opposed to the "latest".
+You may want to pull the "stable" image as opposed to the "latest". See [Docker Hub Tags](#docker-hub-tags) for more information.
 
 ## Usage
 
@@ -162,6 +172,7 @@ The `SQUEEZELITE_RATES` displayed here are provided just as an example. You stil
 
 Preset name|Availability date|Set Properties|Comment
 :---|:---:|:---:|:---
+pi-headphones|2022-02-19|Device|Sets device for Raspberry Pi Headphone out
 dac|2022-02-02|Device|Sets device for typical xmos dac named "DAC"
 x20|2022-02-02|Device|Sets device for typical xmos dac named "x20"
 topping-d10|2022-02-02|Device|Sets device for Topping D10 Dac
@@ -194,7 +205,7 @@ no-dsd|2022-02-14|Excluded Codecs|Exclude dsd codec
 
 ## Multiple Configurations on the same dac, and multi-dac configurations
 
-I am using the same host and I am connecting two dacs. I (generally) do not play on both DACs at the same time, but I like to have multiple configurations a click away from the Logitech Media Server web interface.
+I am using the same host and I am connecting two dacs. I (generally) do not play music on multiple DACs at the same time, but I like to have multiple configurations a click away from the Logitech Media Server web interface.
 If you are interested, have a look at the following sample `docker-compose.yaml` files:
 
 Scenario|Link to config file
@@ -255,7 +266,7 @@ services:
     restart: unless-stopped
 ```
 
-Please not that `STARTUP_DELAY_SEC` is optional.
+Please note that `STARTUP_DELAY_SEC` is optional.
 The equivalent `docker run` command should be the following:
 
 ```text

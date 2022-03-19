@@ -2,13 +2,20 @@
 
 ## Releases
 
+### 2022-03-19
+
+Feature|Description
+:---|:---
+Add preset `pi-headphones`|Add preset for Raspberry Pi Headphone out
+Doc update|Small corrections/typos
+
 ### 2022-03-14
 
 Feature|Description
 :---|:---
 Successful tests on arm64|See the Prerequisites section of the [`README.md`](https://github.com/GioF71/squeezelite-docker/blob/main/README.md) file.
 Sad DietPi Tinkerboard updates|See the Prerequisites section of the [`README.md`](https://github.com/GioF71/squeezelite-docker/blob/main/README.md) file.
-Removed old build binaries|Quarantined files removed
+Removed old build binaries|Previously quarantined files removed
 
 ### 2022-03-12
 

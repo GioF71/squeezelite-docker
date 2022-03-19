@@ -64,7 +64,7 @@ Getting the image from DockerHub is as simple as typing:
 
 `docker pull giof71/squeezelite:latest`
 
-You may want to pull the "stable" image as opposed to the "latest". See [Docker Hub Tags](#docker-hub-tags) for more information.
+You may want to pull the "stable" image as opposed to the "latest". See [Docker Hub Tags](https://github.com/GioF71/squeezelite-docker/blob/main/README.md#docker-hub-tags) for more information.
 
 ## Usage
 

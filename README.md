@@ -50,11 +50,6 @@ Raspberry Pi 3/4|Raspberry Pi OS 32bit|OK|No issues encountered
 Raspberry Pi 3/4|Manjaro KDE 64bit|OK|No issues encountered
 Asus Tinkerboard|DietPi Bullseye|KO|Horrible distortion and high cpu usage. As far I remember, this scenario used to be ok some time ago with the Debian Buster based build of DietPi
 
-- Manjaro Linux with Gnome (amd64)
-- DietPi on Asus Tinkerboard (ok with Debian Buster, not so ok with Debian Bullseye, see below)
-- Raspberry Pi OS on Raspberry Pi 3/4. I tested both 32bit and 64bit. Pi 400 is not tested (quite sadly, I don't own one)
-- Manjaro KDE 64bit on Raspberry Pi 4
-
 As I test the Dockerfile on more platforms, I will update this list.  
 
 Update (as per 2022-03-12): I am having issues with the latest DietPi Bullseye on the Asus Tinkerboard: initially, I could not run any containers (workaround [here](https://github.com/MichaIng/DietPi/issues/4980) and, even though that issue has been somehow solved, I experience terrible distortion.  

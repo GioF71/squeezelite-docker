@@ -2,6 +2,12 @@
 
 ## Releases
 
+### 2022-03-29
+
+Feature|Description
+:---|:---
+Doc update|Small corrections/typos
+
 ### 2022-03-19
 
 Feature|Description

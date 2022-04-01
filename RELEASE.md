@@ -2,6 +2,12 @@
 
 ## Releases
 
+### 2022-04-01
+
+Feature|Description
+:---|:---
+Doc update|Asus Tinker situation apparently solved somehow
+
 ### 2022-03-29
 
 Feature|Description

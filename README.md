@@ -48,13 +48,28 @@ Generic Amd64|Manjaro Gnome|OK|No issues encountered
 Generic Amd64|Linux Mint 20.x|OK|No issues encountered
 Raspberry Pi 3/4|Raspberry Pi OS 32bit|OK|No issues encountered
 Raspberry Pi 3/4|Manjaro KDE 64bit|OK|No issues encountered
-Asus Tinkerboard|DietPi Bullseye|KO|Horrible distortion and high cpu usage. As far I remember, this scenario used to be ok some time ago with the Debian Buster based build of DietPi
+Asus Tinkerboard|DietPi Bullseye|OK, some work to do|Was not working properly, but now it seems to be ok. See note below (last update: 2022-04-01)
 
 As I test the Dockerfile on more platforms, I will update this list.  
 
-Update (as per 2022-03-12): I am having issues with the latest DietPi Bullseye on the Asus Tinkerboard: initially, I could not run any containers (workaround [here](https://github.com/MichaIng/DietPi/issues/4980) and, even though that issue has been somehow solved, I experience terrible distortion.  
-I suggest either revert to older builds of DietPi Buster or wait until docker support improves.  
-I'll do my best to keep this page updated with regards to this situation.
+### Asus Tinkerboard
+
+I was experiencing bad audio quality after the upgrade to bullseye.  
+See [here](https://github.com/MichaIng/DietPi/issues/5198) and [here](https://github.com/MichaIng/DietPi/issues/4980) for a few references.  
+I ended up downgrading the kernel to the legacy version with the following:
+
+```code
+sudo apt install linux-image-legacy-rockchip
+```
+
+Also, I changed the file `/boot/armbianEnv.txt` so that `extraargs` is set like the following:
+
+```text
+extraargs="net.ifnames=0" systemd.unified_cgroup_hierarchy=0
+```
+
+And now, for my hearing capabilities, the audio quality is excellent.  
+If anyone can suggest a more elegant solution, I will be happy to try it and then update this page.
 
 ## Get the image
 

@@ -35,7 +35,7 @@ jobs:
                     if [ "${base}" = "bullseye" ];
                         then squeezelite_version="squeezelite-1.9.8-";
                     else if [ "${base}" = "buster" ];
-                        squeezelite_version="squeezelite-1.8-";
+                        then squeezelite_version="squeezelite-1.8-";
                     else
                         squeezelite-version="squeezelite-1.9.9-"
                     fi

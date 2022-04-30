@@ -43,19 +43,19 @@ jobs:
                 fi
                 tags="${{secrets.DOCKER_USERNAME}}/squeezelite:${squeezelite_version}${distro_id},${{secrets.DOCKER_USERNAME}}/squeezelite:${squeezelite_version}${distro_id}-${date}"
                 if [ "${base}" = "bullseye" ] && [ "${{ matrix.sourceforge }}" = "Y" ]; then \
-                    "RELEASE_TAGS=${tags},${{secrets.DOCKER_USERNAME}}/squeezelite:sourceforge-bullseye,${{secrets.DOCKER_USERNAME}}/squeezelite:latest"; \
+                    echo "RELEASE_TAGS=${tags},${{secrets.DOCKER_USERNAME}}/squeezelite:sourceforge-bullseye,${{secrets.DOCKER_USERNAME}}/squeezelite:latest"; \
                 elif [ "${base}" = "buster" ] && [ "${{ matrix.sourceforge }}" = "Y" ]; then \
-                    "RELEASE_TAGS=${tags},${{secrets.DOCKER_USERNAME}}/squeezelite:sourceforge-buster"; \
+                    echo "RELEASE_TAGS=${tags},${{secrets.DOCKER_USERNAME}}/squeezelite:sourceforge-buster"; \
                 elif [ "${base}" = "buster" ] && [ "${{ matrix.sourceforge }}" = "N" ]; then \
-                    "RELEASE_TAGS=${tags},${{secrets.DOCKER_USERNAME}}/squeezelite:${distro_id},${{secrets.DOCKER_USERNAME}}/squeezelite:stable"; \
+                    echo "RELEASE_TAGS=${tags},${{secrets.DOCKER_USERNAME}}/squeezelite:${distro_id},${{secrets.DOCKER_USERNAME}}/squeezelite:stable"; \
                 elif [ "${base}" = "bullseye" ] && [ "${{ matrix.sourceforge }}" = "N" ]; then \
-                    "RELEASE_TAGS=${tags},${{secrets.DOCKER_USERNAME}}/squeezelite:${distro_id}"; \
+                    echo "RELEASE_TAGS=${tags},${{secrets.DOCKER_USERNAME}}/squeezelite:${distro_id}"; \
                 elif [ "${base}" = "jammy" ] && [ "${{ matrix.sourceforge }}" = "N" ]; then \
-                    "RELEASE_TAGS=${tags},${{secrets.DOCKER_USERNAME}}/squeezelite:${distro_id}"; \
+                    echo "RELEASE_TAGS=${tags},${{secrets.DOCKER_USERNAME}}/squeezelite:${distro_id}"; \
                 else \
-                    "RELEASE_TAGS=${tags}"; \
+                    echo "RELEASE_TAGS=${tags}"; \
                 fi \
-                echo $RELEASE_TAGS >> $GITHUB_ENV
+                >> $GITHUB_ENV
         -
             name: Set up QEMU
             uses: docker/setup-qemu-action@v1

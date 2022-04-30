@@ -43,17 +43,18 @@ jobs:
                 if [ "${base}" = "jammy" ];
                     then distro_id="jammy";
                 fi
-                tags="${{secrets.DOCKER_USERNAME}}/squeezelite:${squeezelite_version}${distro_id},${{secrets.DOCKER_USERNAME}}/squeezelite:${squeezelite_version}${distro_id}-${date}"
+                slug=${{secrets.DOCKER_USERNAME}}/squeezelite
+                tags="$slug:${squeezelite_version}${distro_id},$slug:${squeezelite_version}${distro_id}-${date}"
                 if [ "${base}" = "bullseye" ] && [ "${{ matrix.sourceforge }}" = "Y" ]; then \
-                    echo "RELEASE_TAGS=${tags},${{secrets.DOCKER_USERNAME}}/squeezelite:sourceforge-bullseye,${{secrets.DOCKER_USERNAME}}/squeezelite:latest"; \
+                    echo "RELEASE_TAGS=${tags},$slug:sourceforge-bullseye,$slug:latest"; \
                 elif [ "${base}" = "buster" ] && [ "${{ matrix.sourceforge }}" = "Y" ]; then \
-                    echo "RELEASE_TAGS=${tags},${{secrets.DOCKER_USERNAME}}/squeezelite:sourceforge-buster"; \
+                    echo "RELEASE_TAGS=${tags},$slug:sourceforge-buster"; \
                 elif [ "${base}" = "buster" ] && [ "${{ matrix.sourceforge }}" = "N" ]; then \
-                    echo "RELEASE_TAGS=${tags},${{secrets.DOCKER_USERNAME}}/squeezelite:${distro_id},${{secrets.DOCKER_USERNAME}}/squeezelite:stable"; \
+                    echo "RELEASE_TAGS=${tags},$slug:${distro_id},$slug:stable"; \
                 elif [ "${base}" = "bullseye" ] && [ "${{ matrix.sourceforge }}" = "N" ]; then \
-                    echo "RELEASE_TAGS=${tags},${{secrets.DOCKER_USERNAME}}/squeezelite:${distro_id}"; \
+                    echo "RELEASE_TAGS=${tags},$slug:${distro_id}"; \
                 elif [ "${base}" = "jammy" ] && [ "${{ matrix.sourceforge }}" = "N" ]; then \
-                    echo "RELEASE_TAGS=${tags},${{secrets.DOCKER_USERNAME}}/squeezelite:${distro_id}"; \
+                    echo "RELEASE_TAGS=${tags},$slug:${distro_id}"; \
                 else \
                     echo "RELEASE_TAGS=${tags}"; \
                 fi \

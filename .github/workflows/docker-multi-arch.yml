@@ -29,17 +29,17 @@ jobs:
                 base="$(cut -d '-' -f1 <<< ${base})"
                 squeezelite_version=""
                 distro_id=${base}
-                if [ "${{ matrix.sourceforge }}" = "Y" ]; \
-                    then squeezelite_version="squeezelite-1.9.9-sourceforge-"; \
-                else \
-                    if [ "${base}" = "bullseye" ]; \
-                        then squeezelite_version="squeezelite-1.9.8-"; \
-                    else \
-                        squeezelite_version="squeezelite-1.8-"; \
+                if [ "${{ matrix.sourceforge }}" = "Y" ];
+                    then squeezelite_version="squeezelite-1.9.9-sourceforge-";
+                else
+                    if [ "${base}" = "bullseye" ];
+                        then squeezelite_version="squeezelite-1.9.8-";
+                    else
+                        squeezelite_version="squeezelite-1.8-";
                     fi
                 fi
-                if [ "${base}" = "jammy" ]; \
-                    then distro_id="jammy"; \
+                if [ "${base}" = "jammy" ];
+                    then distro_id="jammy";
                 fi
                 tags="${{secrets.DOCKER_USERNAME}}/squeezelite:${squeezelite_version}${distro_id},${{secrets.DOCKER_USERNAME}}/squeezelite:${squeezelite_version}${distro_id}-${date}"
                 if [ "${base}" = "bullseye" ] && [ "${{ matrix.sourceforge }}" = "Y" ]; then \

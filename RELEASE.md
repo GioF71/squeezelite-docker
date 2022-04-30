@@ -6,8 +6,9 @@
 
 Feature|Description
 :---|:---
-SourceForge updates|Armhf client updated to 1401
-Base image bump
+SourceForge updates|Arm 32bit client updated to version 1401
+Base debian image bump|Bump for debian buster and bullseye
+Base ubuntu image upgrade|Upgraded to jammy
 
 ### 2022-04-01
 

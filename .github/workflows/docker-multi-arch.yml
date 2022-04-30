@@ -11,10 +11,10 @@ jobs:
         strategy:
             fail-fast: false
             matrix:
-                base: [ 'debian:bullseye-20220418-slim', 'debian:buster-20220418-slim', 'ubuntu:focal-20220426' ]
+                base: [ 'debian:bullseye-20220418-slim', 'debian:buster-20220418-slim', 'ubuntu:jammy-20220428' ]
                 sourceforge: [ 'Y', 'N' ]
                 exclude:
-                    - base: 'ubuntu:focal-20220426'
+                    - base: 'ubuntu:jammy-20220428'
                       sourceforge: 'Y'
                 
         steps:
@@ -38,8 +38,8 @@ jobs:
                         squeezelite_version="squeezelite-1.8-"; \
                     fi
                 fi
-                if [ "${base}" = "focal" ]; \
-                    then distro_id="focal"; \
+                if [ "${base}" = "jammy" ]; \
+                    then distro_id="jammy"; \
                 fi
                 tags="${{secrets.DOCKER_USERNAME}}/squeezelite:${squeezelite_version}${distro_id},${{secrets.DOCKER_USERNAME}}/squeezelite:${squeezelite_version}${distro_id}-${date}"
                 if [ "${base}" = "bullseye" ] && [ "${{ matrix.sourceforge }}" = "Y" ]; then \
@@ -50,7 +50,7 @@ jobs:
                     echo "RELEASE_TAGS=${tags},${{secrets.DOCKER_USERNAME}}/squeezelite:${distro_id},${{secrets.DOCKER_USERNAME}}/squeezelite:stable"; \
                 elif [ "${base}" = "bullseye" ] && [ "${{ matrix.sourceforge }}" = "N" ]; then \
                     echo "RELEASE_TAGS=${tags},${{secrets.DOCKER_USERNAME}}/squeezelite:${distro_id}"; \
-                elif [ "${base}" = "focal" ] && [ "${{ matrix.sourceforge }}" = "N" ]; then \
+                elif [ "${base}" = "jammy" ] && [ "${{ matrix.sourceforge }}" = "N" ]; then \
                     echo "RELEASE_TAGS=${tags},${{secrets.DOCKER_USERNAME}}/squeezelite:${distro_id}"; \
                 else \
                     echo "RELEASE_TAGS=${tags}"; \

@@ -37,7 +37,7 @@ jobs:
                     else if [ "${base}" = "buster" ];
                         then squeezelite_version="squeezelite-1.8-";
                     else
-                        squeezelite-version="squeezelite-1.9.9-"
+                        squeezelite-version="squeezelite-1.9.9-";
                     fi
                 fi
                 if [ "${base}" = "jammy" ]; \

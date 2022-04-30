@@ -32,10 +32,12 @@ jobs:
                 if [ "${{ matrix.sourceforge }}" = "Y" ];
                     then squeezelite_version="squeezelite-1.9.9-sourceforge-";
                 else
+                    squeezelite_version="squeezelite-1.8-";
                     if [ "${base}" = "bullseye" ];
                         then squeezelite_version="squeezelite-1.9.8-";
-                    else
-                        squeezelite_version="squeezelite-1.8-";
+                    fi
+                    if [ "${base}" = "jammy" ];
+                        then squeezelite_version="squeezelite-1.9.9-";
                     fi
                 fi
                 if [ "${base}" = "jammy" ];

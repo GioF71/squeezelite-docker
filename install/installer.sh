@@ -16,7 +16,7 @@ echo $DOWNLOADED_BIN
         OUTPUT_FILE=/usr/bin/squeezelite; \
         URL_x86_64="https://sourceforge.net/projects/lmsclients/files/squeezelite/linux/squeezelite-1.9.9.1392-x86_64.tar.gz/download"; \
         URL_aarch64="https://sourceforge.net/projects/lmsclients/files/squeezelite/linux/squeezelite-1.9.9.1392-aarch64.tar.gz/download"; \
-        URL_armv7l="https://sourceforge.net/projects/lmsclients/files/squeezelite/linux/squeezelite-1.9.9.1392-armhf.tar.gz/download"; \
+        URL_armv7l="https://sourceforge.net/projects/lmsclients/files/squeezelite/linux/squeezelite-1.9.9.1401-armhf.tar.gz/download"; \
         echo $ARCH; \
         SL_URL=""; \
         apt-get update; \

@@ -2,6 +2,13 @@
 
 ## Releases
 
+### 2022-04-30
+
+Feature|Description
+:---|:---
+SourceForge updates|Armhf client updated to 1401
+Base image bump
+
 ### 2022-04-01
 
 Feature|Description

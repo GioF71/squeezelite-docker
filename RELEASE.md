@@ -2,6 +2,12 @@
 
 ## Releases
 
+### 2022-06-09
+
+Feature|Description
+:---|:---
+Add Visualizer support|Add support for the visualizer `-v` switch (See the `SQUEEZELITE_VISUALIZER` variable)
+
 ### 2022-04-30
 
 Feature|Description

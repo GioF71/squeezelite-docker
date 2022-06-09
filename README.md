@@ -47,7 +47,7 @@ Hardware|Operating System|Result|Comment
 Generic Amd64|Manjaro Gnome|OK|No issues encountered
 Generic Amd64|Linux Mint 20.x|OK|No issues encountered
 Raspberry Pi 3/4|Raspberry Pi OS 32bit|OK|No issues encountered
-Raspberry Pi 3/4|Manjaro KDE 64bit|OK|No issues encountered
+Raspberry Pi 4|Manjaro KDE 64bit|OK|No issues encountered
 Asus Tinkerboard|DietPi Bullseye|OK, some work to do|Was not working properly, but now it seems to be ok. See note below (last update: 2022-04-01)
 
 As I test the Dockerfile on more platforms, I will update this list.  
@@ -114,6 +114,7 @@ DISPLAY_PRESETS|||Set to Y if you want to see the presets on the container outpu
 SQUEEZELITE_VOLUME_CONTROL|-V||From squeezelite's man page for `-V`: Use the given ALSA `control` for volume adjustment during playback. This prevents the use of software volume control within squeezelite. This option is mutually exclusive with the `-U` option. If neither `-U` nor `-V` options are provided, no ALSA controls are adjusted while running squeezelite and software volume control is used instead. Only applicable when using ALSA output.
 SQUEEZELITE_UNMUTE|-U||From squeezelite's man page for `-U`: Unmute the given ALSA `control` at daemon startup and set it to full volume. Use software volume adjustment for playback. This option is mutually exclusive with the -V option. Only applicable when using ALSA output.
 SQUEEZELITE_LINEAR_VOLUME|-X||Set to `Y` to enable. From squeezelite's man page for `-X`: Use linear volume adjustments instead of in terms of dB (only for hardware volume control).
+SQUEEZELITE_VISUALIZER|-v||Set to `Y` to enable. From squeezelite's man page for `-v`: Enable visualiser support. This creates a shared memory segment that contains some of the audio being played, so that an external visualiser can read and process this to create visualisations.
 STARTUP_DELAY_SEC||0|Delay before starting the application. This can be useful if your container is set up to start automatically, so that you can resolve race conditions with mpd and with squeezelite if all those services run on the same audio device. Also, it might be useful if you want to use multiple squeezelite instances on the same host, by enabling you to stagger the start process of the containers. I observed that Logitech Media Server tends to not apply the existing settings (specifically volume and last.fm scrobbling in my case) to the devices if there are more than one on the same host, so staggering the startup process seems to resolve the issue.
 
 It is possible to add and additional preset configuration file using the volume `/app/assets/additional-presets.conf`.

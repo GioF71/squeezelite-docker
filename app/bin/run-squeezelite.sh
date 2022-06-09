@@ -271,5 +271,23 @@ else
   fi
 fi
 
+if [ -z "${SQUEEZELITE_VISUALIZER}" ]; then
+  echo "Variable SQUEEZELITE_VISUALIZER not specified";
+else
+  echo "Variable SQUEEZELITE_VISUALIZER specified: $SQUEEZELITE_VISUALIZER";
+  visualizer=${SQUEEZELITE_VISUALIZER^^}
+  echo "visualizer: $visualizer";
+  if [ "$visualizer" == "Y" ]; then
+    echo "Variable SQUEEZELITE_VISUALIZER set to enabled.";
+    CMD_LINE="$CMD_LINE -v";
+  else 
+    if [ "$visualizer" == "N" ]; then
+      echo "Variable SQUEEZELITE_VISUALIZER set to disabled.";
+    else
+      echo "Variable SQUEEZELITE_VISUALIZER invalid value: $SQUEEZELITE_VISUALIZER";
+    fi
+  fi
+fi
+
 echo "Command Line: ["$CMD_LINE"]"
 eval $CMD_LINE

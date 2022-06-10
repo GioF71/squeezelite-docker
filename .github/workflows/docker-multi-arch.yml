@@ -39,9 +39,9 @@ jobs:
 
           declare -A sl_version_mapping
 
-          sl_version_mapping[debian:buster-20220527-slim]=1.8
-          sl_version_mapping[debian:bullseye-20220527-slim]=1.9.8
-          sl_version_mapping[ubuntu:jammy-20220531]=1.9.9
+          sl_version_mapping[debian:buster-slim]=1.8
+          sl_version_mapping[debian:bullseye-slim]=1.9.8
+          sl_version_mapping[ubuntu:jammy]=1.9.9
 
           squeezelite_version=""
           distro_id=${base}

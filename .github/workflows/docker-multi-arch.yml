@@ -25,6 +25,17 @@ jobs:
           branch_or_tag=${{ github.ref_name }}
           echo "Branch or tag: ["$branch_or_tag"]"
 
+          declare -A base_image_from_matrix
+          base_image_from_matrix[debian:buster-slim]=debian:buster-slim
+          base_image_from_matrix[debian:bullseye-slim]=debian:bullseye-slim
+          base_image_from_matrix[ubuntu:jammy]=ubuntu:jammy
+
+          select_base_image=${base_image_from_matrix[${{ matrix.base }}]}
+          if [ -z "${select_base_image}" ]; then
+            select_base_image=debian:buster-slim
+          fi
+          echo "Select Base Image [" $select_base_image "]"
+
           declare -A base_from_matrix
 
           base_from_matrix[debian:buster-slim]=buster
@@ -35,7 +46,7 @@ jobs:
           if [ -z "${base}" ]; then
             base=unknowndistro
           fi
-          echo "Base from dictionary: "$base" from ["${{ matrix.base }}"] - will be overwritten as this is work in progress"
+          echo "Base from dictionary: "$base" from ["${{ matrix.base }}"]"
 
           declare -A sl_version_mapping
 
@@ -71,11 +82,7 @@ jobs:
           fi
           echo "Final tags: ["${tags}"]"
           echo "RELEASE_TAGS=${tags}" >> $GITHUB_ENV
-          echo "TEST_BASE_IMAGE=HELLO" >> $GITHUB_ENV
-          echo "GITHUB_ENV BEGIN"
-          echo ${{ env.RELEASE_TAGS }}
-          echo ${{ env.TEST_BASE_IMAGE }}
-          echo "GITHUB_ENV END"
+          echo "USE_BASE_IMAGE=${select_base_image}" >> $GITHUB_ENV
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
         with:

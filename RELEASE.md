@@ -2,6 +2,14 @@
 
 ## Releases
 
+### 2022-06-10
+
+Feature|Description
+:---|:---
+Fixed ubuntu image documentation|SqueezeLite version was wrong
+Fixed ubuntu image documentation|Focal was still mentioned
+Image bump|Bump to latest debian and ubuntu base images
+
 ### 2022-06-09
 
 Feature|Description

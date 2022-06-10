@@ -2,6 +2,21 @@
 
 ## Releases
 
+### 2022-06-11
+
+Feature|Description
+:---|:---
+Build process reviewed|No more base images with dates, removed some hard-coded stuff
+News Presets|Add preset for Topping DX5 and Gustard X16
+
+### 2022-06-10
+
+Feature|Description
+:---|:---
+Fixed ubuntu image documentation|SqueezeLite version was wrong
+Fixed ubuntu image documentation|Focal was still mentioned
+Image bump|Bump to latest debian and ubuntu base images
+
 ### 2022-06-09
 
 Feature|Description

@@ -2,6 +2,12 @@
 
 ## Releases
 
+### 2022-06-11
+
+Feature|Description
+:---|:---
+Build process reviewed|No more base images with dates, removed some hard-coded stuff
+
 ### 2022-06-10
 
 Feature|Description

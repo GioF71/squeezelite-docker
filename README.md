@@ -381,7 +381,7 @@ This script accepts a few parameters:
 Parameter|Default|Description
 :---:|:---:|:---
 -d|N|Use repository (`N`) or download from SourceForge (`Y`)
--b|bullseye|Base image, you can choose among `bullseye`, `buster` and `focal`
+-b|bullseye|Base image, you can choose among `bullseye`, `buster` and `jammy`
 -t|latest|The last part of the tag, by default it will be giof71/squeezelite:latest
 
 Example:
@@ -407,11 +407,11 @@ bullseye|debian:bullseye|1.9.8|Debian Repo|squeezelite-1.9.8-bullseye, squeezeli
 buster|debian:buster|1.8|Debian Repositories|squeezelite-1.8-buster, squeezelite-1.8-buster-RELEASE_DATE
 sourceforge-buster|debian:buster|1.9.9|SourceForge|squeezelite-1.9.9-sourceforge-buster, squeezelite-1.9.9-sourceforge-buster-RELEASE_DATE
 sourceforge-bullseye|debian:bullseye|1.9.9|SourceForge|squeezelite-1.9.9-sourceforge-bullseye, squeezelite-1.9.9-sourceforge-bullseye-RELEASE_DATE
-ubuntu-focal|ubuntu:focal|1.8|Ubuntu Repo|squeezelite-1.8-ubuntu-focal, squeezelite-1.8-ubuntu-focal-RELEASE_DATE
+ubuntu-jammy|ubuntu:jammy|1.9.9|Ubuntu Repo|squeezelite-1.9.9-ubuntu-jammy, squeezelite-1.9.9-ubuntu-jammy-RELEASE_DATE
 
 This situation might change in the future. I am currently using `debian:buster` as the base image because I am experiencing high cpu usage on the Raspberry Pi 3b (Raspbian OS Buster being the host o.s.) with `debian:bullseye` based images. Not so with the `debian-bullseye` image along with the squeelite binary from SourceForge.  
 So this is why `latest` is currently same as `sourceforge-bullseye` and `stable` is same as `buster` image.  
-Also, the `ubuntu-focal` images are currently not very interesting as they feature the same version as the `debian:buster` images, and I am not willing to use non-lts versions of ubuntu, which change way too frequently. So I might drop those builds in the near future.
+Also, the `ubuntu-jammy` images are currently not very interesting compared to the `debian:buster` and `debian:bullseye` images, and I am not willing to use non-lts versions of ubuntu, which change way too frequently. So I might drop those builds in the near future.
 
 ## Errata
 

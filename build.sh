@@ -2,9 +2,9 @@
 
 declare -A base_images
 
-base_images[buster]=debian:buster-20220527-slim
-base_images[bullseye]=debian:bullseye-20220527-slim
-base_images[jammy]=ubuntu:jammy-20220531
+base_images[buster]=debian:buster-slim
+base_images[bullseye]=debian:bullseye-slim
+base_images[jammy]=ubuntu:jammy
 
 DEFAULT_BASE_IMAGE=bullseye
 DEFAULT_SOURCEFORGE_DOWNLOAD=N

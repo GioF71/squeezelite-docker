@@ -8,6 +8,8 @@ Feature|Description
 :---|:---
 Build process reviewed|No more base images with dates, removed some hard-coded stuff
 News Presets|Add preset for Topping DX5 and Gustard X16
+Documetation cleanup|Various errors corrected
+
 
 ### 2022-06-10
 

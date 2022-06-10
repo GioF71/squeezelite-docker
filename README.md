@@ -239,7 +239,7 @@ For the new variables introduced over time, see the following table.
 
 New Variable|Availability Date|Comment
 :---|:---|:---
-SQUEEZELITE_VISUALIZER|2022-06-10|Add support for visualizer (-v).
+SQUEEZELITE_VISUALIZER|2022-06-09|Add support for visualizer (-v).
 SQUEEZELITE_EXCLUDE_CODECS|2022-02-14|Added support for configuration option
 SQUEEZELITE_RATES|2021-11-23|Added support for configuration option
 SQUEEZELITE_UPSAMPLING|2021-11-23|Added support for configuration option

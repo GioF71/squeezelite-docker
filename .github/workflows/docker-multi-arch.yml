@@ -71,8 +71,10 @@ jobs:
           fi
           echo "Final tags: ["${tags}"]"
           echo "RELEASE_TAGS=${tags}" >> $GITHUB_ENV
+          echo "TEST_BASE_IMAGE=HELLO" >> $GITHUB_ENV
           echo "GITHUB_ENV BEGIN"
-          echo $GITHUB_ENV
+          echo ${{ env.RELEASE_TAGS }}
+          echo ${{ env.TEST_BASE_IMAGE }}
           echo "GITHUB_ENV END"
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1

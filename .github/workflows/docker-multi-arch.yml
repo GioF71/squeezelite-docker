@@ -30,13 +30,24 @@ jobs:
           branch_or_tag=${{ github.ref_name }}
           echo "Branch or tag: ["$branch_or_tag"]"
 
+          declare -A base_from_matrix
+
+          base_from_matrix[debian:buster-slim]=buster
+          base_from_matrix[debian:bullseye-slim]=bullseye
+          base_from_matrix[ubuntu:jammy]=jammy
+
+          base=${base_from_matrix[${{ matrix.base }}]}
+          if [ -z "${base}" ]; then
+            base=unknowndistro
+          fi
+          echo "Base from dictionary: "$base" from ["${{ matrix.base }}"] - will be overwritten as this is work in progress"
+
           declare -A sl_version_mapping
 
           sl_version_mapping[debian:buster-20220527-slim]=1.8
           sl_version_mapping[debian:bullseye-20220527-slim]=1.9.8
           sl_version_mapping[ubuntu:jammy-20220531]=1.9.9
 
-          date=$(date '+%Y-%m-%d')
           base="$(cut -d ':' -f2 <<< '${{ matrix.base }}')"
           base="$(cut -d '-' -f1 <<< ${base})"
           squeezelite_version=""
@@ -54,19 +65,21 @@ jobs:
           if [ "${base}" = "jammy" ];
               then distro_id="jammy";
           fi
+          date=$(date '+%Y-%m-%d')
           slug=${{secrets.DOCKER_USERNAME}}/squeezelite
           tags="$slug:${squeezelite_version}-${distro_id},$slug:${squeezelite_version}-${distro_id}-${date}"
-          if [ "${base}" = "bullseye" ] && [ "${{ matrix.sourceforge }}" = "Y" ]; then
+          if [ "${distro_id}" = "bullseye" ] && [ "${{ matrix.sourceforge }}" = "Y" ]; then
               tags="${tags},$slug:sourceforge-bullseye,$slug:latest";
-          elif [ "${base}" = "buster" ] && [ "${{ matrix.sourceforge }}" = "Y" ]; then
+          elif [ "${distro_id}" = "buster" ] && [ "${{ matrix.sourceforge }}" = "Y" ]; then
               tags="${tags},$slug:sourceforge-buster";
-          elif [ "${base}" = "buster" ] && [ "${{ matrix.sourceforge }}" = "N" ]; then
+          elif [ "${distro_id}" = "buster" ] && [ "${{ matrix.sourceforge }}" = "N" ]; then
               tags="${tags},$slug:${distro_id},$slug:stable";
-          elif [ "${base}" = "bullseye" ] && [ "${{ matrix.sourceforge }}" = "N" ]; then
+          elif [ "${distro_id}" = "bullseye" ] && [ "${{ matrix.sourceforge }}" = "N" ]; then
               tags="${tags},$slug:${distro_id}";
-          elif [ "${base}" = "jammy" ] && [ "${{ matrix.sourceforge }}" = "N" ]; then
+          elif [ "${distro_id}" = "jammy" ] && [ "${{ matrix.sourceforge }}" = "N" ]; then
               tags="${tags},$slug:${distro_id}";
           fi
+          echo "Final tags: ["${tags}"]"
           echo "RELEASE_TAGS=${tags}" >> $GITHUB_ENV
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1

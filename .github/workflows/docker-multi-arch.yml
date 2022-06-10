@@ -27,6 +27,9 @@ jobs:
         uses: actions/checkout@v2
       - name: Set Release Tag
         run: |
+          branch_or_tag=${{ github.ref_name }}
+          echo "Branch or tag: ["$branch_or_tag"]"
+
           declare -A sl_version_mapping
 
           sl_version_mapping[debian:buster-20220527-slim]=1.8

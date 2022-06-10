@@ -11,10 +11,10 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        base: ["debian:bullseye-slim", "debian:buster-slim", "ubuntu:jammy"]
+        base: ["bullseye", "buster", "jammy"]
         sourceforge: ["Y", "N"]
         exclude:
-          - base: "ubuntu:jammy"
+          - base: "jammy"
             sourceforge: "Y"
 
     steps:
@@ -26,9 +26,9 @@ jobs:
           echo "Branch or tag: ["$branch_or_tag"]"
 
           declare -A base_image_from_matrix
-          base_image_from_matrix[debian:buster-slim]=debian:buster-slim
-          base_image_from_matrix[debian:bullseye-slim]=debian:bullseye-slim
-          base_image_from_matrix[ubuntu:jammy]=ubuntu:jammy
+          base_image_from_matrix[buster]=debian:buster-slim
+          base_image_from_matrix[bullseye]=debian:bullseye-slim
+          base_image_from_matrix[jammy]=ubuntu:jammy
 
           select_base_image=${base_image_from_matrix[${{ matrix.base }}]}
           if [ -z "${select_base_image}" ]; then
@@ -38,10 +38,11 @@ jobs:
 
           declare -A base_from_matrix
 
-          base_from_matrix[debian:buster-slim]=buster
-          base_from_matrix[debian:bullseye-slim]=bullseye
-          base_from_matrix[ubuntu:jammy]=jammy
+          base_from_matrix[buster]=buster
+          base_from_matrix[bullseye]=bullseye
+          base_from_matrix[jammy]=jammy
 
+          # base should now be same as matrix.base
           base=${base_from_matrix[${{ matrix.base }}]}
           if [ -z "${base}" ]; then
             base=unknowndistro
@@ -50,9 +51,9 @@ jobs:
 
           declare -A sl_version_mapping
 
-          sl_version_mapping[debian:buster-slim]=1.8
-          sl_version_mapping[debian:bullseye-slim]=1.9.8
-          sl_version_mapping[ubuntu:jammy]=1.9.9
+          sl_version_mapping[buster]=1.8
+          sl_version_mapping[bullseye]=1.9.8
+          sl_version_mapping[jammy]=1.9.9
 
           squeezelite_version=""
           distro_id=${base}

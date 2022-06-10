@@ -36,19 +36,6 @@ jobs:
           fi
           echo "Select Base Image [" $select_base_image "]"
 
-          declare -A base_from_matrix
-
-          base_from_matrix[buster]=buster
-          base_from_matrix[bullseye]=bullseye
-          base_from_matrix[jammy]=jammy
-
-          # base should now be same as matrix.base
-          base=${base_from_matrix[${{ matrix.base }}]}
-          if [ -z "${base}" ]; then
-            base=unknowndistro
-          fi
-          echo "Base from dictionary: "$base" from ["${{ matrix.base }}"]"
-
           declare -A sl_version_mapping
 
           sl_version_mapping[buster]=1.8
@@ -56,7 +43,7 @@ jobs:
           sl_version_mapping[jammy]=1.9.9
 
           squeezelite_version=""
-          distro_id=${base}
+          distro_id=${{ matrix.base }}
           if [ "${{ matrix.sourceforge }}" = "Y" ];
               then squeezelite_version="squeezelite-1.9.9-sourceforge";
           else

@@ -183,6 +183,8 @@ The `SQUEEZELITE_RATES` displayed here are provided just as an example. You stil
 
 Preset name|Availability date|Set Properties|Comment
 :---|:---:|:---:|:---
+gustard-x16|2022-06-10|Device|Sets device for Gustard X16 Dac
+topping-dx5|2022-06-10|Device|Sets device for Topping DX5 Dac
 pi-headphones|2022-02-19|Device|Sets device for Raspberry Pi Headphone out
 dac|2022-02-02|Device|Sets device for typical xmos dac named "DAC"
 x20|2022-02-02|Device|Sets device for typical xmos dac named "x20"

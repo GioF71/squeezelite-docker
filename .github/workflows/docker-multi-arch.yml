@@ -13,7 +13,7 @@ jobs:
       matrix:
         base:
           [
-            "debian:bullseye-2022527-slim",
+            "debian:bullseye-20220527-slim",
             "debian:buster-20220527-slim",
             "ubuntu:jammy-20220531",
           ]

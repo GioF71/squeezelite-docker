@@ -27,6 +27,15 @@ jobs:
         uses: actions/checkout@v2
       - name: Set Release Tag
         run: |
+          branch_or_tag=${{ github.ref_name }}
+          echo "Branch or tag: ["$branch_or_tag"]"
+
+          declare -A sl_version_mapping
+
+          sl_version_mapping[debian:buster-20220527-slim]=1.8
+          sl_version_mapping[debian:bullseye-20220527-slim]=1.9.8
+          sl_version_mapping[ubuntu:jammy-20220531]=1.9.9
+
           date=$(date '+%Y-%m-%d')
           base="$(cut -d ':' -f2 <<< '${{ matrix.base }}')"
           base="$(cut -d '-' -f1 <<< ${base})"
@@ -35,6 +44,9 @@ jobs:
           if [ "${{ matrix.sourceforge }}" = "Y" ];
               then squeezelite_version="squeezelite-1.9.9-sourceforge-";
           else
+              version_from_dictionary=${sl_version_mapping[${{ matrix.base }}]}
+              echo "Version from dictionary: "$version_from_dictionary" from ["${{ matrix.base }}"]"
+
               squeezelite_version="squeezelite-1.8-";
               if [ "${base}" = "bullseye" ];
                   then squeezelite_version="squeezelite-1.9.8-";

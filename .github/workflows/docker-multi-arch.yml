@@ -11,15 +11,10 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        base:
-          [
-            "debian:bullseye-20220527-slim",
-            "debian:buster-20220527-slim",
-            "ubuntu:jammy-20220531",
-          ]
+        base: ["debian:bullseye-slim", "debian:buster-slim", "ubuntu:jammy"]
         sourceforge: ["Y", "N"]
         exclude:
-          - base: "ubuntu:jammy-20220531"
+          - base: "ubuntu:jammy"
             sourceforge: "Y"
 
     steps:
@@ -48,8 +43,6 @@ jobs:
           sl_version_mapping[debian:bullseye-20220527-slim]=1.9.8
           sl_version_mapping[ubuntu:jammy-20220531]=1.9.9
 
-          base="$(cut -d ':' -f2 <<< '${{ matrix.base }}')"
-          base="$(cut -d '-' -f1 <<< ${base})"
           squeezelite_version=""
           distro_id=${base}
           if [ "${{ matrix.sourceforge }}" = "Y" ];
@@ -61,9 +54,6 @@ jobs:
               fi
               echo "Version from dictionary: "$version_from_dictionary" from ["${{ matrix.base }}"]"
               squeezelite_version="squeezelite-${version_from_dictionary}";
-          fi
-          if [ "${base}" = "jammy" ];
-              then distro_id="jammy";
           fi
           date=$(date '+%Y-%m-%d')
           slug=${{secrets.DOCKER_USERNAME}}/squeezelite
@@ -81,6 +71,9 @@ jobs:
           fi
           echo "Final tags: ["${tags}"]"
           echo "RELEASE_TAGS=${tags}" >> $GITHUB_ENV
+          echo "GITHUB_ENV BEGIN"
+          echo $GITHUB_ENV
+          echo "GITHUB_ENV END"
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
         with:

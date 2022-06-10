@@ -42,21 +42,23 @@ jobs:
           sl_version_mapping[bullseye]=1.9.8
           sl_version_mapping[jammy]=1.9.9
 
-          squeezelite_version=""
+          squeezelite_version_str=""
+          select_squeezelite_version=unknown
           distro_id=${{ matrix.base }}
-          if [ "${{ matrix.sourceforge }}" = "Y" ];
-              then squeezelite_version="squeezelite-1.9.9-sourceforge";
+          if [ "${{ matrix.sourceforge }}" = "Y" ]; then
+              select_squeezelite_version="1.9.9-sourceforge"
           else
-              version_from_dictionary=${sl_version_mapping[${{ matrix.base }}]}
-              if [ -z "${version_from_dictionary}" ]; then
-                version_from_dictionary=unknown
+              select_squeezelite_version=${sl_version_mapping[${{ matrix.base }}]}
+              if [ -z "${select_squeezelite_version}" ]; then
+                select_squeezelite_version=unknown
               fi
-              echo "Version from dictionary: "$version_from_dictionary" from ["${{ matrix.base }}"]"
-              squeezelite_version="squeezelite-${version_from_dictionary}";
+              echo "Version from dictionary: "$select_squeezelite_version" from ["${{ matrix.base }}"]"
           fi
+          squeezelite_version_str="squeezelite-"$select_squeezelite_version
+
           date=$(date '+%Y-%m-%d')
           slug=${{secrets.DOCKER_USERNAME}}/squeezelite
-          tags="$slug:${squeezelite_version}-${distro_id},$slug:${squeezelite_version}-${distro_id}-${date}"
+          tags="$slug:${squeezelite_version_str}-${distro_id},$slug:${squeezelite_version_str}-${distro_id}-${date}"
           if [ "${distro_id}" = "bullseye" ] && [ "${{ matrix.sourceforge }}" = "Y" ]; then
               tags="${tags},$slug:sourceforge-bullseye,$slug:latest";
           elif [ "${distro_id}" = "buster" ] && [ "${{ matrix.sourceforge }}" = "Y" ]; then

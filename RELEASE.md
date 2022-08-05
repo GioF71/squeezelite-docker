@@ -2,6 +2,12 @@
 
 ## Releases
 
+### 2022-08-05
+
+Feature|Description
+:---|:---
+Routine rebuild|No changes, just a rebuild
+
 ### 2022-06-11
 
 Feature|Description

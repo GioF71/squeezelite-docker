@@ -115,6 +115,7 @@ DISPLAY_PRESETS|||Set to Y if you want to see the presets on the container outpu
 SQUEEZELITE_VOLUME_CONTROL|-V||From squeezelite's man page for `-V`: Use the given ALSA `control` for volume adjustment during playback. This prevents the use of software volume control within squeezelite. This option is mutually exclusive with the `-U` option. If neither `-U` nor `-V` options are provided, no ALSA controls are adjusted while running squeezelite and software volume control is used instead. Only applicable when using ALSA output.
 SQUEEZELITE_UNMUTE|-U||From squeezelite's man page for `-U`: Unmute the given ALSA `control` at daemon startup and set it to full volume. Use software volume adjustment for playback. This option is mutually exclusive with the -V option. Only applicable when using ALSA output.
 SQUEEZELITE_LINEAR_VOLUME|-X||Set to `Y` to enable. From squeezelite's man page for `-X`: Use linear volume adjustments instead of in terms of dB (only for hardware volume control).
+SQUEEZELITE_VISUALIZER|-v||Set to `Y` to enable. Unfortunately this feature does not really work from inside docker (yet?). From squeezelite's man page for `-v`: Enable visualiser support.  This creates a shared memory segment that contains some of the audio being played, so that an external visualiser can read and process this to create visualisations.
 STARTUP_DELAY_SEC||0|Delay before starting the application. This can be useful if your container is set up to start automatically, so that you can resolve race conditions with mpd and with squeezelite if all those services run on the same audio device. Also, it might be useful if you want to use multiple squeezelite instances on the same host, by enabling you to stagger the start process of the containers. I observed that Logitech Media Server tends to not apply the existing settings (specifically volume and last.fm scrobbling in my case) to the devices if there are more than one on the same host, so staggering the startup process seems to resolve the issue.
 
 It is possible to add and additional preset configuration file using the volume `/app/assets/additional-presets.conf`.
@@ -183,6 +184,8 @@ The `SQUEEZELITE_RATES` displayed here are provided just as an example. You stil
 
 Preset name|Availability date|Set Properties|Comment
 :---|:---:|:---:|:---
+gustard-x16|2022-06-10|Device|Sets device for Gustard X16 Dac
+topping-dx5|2022-06-10|Device|Sets device for Topping DX5 Dac
 pi-headphones|2022-02-19|Device|Sets device for Raspberry Pi Headphone out
 dac|2022-02-02|Device|Sets device for typical xmos dac named "DAC"
 x20|2022-02-02|Device|Sets device for typical xmos dac named "x20"
@@ -239,6 +242,7 @@ For the new variables introduced over time, see the following table.
 
 New Variable|Availability Date|Comment
 :---|:---|:---
+SQUEEZELITE_VISUALIZER|2022-06-09|Add support for visualizer (-v).
 SQUEEZELITE_EXCLUDE_CODECS|2022-02-14|Added support for configuration option
 SQUEEZELITE_RATES|2021-11-23|Added support for configuration option
 SQUEEZELITE_UPSAMPLING|2021-11-23|Added support for configuration option
@@ -381,7 +385,7 @@ This script accepts a few parameters:
 Parameter|Default|Description
 :---:|:---:|:---
 -d|N|Use repository (`N`) or download from SourceForge (`Y`)
--b|bullseye|Base image, you can choose among `bullseye`, `buster` and `focal`
+-b|bullseye|Base image, you can choose among `bullseye`, `buster` and `jammy`
 -t|latest|The last part of the tag, by default it will be giof71/squeezelite:latest
 
 Example:
@@ -407,11 +411,11 @@ bullseye|debian:bullseye|1.9.8|Debian Repo|squeezelite-1.9.8-bullseye, squeezeli
 buster|debian:buster|1.8|Debian Repositories|squeezelite-1.8-buster, squeezelite-1.8-buster-RELEASE_DATE
 sourceforge-buster|debian:buster|1.9.9|SourceForge|squeezelite-1.9.9-sourceforge-buster, squeezelite-1.9.9-sourceforge-buster-RELEASE_DATE
 sourceforge-bullseye|debian:bullseye|1.9.9|SourceForge|squeezelite-1.9.9-sourceforge-bullseye, squeezelite-1.9.9-sourceforge-bullseye-RELEASE_DATE
-ubuntu-focal|ubuntu:focal|1.8|Ubuntu Repo|squeezelite-1.8-ubuntu-focal, squeezelite-1.8-ubuntu-focal-RELEASE_DATE
+jammy|ubuntu:jammy|1.9.9|Ubuntu Repo|squeezelite-1.9.9-jammy, squeezelite-1.9.9-jammy-RELEASE_DATE
 
 This situation might change in the future. I am currently using `debian:buster` as the base image because I am experiencing high cpu usage on the Raspberry Pi 3b (Raspbian OS Buster being the host o.s.) with `debian:bullseye` based images. Not so with the `debian-bullseye` image along with the squeelite binary from SourceForge.  
 So this is why `latest` is currently same as `sourceforge-bullseye` and `stable` is same as `buster` image.  
-Also, the `ubuntu-focal` images are currently not very interesting as they feature the same version as the `debian:buster` images, and I am not willing to use non-lts versions of ubuntu, which change way too frequently. So I might drop those builds in the near future.
+Also, the `jammy` images are currently not very interesting compared to the `debian:buster` and `debian:bullseye` images especially with SourceForge binaries, and I am not willing to use non-lts versions of ubuntu, which change way too frequently. So I might drop those builds in the near future.
 
 ## Errata
 

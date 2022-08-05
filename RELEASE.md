@@ -2,6 +2,42 @@
 
 ## Releases
 
+### 2022-08-05
+
+Feature|Description
+:---|:---
+Routine rebuild|No changes, just a rebuild
+
+### 2022-06-11
+
+Feature|Description
+:---|:---
+Build process reviewed|No more base images with dates, removed some hard-coded stuff
+News Presets|Add preset for Topping DX5 and Gustard X16
+Documentation cleanup|Various errors corrected
+
+### 2022-06-10
+
+Feature|Description
+:---|:---
+Fixed ubuntu image documentation|SqueezeLite version was wrong
+Fixed ubuntu image documentation|Focal was still mentioned
+Image bump|Bump to latest debian and ubuntu base images
+
+### 2022-06-09
+
+Feature|Description
+:---|:---
+Add Visualizer support|Add support for the visualizer `-v` switch (See the `SQUEEZELITE_VISUALIZER` variable)
+
+### 2022-04-30
+
+Feature|Description
+:---|:---
+SourceForge updates|Arm 32bit client updated to version 1401
+Base debian image bump|Bump for debian buster and bullseye
+Base ubuntu image upgrade|Upgraded to jammy
+
 ### 2022-04-01
 
 Feature|Description

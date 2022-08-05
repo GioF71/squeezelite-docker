@@ -1,84 +1,97 @@
 name: Publish multi-arch Docker images
 
 on:
-    push:
-        branches:
-            - main
+  push:
+    branches:
+      - main
 
 jobs:
-    release:
-        runs-on: ubuntu-latest
-        strategy:
-            fail-fast: false
-            matrix:
-                base: [ 'debian:bullseye-20220228-slim', 'debian:buster-20220228-slim', 'ubuntu:focal-20220302' ]
-                sourceforge: [ 'Y', 'N' ]
-                exclude:
-                    - base: 'ubuntu:focal-20220302'
-                      sourceforge: 'Y'
-                
-        steps:
-        -
-            name: Checkout
-            uses: actions/checkout@v2
-        -
-            name: Set Release Tag
-            run: |
-                date=$(date '+%Y-%m-%d')
-                base="$(cut -d ':' -f2 <<< '${{ matrix.base }}')"
-                base="$(cut -d '-' -f1 <<< ${base})"
-                squeezelite_version=""
-                distro_id=${base}
-                if [ "${{ matrix.sourceforge }}" = "Y" ]; \
-                    then squeezelite_version="squeezelite-1.9.9-sourceforge-"; \
-                else \
-                    if [ "${base}" = "bullseye" ]; \
-                        then squeezelite_version="squeezelite-1.9.8-"; \
-                    else \
-                        squeezelite_version="squeezelite-1.8-"; \
-                    fi
-                fi
-                if [ "${base}" = "focal" ]; \
-                    then distro_id="focal"; \
-                fi
-                tags="${{secrets.DOCKER_USERNAME}}/squeezelite:${squeezelite_version}${distro_id},${{secrets.DOCKER_USERNAME}}/squeezelite:${squeezelite_version}${distro_id}-${date}"
-                if [ "${base}" = "bullseye" ] && [ "${{ matrix.sourceforge }}" = "Y" ]; then \
-                    echo "RELEASE_TAGS=${tags},${{secrets.DOCKER_USERNAME}}/squeezelite:sourceforge-bullseye,${{secrets.DOCKER_USERNAME}}/squeezelite:latest"; \
-                elif [ "${base}" = "buster" ] && [ "${{ matrix.sourceforge }}" = "Y" ]; then \
-                    echo "RELEASE_TAGS=${tags},${{secrets.DOCKER_USERNAME}}/squeezelite:sourceforge-buster"; \
-                elif [ "${base}" = "buster" ] && [ "${{ matrix.sourceforge }}" = "N" ]; then \
-                    echo "RELEASE_TAGS=${tags},${{secrets.DOCKER_USERNAME}}/squeezelite:${distro_id},${{secrets.DOCKER_USERNAME}}/squeezelite:stable"; \
-                elif [ "${base}" = "bullseye" ] && [ "${{ matrix.sourceforge }}" = "N" ]; then \
-                    echo "RELEASE_TAGS=${tags},${{secrets.DOCKER_USERNAME}}/squeezelite:${distro_id}"; \
-                elif [ "${base}" = "focal" ] && [ "${{ matrix.sourceforge }}" = "N" ]; then \
-                    echo "RELEASE_TAGS=${tags},${{secrets.DOCKER_USERNAME}}/squeezelite:${distro_id}"; \
-                else \
-                    echo "RELEASE_TAGS=${tags}"; \
-                fi \
-                >> $GITHUB_ENV
-        -
-            name: Set up QEMU
-            uses: docker/setup-qemu-action@v1
-            with:
-                platforms: all
-        -
-            name: Set up Docker Buildx
-            id: buildx
-            uses: docker/setup-buildx-action@v1
-        -
-            name: Login to DockerHub
-            uses: docker/login-action@v1
-            with:
-                username: ${{ secrets.DOCKER_USERNAME }}
-                password: ${{ secrets.DOCKER_PASSWORD }}
-        -
-            name: Build and push
-            uses: docker/build-push-action@v2
-            with:
-                context: .
-                build-args: |
-                    BASE_IMAGE=${{ matrix.base }}
-                    DOWNLOAD_FROM_SOURCEFORGE=${{ matrix.sourceforge }}
-                platforms: linux/amd64,linux/arm/v7,linux/arm64/v8
-                push: true
-                tags: ${{ env.RELEASE_TAGS }}
+  release:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        base: ["bullseye", "buster", "jammy"]
+        sourceforge: ["Y", "N"]
+        exclude:
+          - base: "jammy"
+            sourceforge: "Y"
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Set Release Tag
+        run: |
+          branch_or_tag=${{ github.ref_name }}
+          echo "Branch or tag: ["$branch_or_tag"]"
+
+          declare -A base_image_from_matrix
+          base_image_from_matrix[buster]=debian:buster-slim
+          base_image_from_matrix[bullseye]=debian:bullseye-slim
+          base_image_from_matrix[jammy]=ubuntu:jammy
+
+          select_base_image=${base_image_from_matrix[${{ matrix.base }}]}
+          if [ -z "${select_base_image}" ]; then
+            select_base_image=debian:buster-slim
+          fi
+          echo "Select Base Image [" $select_base_image "]"
+
+          declare -A sl_version_mapping
+
+          sl_version_mapping[buster]=1.8
+          sl_version_mapping[bullseye]=1.9.8
+          sl_version_mapping[jammy]=1.9.9
+
+          squeezelite_version_str=""
+          select_squeezelite_version=unknown
+          distro_id=${{ matrix.base }}
+          if [ "${{ matrix.sourceforge }}" = "Y" ]; then
+              select_squeezelite_version="1.9.9-sourceforge"
+          else
+              select_squeezelite_version=${sl_version_mapping[${{ matrix.base }}]}
+              if [ -z "${select_squeezelite_version}" ]; then
+                select_squeezelite_version=unknown
+              fi
+              echo "Version from dictionary: "$select_squeezelite_version" from ["${{ matrix.base }}"]"
+          fi
+          squeezelite_version_str="squeezelite-"$select_squeezelite_version
+
+          date=$(date '+%Y-%m-%d')
+          slug=${{secrets.DOCKER_USERNAME}}/squeezelite
+          tags="$slug:${squeezelite_version_str}-${distro_id},$slug:${squeezelite_version_str}-${distro_id}-${date}"
+          if [ "${distro_id}" = "bullseye" ] && [ "${{ matrix.sourceforge }}" = "Y" ]; then
+              tags="${tags},$slug:sourceforge-bullseye,$slug:latest";
+          elif [ "${distro_id}" = "buster" ] && [ "${{ matrix.sourceforge }}" = "Y" ]; then
+              tags="${tags},$slug:sourceforge-buster";
+          elif [ "${distro_id}" = "buster" ] && [ "${{ matrix.sourceforge }}" = "N" ]; then
+              tags="${tags},$slug:${distro_id},$slug:stable";
+          elif [ "${distro_id}" = "bullseye" ] && [ "${{ matrix.sourceforge }}" = "N" ]; then
+              tags="${tags},$slug:${distro_id}";
+          elif [ "${distro_id}" = "jammy" ] && [ "${{ matrix.sourceforge }}" = "N" ]; then
+              tags="${tags},$slug:${distro_id}";
+          fi
+          echo "Final tags: ["${tags}"]"
+          echo "RELEASE_TAGS=${tags}" >> $GITHUB_ENV
+          echo "USE_BASE_IMAGE=${select_base_image}" >> $GITHUB_ENV
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+        with:
+          platforms: all
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v1
+      - name: Login to DockerHub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+      - name: Build and push
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          build-args: |
+            BASE_IMAGE=${{ env.USE_BASE_IMAGE }}
+            DOWNLOAD_FROM_SOURCEFORGE=${{ matrix.sourceforge }}
+          platforms: linux/amd64,linux/arm/v7,linux/arm64/v8
+          push: true
+          tags: ${{ env.RELEASE_TAGS }}

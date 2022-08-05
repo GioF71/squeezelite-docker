@@ -2,12 +2,19 @@
 
 ## Releases
 
+### 2022-08-05
+
+Feature|Description
+:---|:---
+Routine rebuild|No changes, just a rebuild
+
 ### 2022-06-11
 
 Feature|Description
 :---|:---
 Build process reviewed|No more base images with dates, removed some hard-coded stuff
 News Presets|Add preset for Topping DX5 and Gustard X16
+Documentation cleanup|Various errors corrected
 
 ### 2022-06-10
 

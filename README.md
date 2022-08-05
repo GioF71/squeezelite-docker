@@ -68,7 +68,7 @@ Also, I changed the file `/boot/armbianEnv.txt` so that `extraargs` is set like 
 extraargs="net.ifnames=0" systemd.unified_cgroup_hierarchy=0
 ```
 
-The file must be edit using `sudo`, and of course a reboot is required.  
+The file must be edited using `sudo`, and of course a reboot is required.  
 And now, for my hearing capabilities, the audio quality is excellent.  
 If anyone can suggest a more elegant solution, I will be happy to try it and then update this page.
 

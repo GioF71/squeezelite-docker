@@ -2,6 +2,13 @@
 
 ## Releases
 
+### 2022-09-09
+
+Feature|Description
+:---|:---
+Routine rebuild|Routine rebuild
+Documentation update|Minor correction(s)
+
 ### 2022-08-05
 
 Feature|Description

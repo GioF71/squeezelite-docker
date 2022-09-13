@@ -2,6 +2,13 @@
 
 ## Releases
 
+### 2022-09-13
+
+Feature|Description
+:---|:---
+Removed builds|Skipped buster with sourceforge binaries
+Removed builds|Stable is bullseye with binaries from repositories
+
 ### 2022-09-09
 
 Feature|Description

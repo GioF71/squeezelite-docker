@@ -16,6 +16,8 @@ jobs:
         exclude:
           - base: "jammy"
             sourceforge: "Y"
+          - base: "buster"
+            sourceforge: "Y"
 
     steps:
       - name: Checkout
@@ -64,9 +66,9 @@ jobs:
           elif [ "${distro_id}" = "buster" ] && [ "${{ matrix.sourceforge }}" = "Y" ]; then
               tags="${tags},$slug:sourceforge-buster";
           elif [ "${distro_id}" = "buster" ] && [ "${{ matrix.sourceforge }}" = "N" ]; then
-              tags="${tags},$slug:${distro_id},$slug:stable";
-          elif [ "${distro_id}" = "bullseye" ] && [ "${{ matrix.sourceforge }}" = "N" ]; then
               tags="${tags},$slug:${distro_id}";
+          elif [ "${distro_id}" = "bullseye" ] && [ "${{ matrix.sourceforge }}" = "N" ]; then
+              tags="${tags},$slug:${distro_id},$slug:stable";
           elif [ "${distro_id}" = "jammy" ] && [ "${{ matrix.sourceforge }}" = "N" ]; then
               tags="${tags},$slug:${distro_id}";
           fi

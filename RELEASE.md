@@ -8,7 +8,7 @@ Feature|Description
 :---|:---
 PulseAudio support|Initial PulseAudio support
 
-### 2022-09-14
+### 2022-09-13
 
 Feature|Description
 :---|:---

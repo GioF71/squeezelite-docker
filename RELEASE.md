@@ -2,7 +2,13 @@
 
 ## Releases
 
-### 2022-09-13
+### 2022-09-14
+
+Feature|Description
+:---|:---
+PulseAudio support|Initial PulseAudio support
+
+### 2022-09-14
 
 Feature|Description
 :---|:---

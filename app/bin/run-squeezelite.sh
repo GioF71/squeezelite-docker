@@ -21,11 +21,6 @@ echo "About to sleep for $STARTUP_DELAY_SEC second(s)"
 sleep $STARTUP_DELAY_SEC
 echo "Ready to start."
 
-echo "=== BEGIN Available audio devices ==="
-/usr/bin/squeezelite -l
-echo "=== END-- Available audio devices ==="
-echo ""
-
 if [ "${SQUEEZELITE_MODE}" == $SQUEEZELITE_MODE_ALSA ]; then
   /app/bin/run-squeezelite-alsa.sh;
 elif [ "${SQUEEZELITE_MODE}" == $SQUEEZELITE_MODE_PULSE ]; then

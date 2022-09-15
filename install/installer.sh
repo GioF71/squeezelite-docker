@@ -46,6 +46,7 @@ echo $DOWNLOADED_BIN
         apt-get update; \
         DEBIAN_FRONTEND=noninteractive apt-get upgrade -y; \
         apt-get install squeezelite --no-install-recommends -y; \
+        apt-get install pulseaudio --no-install-recommends -y; \
         rm -rf \"/var/lib/apt/lists/*\"; \
     fi'
 

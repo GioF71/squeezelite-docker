@@ -54,23 +54,7 @@ As I test the Dockerfile on more platforms, I will update this list.
 
 ### Asus Tinkerboard
 
-I was experiencing bad audio quality after the upgrade to bullseye.  
-See [here](https://github.com/MichaIng/DietPi/issues/5198) and [here](https://github.com/MichaIng/DietPi/issues/4980) for a few references.  
-I ended up downgrading the kernel to the legacy version with the following:
-
-```code
-sudo apt install linux-image-legacy-rockchip
-```
-
-Also, I changed the file `/boot/armbianEnv.txt` so that `extraargs` is set like the following:
-
-```text
-extraargs="net.ifnames=0" systemd.unified_cgroup_hierarchy=0
-```
-
-The file must be edited using `sudo`, and of course a reboot is required.  
-And now, for my hearing capabilities, the audio quality is excellent.  
-If anyone can suggest a more elegant solution, I will be happy to try it and then update this page.
+See [here](https://github.com/GioF71/squeezelite-docker/blob/main/doc/asus-tinkerboard.md).
 
 ## Get the image
 
@@ -96,6 +80,7 @@ The following tables reports all the currently supported environment variables.
 
 Variable|SqueezeLite corresponding option|Default|Notes
 :---|:---:|:---:|:---
+SQUEEZELITE_MODE||ALSA|Set to PULSE for [PulseAudio](#pulseaudio) mode
 PRESET|||You can now choose to set variables using predefined presets. Presets can currently tune the values of `SQUEEZELITE_AUDIO_DEVICE`, `SQUEEZELITE_RATES`, `SQUEEZELITE_UPSAMPLING`, `SQUEEZELITE_CODECS` and `SQUEEZELITE_EXCLUDE_CODECS` for you. See the [Available presets](#available-presets) table for reference. Presets can be combined (the separator must be a comma `,`), but keep in mind that the first preset setting a variable has the priority: one set by a preset, a variable cannot be overwritten by subsequent presets.
 SQUEEZELITE_AUDIO_DEVICE|-o||The audio device. Common examples: `hw:CARD=x20,DEV=0` or `hw:CARD=DAC,DEV=0` for usb dac based on XMOS. If left empty, the default alsa device is used.
 SQUEEZELITE_PARAMS|-a||Please refer to the squeezelite's man page for `-a`.
@@ -217,6 +202,34 @@ goldilocks_16x_only|2022-01-19|Rates, Upsampling|Setup goldilocks upsampling for
 gustard-x12-goldilocks|2022-01-19|Device, Rates, Upsampling|Setup goldilocks upsampling for usb dac, up to 384kHz, and also sets output device correctly for a Gustard X12 DAC
 no-dsd|2022-02-14|Excluded Codecs|Exclude dsd codec
 
+## PulseAudio
+
+You can specify PulseAudio mode by setting `SQUEEZELITE_MODE` to `PULSE`.
+For that configuration to work properly, `/run/user/1000/pulse` must be mapped correctly. The example below assumes that your user id is `1000`. Mapping the device `/dev/snd` is not needed in PulseAudio mode. Also, most of the enviroment variables are not supported and, for the largest part, they would be irrelevant. I will add support for those that will appear to be relevant. Feel free to open issue(s).
+
+```code
+---
+version: "3"
+
+services:
+  sq-pulse:
+    image: giof71/squeezelite:stable
+    container_name: sq-pulse
+    volumes:
+      - /run/user/1000/pulse:/run/user/1000/pulse
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - SQUEEZELITE_MODE=pulse
+      - SQUEEZELITE_NAME=sq-pulse
+      - SQUEEZELITE_SERVER_PORT=192.168.1.10
+```
+
+I would avoid to add a restart strategy to the compose file with PulseAudio. On my desktop setup, doing so led to all sort of issues on computer startup/reboot. Instead, I would use a user-level systemd service. An example is container in the `pulse` directory of this repository.
+Remember to use host networking if you need the player to be automatically discovered. Also, when using a docker run command and not using host mode, I'd suggest to create a dedicated network. This should be covered by the service in the `pulse` directory.
+
+PulseAudio mode is NOT supported for images that use a SourceForge binary. This notably includes `latest`. You might use `stable` instead as shown in the example compose file.
+
 ## Multiple Configurations on the same dac, and multi-dac configurations
 
 I am using the same host and I am connecting two dacs. I (generally) do not play music on multiple DACs at the same time, but I like to have multiple configurations a click away from the Logitech Media Server web interface.
@@ -242,6 +255,7 @@ For the new variables introduced over time, see the following table.
 
 New Variable|Availability Date|Comment
 :---|:---|:---
+SQUEEZELITE_MODE|2022-09-16|Support for PulseAudio
 SQUEEZELITE_VISUALIZER|2022-06-09|Add support for visualizer (-v).
 SQUEEZELITE_EXCLUDE_CODECS|2022-02-14|Added support for configuration option
 SQUEEZELITE_RATES|2021-11-23|Added support for configuration option
@@ -340,9 +354,9 @@ Full upsampling up to 176.4/192 kHz thanks to [ArchImago](https://archimago.blog
 version: "3.3"
 
 services:
-  squeezelite-tailscale:
+  squeezelite-hifiberry:
     image: giof71/squeezelite:stable
-    container_name: squeezelite-tailscale
+    container_name: squeezelite-hifiberry
     devices:
       - /dev/snd:/dev/snd
     environment:
@@ -379,25 +393,7 @@ services:
 
 ## Build
 
-You can build (or rebuild) the image by opening a terminal and using the convenience script `build.sh`.
-This script accepts a few parameters:
-
-Parameter|Default|Description
-:---:|:---:|:---
--d|N|Use repository (`N`) or download from SourceForge (`Y`)
--b|bullseye|Base image, you can choose among `bullseye`, `buster` and `jammy`
--t|latest|The last part of the tag, by default it will be giof71/squeezelite:latest
-
-Example:
-
-Command|Expected Result
-:---|:---
-./build.sh|Builds from Debian Bullseye, using the binary version from the repos, use the `latest` tag
-./build.sh -d N -b bullseye -t latest|Same as above, but everything is explicitly specified
-./build.sh -d Y -b buster -t buster-sf|Builds from Debian Buster, download from SourceForge, use `buster-sf` as the tag.
-
-It will take a few minutes of your time even on a Raspberry Pi. When it's finished, you can run the container following the previous instructions.  
-Just be careful to use the tag you have built.
+See build instructions [here](https://github.com/GioF71/squeezelite-docker/blob/main/doc/build.md).
 
 ## Docker Hub tags
 

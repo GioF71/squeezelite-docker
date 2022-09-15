@@ -2,6 +2,12 @@
 
 ## Releases
 
+### 2022-09-15
+
+Feature|Description
+:---|:---
+Documentation update|Fixed docker hub tag documentation
+
 ### 2022-09-13
 
 Feature|Description

@@ -1,6 +1,8 @@
 #!/bin/bash
 
-export DEFAULT_SQUEEZELITE_MODE=alsa
+export SQUEEZELITE_MODE_ALSA=ALSA
+export SQUEEZELITE_MODE_ALSA=PULSE
+export DEFAULT_SQUEEZELITE_MODE=$SQUEEZELITE_MODE_ALSA
 export DEFAULT_STARTUP_DELAY_SEC=0
 export DEFAULT_SQUEEZELITE_DELAY=500
 export DEFAULT_SQUEEZELITE_TIMEOUT=2
@@ -24,9 +26,11 @@ echo "=== BEGIN Available audio devices ==="
 echo "=== END-- Available audio devices ==="
 echo ""
 
-if [ "${SQUEEZELITE_MODE}" == "alsa" ]; then
+if [ "${SQUEEZELITE_MODE}" == $SQUEEZELITE_MODE_ALSA ]; then
   /app/bin/run-squeezelite-alsa.sh;
-else
+elif [ "${SQUEEZELITE_MODE}" == $SQUEEZELITE_MODE_PULSE ]; then
   /app/bin/run-squeezelite-pulse.sh;
+else
+  echo "Invalid mode ["$SQUEEZELITE_MODE"]"
 fi
 

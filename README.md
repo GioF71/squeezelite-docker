@@ -54,23 +54,7 @@ As I test the Dockerfile on more platforms, I will update this list.
 
 ### Asus Tinkerboard
 
-I was experiencing bad audio quality after the upgrade to bullseye.  
-See [here](https://github.com/MichaIng/DietPi/issues/5198) and [here](https://github.com/MichaIng/DietPi/issues/4980) for a few references.  
-I ended up downgrading the kernel to the legacy version with the following:
-
-```code
-sudo apt install linux-image-legacy-rockchip
-```
-
-Also, I changed the file `/boot/armbianEnv.txt` so that `extraargs` is set like the following:
-
-```text
-extraargs="net.ifnames=0" systemd.unified_cgroup_hierarchy=0
-```
-
-The file must be edited using `sudo`, and of course a reboot is required.  
-And now, for my hearing capabilities, the audio quality is excellent.  
-If anyone can suggest a more elegant solution, I will be happy to try it and then update this page.
+See [here](https://github.com/GioF71/squeezelite-docker/blob/main/doc/asus-tinkerboard.md).
 
 ## Get the image
 
@@ -379,25 +363,7 @@ services:
 
 ## Build
 
-You can build (or rebuild) the image by opening a terminal and using the convenience script `build.sh`.
-This script accepts a few parameters:
-
-Parameter|Default|Description
-:---:|:---:|:---
--d|N|Use repository (`N`) or download from SourceForge (`Y`)
--b|bullseye|Base image, you can choose among `bullseye`, `buster` and `jammy`
--t|latest|The last part of the tag, by default it will be giof71/squeezelite:latest
-
-Example:
-
-Command|Expected Result
-:---|:---
-./build.sh|Builds from Debian Bullseye, using the binary version from the repos, use the `latest` tag
-./build.sh -d N -b bullseye -t latest|Same as above, but everything is explicitly specified
-./build.sh -d Y -b buster -t buster-sf|Builds from Debian Buster, download from SourceForge, use `buster-sf` as the tag.
-
-It will take a few minutes of your time even on a Raspberry Pi. When it's finished, you can run the container following the previous instructions.  
-Just be careful to use the tag you have built.
+See build instructions [here](https://github.com/GioF71/squeezelite-docker/blob/main/doc/build.md).
 
 ## Docker Hub tags
 

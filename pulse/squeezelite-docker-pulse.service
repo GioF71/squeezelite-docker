@@ -11,12 +11,12 @@ ExecStart=/usr/bin/docker run -i \
                 --network=squeezelite-pulse \
 	        -e PUID=%U \
                 -e PGID=%G \
-	        -e SQUEEZELITE_MODE=pulse \
+	        -e SQUEEZELITE_MODE=PULSE \
                 -e SQUEEZELITE_NAME=xeon10-pulse-exp \
 	        -e SQUEEZELITE_SERVER_PORT=lms.homelab.com \
                 -v /run/user/%U/pulse:/run/user/1000/pulse \
 	        --name squeezelite-pulse \
-	        giof71/squeezelite:pulse
+	        giof71/squeezelite:stable
 
 ExecStop=-/usr/bin/docker stop squeezelite-pulse
 ExecStop=-/usr/bin/docker rm squeezelite-pulse

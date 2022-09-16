@@ -7,6 +7,7 @@
 Feature|Description
 :---|:---
 Documentation|More documentation for PulseAudio mode
+Cleanup|Fixed use of PUID and PGID
 
 ### 2022-09-15-pulse
 

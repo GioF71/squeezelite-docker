@@ -81,6 +81,8 @@ The following tables reports all the currently supported environment variables.
 Variable|SqueezeLite corresponding option|Default|Notes
 :---|:---:|:---:|:---
 SQUEEZELITE_MODE||ALSA|Set to PULSE for [PulseAudio](#pulseaudio) mode
+PUID||1000|User ID for PulseAudio Mode
+PGID||1000|Gser ID for PulseAudio Mode
 PRESET|||You can now choose to set variables using predefined presets. Presets can currently tune the values of `SQUEEZELITE_AUDIO_DEVICE`, `SQUEEZELITE_RATES`, `SQUEEZELITE_UPSAMPLING`, `SQUEEZELITE_CODECS` and `SQUEEZELITE_EXCLUDE_CODECS` for you. See the [Available presets](#available-presets) table for reference. Presets can be combined (the separator must be a comma `,`), but keep in mind that the first preset setting a variable has the priority: one set by a preset, a variable cannot be overwritten by subsequent presets.
 SQUEEZELITE_AUDIO_DEVICE|-o||The audio device. Common examples: `hw:CARD=x20,DEV=0` or `hw:CARD=DAC,DEV=0` for usb dac based on XMOS. If left empty, the default alsa device is used.
 SQUEEZELITE_PARAMS|-a||Please refer to the squeezelite's man page for `-a`.
@@ -204,8 +206,17 @@ no-dsd|2022-02-14|Excluded Codecs|Exclude dsd codec
 
 ## PulseAudio
 
-You can specify PulseAudio mode by setting `SQUEEZELITE_MODE` to `PULSE`.
-For that configuration to work properly, `/run/user/1000/pulse` must be mapped correctly. The example below assumes that your user id is `1000`. Mapping the device `/dev/snd` is not needed in PulseAudio mode. Also, most of the enviroment variables are not supported and, for the largest part, they would be irrelevant. I will add support for those that will appear to be relevant. Feel free to open issue(s).
+You can specify PulseAudio mode by setting the environment variable `SQUEEZELITE_MODE` to `PULSE`.
+For that configuration to work properly, `/run/user/1000/pulse` must be mapped correctly. The example below assumes that your user id is `1000`. The `PUID` and `PGID` variables should be set according to your user and groupid. Use the `id` command to see the uid for the currently logged in user.  
+Mapping the device `/dev/snd` is not needed in PulseAudio mode.  
+Also, most of the enviroment variables are not supported and, for the largest part, they would be irrelevant. I will add support for those that will appear to be relevant. Feel free to open issue(s).  
+A list of the variables that are configurable for PulseAudio mode:
+
+- PUID
+- PGID
+- SQUEEZELITE_NAME
+- SQUEEZELITE_SERVER_PORT
+
 
 ```code
 ---
@@ -216,13 +227,14 @@ services:
     image: giof71/squeezelite:stable
     container_name: sq-pulse
     volumes:
+      # change only on the left side according to your uid
       - /run/user/1000/pulse:/run/user/1000/pulse
     environment:
-      - PUID=1000
-      - PGID=1000
       - SQUEEZELITE_MODE=pulse
-      - SQUEEZELITE_NAME=sq-pulse
-      - SQUEEZELITE_SERVER_PORT=192.168.1.10
+      - PUID=1000 #optional, default is 1000
+      - PGID=1000 #optional, default is 1000
+      - SQUEEZELITE_NAME=sq-pulse #optional
+      - SQUEEZELITE_SERVER_PORT=192.168.1.10 #optional
 ```
 
 I would avoid to add a restart strategy to the compose file with PulseAudio. On my desktop setup, doing so led to all sort of issues on computer startup/reboot. Instead, I would use a user-level systemd service. An example is container in the `pulse` directory of this repository.
@@ -255,7 +267,9 @@ For the new variables introduced over time, see the following table.
 
 New Variable|Availability Date|Comment
 :---|:---|:---
-SQUEEZELITE_MODE|2022-09-16|Support for PulseAudio
+SQUEEZELITE_MODE|2022-09-15|Introduced support for PulseAudio
+UID|2022-09-15|User id for PulseAudio Mode
+GID|2022-09-15|Group id for PulseAudio Mode
 SQUEEZELITE_VISUALIZER|2022-06-09|Add support for visualizer (-v).
 SQUEEZELITE_EXCLUDE_CODECS|2022-02-14|Added support for configuration option
 SQUEEZELITE_RATES|2021-11-23|Added support for configuration option

@@ -2,6 +2,12 @@
 
 ## Releases
 
+### 2022-09-16
+
+Feature|Description
+:---|:---
+Documentation|More documentation for PulseAudio mode
+
 ### 2022-09-15-pulse
 
 Feature|Description

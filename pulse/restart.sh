@@ -1,5 +1,6 @@
 #!/bin/sh
 
-systemctl --user restart squeezelite-docker-pulse
+systemctl --user stop squeezelite-docker-pulse
+systemctl --user start squeezelite-docker-pulse
 
 

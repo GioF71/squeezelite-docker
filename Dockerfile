@@ -33,6 +33,9 @@ ENV SQUEEZELITE_VISUALIZER ""
 
 ENV DISPLAY_PRESETS ""
 
+ENV PUID ""
+ENV PGID ""
+
 RUN mkdir /app
 RUN mkdir /app/bin/
 
@@ -65,8 +68,9 @@ RUN mkdir /app/assets
 
 VOLUME '/app/assets/additional-presets.conf'
 
-COPY README.md /app/doc
-COPY RELEASE.md /app/doc
+COPY README.md /app/doc/
+COPY RELEASE.md /app/doc/
+COPY doc/* /app/doc/
 COPY app/assets/builtin-presets.conf /app/assets/
 COPY app/assets/pulse-client-template.conf /app/assets/pulse-client-template.conf
 

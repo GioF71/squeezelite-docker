@@ -2,6 +2,19 @@
 
 echo "Running in pulse mode"
 
+DEFAULT_UID=1000
+DEFAULT_GID=1000
+
+if [ -z "${PUID}" ]; then
+  PUID=$DEFAULT_UID;
+  echo "Setting default value for PUID: ["$PUID"]"
+fi
+
+if [ -z "${PGID}" ]; then
+  PGID=$DEFAULT_GID;
+  echo "Setting default value for PGID: ["$PGID"]"
+fi
+
 USER_NAME=sq-pulse
 GROUP_NAME=sq-pulse
 

@@ -28,7 +28,7 @@ Images: [DockerHub](https://hub.docker.com/r/giof71/squeezelite)
 
 ## Why
 
-I prepared this Dockerfile Because I wanted to be able to install squeezelite easily on any machine (provided the architecture is amd64 or arm). Also I wanted to be able to configure and govern the parameters easily, with particular reference to the configuration of the ALSA output. Configuring the container is easy through a webapp like [Portainer](https://www.portainer.io/).
+I prepared this Dockerfile Because I wanted to be able to install squeezelite easily on any machine (provided the architecture is amd64 or arm). Also I wanted to be able to configure and govern the parameters easily, with particular reference to the configuration of the ALSA output. PulseAudio is also supported since 2022-09-15. Configuring the container is easy through a webapp like [Portainer](https://www.portainer.io/).
 
 ## Prerequisites
 

@@ -2,6 +2,15 @@
 
 ## Releases
 
+### 2022-09-17
+
+Feature|Description
+:---|:---
+Documentation|Fixed typo on PGID notes
+Documentation|Mentioned PulseAudio early in Why section
+PulseAudio/SystemD|Removed my custom player name from unit, now the player name reflects the hostname
+PulseAudio/SystemD|Service now should wait for the network
+
 ### 2022-09-16
 
 Feature|Description

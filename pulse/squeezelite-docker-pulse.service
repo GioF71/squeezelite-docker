@@ -1,6 +1,7 @@
 [Unit]
 Description=Squeezelite Docker Pulse
-After=network.target sound.target
+After=network.target network-online.target sound.target
+Wants=network-online.target
 
 [Service]
 Type=simple

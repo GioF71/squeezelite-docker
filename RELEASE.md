@@ -2,7 +2,7 @@
 
 ## Releases
 
-### next-release-date
+### 2022-09-20
 
 Feature|Description
 :---|:---

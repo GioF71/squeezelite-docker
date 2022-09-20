@@ -11,12 +11,14 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        base: ["bullseye", "buster", "jammy"]
+        base: ["bookworm", "bullseye", "buster", "jammy"]
         sourceforge: ["Y", "N"]
         exclude:
           - base: "jammy"
             sourceforge: "Y"
           - base: "buster"
+            sourceforge: "Y"
+          - base: "bookworm"
             sourceforge: "Y"
 
     steps:
@@ -28,6 +30,7 @@ jobs:
           echo "Branch or tag: ["$branch_or_tag"]"
 
           declare -A base_image_from_matrix
+          base_image_from_matrix[bookworm]=debian:bookworm-slim
           base_image_from_matrix[buster]=debian:buster-slim
           base_image_from_matrix[bullseye]=debian:bullseye-slim
           base_image_from_matrix[jammy]=ubuntu:jammy
@@ -42,6 +45,7 @@ jobs:
 
           sl_version_mapping[buster]=1.8
           sl_version_mapping[bullseye]=1.9.8
+          sl_version_mapping[bookworm]=1.9.9
           sl_version_mapping[jammy]=1.9.9
 
           squeezelite_version_str=""
@@ -58,17 +62,19 @@ jobs:
           fi
           squeezelite_version_str="squeezelite-"$select_squeezelite_version
 
-          date=$(date '+%Y-%m-%d')
+          date=$(TZ=Europe/Rome date '+%Y-%m-%d')
           slug=${{secrets.DOCKER_USERNAME}}/squeezelite
           tags="$slug:${squeezelite_version_str}-${distro_id},$slug:${squeezelite_version_str}-${distro_id}-${date}"
           if [ "${distro_id}" = "bullseye" ] && [ "${{ matrix.sourceforge }}" = "Y" ]; then
-              tags="${tags},$slug:sourceforge-bullseye,$slug:latest";
+              tags="${tags},$slug:sourceforge-bullseye";
           elif [ "${distro_id}" = "buster" ] && [ "${{ matrix.sourceforge }}" = "Y" ]; then
-              tags="${tags},$slug:sourceforge-buster";
+              tags="${tags},$slug:sourceforge-buster,$slug:sourceforge-legacy";
           elif [ "${distro_id}" = "buster" ] && [ "${{ matrix.sourceforge }}" = "N" ]; then
-              tags="${tags},$slug:${distro_id}";
+              tags="${tags},$slug:${distro_id},$slug:legacy";
           elif [ "${distro_id}" = "bullseye" ] && [ "${{ matrix.sourceforge }}" = "N" ]; then
-              tags="${tags},$slug:${distro_id},$slug:stable";
+              tags="${tags},$slug:${distro_id},$slug:latest,$slug:stable";
+          elif [ "${distro_id}" = "bookworm" ] && [ "${{ matrix.sourceforge }}" = "N" ]; then
+              tags="${tags},$slug:${distro_id},$slug:edge";
           elif [ "${distro_id}" = "jammy" ] && [ "${{ matrix.sourceforge }}" = "N" ]; then
               tags="${tags},$slug:${distro_id}";
           fi

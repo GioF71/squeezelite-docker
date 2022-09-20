@@ -2,6 +2,16 @@
 
 ## Releases
 
+### next-release-date
+
+Feature|Description
+:---|:---
+Bookwork support|Add build with debian bookworm (next stable release), using SqueezeLite version 1.9.9. Resulting images will be tagged as "edge" on Docker Hub
+Tag changes|Apply `latest` and `stable` tags to `bullseye`, without sourgeforge binary
+Tag changes|Apply `edge` tag to bookworm, without sourgeforge binary
+Tag changes|Apply `legacy` tag to buster, without sourgeforge binary
+Tag changes|Apply `sourceforge-legacy` tag to buster with sourceforge binary (if the image is generated)
+
 ### 2022-09-17
 
 Feature|Description

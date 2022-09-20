@@ -6,7 +6,7 @@ This script accepts a few parameters:
 Parameter|Default|Description
 :---:|:---:|:---
 -d|N|Use repository (`N`) or download from SourceForge (`Y`)
--b|bullseye|Base image, you can choose among `bullseye`, `buster` and `jammy`
+-b|bullseye|Base image, you can choose among `bookworm`, `bullseye`, `buster` and `jammy`
 -t|latest|The last part of the tag, by default it will be giof71/squeezelite:latest
 
 Example:
@@ -19,4 +19,3 @@ Command|Expected Result
 
 It will take a few minutes of your time even on a Raspberry Pi. When it's finished, you can run the container following the previous instructions.  
 Just be careful to use the tag you have built.
-

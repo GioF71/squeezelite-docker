@@ -207,7 +207,8 @@ no-dsd|2022-02-14|Excluded Codecs|Exclude dsd codec
 ## PulseAudio
 
 You can specify PulseAudio mode by setting the environment variable `SQUEEZELITE_MODE` to `PULSE`.
-For that configuration to work properly, `/run/user/1000/pulse` must be mapped correctly. The example below assumes that your user id is `1000`. The `PUID` and `PGID` variables should be set according to your user and groupid. Use the `id` command to see the uid for the currently logged in user.  
+For that configuration to work properly, `/run/user/1000/pulse` must be mapped correctly. It is not mandatory to use `1000`: if you set `PUID` to `1002` for instance, the right part of the volume mount should be `/run/user/1002/pulse`.  
+The example below assumes that your current user id is `1000`. You might want to set the `PUID` and `PGID` variables according to your user and groupid. Use the `id` command to see the uid for the currently logged in user.  
 Mapping the device `/dev/snd` is not needed in PulseAudio mode.  
 Also, most of the enviroment variables are not supported and, for the largest part, they would be irrelevant. I will add support for those that will appear to be relevant. Feel free to open issue(s).  
 A list of the variables that are configurable for PulseAudio mode:
@@ -216,7 +217,6 @@ A list of the variables that are configurable for PulseAudio mode:
 - PGID
 - SQUEEZELITE_NAME
 - SQUEEZELITE_SERVER_PORT
-
 
 ```code
 ---
@@ -415,14 +415,15 @@ From this repository I create all the versions of the image. Each of them featur
 
 Tag|Base Image|SqueezeLite Version|SqueezeLite Origin|Additional Tags
 :---|:---:|:---:|:---:|:---
-latest|debian:bullseye|1.9.9|SourceForge|
-stable|debian:bullseye|1.9.8|Debian Repo|
+edge|debian:bookworm|1.9.9|Debian Repo|
+latest,stable|debian:bullseye|1.9.8|Debian Repo|
+legacy|debian:buster|1.8|Debian Repo|
 bullseye|debian:bullseye|1.9.8|Debian Repo|squeezelite-1.9.8-bullseye, squeezelite-1.9.8-bullseye-RELEASE_DATE
-buster|debian:buster|1.8|Debian Repositories|squeezelite-1.8-buster, squeezelite-1.8-buster-RELEASE_DATE
+buster,legacy|debian:buster|1.8|Debian Repositories|squeezelite-1.8-buster, squeezelite-1.8-buster-RELEASE_DATE
 sourceforge-bullseye|debian:bullseye|1.9.9|SourceForge|squeezelite-1.9.9-sourceforge-bullseye, squeezelite-1.9.9-sourceforge-bullseye-RELEASE_DATE
 jammy|ubuntu:jammy|1.9.9|Ubuntu Repo|squeezelite-1.9.9-jammy, squeezelite-1.9.9-jammy-RELEASE_DATE
 
-The `jammy` images are currently not very interesting compared to the `debian:bullseye` images especially with SourceForge binaries, and I am not willing to use non-lts versions of ubuntu, which change way too frequently. So I might drop some less interesting builds in the near future.
+The `jammy` images are currently not very interesting compared to the `debian` based images especially with SourceForge binaries, and I am not willing to use non-lts versions of ubuntu, which change way too frequently. So I might drop some less interesting builds in the near future.
 
 ## Errata
 

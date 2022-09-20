@@ -2,6 +2,7 @@
 
 declare -A base_images
 
+base_images[bookworm]=debian:bookworm-slim
 base_images[buster]=debian:buster-slim
 base_images[bullseye]=debian:bullseye-slim
 base_images[jammy]=ubuntu:jammy
@@ -22,9 +23,9 @@ do
     esac
 done
 
-#echo "base_image: $base_image";
-#echo "sourceforge download: $sd";
-#echo "tag: $tag";
+echo "base_image: $base_image";
+echo "sourceforge download: $sd";
+echo "tag: $tag";
 
 if [ -z "${base_image}" ]; then
   base_image=$DEFAULT_BASE_IMAGE

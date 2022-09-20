@@ -2,6 +2,12 @@
 
 ## Releases
 
+### next-release-date
+
+Feature|Description
+:---|:---
+Documentation|PulseAudio mode works with images tagged as `latest`
+
 ### 2022-09-20
 
 Feature|Description

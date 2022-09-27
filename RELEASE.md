@@ -7,6 +7,7 @@
 Feature|Description
 :---|:---
 Documentation|PulseAudio mode works with images tagged as `latest`
+Build|Build process reviewed
 
 ### 2022-09-20
 

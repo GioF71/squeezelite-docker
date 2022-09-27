@@ -101,8 +101,8 @@ jobs:
             else
               echo "other branch ["${ref_name}"]";
               other_timestamp=$(TZ=Europe/Rome date '+%Y-%m-%d-%H-%M-%S')
-              tags="$tags,${image_name}:${ref_name}-${distro_id}-${squeezelite_version_str}";
-              tags="$tags,${image_name}:${ref_name}-${distro_id}-${squeezelite_version_str}-${other_timestamp}";
+              tags="$tags,${image_name}:branch-${ref_name}-${distro_id}-${squeezelite_version_str}";
+              tags="$tags,${image_name}:branch-${ref_name}-${distro_id}-${squeezelite_version_str}-${other_timestamp}";
             fi
           elif [ "${ref_type}" = "tag" ]; then
             echo "tag mode";

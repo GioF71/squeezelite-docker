@@ -83,7 +83,7 @@ Variable|SqueezeLite corresponding option|Default|Notes
 SQUEEZELITE_MODE||ALSA|Set to PULSE for [PulseAudio](#pulseaudio) mode
 PUID||1000|User ID for PulseAudio Mode
 PGID||1000|Group ID for PulseAudio Mode
-PRESET|||You can now choose to set variables using predefined presets. Presets can currently tune the values of `SQUEEZELITE_AUDIO_DEVICE`, `SQUEEZELITE_RATES`, `SQUEEZELITE_UPSAMPLING`, `SQUEEZELITE_CODECS` and `SQUEEZELITE_EXCLUDE_CODECS` for you. See the [Available presets](#available-presets) table for reference. Presets can be combined (the separator must be a comma `,`), but keep in mind that the first preset setting a variable has the priority: one set by a preset, a variable cannot be overwritten by subsequent presets.
+PRESET|||You can now choose to set variables using predefined presets. Presets can currently tune the values of `SQUEEZELITE_AUDIO_DEVICE`, `SQUEEZELITE_RATES`, `SQUEEZELITE_UPSAMPLING`, `SQUEEZELITE_CODECS` and `SQUEEZELITE_EXCLUDE_CODECS` for you. See the [Available presets](#available-presets) table for reference. Presets can be combined (the separator must be a comma `,`), but keep in mind that the first preset setting a variable has the priority: once set by a preset, a variable cannot be overwritten by subsequent presets.
 SQUEEZELITE_AUDIO_DEVICE|-o||The audio device. Common examples: `hw:CARD=x20,DEV=0` or `hw:CARD=DAC,DEV=0` for usb dac based on XMOS. If left empty, the default alsa device is used.
 SQUEEZELITE_PARAMS|-a||Please refer to the squeezelite's man page for `-a`.
 SQUEEZELITE_CODECS|-c||Please refer to the squeezelite's man page for `-c`.
@@ -171,16 +171,20 @@ The `SQUEEZELITE_RATES` displayed here are provided just as an example. You stil
 
 Preset name|Availability date|Set Properties|Comment
 :---|:---:|:---:|:---
-gustard-x16|2022-06-10|Device|Sets device for Gustard X16 Dac
-topping-dx5|2022-06-10|Device|Sets device for Topping DX5 Dac
+yulong-d200|2022-09-27|Device|Sets device for Yulong D200
+aune-s6|2022-09-27|Device|Sets device for Aune S6
+aune-x1s|2022-09-27|Device|Sets device for Aune X1S
+peachtree-dacit|2022-09-27|Device|Sets device for Peachtree DAC-iT
+gustard-x16|2022-06-10|Device|Sets device for Gustard X16
+topping-dx5|2022-06-10|Device|Sets device for Topping DX5
 pi-headphones|2022-02-19|Device|Sets device for Raspberry Pi Headphone out
 dac|2022-02-02|Device|Sets device for typical xmos dac named "DAC"
 x20|2022-02-02|Device|Sets device for typical xmos dac named "x20"
-topping-d10|2022-02-02|Device|Sets device for Topping D10 Dac
-gustard-x12|2022-02-02|Device|Sets device for Gustard X12 DAC
+topping-d10|2022-02-02|Device|Sets device for Topping D10
+gustard-x12|2022-02-02|Device|Sets device for Gustard X12
 hifiberry-dac-plus|2022-02-02|Device|Sets device for the HifiBerry Dac+
 ifi-zen-dac|2022-02-16|Device|Sets device for the Ifi Zen Dac
-fiio-e18|2022-02-16|Device|Sets device for a Fiio E18 Dac
+fiio-e18|2022-02-16|Device|Sets device for Fiio E18
 goldilocks|2022-01-19|Upsampling|Setup goldilocks upsampling for usb dac, rates must be set with another preset or explicitly using the variable `SQUEEZELITE_RATES`. Corresponds to `v::4:28:95:105:45`
 extremus|2022-01-19|Upsampling|Setup [extremus](https://archimago.blogspot.com/2018/11/musings-raspberry-pi-3-b-touch.html) upsampling for usb dac, rates must be set with another preset or explicitly using the variable `SQUEEZELITE_RATES`. Corresponds to `v::3.05:28:99.7:100:45`
 archimago-goldilocks|2022-02-04|Upsampling|Alias for `goldilocks`, name feels more appropriate
@@ -418,10 +422,11 @@ Tag|Base Image|SqueezeLite Version|SqueezeLite Origin|Additional Tags
 edge|debian:bookworm|1.9.9|Debian Repo|
 latest,stable|debian:bullseye|1.9.8|Debian Repo|
 legacy|debian:buster|1.8|Debian Repo|
-bullseye|debian:bullseye|1.9.8|Debian Repo|squeezelite-1.9.8-bullseye, squeezelite-1.9.8-bullseye-RELEASE_DATE
-buster,legacy|debian:buster|1.8|Debian Repositories|squeezelite-1.8-buster, squeezelite-1.8-buster-RELEASE_DATE
-sourceforge-bullseye|debian:bullseye|1.9.9|SourceForge|squeezelite-1.9.9-sourceforge-bullseye, squeezelite-1.9.9-sourceforge-bullseye-RELEASE_DATE
-jammy|ubuntu:jammy|1.9.9|Ubuntu Repo|squeezelite-1.9.9-jammy, squeezelite-1.9.9-jammy-RELEASE_DATE
+bullseye|debian:bullseye|1.9.8|Debian Repo|squeezelite-1.9.8-bullseye, squeezelite-1.9.8-bullseye-RELEASE
+buster,legacy|debian:buster|1.8|Debian Repositories|squeezelite-1.8-buster, squeezelite-1.8-buster-RELEASE
+sourceforge-bullseye,sourceforge-latest|debian:bullseye|1.9.9|SourceForge|squeezelite-1.9.9-sourceforge-bullseye, squeezelite-1.9.9-sourceforge-bullseye-RELEASE
+sourceforge-bullseye,sourceforge-legacy|debian:buster|1.9.9|SourceForge|squeezelite-1.9.9-sourceforge-buster, squeezelite-1.9.9-sourceforge-buster-RELEASE
+jammy|ubuntu:jammy|1.9.9|Ubuntu Repo|squeezelite-1.9.9-jammy, squeezelite-1.9.9-jammy-RELEASE
 
 The `jammy` images are currently not very interesting compared to the `debian` based images especially with SourceForge binaries, and I am not willing to use non-lts versions of ubuntu, which change way too frequently. So I might drop some less interesting builds in the near future.
 

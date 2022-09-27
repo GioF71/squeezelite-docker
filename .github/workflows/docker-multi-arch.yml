@@ -56,6 +56,16 @@ jobs:
           sl_versions[bookworm]=1.9.9
           sl_versions[jammy]=1.9.9
 
+          image_name=${{secrets.DOCKER_USERNAME}}/squeezelite
+
+          declare -A special_tags
+
+          special_tags[bullseye-N]="${image-name}:stable,${image-name}:latest"
+          special_tags[bookworm-N]="${image-name}:edge"
+          special_tags[buster-N]="${image-name}:legacy"
+          special_tags[bullseye-Y]="${image-name}:sourceforge-latest"
+          special_tags[buster-Y]="${image-name}:sourceforge-legacy"
+
           stable="bullseye-N"
           latest="bullseye-N"
           edge=bookworm-N
@@ -83,7 +93,6 @@ jobs:
               echo "Version from dictionary: "$select_squeezelite_version" from ["${{ matrix.base }}"]"
           fi
           squeezelite_version_str="squeezelite-"$select_squeezelite_version
-          image_name=${{secrets.DOCKER_USERNAME}}/squeezelite
           tags=""
           if [ "${ref_type}" = "branch" ]; then
             echo "branch mode";
@@ -112,6 +121,11 @@ jobs:
             echo "Building now: ["$building_now"]";
             tags="$tags,$image_name:${distro_id}-${squeezelite_version_str}"
             tags="$tags,$image_name:${distro_id}-${squeezelite_version_str}-${release}"
+
+            if [[ -v $special_tags["${building_now}"] ]]; then
+              select_special_tags=$special_tags["${building_now}"];
+              echo "found special tag for ["${building_now}"]=["${select_special_tags}"]";
+            fi
 
             if [ "${building_now}" = "${stable}" ]; then
               tags="$tags,${image_name}:${tag_stable}";

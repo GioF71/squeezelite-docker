@@ -13,6 +13,7 @@ Feature|Description
 Documentation|Fixed typos/Cleanup
 Documentation|Track (new) image tags
 Presets|Add new presets (Aune X12 & S6, Yulong D200, Peachtree DAC-iT)
+Build|Only build from tags (reduce number of builds)
 
 ### 2022-09-27
 

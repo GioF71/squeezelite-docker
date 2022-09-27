@@ -2,10 +2,9 @@ name: Publish multi-arch Docker images
 
 on:
   push:
-    branches:
-      - "*"
     tags:
-      - "*"
+      - "devel/*"
+      - "release/*"
 
 jobs:
   release:
@@ -113,24 +112,33 @@ jobs:
           elif [ "${ref_type}" = "tag" ]; then
             echo "tag mode";
             echo "tag is ["${ref_name}"]";
-            release=${ref_name}
-            tags="$image_name:${distro_id}-${squeezelite_version_str}"
-            tags="$tags,$image_name:${distro_id}-${squeezelite_version_str}-${release}"
 
-            building_now="${distro_id}-${{ matrix.sourceforge }}";
-            echo "Building now: ["$building_now"]";
-            select_special_tags=${special_tags["${building_now}"]};
-            if [[ -n "${select_special_tags}" ]]; then
-              echo "Found special tags for ["${building_now}"]=["${select_special_tags}"]";
-              tags="$tags,${select_special_tags}";
-            else
-              echo "Not found special tags for ["${building_now}"]";
-            fi
-            
-            if [ "${{ matrix.sourceforge }}" = "N" ]; then
-              tags="${tags},$image_name:${distro_id}";
-            else
-              tags="${tags},$image_name:sourceforge-${distro_id}";
+            tag_type=$(echo ${ref_name} | cut -d '/' -f 1)
+            tag_name=$(echo ${ref_name} | cut -d '/' -f 2) 
+
+            if [ "${tag_type}" = "release" ]; then
+              echo "release tag";
+              tags="$image_name:${distro_id}-${squeezelite_version_str}"
+              tags="$tags,$image_name:${distro_id}-${squeezelite_version_str}-${tag_name}"
+
+              building_now="${distro_id}-${{ matrix.sourceforge }}";
+              echo "Building now: ["$building_now"]";
+              select_special_tags=${special_tags["${building_now}"]};
+              if [[ -n "${select_special_tags}" ]]; then
+                echo "Found special tags for ["${building_now}"]=["${select_special_tags}"]";
+                tags="$tags,${select_special_tags}";
+              else
+                echo "Not found special tags for ["${building_now}"]";
+              fi
+              
+              if [ "${{ matrix.sourceforge }}" = "N" ]; then
+                tags="${tags},$image_name:${distro_id}";
+              else
+                tags="${tags},$image_name:sourceforge-${distro_id}";
+              fi
+            elif [ "${tag_type}" = "devel" ]; then
+              echo "devel tag";
+              tags="${image_name}:${tag_name}-${distro_id}-${squeezelite_version_str}";
             fi
           fi
           echo "Building tags: ["${tags}"]"

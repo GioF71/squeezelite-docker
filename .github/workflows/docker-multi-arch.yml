@@ -123,7 +123,7 @@ jobs:
             tags="$tags,$image_name:${distro_id}-${squeezelite_version_str}-${release}"
 
             select_special_tags=${special_tags["${building_now}"]};
-            if [[ -n ${select_special_tags}"] ]]; then
+            if [[ -n ${select_special_tags}" ]]; then
               echo "found special tags for ["${building_now}"]=["${select_special_tags}"]";
             fi
 

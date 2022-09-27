@@ -94,15 +94,6 @@ jobs:
           fi
           squeezelite_version_str="squeezelite-"$select_squeezelite_version
 
-          building_now="${distro_id}-${{ matrix.sourceforge }}";
-          echo "Building now: ["$building_now"]";
-          select_special_tags=${special_tags["${building_now}"]};
-          if [[ -n "${select_special_tags}" ]]; then
-            echo "Found special tags for ["${building_now}"]=["${select_special_tags}"]";
-          else
-            echo "Not found special tags for ["${building_now}"]";
-          fi
-
           tags=""
           if [ "${ref_type}" = "branch" ]; then
             echo "branch mode";
@@ -130,24 +121,16 @@ jobs:
             tags="$image_name:${distro_id}-${squeezelite_version_str}"
             tags="$tags,$image_name:${distro_id}-${squeezelite_version_str}-${release}"
 
-            if [ "${building_now}" = "${stable}" ]; then
-              tags="$tags,${image_name}:${tag_stable}";
+            building_now="${distro_id}-${{ matrix.sourceforge }}";
+            echo "Building now: ["$building_now"]";
+            select_special_tags=${special_tags["${building_now}"]};
+            if [[ -n "${select_special_tags}" ]]; then
+              echo "Found special tags for ["${building_now}"]=["${select_special_tags}"]";
+              tags="$tags,${select_special_tags}";
+            else
+              echo "Not found special tags for ["${building_now}"]";
             fi
-            if [ "${building_now}" = "${latest}" ]; then
-              tags="$tags,${image_name}:${tag_latest}";
-            fi
-            if [ "${building_now}" = "${legacy}" ]; then
-              tags="$tags,${image_name}:${tag_legacy}";
-            fi
-            if [ "${building_now}" = "${edge}" ]; then
-              tags="$tags,${image_name}:${tag_edge}";
-            fi
-            if [ "${building_now}" = "${sourceforge_latest}" ]; then
-              tags="$tags,${image_name}:${tag_sourceforge_latest}";
-            fi
-            if [ "${building_now}" = "${sourceforge_legacy}" ]; then
-              tags="$tags,${image_name}:${tag_sourceforge_legacy}";
-            fi
+            
             if [ "${{ matrix.sourceforge }}" = "N" ]; then
               tags="${tags},$image_name:${distro_id}";
             else

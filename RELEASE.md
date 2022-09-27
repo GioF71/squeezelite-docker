@@ -6,6 +6,13 @@ There is roughly a release for each entry of the following changelog. Older buil
 
 ## Changelog
 
+### next-release-date
+
+Feature|Description
+:---|:---
+Documentation|Fixed typos/Cleanup
+Documentation|Track (new) image tags
+
 ### 2022-09-27
 
 Feature|Description

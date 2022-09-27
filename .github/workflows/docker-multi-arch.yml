@@ -93,6 +93,14 @@ jobs:
               echo "Version from dictionary: "$select_squeezelite_version" from ["${{ matrix.base }}"]"
           fi
           squeezelite_version_str="squeezelite-"$select_squeezelite_version
+
+          select_special_tags=${special_tags["${building_now}"]};
+          if [[ -n "${select_special_tags}" ]]; then
+            echo "Found special tags for ["${building_now}"]=["${select_special_tags}"]";
+          else
+            echo "Not found special tags for ["${building_now}"]";
+          fi
+
           tags=""
           if [ "${ref_type}" = "branch" ]; then
             echo "branch mode";
@@ -121,11 +129,6 @@ jobs:
             echo "Building now: ["$building_now"]";
             tags="$image_name:${distro_id}-${squeezelite_version_str}"
             tags="$tags,$image_name:${distro_id}-${squeezelite_version_str}-${release}"
-
-            select_special_tags=${special_tags["${building_now}"]};
-            if [[ -n "${select_special_tags}" ]]; then
-              echo "found special tags for ["${building_now}"]=["${select_special_tags}"]";
-            fi
 
             if [ "${building_now}" = "${stable}" ]; then
               tags="$tags,${image_name}:${tag_stable}";

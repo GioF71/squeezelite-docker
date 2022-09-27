@@ -105,14 +105,10 @@ jobs:
               tags="$tags,${image_name}:main-${distro_id}-${squeezelite_version_str}-${main_date}";
             elif [ "${ref_name}" = "devel" ]; then
               echo "devel branch";
-              devel_timestamp=$(TZ=Europe/Rome date '+%Y-%m-%d-%H-%M-%S')
               tags="${image_name}:devel-${distro_id}-${squeezelite_version_str}"
-              tags="$tags,${image_name}:devel-${distro_id}-${squeezelite_version_str}-${devel_timestamp}";
             else
               echo "other branch ["${ref_name}"]";
-              other_timestamp=$(TZ=Europe/Rome date '+%Y-%m-%d-%H-%M-%S')
               tags="${image_name}:branch-${ref_name}-${distro_id}-${squeezelite_version_str}";
-              tags="$tags,${image_name}:branch-${ref_name}-${distro_id}-${squeezelite_version_str}-${other_timestamp}";
             fi
           elif [ "${ref_type}" = "tag" ]; then
             echo "tag mode";

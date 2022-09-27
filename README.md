@@ -171,16 +171,20 @@ The `SQUEEZELITE_RATES` displayed here are provided just as an example. You stil
 
 Preset name|Availability date|Set Properties|Comment
 :---|:---:|:---:|:---
-gustard-x16|2022-06-10|Device|Sets device for Gustard X16 Dac
-topping-dx5|2022-06-10|Device|Sets device for Topping DX5 Dac
+yulong-d200|2022-09-27|Device|Sets device for Yulong D200
+aune-s6|2022-09-27|Device|Sets device for Aune S6
+aune-x1s|2022-09-27|Device|Sets device for Aune X1S
+peachtree-dacit|2022-09-27|Device|Sets device for Peachtree DAC-iT
+gustard-x16|2022-06-10|Device|Sets device for Gustard X16
+topping-dx5|2022-06-10|Device|Sets device for Topping DX5
 pi-headphones|2022-02-19|Device|Sets device for Raspberry Pi Headphone out
 dac|2022-02-02|Device|Sets device for typical xmos dac named "DAC"
 x20|2022-02-02|Device|Sets device for typical xmos dac named "x20"
-topping-d10|2022-02-02|Device|Sets device for Topping D10 Dac
-gustard-x12|2022-02-02|Device|Sets device for Gustard X12 DAC
+topping-d10|2022-02-02|Device|Sets device for Topping D10
+gustard-x12|2022-02-02|Device|Sets device for Gustard X12
 hifiberry-dac-plus|2022-02-02|Device|Sets device for the HifiBerry Dac+
 ifi-zen-dac|2022-02-16|Device|Sets device for the Ifi Zen Dac
-fiio-e18|2022-02-16|Device|Sets device for a Fiio E18 Dac
+fiio-e18|2022-02-16|Device|Sets device for Fiio E18
 goldilocks|2022-01-19|Upsampling|Setup goldilocks upsampling for usb dac, rates must be set with another preset or explicitly using the variable `SQUEEZELITE_RATES`. Corresponds to `v::4:28:95:105:45`
 extremus|2022-01-19|Upsampling|Setup [extremus](https://archimago.blogspot.com/2018/11/musings-raspberry-pi-3-b-touch.html) upsampling for usb dac, rates must be set with another preset or explicitly using the variable `SQUEEZELITE_RATES`. Corresponds to `v::3.05:28:99.7:100:45`
 archimago-goldilocks|2022-02-04|Upsampling|Alias for `goldilocks`, name feels more appropriate

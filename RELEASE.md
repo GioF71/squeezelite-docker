@@ -1,6 +1,10 @@
 # squeezeLite-Docker Release History
 
-## Releases
+## Release
+
+There is roughly a release for each entry of the following changelog. Older build might be dropped in order to save space on docker-hub and incur in limitations
+
+## Changelog
 
 ### 2022-09-27
 

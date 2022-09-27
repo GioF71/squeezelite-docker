@@ -432,4 +432,4 @@ Sorry for the inconvenience, this is now fixed.
 
 ## Release History
 
-The release history is available [here](https://github.com/GioF71/squeezelite-docker/blob/main/RELEASE.md).
+The change log is available [here](https://github.com/GioF71/squeezelite-docker/blob/main/RELEASE.md).

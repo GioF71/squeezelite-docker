@@ -9,6 +9,7 @@ Feature|Description
 Documentation|PulseAudio mode works with images tagged as `latest`
 Build|Build process reviewed
 Build|Created special tags dictionary
+Build|Avoid images with timestamps for devel and branch builds
 
 ### 2022-09-20
 

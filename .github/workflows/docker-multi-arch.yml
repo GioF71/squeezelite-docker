@@ -3,7 +3,9 @@ name: Publish multi-arch Docker images
 on:
   push:
     branches:
-      - main
+      - "*"
+    tags:
+      - "*"
 
 jobs:
   release:
@@ -24,10 +26,16 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Set Release Tag
+      - name: Prepare for docker build
         run: |
-          branch_or_tag=${{ github.ref_name }}
-          echo "Branch or tag: ["$branch_or_tag"]"
+          ref_type=${{ github.ref_name }}
+          echo "Branch or tag: ["$ref_type"]"
+
+          ref_name=${{ github.ref_name }}
+          echo "REF_NAME: ["$ref_name"]"
+
+          ref=${{ github.ref }}
+          echo "REF: ["$ref"]"
 
           declare -A base_image_from_matrix
           base_image_from_matrix[bookworm]=debian:bookworm-slim
@@ -41,12 +49,26 @@ jobs:
           fi
           echo "Select Base Image [" $select_base_image "]"
 
-          declare -A sl_version_mapping
+          declare -A sl_versions
 
-          sl_version_mapping[buster]=1.8
-          sl_version_mapping[bullseye]=1.9.8
-          sl_version_mapping[bookworm]=1.9.9
-          sl_version_mapping[jammy]=1.9.9
+          sl_versions[buster]=1.8
+          sl_versions[bullseye]=1.9.8
+          sl_versions[bookworm]=1.9.9
+          sl_versions[jammy]=1.9.9
+
+          stable="bullseye-N"
+          latest="bullseye-N"
+          edge=bookworm-N
+          legacy="buster-N"
+          sourceforge_latest="bullseye-Y"
+          sourceforge_legacy="buster-Y"
+
+          tag_stable="stable"
+          tag_latest="latest"
+          tag_edge="edge"
+          tag_legacy="legacy"
+          tag_sourceforge_latest="sourceforge-latest"
+          tag_sourceforge_legacy="sourceforge-legacy"
 
           squeezelite_version_str=""
           select_squeezelite_version=unknown
@@ -54,33 +76,70 @@ jobs:
           if [ "${{ matrix.sourceforge }}" = "Y" ]; then
               select_squeezelite_version="1.9.9-sourceforge"
           else
-              select_squeezelite_version=${sl_version_mapping[${{ matrix.base }}]}
+              select_squeezelite_version=${sl_versions[${{ matrix.base }}]}
               if [ -z "${select_squeezelite_version}" ]; then
                 select_squeezelite_version=unknown
               fi
               echo "Version from dictionary: "$select_squeezelite_version" from ["${{ matrix.base }}"]"
           fi
           squeezelite_version_str="squeezelite-"$select_squeezelite_version
+          tags=""
+          if [ "${ref_type}" = "branch" ]; then
+            echo "branch mode";
+            if [ "${ref_name}" = "main" ]; then
+              echo "main branch";
+              tags="$tags,${image_name}:main-${base}";
+              main_date=$(TZ=Europe/Rome date '+%Y-%m-%d')
+              tags="$tags,${image_name}:main-${distro_id}-${squeezelite_version_str}";
+              tags="$tags,${image_name}:main-${distro_id}-${squeezelite_version_str}-${select_date}";
+            elif [ "${ref_name}" = "devel" ]; then
+              echo "devel branch";
+              devel_timestamp=$(TZ=Europe/Rome date '+%Y-%m-%d-%H-%M-%S')
+              tags="$tags,${image_name}:devel-${distro_id}-${squeezelite_version_str}"
+              tags="$tags,${image_name}:devel-${distro_id}-${squeezelite_version_str}-${devel_timestamp}";
+            else
+              echo "other branch ["${ref_name}"]";
+              other_timestamp=$(TZ=Europe/Rome date '+%Y-%m-%d-%H-%M-%S')
+              tags="$tags,${image_name}:${ref_name}-${distro_id}-${squeezelite_version_str}";
+              tags="$tags,${image_name}:${ref_name}-${distro_id}-${squeezelite_version_str}-${other_timestamp}";
+            fi
+          elif [ "${ref_type}" = "tag" ]; then
+            echo "tag mode";
+            echo "tag is ["${ref_name}"]";
+            release=${ref_name}
+            building_now="${distro_id}-${{ matrix.sourceforge }}";
+            echo "Building now: ["$building_now"]";
+            image_name=${{secrets.DOCKER_USERNAME}}/squeezelite
+            tags="$tags,$image_name:${distro_id}-${squeezelite_version_str}"
+            tags="$tags,$image_name:${distro_id}-${squeezelite_version_str}-${release}"
 
-          date=$(TZ=Europe/Rome date '+%Y-%m-%d')
-          slug=${{secrets.DOCKER_USERNAME}}/squeezelite
-          tags="$slug:${squeezelite_version_str}-${distro_id},$slug:${squeezelite_version_str}-${distro_id}-${date}"
-          if [ "${distro_id}" = "bullseye" ] && [ "${{ matrix.sourceforge }}" = "Y" ]; then
-              tags="${tags},$slug:sourceforge-bullseye";
-          elif [ "${distro_id}" = "buster" ] && [ "${{ matrix.sourceforge }}" = "Y" ]; then
-              tags="${tags},$slug:sourceforge-buster,$slug:sourceforge-legacy";
-          elif [ "${distro_id}" = "buster" ] && [ "${{ matrix.sourceforge }}" = "N" ]; then
-              tags="${tags},$slug:${distro_id},$slug:legacy";
-          elif [ "${distro_id}" = "bullseye" ] && [ "${{ matrix.sourceforge }}" = "N" ]; then
-              tags="${tags},$slug:${distro_id},$slug:latest,$slug:stable";
-          elif [ "${distro_id}" = "bookworm" ] && [ "${{ matrix.sourceforge }}" = "N" ]; then
-              tags="${tags},$slug:${distro_id},$slug:edge";
-          elif [ "${distro_id}" = "jammy" ] && [ "${{ matrix.sourceforge }}" = "N" ]; then
-              tags="${tags},$slug:${distro_id}";
+            if [ "${building_now}" = "${stable}" ]; then
+              tags="$tags,${image_name}:${tag_stable}";
+            fi
+            if [ "${building_now}" = "${latest}" ]; then
+              tags="$tags,${image_name}:${tag_latest}";
+            fi
+            if [ "${building_now}" = "${legacy}" ]; then
+              tags="$tags,${image_name}:${tag_legacy}";
+            fi
+            if [ "${building_now}" = "${edge}" ]; then
+              tags="$tags,${image_name}:${tag_edge}";
+            fi
+            if [ "${building_now}" = "${sourceforge_latest}" ]; then
+              tags="$tags,${image_name}:${tag_sourceforge_latest}";
+            fi
+            if [ "${building_now}" = "${sourceforge_legacy}" ]; then
+              tags="$tags,${image_name}:${tag_sourceforge_legacy}";
+            fi
+            if [ "${{ matrix.sourceforge }}" = "N" ]; then
+              tags="${tags},$image_name:${distro_id}";
+            else
+              tags="${tags},$image_name:sourceforge-${distro_id}";
+            fi
           fi
-          echo "Final tags: ["${tags}"]"
+          echo "Building tags: ["${tags}"]"
           echo "RELEASE_TAGS=${tags}" >> $GITHUB_ENV
-          echo "USE_BASE_IMAGE=${select_base_image}" >> $GITHUB_ENV
+          echo "BASE_IMAGE=${select_base_image}" >> $GITHUB_ENV
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
         with:
@@ -98,7 +157,7 @@ jobs:
         with:
           context: .
           build-args: |
-            BASE_IMAGE=${{ env.USE_BASE_IMAGE }}
+            BASE_IMAGE=${{ env.BASE_IMAGE }}
             DOWNLOAD_FROM_SOURCEFORGE=${{ matrix.sourceforge }}
           platforms: linux/amd64,linux/arm/v7,linux/arm64/v8
           push: true

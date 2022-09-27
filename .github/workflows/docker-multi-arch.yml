@@ -99,18 +99,18 @@ jobs:
             if [ "${ref_name}" = "main" ]; then
               echo "main branch";
               main_date=$(TZ=Europe/Rome date '+%Y-%m-%d')
-              tags="$tags,${image_name}:main-${distro_id}";
+              tags="${image_name}:main-${distro_id}";
               tags="$tags,${image_name}:main-${distro_id}-${squeezelite_version_str}";
               tags="$tags,${image_name}:main-${distro_id}-${squeezelite_version_str}-${main_date}";
             elif [ "${ref_name}" = "devel" ]; then
               echo "devel branch";
               devel_timestamp=$(TZ=Europe/Rome date '+%Y-%m-%d-%H-%M-%S')
-              tags="$tags,${image_name}:devel-${distro_id}-${squeezelite_version_str}"
+              tags="${image_name}:devel-${distro_id}-${squeezelite_version_str}"
               tags="$tags,${image_name}:devel-${distro_id}-${squeezelite_version_str}-${devel_timestamp}";
             else
               echo "other branch ["${ref_name}"]";
               other_timestamp=$(TZ=Europe/Rome date '+%Y-%m-%d-%H-%M-%S')
-              tags="$tags,${image_name}:branch-${ref_name}-${distro_id}-${squeezelite_version_str}";
+              tags="${image_name}:branch-${ref_name}-${distro_id}-${squeezelite_version_str}";
               tags="$tags,${image_name}:branch-${ref_name}-${distro_id}-${squeezelite_version_str}-${other_timestamp}";
             fi
           elif [ "${ref_type}" = "tag" ]; then
@@ -119,12 +119,12 @@ jobs:
             release=${ref_name}
             building_now="${distro_id}-${{ matrix.sourceforge }}";
             echo "Building now: ["$building_now"]";
-            tags="$tags,$image_name:${distro_id}-${squeezelite_version_str}"
+            tags="$image_name:${distro_id}-${squeezelite_version_str}"
             tags="$tags,$image_name:${distro_id}-${squeezelite_version_str}-${release}"
 
-            if [[ -v $special_tags["${building_now}"] ]]; then
-              select_special_tags=$special_tags["${building_now}"];
-              echo "found special tag for ["${building_now}"]=["${select_special_tags}"]";
+            select_special_tags=${special_tags["${building_now}"]};
+            if [[ -n ${select_special_tags}"] ]]; then
+              echo "found special tags for ["${building_now}"]=["${select_special_tags}"]";
             fi
 
             if [ "${building_now}" = "${stable}" ]; then

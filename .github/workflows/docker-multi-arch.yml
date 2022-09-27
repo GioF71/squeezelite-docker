@@ -89,8 +89,8 @@ jobs:
             echo "branch mode";
             if [ "${ref_name}" = "main" ]; then
               echo "main branch";
-              tags="$tags,${image_name}:main-${base}";
               main_date=$(TZ=Europe/Rome date '+%Y-%m-%d')
+              tags="$tags,${image_name}:main-${distro_id}";
               tags="$tags,${image_name}:main-${distro_id}-${squeezelite_version_str}";
               tags="$tags,${image_name}:main-${distro_id}-${squeezelite_version_str}-${main_date}";
             elif [ "${ref_name}" = "devel" ]; then

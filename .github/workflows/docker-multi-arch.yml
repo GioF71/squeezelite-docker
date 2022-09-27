@@ -83,6 +83,7 @@ jobs:
               echo "Version from dictionary: "$select_squeezelite_version" from ["${{ matrix.base }}"]"
           fi
           squeezelite_version_str="squeezelite-"$select_squeezelite_version
+          image_name=${{secrets.DOCKER_USERNAME}}/squeezelite
           tags=""
           if [ "${ref_type}" = "branch" ]; then
             echo "branch mode";
@@ -109,7 +110,6 @@ jobs:
             release=${ref_name}
             building_now="${distro_id}-${{ matrix.sourceforge }}";
             echo "Building now: ["$building_now"]";
-            image_name=${{secrets.DOCKER_USERNAME}}/squeezelite
             tags="$tags,$image_name:${distro_id}-${squeezelite_version_str}"
             tags="$tags,$image_name:${distro_id}-${squeezelite_version_str}-${release}"
 

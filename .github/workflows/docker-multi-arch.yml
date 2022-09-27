@@ -94,6 +94,8 @@ jobs:
           fi
           squeezelite_version_str="squeezelite-"$select_squeezelite_version
 
+          building_now="${distro_id}-${{ matrix.sourceforge }}";
+          echo "Building now: ["$building_now"]";
           select_special_tags=${special_tags["${building_now}"]};
           if [[ -n "${select_special_tags}" ]]; then
             echo "Found special tags for ["${building_now}"]=["${select_special_tags}"]";
@@ -125,8 +127,6 @@ jobs:
             echo "tag mode";
             echo "tag is ["${ref_name}"]";
             release=${ref_name}
-            building_now="${distro_id}-${{ matrix.sourceforge }}";
-            echo "Building now: ["$building_now"]";
             tags="$image_name:${distro_id}-${squeezelite_version_str}"
             tags="$tags,$image_name:${distro_id}-${squeezelite_version_str}-${release}"
 

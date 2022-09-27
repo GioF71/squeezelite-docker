@@ -60,11 +60,11 @@ jobs:
 
           declare -A special_tags
 
-          special_tags[bullseye-N]="${image-name}:stable,${image-name}:latest"
-          special_tags[bookworm-N]="${image-name}:edge"
-          special_tags[buster-N]="${image-name}:legacy"
-          special_tags[bullseye-Y]="${image-name}:sourceforge-latest"
-          special_tags[buster-Y]="${image-name}:sourceforge-legacy"
+          special_tags[bullseye-N]="${image_name}:stable,${image-name}:latest"
+          special_tags[bookworm-N]="${image_name}:edge"
+          special_tags[buster-N]="${image_name}:legacy"
+          special_tags[bullseye-Y]="${image_name}:sourceforge-latest"
+          special_tags[buster-Y]="${image_name}:sourceforge-legacy"
 
           stable="bullseye-N"
           latest="bullseye-N"

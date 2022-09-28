@@ -11,6 +11,7 @@ There is roughly a release for each entry of the following changelog. Older buil
 Feature|Description
 :---|:---
 Build|Support for release, main, devel and feature tags
+Presets|Add new preset for Gustard U12 DDC
 
 ### 2022-09-28
 

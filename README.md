@@ -171,6 +171,7 @@ The `SQUEEZELITE_RATES` displayed here are provided just as an example. You stil
 
 Preset name|Availability date|Set Properties|Comment
 :---|:---:|:---:|:---
+gustard-12|2022-09-28|Device|Sets device for Gustard U12 DDC
 yulong-d200|2022-09-27|Device|Sets device for Yulong D200
 aune-s6|2022-09-27|Device|Sets device for Aune S6
 aune-x1s|2022-09-27|Device|Sets device for Aune X1S

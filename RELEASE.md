@@ -6,7 +6,7 @@ There is roughly a release for each entry of the following changelog. Older buil
 
 ## Changelog
 
-### next-release-date
+### 2022-09-28
 
 Feature|Description
 :---|:---
@@ -15,6 +15,7 @@ Documentation|Track (new) image tags
 Presets|Add new presets (Aune X12 & S6, Yulong D200, Peachtree DAC-iT)
 Build|Only from tags (reduce number of builds)
 Build|Build from main and devel branch only (no dates, no timestamps)
+Build|Support for building releases from a `release` branch by pushing a tag `release/<release-version>`.
 
 ### 2022-09-27
 

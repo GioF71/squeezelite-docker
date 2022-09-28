@@ -2,12 +2,11 @@ name: Publish multi-arch Docker images
 
 on:
   push:
-    branches:
-      - "main"
-      - "devel"
     tags:
-      - "devel/*"
       - "release/*"
+      - "main/*"
+      - "devel/*"
+      - "feature/*"
 
 jobs:
   release:
@@ -137,9 +136,15 @@ jobs:
               else
                 tags="${tags},$image_name:sourceforge-${distro_id}";
               fi
+            elif [ "${tag_type}" = "main" ]; then
+              echo "main tag";
+              tags="${image_name}:main-${tag_name}-${distro_id}-${squeezelite_version_str}";
             elif [ "${tag_type}" = "devel" ]; then
               echo "devel tag";
-              tags="${image_name}:${tag_name}-${distro_id}-${squeezelite_version_str}";
+              tags="${image_name}:devel-${tag_name}-${distro_id}-${squeezelite_version_str}";
+            elif [ "${tag_type}" = "feature" ]; then
+              echo "devel tag";
+              tags="${image_name}:feature-${tag_name}-${distro_id}-${squeezelite_version_str}";
             fi
           fi
           echo "Building tags: ["${tags}"]"

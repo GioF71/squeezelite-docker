@@ -1,6 +1,27 @@
 ARG BASE_IMAGE
 FROM ${BASE_IMAGE}
 ARG DOWNLOAD_FROM_SOURCEFORGE
+ARG USE_APT_PROXY
+
+RUN mkdir -p /app
+RUN mkdir -p /app/bin
+RUN mkdir -p /app/conf
+RUN mkdir -p /app/doc
+RUN mkdir -p /app/assets
+
+COPY app/conf/01-apt-proxy /app/conf/
+
+RUN echo "USE_APT_PROXY=["${USE_APT_PROXY}"]"
+
+#if [ "${tag_type}" = "release" ]; then
+
+RUN if [ "${USE_APT_PROXY}" = "Y" ]; then \
+    echo "Builind using apt proxy"; \
+    cp /app/conf/01-apt-proxy /etc/apt/apt.conf.d/01-apt-proxy; \
+    cat /etc/apt/apt.conf.d/01-apt-proxy; \
+    else \
+    echo "Building without apt proxy"; \
+    fi
 
 ENV SQUEEZELITE_MODE ""
 ENV SQUEEZELITE_AUDIO_DEVICE ""
@@ -36,19 +57,16 @@ ENV DISPLAY_PRESETS ""
 ENV PUID ""
 ENV PGID ""
 
-RUN mkdir /app
-RUN mkdir /app/bin/
+RUN mkdir -p /app/install
+COPY install/installer.sh /app/install/
+RUN chmod u+x /app/install/*
 
-RUN mkdir /install
-COPY install/installer.sh /install/
-RUN chmod u+x /install/*
+WORKDIR /app/install
 
-WORKDIR /install
-
-RUN /install/installer.sh $DOWNLOAD_FROM_SOURCEFORGE
+RUN /app/install/installer.sh $DOWNLOAD_FROM_SOURCEFORGE
 
 # remove scripts
-RUN rm -Rf /install
+RUN rm -Rf /app/install
 
 ## test binary in both cases
 RUN /usr/bin/squeezelite -?
@@ -62,9 +80,6 @@ RUN chmod u+x /app/bin/run-squeezelite.sh
 RUN chmod u+x /app/bin/run-squeezelite-alsa.sh
 RUN chmod u+x /app/bin/run-squeezelite-pulse.sh
 RUN chmod u+x /app/bin/run-presets.sh
-
-RUN mkdir /app/doc
-RUN mkdir /app/assets
 
 VOLUME '/app/assets/additional-presets.conf'
 

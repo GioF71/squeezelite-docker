@@ -6,6 +6,12 @@ There is roughly a release for each entry of the following changelog. Older buil
 
 ## Changelog
 
+### next-release-date
+
+Feature|Description
+:---|:---
+Build|Add apt proxy support
+
 ### 2022-09-28.1
 
 Feature|Description

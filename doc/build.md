@@ -8,6 +8,7 @@ Parameter|Default|Description
 -d|N|Use repository (`N`) or download from SourceForge (`Y`)
 -b|bullseye|Base image, you can choose among `bookworm`, `bullseye`, `buster` and `jammy`
 -t|latest|The last part of the tag, by default it will be giof71/squeezelite:latest
+-p|N|Use apt-proxy specified in app/conf/01-apt-proxy
 
 Example:
 

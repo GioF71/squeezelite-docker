@@ -20,7 +20,7 @@ jobs:
           - base: "jammy"
             sourceforge: "Y"
           - base: "buster"
-            sourceforge: "Y"
+            sourceforge: "N"
           - base: "bookworm"
             sourceforge: "Y"
 

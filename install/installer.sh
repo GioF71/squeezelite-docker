@@ -13,7 +13,7 @@ echo $DOWNLOADED_BIN
         ARCH=`uname -m`; \
         mkdir /assets; \
         mkdir -p /assets/sourceforge; \
-        OUTPUT_FILE=/usr/bin/squeezelite; \
+        OUTPUT_FILE=/app/bin/squeezelite; \
         URL_x86_64="https://sourceforge.net/projects/lmsclients/files/squeezelite/linux/squeezelite-1.9.9.1392-x86_64.tar.gz/download"; \
         URL_aarch64="https://sourceforge.net/projects/lmsclients/files/squeezelite/linux/squeezelite-1.9.9.1392-aarch64.tar.gz/download"; \
         URL_armv7l="https://sourceforge.net/projects/lmsclients/files/squeezelite/linux/squeezelite-1.9.9.1401-armhf.tar.gz/download"; \
@@ -46,7 +46,11 @@ echo $DOWNLOADED_BIN
         apt-get update; \
         DEBIAN_FRONTEND=noninteractive apt-get upgrade -y; \
         apt-get install squeezelite --no-install-recommends -y; \
+        cp /usr/bin/squeezelite /app/bin/squeezelite; \
+        apt-get install squeezelite-pulseaudio --no-install-recommends -y; \
+        cp /usr/bin/squeezelite-pulseaudio /app/bin/squeezelite-pulseaudio; \
         apt-get install pulseaudio --no-install-recommends -y; \
+        apt-get remove squeezelite* -y; \
         rm -rf \"/var/lib/apt/lists/*\"; \
     fi'
 

@@ -10,7 +10,7 @@ echo "=== BEGIN Loading presets ==="
 source run-presets.sh
 echo "=== END-- Loading presets ==="
 
-CMD_LINE="/usr/bin/squeezelite"
+CMD_LINE="/app/bin/squeezelite"
 echo "Initializing command line: ["$CMD_LINE"]"
 
 if [ -z "${PRESET}" ]; then

@@ -245,7 +245,8 @@ services:
 I would avoid to add a restart strategy to the compose file with PulseAudio. On my desktop setup, doing so led to all sort of issues on computer startup/reboot. Instead, I would use a user-level systemd service. An example is container in the `pulse` directory of this repository.
 Remember to use host networking if you need the player to be automatically discovered. Also, when using a docker run command and not using host mode, I'd suggest to create a dedicated network. This should be covered by the service in the `pulse` directory.
 
-PulseAudio mode is NOT supported for images that use a SourceForge binary. You might use `latest` or `stable` images shown in the example compose file.
+Since 2022-10-01, PulseAudio mode is supported on images that use a SourceForge binary.
+The `buster` build without sourceforge binaries has been since dropped, because the squeezelite-pulseaudio package is not available.
 
 ## Multiple Configurations on the same dac, and multi-dac configurations
 

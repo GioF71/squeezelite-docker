@@ -60,7 +60,7 @@ cp /app/assets/pulse-client-template.conf $PULSE_CLIENT_CONF
 sed -i 's/PUID/'"$PUID"'/g' $PULSE_CLIENT_CONF
 cat $PULSE_CLIENT_CONF
 
-CMD_LINE="/usr/bin/squeezelite -o pulse"
+CMD_LINE="/app/bin/squeezelite-pulseaudio"
 echo "Initializing command line: ["$CMD_LINE"]"
 
 if [ -z "${SQUEEZELITE_SERVER_PORT}" ]; then
@@ -80,6 +80,5 @@ fi
 echo "Command Line: ["$CMD_LINE"]"
 #eval $CMD_LINE
 
-#su - $USER_NAME -c "/usr/bin/squeezelite -n test-pulse -o pulse -s lms.homelab.com"
 su - $USER_NAME -c "$CMD_LINE"
 

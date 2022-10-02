@@ -6,6 +6,14 @@ There is roughly a release for each entry of the following changelog. Older buil
 
 ## Changelog
 
+### next-release-date
+
+Feature|Description
+:---|:---
+Build|Add apt proxy support
+PulseAudio|Download/install both alsa and pulseaudio versions of squeezelite
+PulseAudio|Support in sourceforge versions introduced
+
 ### 2022-09-28.1
 
 Feature|Description

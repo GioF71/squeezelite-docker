@@ -69,7 +69,8 @@ RUN /app/install/installer.sh $DOWNLOAD_FROM_SOURCEFORGE
 RUN rm -Rf /app/install
 
 ## test binary in both cases
-RUN /usr/bin/squeezelite -?
+RUN /app/bin/squeezelite -?
+RUN /app/bin/squeezelite-pulseaudio -?
 
 COPY app/bin/run-squeezelite.sh /app/bin/run-squeezelite.sh
 COPY app/bin/run-squeezelite-alsa.sh /app/bin/run-squeezelite-alsa.sh

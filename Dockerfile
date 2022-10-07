@@ -52,6 +52,13 @@ ENV SQUEEZELITE_VOLUME_CONTROL ""
 ENV SQUEEZELITE_LINEAR_VOLUME ""
 ENV SQUEEZELITE_VISUALIZER ""
 
+ENV SQUEEZELITE_LOG_CATEGORY_ALL ""
+ENV SQUEEZELITE_LOG_CATEGORY_SLIMPROTO ""
+ENV SQUEEZELITE_LOG_CATEGORY_STREAM ""
+ENV SQUEEZELITE_LOG_CATEGORY_DECODE ""
+ENV SQUEEZELITE_LOG_CATEGORY_OUTPUT ""
+ENV SQUEEZELITE_LOG_CATEGORY_IR ""
+
 ENV DISPLAY_PRESETS ""
 
 ENV PUID ""
@@ -72,14 +79,16 @@ RUN rm -Rf /app/install
 RUN /app/bin/squeezelite -?
 RUN /app/bin/squeezelite-pulseaudio -?
 
-COPY app/bin/run-squeezelite.sh /app/bin/run-squeezelite.sh
-COPY app/bin/run-squeezelite-alsa.sh /app/bin/run-squeezelite-alsa.sh
-COPY app/bin/run-squeezelite-pulse.sh /app/bin/run-squeezelite-pulse.sh
-COPY app/bin/run-presets.sh /app/bin/run-presets.sh
+COPY app/bin/run-squeezelite.sh /app/bin/
+COPY app/bin/run-squeezelite-alsa.sh /app/bin/
+COPY app/bin/run-squeezelite-pulse.sh /app/bin/
+COPY app/bin/logging.sh /app/bin/
+COPY app/bin/run-presets.sh /app/bin/
 
 RUN chmod u+x /app/bin/run-squeezelite.sh
 RUN chmod u+x /app/bin/run-squeezelite-alsa.sh
 RUN chmod u+x /app/bin/run-squeezelite-pulse.sh
+RUN chmod u+x /app/bin/logging.sh
 RUN chmod u+x /app/bin/run-presets.sh
 
 VOLUME '/app/assets/additional-presets.conf'

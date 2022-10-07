@@ -1,5 +1,8 @@
 #!/bin/bash
 
+#errors
+# 2 invalid mode
+
 SQUEEZELITE_MODE_ALSA=ALSA
 SQUEEZELITE_MODE_PULSE=PULSE
 
@@ -30,6 +33,7 @@ elif [ "${SQUEEZELITE_MODE}" == $SQUEEZELITE_MODE_PULSE ]; then
   echo "Using PULSE mode";
   /app/bin/run-squeezelite-pulse.sh;
 else
-  echo "Invalid mode ["$SQUEEZELITE_MODE"]"
+  echo "Invalid mode ["$SQUEEZELITE_MODE"]";
+  exit 2;
 fi
 

@@ -20,8 +20,6 @@ GROUP_NAME=sq-pulse
 
 HOME_DIR=/home/$USER_NAME
 
-#cat /etc/passwd
-
 ### create home directory and ancillary directories
 if [ ! -d "$HOME_DIR" ]; then
   echo "Home directory [$HOME_DIR] not found, creating."
@@ -78,7 +76,6 @@ else
 fi
 
 echo "Command Line: ["$CMD_LINE"]"
-#eval $CMD_LINE
 
 su - $USER_NAME -c "$CMD_LINE"
 

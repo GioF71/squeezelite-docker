@@ -6,6 +6,12 @@ There is roughly a release for each entry of the following changelog. Older buil
 
 ## Changelog
 
+### next-releae-date
+
+Date|Feature|Description
+:---|:---|:---
+2022-10-07|Feature|Support for logging levels
+
 ### 2022-10-02
 
 Feature|Description

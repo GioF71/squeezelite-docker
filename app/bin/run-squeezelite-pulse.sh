@@ -20,8 +20,6 @@ GROUP_NAME=sq-pulse
 
 HOME_DIR=/home/$USER_NAME
 
-#cat /etc/passwd
-
 ### create home directory and ancillary directories
 if [ ! -d "$HOME_DIR" ]; then
   echo "Home directory [$HOME_DIR] not found, creating."
@@ -77,8 +75,11 @@ else
   CMD_LINE="$CMD_LINE -n $SQUEEZELITE_NAME";
 fi
 
+source logging.sh
+
+add_log_categories
+
 echo "Command Line: ["$CMD_LINE"]"
-#eval $CMD_LINE
 
 su - $USER_NAME -c "$CMD_LINE"
 

@@ -276,5 +276,9 @@ else
   fi
 fi
 
+source logging.sh
+
+add_log_categories
+
 echo "Command Line: ["$CMD_LINE"]"
 eval $CMD_LINE

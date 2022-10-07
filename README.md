@@ -115,7 +115,7 @@ It is possible to add and additional preset configuration file using the volume 
 
 ### Possible values for Log Level configuration
 
-Possible values for variable `SQUEEZELITE_LOG_CATEGORY_*` are `info`, `debug` or `sdebug`.
+Possible values for variables `SQUEEZELITE_LOG_CATEGORY_*` are `info`, `debug` or `sdebug`.
 
 ## Volumes
 

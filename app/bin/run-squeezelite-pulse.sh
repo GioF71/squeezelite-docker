@@ -75,6 +75,10 @@ else
   CMD_LINE="$CMD_LINE -n $SQUEEZELITE_NAME";
 fi
 
+source logging.sh
+
+add_log_categories
+
 echo "Command Line: ["$CMD_LINE"]"
 
 su - $USER_NAME -c "$CMD_LINE"

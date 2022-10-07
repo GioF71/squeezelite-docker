@@ -283,6 +283,7 @@ For the new variables introduced over time, see the following table.
 
 New Variable|Availability Date|Comment
 :---|:---|:---
+SQUEEZELITE_LOG_CATEGORY_*|2022-10-07|Support for logging levels
 SQUEEZELITE_MODE|2022-09-15|Introduced support for PulseAudio
 UID|2022-09-15|User id for PulseAudio Mode
 GID|2022-09-15|Group id for PulseAudio Mode

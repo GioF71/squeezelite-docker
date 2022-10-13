@@ -285,8 +285,8 @@ New Variable|Availability Date|Comment
 :---|:---|:---
 SQUEEZELITE_LOG_CATEGORY_*|2022-10-07|Support for logging levels
 SQUEEZELITE_MODE|2022-09-15|Introduced support for PulseAudio
-UID|2022-09-15|User id for PulseAudio Mode
-GID|2022-09-15|Group id for PulseAudio Mode
+PUID|2022-09-15|User id for PulseAudio Mode
+PGID|2022-09-15|Group id for PulseAudio Mode
 SQUEEZELITE_VISUALIZER|2022-06-09|Add support for visualizer (-v).
 SQUEEZELITE_EXCLUDE_CODECS|2022-02-14|Added support for configuration option
 SQUEEZELITE_RATES|2021-11-23|Added support for configuration option

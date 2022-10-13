@@ -1,5 +1,5 @@
 #!/bin/sh
 
-systemctl --user stop squeezelite-docker-pulse
+systemctl --user stop squeezelite-pulse
 
 

@@ -1,8 +1,8 @@
 #!/bin/sh
 
-systemctl --user stop squeezelite-docker-pulse
-systemctl --user disable squeezelite-docker-pulse
-rm ~/.config/systemd/user/squeezelite-docker-pulse.service
+systemctl --user stop squeezelite-pulse
+systemctl --user disable squeezelite-pulse
+rm ~/.config/systemd/user/squeezelite-pulse.service
 systemctl --user daemon-reload
 
 

@@ -6,7 +6,7 @@ There is roughly a release for each entry of the following changelog. Older buil
 
 ## Changelog
 
-### Unreleased changes
+### 2022-10-24
 
 Date|Feature|Description
 :---|:---|:---

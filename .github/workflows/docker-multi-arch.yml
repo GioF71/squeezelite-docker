@@ -7,6 +7,7 @@ on:
       - "main/*"
       - "devel/*"
       - "feature/*"
+      - "daily/*"
 
 jobs:
   release:
@@ -145,6 +146,10 @@ jobs:
             elif [ "${tag_type}" = "feature" ]; then
               echo "devel tag";
               tags="${image_name}:feature-${tag_name}-${distro_id}-${squeezelite_version_str}";
+            elif [ "${tag_type}" = "daily" ]; then
+              echo "daily build";
+              tags="${tags},${image_name}:daily-${distro_id}";
+              tags="${tags},${image_name}:daily-${distro_id}-${squeezelite_version_str}";
             fi
           fi
           echo "Building tags: ["${tags}"]"

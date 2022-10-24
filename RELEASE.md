@@ -6,7 +6,7 @@ There is roughly a release for each entry of the following changelog. Older buil
 
 ## Changelog
 
-### next-release-date
+### Unreleased changes
 
 Date|Feature|Description
 :---|:---|:---

@@ -1,5 +1,5 @@
 #!/bin/sh
 
-systemctl --user status squeezelite-docker-pulse
+systemctl --user status squeezelite-pulse
 
 

@@ -1,5 +1,5 @@
 #!/bin/sh
 
-systemctl --user start squeezelite-docker-pulse
+systemctl --user start squeezelite-pulse
 
 

@@ -1,6 +1,6 @@
 #!/bin/sh
 
-cp squeezelite-docker-pulse.service ~/.config/systemd/user/
+cp squeezelite-pulse.service ~/.config/systemd/user/
 
 systemctl --user daemon-reload
-systemctl --user enable squeezelite-docker-pulse
+systemctl --user enable squeezelite-pulse

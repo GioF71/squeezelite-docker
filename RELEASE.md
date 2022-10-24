@@ -10,6 +10,7 @@ There is roughly a release for each entry of the following changelog. Older buil
 
 Date|Feature|Description
 :---|:---|:---
+2022-10-24|Improvement|Updated GitHub action versions
 2022-10-13|Feature|User-level systemd service for pulseaudio renamed to squeezelite-pulse
 
 ### 2022-10-07

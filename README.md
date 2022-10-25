@@ -1,5 +1,6 @@
-# squeezelite-docker - a Docker image for SqueezeLite
+# squeezelite-docker
 
+a Docker image for SqueezeLite  
 Now with support for upsampling and presets for maximum convenience.  
 Now also with support for arm64 thanks to [Der-Henning](https://github.com/Der-Henning/)
 

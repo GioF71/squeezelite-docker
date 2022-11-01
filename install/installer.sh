@@ -17,7 +17,7 @@ echo $DOWNLOADED_BIN
         OUTPUT_FILE_PULSE=/app/bin/squeezelite-pulseaudio; \
         URL_x86_64="https://sourceforge.net/projects/lmsclients/files/squeezelite/linux/squeezelite-1.9.9.1392-x86_64.tar.gz/download"; \
         URL_aarch64="https://sourceforge.net/projects/lmsclients/files/squeezelite/linux/squeezelite-1.9.9.1392-aarch64.tar.gz/download"; \
-        URL_armv7l="https://sourceforge.net/projects/lmsclients/files/squeezelite/linux/squeezelite-1.9.9.1401-armhf.tar.gz/download"; \
+        URL_armv7l="https://sourceforge.net/projects/lmsclients/files/squeezelite/linux/squeezelite-1.9.9.1411-armhf.tar.gz/download"; \
         URL_x86_64_PULSE="https://sourceforge.net/projects/lmsclients/files/squeezelite/linux/squeezelite-pulse-1.9.9.1392-x86_64.tar.gz/download"; \
         URL_aarch64_PULSE="https://sourceforge.net/projects/lmsclients/files/squeezelite/linux/squeezelite-pulse-1.9.9.1392-aarch64.tar.gz/download"; \
         URL_armv7l_PULSE="https://sourceforge.net/projects/lmsclients/files/squeezelite/linux/squeezelite-pulse-1.9.9.1392-armhf.tar.gz/download"; \

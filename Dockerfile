@@ -17,6 +17,7 @@ RUN if [ "${USE_APT_PROXY}" = "Y" ]; then \
     echo "Building without apt proxy"; \
     fi
 
+RUN mkdir -p /app/bin
 RUN mkdir -p /app/install
 COPY install/installer.sh /app/install/
 RUN chmod u+x /app/install/*

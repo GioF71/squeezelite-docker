@@ -1,19 +1,13 @@
 ARG BASE_IMAGE
-FROM ${BASE_IMAGE}
+FROM ${BASE_IMAGE} AS BASE
 ARG DOWNLOAD_FROM_SOURCEFORGE
 ARG USE_APT_PROXY
 
-RUN mkdir -p /app
-RUN mkdir -p /app/bin
 RUN mkdir -p /app/conf
-RUN mkdir -p /app/doc
-RUN mkdir -p /app/assets
 
 COPY app/conf/01-apt-proxy /app/conf/
 
 RUN echo "USE_APT_PROXY=["${USE_APT_PROXY}"]"
-
-#if [ "${tag_type}" = "release" ]; then
 
 RUN if [ "${USE_APT_PROXY}" = "Y" ]; then \
     echo "Builind using apt proxy"; \
@@ -22,6 +16,34 @@ RUN if [ "${USE_APT_PROXY}" = "Y" ]; then \
     else \
     echo "Building without apt proxy"; \
     fi
+
+RUN mkdir -p /app/bin
+RUN mkdir -p /app/install
+COPY install/installer.sh /app/install/
+RUN chmod u+x /app/install/*
+
+WORKDIR /app/install
+
+RUN /app/install/installer.sh $DOWNLOAD_FROM_SOURCEFORGE
+
+# remove scripts
+RUN rm -Rf /app/install
+
+## test binary in both cases
+RUN /app/bin/squeezelite -?
+RUN /app/bin/squeezelite-pulseaudio -?
+
+FROM scratch
+COPY --from=BASE / /
+
+LABEL maintainer="GioF71"
+LABEL source="https://github.com/GioF71/upmpdcli-docker"
+
+RUN mkdir -p /app
+RUN mkdir -p /app/bin
+RUN mkdir -p /app/conf
+RUN mkdir -p /app/doc
+RUN mkdir -p /app/assets
 
 ENV SQUEEZELITE_MODE ""
 ENV SQUEEZELITE_AUDIO_DEVICE ""
@@ -63,21 +85,6 @@ ENV DISPLAY_PRESETS ""
 
 ENV PUID ""
 ENV PGID ""
-
-RUN mkdir -p /app/install
-COPY install/installer.sh /app/install/
-RUN chmod u+x /app/install/*
-
-WORKDIR /app/install
-
-RUN /app/install/installer.sh $DOWNLOAD_FROM_SOURCEFORGE
-
-# remove scripts
-RUN rm -Rf /app/install
-
-## test binary in both cases
-RUN /app/bin/squeezelite -?
-RUN /app/bin/squeezelite-pulseaudio -?
 
 COPY app/bin/run-squeezelite.sh /app/bin/
 COPY app/bin/run-squeezelite-alsa.sh /app/bin/

@@ -6,6 +6,12 @@ There is roughly a release for each entry of the following changelog. Older buil
 
 ## Changelog
 
+### 2022-11-04
+
+Date|Feature|Description
+:---|:---|:---
+2022-11-04|Build|Multistage build
+
 ### 2022-11-01
 
 Date|Feature|Description

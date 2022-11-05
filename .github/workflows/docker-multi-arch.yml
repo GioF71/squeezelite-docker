@@ -15,15 +15,25 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        base: ["bookworm", "bullseye", "buster", "jammy"]
+        base: ["unstable", "sid", "bookworm", "bullseye", "buster", "kinetic", "jammy"]
         sourceforge: ["Y", "N"]
         exclude:
+          - base: "kinetic"
+            sourceforge: "Y"
           - base: "jammy"
             sourceforge: "Y"
           - base: "buster"
             sourceforge: "N"
           - base: "bookworm"
             sourceforge: "Y"
+          - base: "sid"
+            sourceforge: "Y"
+          - base: "sid"
+            sourceforge: "N"
+          - base: "unstable"
+            sourceforge: "Y"
+          - base: "unstable"
+            sourceforge: "N"
 
     steps:
       - name: Checkout
@@ -40,9 +50,12 @@ jobs:
           echo "REF: ["$ref"]"
 
           declare -A base_image_from_matrix
+          base_image_from_matrix[unstable]=debian:unstable-slim
+          base_image_from_matrix[sid]=debian:sid-slim
           base_image_from_matrix[bookworm]=debian:bookworm-slim
           base_image_from_matrix[buster]=debian:buster-slim
           base_image_from_matrix[bullseye]=debian:bullseye-slim
+          base_image_from_matrix[kinetic]=ubuntu:kinetic
           base_image_from_matrix[jammy]=ubuntu:jammy
 
           select_base_image=${base_image_from_matrix[${{ matrix.base }}]}
@@ -53,9 +66,12 @@ jobs:
 
           declare -A sl_versions
 
-          sl_versions[buster]=1.8
-          sl_versions[bullseye]=1.9.8
+          sl_versions[unstable]=1.9.9
+          sl_versions[sid]=1.9.9
           sl_versions[bookworm]=1.9.9
+          sl_versions[bullseye]=1.9.8
+          sl_versions[buster]=1.8
+          sl_versions[kinetic]=1.9.9
           sl_versions[jammy]=1.9.9
 
           image_name=${{secrets.DOCKER_USERNAME}}/squeezelite

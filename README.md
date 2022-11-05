@@ -65,13 +65,13 @@ Getting the image from DockerHub is as simple as typing:
 
 `docker pull giof71/squeezelite:latest`
 
-You may want to pull the "stable" image as opposed to the "latest". See [Docker Hub Tags](https://github.com/GioF71/squeezelite-docker/blob/main/README.md#docker-hub-tags) for more information.
+See [Docker Hub Tags](https://github.com/GioF71/squeezelite-docker/blob/main/README.md#docker-hub-tags) for more information about docker hub tags.
 
 ## Usage
 
 You can start squeezelite by typing:
 
-`docker run -d --rm --network host --device /dev/snd giof71/squeezelite:stable`
+`docker run -d --rm --network host --device /dev/snd giof71/squeezelite`
 
 Note that we need to allow the container to access the audio devices through /dev/snd.  
 We also need to use the *host* network mode so the squeezelite instance can be discovered on your network.  
@@ -226,13 +226,7 @@ You can specify PulseAudio mode by setting the environment variable `SQUEEZELITE
 For that configuration to work properly, `/run/user/1000/pulse` must be mapped correctly. It is not mandatory to use `1000`: if you set `PUID` to `1002` for instance, the right part of the volume mount should be `/run/user/1002/pulse`.  
 The example below assumes that your current user id is `1000`. You might want to set the `PUID` and `PGID` variables according to your user and groupid. Use the `id` command to see the uid for the currently logged in user.  
 Mapping the device `/dev/snd` is not needed in PulseAudio mode.  
-Also, most of the enviroment variables are not supported and, for the largest part, they would be irrelevant. I will add support for those that will appear to be relevant. Feel free to open issue(s).  
-A list of the variables that are configurable for PulseAudio mode:
-
-- PUID
-- PGID
-- SQUEEZELITE_NAME
-- SQUEEZELITE_SERVER_PORT
+Most of the enviroment variables are supported now, for the largest part, apart from those which do not make sense for PulseAudio mode.    
 
 ```code
 ---
@@ -240,7 +234,7 @@ version: "3"
 
 services:
   sq-pulse:
-    image: giof71/squeezelite:latest
+    image: giof71/squeezelite
     container_name: sq-pulse
     volumes:
       # change only on the left side according to your uid
@@ -256,7 +250,6 @@ services:
 I would avoid to add a restart strategy to the compose file with PulseAudio. On my desktop setup, doing so led to all sort of issues on computer startup/reboot. Instead, I would use a user-level systemd service. An example is container in the `pulse` directory of this repository.
 Remember to use host networking if you need the player to be automatically discovered. Also, when using a docker run command and not using host mode, I'd suggest to create a dedicated network. This should be covered by the service in the `pulse` directory.
 
-Since 2022-10-01, PulseAudio mode is supported on images that use a SourceForge binary.
 The `buster` build without sourceforge binaries has been since dropped, because the squeezelite-pulseaudio package is not available.
 
 ## Multiple Configurations on the same dac, and multi-dac configurations
@@ -387,7 +380,7 @@ version: "3.3"
 
 services:
   squeezelite-hifiberry:
-    image: giof71/squeezelite:stable
+    image: giof71/squeezelite
     container_name: squeezelite-hifiberry
     devices:
       - /dev/snd:/dev/snd
@@ -440,11 +433,6 @@ bullseye|debian:bullseye-slim|1.9.8|Debian Repo|squeezelite-1.9.8-bullseye, sque
 buster|debian:buster-slim|1.8|Debian Repositories|legacy, squeezelite-1.8-buster, squeezelite-1.8-buster-RELEASE
 sourceforge-bullseye|debian:bullseye-slim|1.9.9|SourceForge|sourceforge-latest, squeezelite-1.9.9-sourceforge-bullseye, squeezelite-1.9.9-sourceforge-bullseye-RELEASE
 sourceforge-buster|debian:buster-slim|1.9.9|SourceForge|sourceforge-legacy, squeezelite-1.9.9-sourceforge-buster, squeezelite-1.9.9-sourceforge-buster-RELEASE
-
-## Errata
-
-A few images built around SourceForge binaries report wrong and/or misleading tag names: some buster tags would appear to contain SqueezeLite version 1.8 and some bullseye tags would appear to contain SqueezeLite version 1.9.8. In both cases, the included SqueezeLite version is instead 1.9.9.
-Sorry for the inconvenience, this is now fixed.
 
 ## Release History
 

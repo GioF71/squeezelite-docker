@@ -125,20 +125,8 @@ cmdline-delay
 cmdline-params
 cmdline-volume-control
 cmdline-linear-volume
-
-if [ -z "${SQUEEZELITE_CODECS}" ]; then
-  echo "Variable SQUEEZELITE_CODECS has not been specified";
-else
-  echo "Variable SQUEEZELITE_CODECS has been specified: $SQUEEZELITE_CODECS";
-  CMD_LINE="$CMD_LINE -c $SQUEEZELITE_CODECS";
-fi
-
-if [ -z "${SQUEEZELITE_EXCLUDE_CODECS}" ]; then
-  echo "Variable SQUEEZELITE_EXCLUDE_CODECS has not been specified";
-else
-  echo "Variable SQUEEZELITE_EXCLUDE_CODECS has been specified: $SQUEEZELITE_EXCLUDE_CODECS";
-  CMD_LINE="$CMD_LINE -e $SQUEEZELITE_EXCLUDE_CODECS";
-fi
+cmdline-codecs
+cmdline-exclude-codecs
 
 if [ -z "${SQUEEZELITE_PRIORITY}" ]; then
   echo "Variable SQUEEZELITE_PRIORITY has not been specified";
@@ -180,8 +168,6 @@ else
   echo "Variable SQUEEZELITE_UNMUTE specified: $SQUEEZELITE_UNMUTE";
   CMD_LINE="$CMD_LINE -U $SQUEEZELITE_UNMUTE";
 fi
-
-
 
 if [ -z "${SQUEEZELITE_VISUALIZER}" ]; then
   echo "Variable SQUEEZELITE_VISUALIZER not specified";

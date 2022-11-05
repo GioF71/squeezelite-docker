@@ -114,3 +114,21 @@ function cmdline-linear-volume() {
         fi
     fi
 }
+
+function cmdline-codecs() {
+    if [ -z "${SQUEEZELITE_CODECS}" ]; then
+        echo "Variable SQUEEZELITE_CODECS has not been specified";
+    else
+        echo "Variable SQUEEZELITE_CODECS has been specified: $SQUEEZELITE_CODECS";
+        CMD_LINE="$CMD_LINE -c $SQUEEZELITE_CODECS";
+    fi
+}
+
+function cmdline-exclude-codecs() {
+    if [ -z "${SQUEEZELITE_EXCLUDE_CODECS}" ]; then
+        echo "Variable SQUEEZELITE_EXCLUDE_CODECS has not been specified";
+    else
+        echo "Variable SQUEEZELITE_EXCLUDE_CODECS has been specified: $SQUEEZELITE_EXCLUDE_CODECS";
+        CMD_LINE="$CMD_LINE -e $SQUEEZELITE_EXCLUDE_CODECS";
+    fi
+}

@@ -29,7 +29,8 @@ Images: [DockerHub](https://hub.docker.com/r/giof71/squeezelite)
 
 ## Why
 
-I prepared this Dockerfile Because I wanted to be able to install squeezelite easily on any machine (provided the architecture is amd64 or arm). Also I wanted to be able to configure and govern the parameters easily, with particular reference to the configuration of the ALSA output. PulseAudio is also supported since 2022-09-15. Configuring the container is easy through a webapp like [Portainer](https://www.portainer.io/).
+I prepared this Dockerfile Because I wanted to be able to install squeezelite easily on any machine (provided the architecture is amd64 or arm). Also I wanted to be able to configure and govern the parameters easily using environment variables.  
+Configuring the container should be easy through a webapp like [Portainer](https://www.portainer.io/).
 
 ## Prerequisites
 
@@ -63,15 +64,15 @@ Here is the [repository](https://hub.docker.com/repository/docker/giof71/squeeze
 
 Getting the image from DockerHub is as simple as typing:
 
-`docker pull giof71/squeezelite:latest`
+`docker pull giof71/squeezelite`
 
-You may want to pull the "stable" image as opposed to the "latest". See [Docker Hub Tags](https://github.com/GioF71/squeezelite-docker/blob/main/README.md#docker-hub-tags) for more information.
+See [Docker Hub Tags](https://github.com/GioF71/squeezelite-docker/blob/main/README.md#docker-hub-tags) for more information about docker hub tags.
 
 ## Usage
 
 You can start squeezelite by typing:
 
-`docker run -d --rm --network host --device /dev/snd giof71/squeezelite:stable`
+`docker run -d --rm --network host --device /dev/snd giof71/squeezelite`
 
 Note that we need to allow the container to access the audio devices through /dev/snd.  
 We also need to use the *host* network mode so the squeezelite instance can be discovered on your network.  
@@ -110,7 +111,7 @@ SQUEEZELITE_LOG_CATEGORY_STREAM|-d||Support for log level on category `stream`
 SQUEEZELITE_LOG_CATEGORY_DECODE|-d||Support for log level on category `decode`
 SQUEEZELITE_LOG_CATEGORY_OUTPUT|-d||Support for log level on category `output`
 SQUEEZELITE_LOG_CATEGORY_IR|-d||Support for log level on category `ir`
-STARTUP_DELAY_SEC||0|Delay before starting the application. This can be useful if your container is set up to start automatically, so that you can resolve race conditions with mpd and with squeezelite if all those services run on the same audio device. Also, it might be useful if you want to use multiple squeezelite instances on the same host, by enabling you to stagger the start process of the containers. I observed that Logitech Media Server tends to not apply the existing settings (specifically volume and last.fm scrobbling in my case) to the devices if there are more than one on the same host, so staggering the startup process seems to resolve the issue.
+STARTUP_DELAY_SEC||0|Delay before starting the application
 
 It is possible to add and additional preset configuration file using the volume `/app/assets/additional-presets.conf`.
 
@@ -226,13 +227,7 @@ You can specify PulseAudio mode by setting the environment variable `SQUEEZELITE
 For that configuration to work properly, `/run/user/1000/pulse` must be mapped correctly. It is not mandatory to use `1000`: if you set `PUID` to `1002` for instance, the right part of the volume mount should be `/run/user/1002/pulse`.  
 The example below assumes that your current user id is `1000`. You might want to set the `PUID` and `PGID` variables according to your user and groupid. Use the `id` command to see the uid for the currently logged in user.  
 Mapping the device `/dev/snd` is not needed in PulseAudio mode.  
-Also, most of the enviroment variables are not supported and, for the largest part, they would be irrelevant. I will add support for those that will appear to be relevant. Feel free to open issue(s).  
-A list of the variables that are configurable for PulseAudio mode:
-
-- PUID
-- PGID
-- SQUEEZELITE_NAME
-- SQUEEZELITE_SERVER_PORT
+Only a few enviroment variables are available in PulseAudio mode: `SQUEEZELITE_SERVER_PORT` and `SQUEEZELITE_NAME`.    
 
 ```code
 ---
@@ -240,13 +235,13 @@ version: "3"
 
 services:
   sq-pulse:
-    image: giof71/squeezelite:latest
+    image: giof71/squeezelite
     container_name: sq-pulse
     volumes:
       # change only on the left side according to your uid
       - /run/user/1000/pulse:/run/user/1000/pulse
     environment:
-      - SQUEEZELITE_MODE=pulse
+      - SQUEEZELITE_MODE=PULSE
       - PUID=1000 #optional, default is 1000
       - PGID=1000 #optional, default is 1000
       - SQUEEZELITE_NAME=sq-pulse #optional
@@ -256,7 +251,6 @@ services:
 I would avoid to add a restart strategy to the compose file with PulseAudio. On my desktop setup, doing so led to all sort of issues on computer startup/reboot. Instead, I would use a user-level systemd service. An example is container in the `pulse` directory of this repository.
 Remember to use host networking if you need the player to be automatically discovered. Also, when using a docker run command and not using host mode, I'd suggest to create a dedicated network. This should be covered by the service in the `pulse` directory.
 
-Since 2022-10-01, PulseAudio mode is supported on images that use a SourceForge binary.
 The `buster` build without sourceforge binaries has been since dropped, because the squeezelite-pulseaudio package is not available.
 
 ## Multiple Configurations on the same dac, and multi-dac configurations
@@ -387,7 +381,7 @@ version: "3.3"
 
 services:
   squeezelite-hifiberry:
-    image: giof71/squeezelite:stable
+    image: giof71/squeezelite
     container_name: squeezelite-hifiberry
     devices:
       - /dev/snd:/dev/snd
@@ -433,21 +427,13 @@ From this repository I create all the versions of the image. Each of them featur
 
 Tag|Base Image|SqueezeLite Version|SqueezeLite Origin|Additional Tags
 :---|:---:|:---:|:---:|:---
-edge|debian:bookworm|1.9.9|Debian Repo|
-latest,stable|debian:bullseye|1.9.8|Debian Repo|
-legacy|debian:buster|1.8|Debian Repo|
-bullseye|debian:bullseye|1.9.8|Debian Repo|squeezelite-1.9.8-bullseye, squeezelite-1.9.8-bullseye-RELEASE
-buster,legacy|debian:buster|1.8|Debian Repositories|squeezelite-1.8-buster, squeezelite-1.8-buster-RELEASE
-sourceforge-bullseye,sourceforge-latest|debian:bullseye|1.9.9|SourceForge|squeezelite-1.9.9-sourceforge-bullseye, squeezelite-1.9.9-sourceforge-bullseye-RELEASE
-sourceforge-bullseye,sourceforge-legacy|debian:buster|1.9.9|SourceForge|squeezelite-1.9.9-sourceforge-buster, squeezelite-1.9.9-sourceforge-buster-RELEASE
-jammy|ubuntu:jammy|1.9.9|Ubuntu Repo|squeezelite-1.9.9-jammy, squeezelite-1.9.9-jammy-RELEASE
-
-The `jammy` images are currently not very interesting compared to the `debian` based images especially with SourceForge binaries, and I am not willing to use non-lts versions of ubuntu, which change way too frequently. So I might drop some less interesting builds in the near future.
-
-## Errata
-
-A few images built around SourceForge binaries report wrong and/or misleading tag names: some buster tags would appear to contain SqueezeLite version 1.8 and some bullseye tags would appear to contain SqueezeLite version 1.9.8. In both cases, the included SqueezeLite version is instead 1.9.9.
-Sorry for the inconvenience, this is now fixed.
+kinetic|ubuntu:kinetic|1.9.9|Debian Repo|latest,squeezelite-1.9.9-kinetic, squeezelite-1.9.9-kinetic-RELEASE
+jammy|ubuntu:jammy|1.9.9|Debian Repo|stable,squeezelite-1.9.9-jammy, squeezelite-1.9.9-jammy-RELEASE
+bookworm|debian:bookworm-slim|1.9.9|Debian Repo|edge, squeezelite-1.9.9-bookworm, squeezelite-1.9.9-bookworm-RELEASE
+bullseye|debian:bullseye-slim|1.9.8|Debian Repo|squeezelite-1.9.8-bullseye, squeezelite-1.9.8-bullseye-RELEASE
+buster|debian:buster-slim|1.8|Debian Repositories|legacy, squeezelite-1.8-buster, squeezelite-1.8-buster-RELEASE
+sourceforge-bullseye|debian:bullseye-slim|1.9.9|SourceForge|sourceforge-latest, squeezelite-1.9.9-sourceforge-bullseye, squeezelite-1.9.9-sourceforge-bullseye-RELEASE
+sourceforge-buster|debian:buster-slim|1.9.9|SourceForge|sourceforge-legacy, squeezelite-1.9.9-sourceforge-buster, squeezelite-1.9.9-sourceforge-buster-RELEASE
 
 ## Release History
 

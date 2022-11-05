@@ -10,6 +10,7 @@ There is roughly a release for each entry of the following changelog. Older buil
 
 Date|Feature|Description
 :---|:---|:---
+2022-11-05|Build|Ubuntu `jammy` is `stable`, `kinetic` is `latest`
 2022-11-05|Build|Add support for ubuntu kinetic
 
 ### 2022-11-04

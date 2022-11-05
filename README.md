@@ -433,16 +433,13 @@ From this repository I create all the versions of the image. Each of them featur
 
 Tag|Base Image|SqueezeLite Version|SqueezeLite Origin|Additional Tags
 :---|:---:|:---:|:---:|:---
-edge|debian:bookworm|1.9.9|Debian Repo|
-latest,stable|debian:bullseye|1.9.8|Debian Repo|
-legacy|debian:buster|1.8|Debian Repo|
+kinetic|ubuntu:jammy|1.9.9|Debian Repo|latest,squeezelite-1.9.9-kinetic, squeezelite-1.9.9-kinetic-RELEASE
+jammy|ubuntu:jammy|1.9.9|Debian Repo|stable,squeezelite-1.9.9-jammy, squeezelite-1.9.9-jammy-RELEASE
+bookworm|debian:bookworm|1.9.9|Debian Repo|edge, squeezelite-1.9.9-bookworm, squeezelite-1.9.9-bookworm-RELEASE
 bullseye|debian:bullseye|1.9.8|Debian Repo|squeezelite-1.9.8-bullseye, squeezelite-1.9.8-bullseye-RELEASE
-buster,legacy|debian:buster|1.8|Debian Repositories|squeezelite-1.8-buster, squeezelite-1.8-buster-RELEASE
-sourceforge-bullseye,sourceforge-latest|debian:bullseye|1.9.9|SourceForge|squeezelite-1.9.9-sourceforge-bullseye, squeezelite-1.9.9-sourceforge-bullseye-RELEASE
-sourceforge-bullseye,sourceforge-legacy|debian:buster|1.9.9|SourceForge|squeezelite-1.9.9-sourceforge-buster, squeezelite-1.9.9-sourceforge-buster-RELEASE
-jammy|ubuntu:jammy|1.9.9|Ubuntu Repo|squeezelite-1.9.9-jammy, squeezelite-1.9.9-jammy-RELEASE
-
-The `jammy` images are currently not very interesting compared to the `debian` based images especially with SourceForge binaries, and I am not willing to use non-lts versions of ubuntu, which change way too frequently. So I might drop some less interesting builds in the near future.
+buster|debian:buster|1.8|Debian Repositories|legacy, squeezelite-1.8-buster, squeezelite-1.8-buster-RELEASE
+sourceforge-bullseye|debian:bullseye|1.9.9|SourceForge|sourceforge-latest, squeezelite-1.9.9-sourceforge-bullseye, squeezelite-1.9.9-sourceforge-bullseye-RELEASE
+sourceforge-buster|debian:buster|1.9.9|SourceForge|sourceforge-legacy, squeezelite-1.9.9-sourceforge-buster, squeezelite-1.9.9-sourceforge-buster-RELEASE
 
 ## Errata
 

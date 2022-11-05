@@ -29,7 +29,8 @@ Images: [DockerHub](https://hub.docker.com/r/giof71/squeezelite)
 
 ## Why
 
-I prepared this Dockerfile Because I wanted to be able to install squeezelite easily on any machine (provided the architecture is amd64 or arm). Also I wanted to be able to configure and govern the parameters easily, with particular reference to the configuration of the ALSA output. PulseAudio is also supported since 2022-09-15. Configuring the container is easy through a webapp like [Portainer](https://www.portainer.io/).
+I prepared this Dockerfile Because I wanted to be able to install squeezelite easily on any machine (provided the architecture is amd64 or arm). Also I wanted to be able to configure and govern the parameters easily using environment variables.  
+Configuring the container should be easy through a webapp like [Portainer](https://www.portainer.io/).
 
 ## Prerequisites
 
@@ -63,7 +64,7 @@ Here is the [repository](https://hub.docker.com/repository/docker/giof71/squeeze
 
 Getting the image from DockerHub is as simple as typing:
 
-`docker pull giof71/squeezelite:latest`
+`docker pull giof71/squeezelite`
 
 See [Docker Hub Tags](https://github.com/GioF71/squeezelite-docker/blob/main/README.md#docker-hub-tags) for more information about docker hub tags.
 
@@ -110,7 +111,7 @@ SQUEEZELITE_LOG_CATEGORY_STREAM|-d||Support for log level on category `stream`
 SQUEEZELITE_LOG_CATEGORY_DECODE|-d||Support for log level on category `decode`
 SQUEEZELITE_LOG_CATEGORY_OUTPUT|-d||Support for log level on category `output`
 SQUEEZELITE_LOG_CATEGORY_IR|-d||Support for log level on category `ir`
-STARTUP_DELAY_SEC||0|Delay before starting the application. This can be useful if your container is set up to start automatically, so that you can resolve race conditions with mpd and with squeezelite if all those services run on the same audio device. Also, it might be useful if you want to use multiple squeezelite instances on the same host, by enabling you to stagger the start process of the containers. I observed that Logitech Media Server tends to not apply the existing settings (specifically volume and last.fm scrobbling in my case) to the devices if there are more than one on the same host, so staggering the startup process seems to resolve the issue.
+STARTUP_DELAY_SEC||0|Delay before starting the application
 
 It is possible to add and additional preset configuration file using the volume `/app/assets/additional-presets.conf`.
 

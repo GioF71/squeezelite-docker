@@ -25,10 +25,10 @@ echo "About to sleep for $STARTUP_DELAY_SEC second(s)"
 sleep $STARTUP_DELAY_SEC
 echo "Ready to start."
 
-if [ "${SQUEEZELITE_MODE}" == $SQUEEZELITE_MODE_ALSA ]; then
+if [ "${SQUEEZELITE_MODE^^}" == "${SQUEEZELITE_MODE_ALSA^^}" ]; then
   echo "Using ALSA mode";
   /app/bin/run-squeezelite-alsa.sh;
-elif [ "${SQUEEZELITE_MODE}" == $SQUEEZELITE_MODE_PULSE ]; then
+elif [ "${SQUEEZELITE_MODE^^}" == "$SQUEEZELITE_MODE_PULSE^^}" ]; then
   echo "Using PULSE mode";
   /app/bin/run-squeezelite-pulse.sh;
 else

@@ -119,20 +119,8 @@ cmdline-player-name
 cmdline-model-name
 cmdline-timeout
 cmdline-mac-address
-
-if [ -z "${SQUEEZELITE_AUDIO_DEVICE}" ]; then
-  echo "Variable SQUEEZELITE_AUDIO_DEVICE has not been specified";
-else
-  echo "Variable SQUEEZELITE_AUDIO_DEVICE has been specified: $SQUEEZELITE_AUDIO_DEVICE";
-  CMD_LINE="$CMD_LINE -o "$SQUEEZELITE_AUDIO_DEVICE;
-fi
-
-if [ -z "${SQUEEZELITE_MIXER_DEVICE}" ]; then
-  echo "Variable SQUEEZELITE_MIXER_DEVICE has not been specified";
-else
-  echo "Variable SQUEEZELITE_MIXER_DEVICE has been specified: $SQUEEZELITE_MIXER_DEVICE";
-  CMD_LINE="$CMD_LINE -O $SQUEEZELITE_MIXER_DEVICE";
-fi
+cmdline-audio-device
+cmdline-mixer-device
 
 
 if [ -z "${SQUEEZELITE_DELAY}" ]; then

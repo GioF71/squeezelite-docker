@@ -136,7 +136,6 @@ else
   CMD_LINE="$CMD_LINE -p $SQUEEZELITE_PRIORITY";
 fi
 
-
 if [ -z "${SQUEEZELITE_UPSAMPLING}" ]; then
   echo "Variable SQUEEZELITE_UPSAMPLING not specified";
 else

@@ -123,6 +123,8 @@ cmdline-audio-device
 cmdline-mixer-device
 cmdline-delay
 cmdline-params
+cmdline-volume-control
+cmdline-linear-volume
 
 if [ -z "${SQUEEZELITE_CODECS}" ]; then
   echo "Variable SQUEEZELITE_CODECS has not been specified";
@@ -179,30 +181,7 @@ else
   CMD_LINE="$CMD_LINE -U $SQUEEZELITE_UNMUTE";
 fi
 
-if [ -z "${SQUEEZELITE_VOLUME_CONTROL}" ]; then
-  echo "Variable SQUEEZELITE_VOLUME_CONTROL not specified";
-else
-  echo "Variable SQUEEZELITE_VOLUME_CONTROL specified: $SQUEEZELITE_VOLUME_CONTROL";
-  CMD_LINE="$CMD_LINE -V $SQUEEZELITE_VOLUME_CONTROL";
-fi
 
-if [ -z "${SQUEEZELITE_LINEAR_VOLUME}" ]; then
-  echo "Variable SQUEEZELITE_LINEAR_VOLUME not specified";
-else
-  echo "Variable SQUEEZELITE_LINEAR_VOLUME specified: $SQUEEZELITE_LINEAR_VOLUME";
-  linear=${SQUEEZELITE_LINEAR_VOLUME^^}
-  echo "linear: $linear";
-  if [ "$linear" == "Y" ]; then
-    echo "Variable SQUEEZELITE_LINEAR_VOLUME set to enabled.";
-    CMD_LINE="$CMD_LINE -X";
-  else 
-    if [ "$linear" == "N" ]; then
-      echo "Variable SQUEEZELITE_LINEAR_VOLUME set to disabled.";
-    else
-      echo "Variable SQUEEZELITE_LINEAR_VOLUME invalid value: $SQUEEZELITE_LINEAR_VOLUME";
-    fi
-  fi
-fi
 
 if [ -z "${SQUEEZELITE_VISUALIZER}" ]; then
   echo "Variable SQUEEZELITE_VISUALIZER not specified";

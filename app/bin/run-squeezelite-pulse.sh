@@ -66,6 +66,7 @@ source cmd-line-builder.sh
 cmdline-server-port
 cmdline-player-name
 cmdline-model-name
+cmdline-timeout
 
 source logging.sh
 

@@ -84,8 +84,8 @@ jobs:
           special_tags[bullseye-Y]="${image_name}:sourceforge-latest"
           special_tags[buster-Y]="${image_name}:sourceforge-legacy"
 
-          stable="bullseye-N"
-          latest="bullseye-N"
+          stable="jammy-N"
+          latest="kinetic-N"
           edge=bookworm-N
           legacy="buster-N"
           sourceforge_latest="bullseye-Y"

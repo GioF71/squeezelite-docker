@@ -137,13 +137,8 @@ fi
 
 cmdline-server-port
 cmdline-player-name
+cmdline-model-name
 
-if [ -z "${SQUEEZELITE_MODEL_NAME}" ]; then
-  echo "Variable SQUEEZELITE_MODEL_NAME has not been specified";
-else
-  echo "Variable SQUEEZELITE_MODEL_NAME has been specified: $SQUEEZELITE_MODEL_NAME";
-  CMD_LINE="$CMD_LINE -M $SQUEEZELITE_MODEL_NAME";
-fi
 
 if [ -z "${SQUEEZELITE_TIMEOUT}" ]; then
   echo "Variable SQUEEZELITE_TIMEOUT has not been specified, using default $DEFAULT_SQUEEZELITE_TIMEOUT";

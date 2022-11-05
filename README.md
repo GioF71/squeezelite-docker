@@ -149,14 +149,14 @@ The additional preset file is used in combination with other presets for [upsamp
 version: "3"
 
 services:
-  squeezelite-super-amazing-dac:
+  squeezelite-my-usb-dac:
     image: giof71/squeezelite:latest
-    container_name: squeezelite-super-amazing-dac
+    container_name: squeezelite-my.usb-dac
     devices:
       - /dev/snd:/dev/snd
     environment:
-      - PRESET=super-amazing-dac,archimago-goldilocks,rates_up_to_384k
-      - SQUEEZELITE_NAME=super-amazing-dac
+      - PRESET=my-usb-dac,archimago-goldilocks,rates_up_to_384k
+      - SQUEEZELITE_NAME=my-usb-dac
       - SQUEEZELITE_SERVER_PORT=192.168.1.10
       - DISPLAY_PRESETS=Y
     volumes:

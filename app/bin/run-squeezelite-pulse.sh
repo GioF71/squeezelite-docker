@@ -65,6 +65,7 @@ source cmd-line-builder.sh
 
 cmdline-server-port
 cmdline-player-name
+cmdline-model-name
 
 source logging.sh
 

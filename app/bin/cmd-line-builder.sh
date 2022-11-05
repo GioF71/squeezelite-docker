@@ -48,3 +48,21 @@ function cmdline-mac-address() {
         CMD_LINE="$CMD_LINE -m $SQUEEZELITE_MAC_ADDRESS";
     fi    
 }
+
+function cmdline-audio-device() {
+    if [ -z "${SQUEEZELITE_AUDIO_DEVICE}" ]; then
+        echo "Variable SQUEEZELITE_AUDIO_DEVICE has not been specified";
+    else
+        echo "Variable SQUEEZELITE_AUDIO_DEVICE has been specified: $SQUEEZELITE_AUDIO_DEVICE";
+        CMD_LINE="$CMD_LINE -o "$SQUEEZELITE_AUDIO_DEVICE;
+    fi
+}
+
+function cmdline-mixer-device() {
+    if [ -z "${SQUEEZELITE_MIXER_DEVICE}" ]; then
+        echo "Variable SQUEEZELITE_MIXER_DEVICE has not been specified";
+    else
+        echo "Variable SQUEEZELITE_MIXER_DEVICE has been specified: $SQUEEZELITE_MIXER_DEVICE";
+        CMD_LINE="$CMD_LINE -O $SQUEEZELITE_MIXER_DEVICE";
+    fi
+}

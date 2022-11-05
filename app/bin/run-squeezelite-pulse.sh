@@ -68,6 +68,7 @@ cmdline-player-name
 cmdline-model-name
 cmdline-timeout
 cmdline-mac-address
+cmdline-params
 
 source logging.sh
 

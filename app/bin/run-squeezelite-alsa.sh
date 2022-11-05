@@ -122,13 +122,7 @@ cmdline-mac-address
 cmdline-audio-device
 cmdline-mixer-device
 cmdline-delay
-
-if [ -z "${SQUEEZELITE_PARAMS}" ]; then
-  echo "Variable SQUEEZELITE_PARAMS has not been specified";
-else
-  echo "Variable SQUEEZELITE_PARAMS has been specified: $SQUEEZELITE_PARAMS";
-  CMD_LINE="$CMD_LINE -a $SQUEEZELITE_PARAMS";
-fi
+cmdline-params
 
 if [ -z "${SQUEEZELITE_CODECS}" ]; then
   echo "Variable SQUEEZELITE_CODECS has not been specified";

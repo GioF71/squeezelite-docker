@@ -66,6 +66,8 @@ jobs:
 
           declare -A sl_versions
 
+          sl_versions[unstable]=1.9.9
+          sl_versions[sid]=1.9.9
           sl_versions[bookworm]=1.9.9
           sl_versions[bullseye]=1.9.8
           sl_versions[buster]=1.8

@@ -1,6 +1,7 @@
 #!/bin/bash
 
 DEFAULT_SQUEEZELITE_TIMEOUT=2
+DEFAULT_SQUEEZELITE_DELAY=500
 
 function cmdline-server-port() {
     if [ -z "${SQUEEZELITE_SERVER_PORT}" ]; then
@@ -35,7 +36,6 @@ function cmdline-timeout() {
         SQUEEZELITE_TIMEOUT=$DEFAULT_SQUEEZELITE_TIMEOUT;
     else
         echo "Variable SQUEEZELITE_TIMEOUT has been specified: $SQUEEZELITE_TIMEOUT";
-        CMD_LINE="$CMD_LINE -C $SQUEEZELITE_TIMEOUT";
     fi
     CMD_LINE="$CMD_LINE -C $SQUEEZELITE_TIMEOUT";
 }
@@ -65,4 +65,14 @@ function cmdline-mixer-device() {
         echo "Variable SQUEEZELITE_MIXER_DEVICE has been specified: $SQUEEZELITE_MIXER_DEVICE";
         CMD_LINE="$CMD_LINE -O $SQUEEZELITE_MIXER_DEVICE";
     fi
+}
+
+function cmdline-delay() {
+    if [ -z "${SQUEEZELITE_DELAY}" ]; then
+        echo "Variable SQUEEZELITE_DELAY has not been specified, using default $DEFAULT_SQUEEZELITE_DELAY";
+        SQUEEZELITE_DELAY=$DEFAULT_SQUEEZELITE_DELAY;
+    else
+        echo "Variable SQUEEZELITE_DELAY has been specified: $SQUEEZELITE_DELAY";
+    fi
+    CMD_LINE="$CMD_LINE -D $SQUEEZELITE_DELAY";
 }

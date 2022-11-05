@@ -121,15 +121,7 @@ cmdline-timeout
 cmdline-mac-address
 cmdline-audio-device
 cmdline-mixer-device
-
-
-if [ -z "${SQUEEZELITE_DELAY}" ]; then
-  echo "Variable SQUEEZELITE_DELAY has not been specified, using default $DEFAULT_SQUEEZELITE_DELAY";
-  SQUEEZELITE_DELAY=$DEFAULT_SQUEEZELITE_DELAY;
-else
-  echo "Variable SQUEEZELITE_DELAY has been specified: $SQUEEZELITE_DELAY";
-fi
-CMD_LINE="$CMD_LINE -D $SQUEEZELITE_DELAY";
+cmdline-delay
 
 if [ -z "${SQUEEZELITE_PARAMS}" ]; then
   echo "Variable SQUEEZELITE_PARAMS has not been specified";

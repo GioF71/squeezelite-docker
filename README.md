@@ -227,7 +227,7 @@ You can specify PulseAudio mode by setting the environment variable `SQUEEZELITE
 For that configuration to work properly, `/run/user/1000/pulse` must be mapped correctly. It is not mandatory to use `1000`: if you set `PUID` to `1002` for instance, the right part of the volume mount should be `/run/user/1002/pulse`.  
 The example below assumes that your current user id is `1000`. You might want to set the `PUID` and `PGID` variables according to your user and groupid. Use the `id` command to see the uid for the currently logged in user.  
 Mapping the device `/dev/snd` is not needed in PulseAudio mode.  
-Only a few enviroment variables are available in PulseAudio mode: `SQUEEZELITE_SERVER_PORT` and `SQUEEZELITE_NAME`.    
+Most of the enviroment variables are available in PulseAudio mode, unless irrelevant or incompatible.
 
 ```code
 ---

@@ -13,6 +13,8 @@ echo "=== END-- Loading presets ==="
 CMD_LINE="/app/bin/squeezelite"
 echo "Initializing command line: ["$CMD_LINE"]"
 
+source cmd-line-builder.sh
+
 if [ -z "${PRESET}" ]; then
   echo "No presets have been specified";
 else
@@ -112,98 +114,26 @@ else
   echo "Final SQUEEZELITE_EXCLUDE_CODECS = $SQUEEZELITE_EXCLUDE_CODECS"
 fi
 
-if [ -z "${SQUEEZELITE_AUDIO_DEVICE}" ]; then
-  echo "Variable SQUEEZELITE_AUDIO_DEVICE has not been specified";
-else
-  echo "Variable SQUEEZELITE_AUDIO_DEVICE has been specified: $SQUEEZELITE_AUDIO_DEVICE";
-  CMD_LINE="$CMD_LINE -o "$SQUEEZELITE_AUDIO_DEVICE;
-fi
-
-if [ -z "${SQUEEZELITE_MIXER_DEVICE}" ]; then
-  echo "Variable SQUEEZELITE_MIXER_DEVICE has not been specified";
-else
-  echo "Variable SQUEEZELITE_MIXER_DEVICE has been specified: $SQUEEZELITE_MIXER_DEVICE";
-  CMD_LINE="$CMD_LINE -O $SQUEEZELITE_MIXER_DEVICE";
-fi
-
-if [ -z "${SQUEEZELITE_MAC_ADDRESS}" ]; then
-  echo "Variable SQUEEZELITE_MAC_ADDRESS not specified";
-else
-  echo "Variable SQUEEZELITE_MAC_ADDRESS specified: $SQUEEZELITE_MAC_ADDRESS";
-  CMD_LINE="$CMD_LINE -m $SQUEEZELITE_MAC_ADDRESS";
-fi
-
-if [ -z "${SQUEEZELITE_NAME}" ]; then
-  echo "Variable SQUEEZELITE_NAME has not been specified";
-else
-  echo "Variable SQUEEZELITE_NAME has been specified: $SQUEEZELITE_NAME";
-  CMD_LINE="$CMD_LINE -n $SQUEEZELITE_NAME";
-fi
-
-if [ -z "${SQUEEZELITE_MODEL_NAME}" ]; then
-  echo "Variable SQUEEZELITE_MODEL_NAME has not been specified";
-else
-  echo "Variable SQUEEZELITE_MODEL_NAME has been specified: $SQUEEZELITE_MODEL_NAME";
-  CMD_LINE="$CMD_LINE -M $SQUEEZELITE_MODEL_NAME";
-fi
-
-if [ -z "${SQUEEZELITE_TIMEOUT}" ]; then
-  echo "Variable SQUEEZELITE_TIMEOUT has not been specified, using default $DEFAULT_SQUEEZELITE_TIMEOUT";
-  SQUEEZELITE_TIMEOUT=$DEFAULT_SQUEEZELITE_TIMEOUT;
-else
-  echo "Variable SQUEEZELITE_TIMEOUT has been specified: $SQUEEZELITE_TIMEOUT";
-  CMD_LINE="$CMD_LINE -C $SQUEEZELITE_TIMEOUT";
-fi
-CMD_LINE="$CMD_LINE -C $SQUEEZELITE_TIMEOUT";
-
-if [ -z "${SQUEEZELITE_DELAY}" ]; then
-  echo "Variable SQUEEZELITE_DELAY has not been specified, using default $DEFAULT_SQUEEZELITE_DELAY";
-  SQUEEZELITE_DELAY=$DEFAULT_SQUEEZELITE_DELAY;
-else
-  echo "Variable SQUEEZELITE_DELAY has been specified: $SQUEEZELITE_DELAY";
-fi
-CMD_LINE="$CMD_LINE -D $SQUEEZELITE_DELAY";
-
-if [ -z "${SQUEEZELITE_SERVER_PORT}" ]; then
-  echo "Variable SQUEEZELITE_SERVER_PORT has not been specified, using discovery";
-else
-  echo "Variable SQUEEZELITE_SERVER_PORT has been specified: $SQUEEZELITE_SERVER_PORT";
-  CMD_LINE="$CMD_LINE -s $SQUEEZELITE_SERVER_PORT";
-fi
-
-if [ -z "${SQUEEZELITE_PARAMS}" ]; then
-  echo "Variable SQUEEZELITE_PARAMS has not been specified";
-else
-  echo "Variable SQUEEZELITE_PARAMS has been specified: $SQUEEZELITE_PARAMS";
-  CMD_LINE="$CMD_LINE -a $SQUEEZELITE_PARAMS";
-fi
-
-if [ -z "${SQUEEZELITE_CODECS}" ]; then
-  echo "Variable SQUEEZELITE_CODECS has not been specified";
-else
-  echo "Variable SQUEEZELITE_CODECS has been specified: $SQUEEZELITE_CODECS";
-  CMD_LINE="$CMD_LINE -c $SQUEEZELITE_CODECS";
-fi
-
-if [ -z "${SQUEEZELITE_EXCLUDE_CODECS}" ]; then
-  echo "Variable SQUEEZELITE_EXCLUDE_CODECS has not been specified";
-else
-  echo "Variable SQUEEZELITE_EXCLUDE_CODECS has been specified: $SQUEEZELITE_EXCLUDE_CODECS";
-  CMD_LINE="$CMD_LINE -e $SQUEEZELITE_EXCLUDE_CODECS";
-fi
+cmdline-server-port
+cmdline-player-name
+cmdline-model-name
+cmdline-timeout
+cmdline-mac-address
+cmdline-audio-device
+cmdline-mixer-device
+cmdline-delay
+cmdline-params
+cmdline-volume-control
+cmdline-linear-volume
+cmdline-codecs
+cmdline-exclude-codecs
+cmdline-rates
 
 if [ -z "${SQUEEZELITE_PRIORITY}" ]; then
   echo "Variable SQUEEZELITE_PRIORITY has not been specified";
 else
   echo "Variable SQUEEZELITE_PRIORITY has been specified: $SQUEEZELITE_PRIORITY";
   CMD_LINE="$CMD_LINE -p $SQUEEZELITE_PRIORITY";
-fi
-
-if [ -z "${SQUEEZELITE_RATES}" ]; then
-  echo "Variable SQUEEZELITE_RATES not specified";
-else
-  echo "Variable SQUEEZELITE_RATES specified: $SQUEEZELITE_RATES";
-  CMD_LINE="$CMD_LINE -r $SQUEEZELITE_RATES";
 fi
 
 if [ -z "${SQUEEZELITE_UPSAMPLING}" ]; then
@@ -231,31 +161,6 @@ if [ -z "${SQUEEZELITE_UNMUTE}" ]; then
 else
   echo "Variable SQUEEZELITE_UNMUTE specified: $SQUEEZELITE_UNMUTE";
   CMD_LINE="$CMD_LINE -U $SQUEEZELITE_UNMUTE";
-fi
-
-if [ -z "${SQUEEZELITE_VOLUME_CONTROL}" ]; then
-  echo "Variable SQUEEZELITE_VOLUME_CONTROL not specified";
-else
-  echo "Variable SQUEEZELITE_VOLUME_CONTROL specified: $SQUEEZELITE_VOLUME_CONTROL";
-  CMD_LINE="$CMD_LINE -V $SQUEEZELITE_VOLUME_CONTROL";
-fi
-
-if [ -z "${SQUEEZELITE_LINEAR_VOLUME}" ]; then
-  echo "Variable SQUEEZELITE_LINEAR_VOLUME not specified";
-else
-  echo "Variable SQUEEZELITE_LINEAR_VOLUME specified: $SQUEEZELITE_LINEAR_VOLUME";
-  linear=${SQUEEZELITE_LINEAR_VOLUME^^}
-  echo "linear: $linear";
-  if [ "$linear" == "Y" ]; then
-    echo "Variable SQUEEZELITE_LINEAR_VOLUME set to enabled.";
-    CMD_LINE="$CMD_LINE -X";
-  else 
-    if [ "$linear" == "N" ]; then
-      echo "Variable SQUEEZELITE_LINEAR_VOLUME set to disabled.";
-    else
-      echo "Variable SQUEEZELITE_LINEAR_VOLUME invalid value: $SQUEEZELITE_LINEAR_VOLUME";
-    fi
-  fi
 fi
 
 if [ -z "${SQUEEZELITE_VISUALIZER}" ]; then

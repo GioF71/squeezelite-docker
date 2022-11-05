@@ -89,14 +89,11 @@ ENV PGID ""
 COPY app/bin/run-squeezelite.sh /app/bin/
 COPY app/bin/run-squeezelite-alsa.sh /app/bin/
 COPY app/bin/run-squeezelite-pulse.sh /app/bin/
+COPY app/bin/cmd-line-builder.sh /app/bin/
 COPY app/bin/logging.sh /app/bin/
 COPY app/bin/run-presets.sh /app/bin/
 
-RUN chmod u+x /app/bin/run-squeezelite.sh
-RUN chmod u+x /app/bin/run-squeezelite-alsa.sh
-RUN chmod u+x /app/bin/run-squeezelite-pulse.sh
-RUN chmod u+x /app/bin/logging.sh
-RUN chmod u+x /app/bin/run-presets.sh
+RUN chmod +x /app/bin/*.sh
 
 VOLUME '/app/assets/additional-presets.conf'
 

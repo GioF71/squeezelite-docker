@@ -70,6 +70,7 @@ cmdline-timeout
 cmdline-mac-address
 cmdline-params
 cmdline-codecs
+cmdline-rates
 
 # dsd disabled by default on pulseaudio
 SQUEEZELITE_EXCLUDE_CODECS=dsd

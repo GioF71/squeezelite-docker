@@ -127,6 +127,7 @@ cmdline-volume-control
 cmdline-linear-volume
 cmdline-codecs
 cmdline-exclude-codecs
+cmdline-rates
 
 if [ -z "${SQUEEZELITE_PRIORITY}" ]; then
   echo "Variable SQUEEZELITE_PRIORITY has not been specified";
@@ -135,12 +136,6 @@ else
   CMD_LINE="$CMD_LINE -p $SQUEEZELITE_PRIORITY";
 fi
 
-if [ -z "${SQUEEZELITE_RATES}" ]; then
-  echo "Variable SQUEEZELITE_RATES not specified";
-else
-  echo "Variable SQUEEZELITE_RATES specified: $SQUEEZELITE_RATES";
-  CMD_LINE="$CMD_LINE -r $SQUEEZELITE_RATES";
-fi
 
 if [ -z "${SQUEEZELITE_UPSAMPLING}" ]; then
   echo "Variable SQUEEZELITE_UPSAMPLING not specified";

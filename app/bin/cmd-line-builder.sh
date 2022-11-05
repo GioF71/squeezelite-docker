@@ -132,3 +132,12 @@ function cmdline-exclude-codecs() {
         CMD_LINE="$CMD_LINE -e $SQUEEZELITE_EXCLUDE_CODECS";
     fi
 }
+
+function cmdline-rates() {
+    if [ -z "${SQUEEZELITE_RATES}" ]; then
+        echo "Variable SQUEEZELITE_RATES not specified";
+    else
+        echo "Variable SQUEEZELITE_RATES specified: $SQUEEZELITE_RATES";
+        CMD_LINE="$CMD_LINE -r $SQUEEZELITE_RATES";
+    fi
+}

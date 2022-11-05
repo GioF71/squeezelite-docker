@@ -13,6 +13,8 @@ echo "=== END-- Loading presets ==="
 CMD_LINE="/app/bin/squeezelite"
 echo "Initializing command line: ["$CMD_LINE"]"
 
+source cmd-line-builder.sh
+
 if [ -z "${PRESET}" ]; then
   echo "No presets have been specified";
 else
@@ -133,12 +135,8 @@ else
   CMD_LINE="$CMD_LINE -m $SQUEEZELITE_MAC_ADDRESS";
 fi
 
-if [ -z "${SQUEEZELITE_NAME}" ]; then
-  echo "Variable SQUEEZELITE_NAME has not been specified";
-else
-  echo "Variable SQUEEZELITE_NAME has been specified: $SQUEEZELITE_NAME";
-  CMD_LINE="$CMD_LINE -n $SQUEEZELITE_NAME";
-fi
+cmdline-server-port
+cmdline-player-name
 
 if [ -z "${SQUEEZELITE_MODEL_NAME}" ]; then
   echo "Variable SQUEEZELITE_MODEL_NAME has not been specified";
@@ -163,13 +161,6 @@ else
   echo "Variable SQUEEZELITE_DELAY has been specified: $SQUEEZELITE_DELAY";
 fi
 CMD_LINE="$CMD_LINE -D $SQUEEZELITE_DELAY";
-
-if [ -z "${SQUEEZELITE_SERVER_PORT}" ]; then
-  echo "Variable SQUEEZELITE_SERVER_PORT has not been specified, using discovery";
-else
-  echo "Variable SQUEEZELITE_SERVER_PORT has been specified: $SQUEEZELITE_SERVER_PORT";
-  CMD_LINE="$CMD_LINE -s $SQUEEZELITE_SERVER_PORT";
-fi
 
 if [ -z "${SQUEEZELITE_PARAMS}" ]; then
   echo "Variable SQUEEZELITE_PARAMS has not been specified";

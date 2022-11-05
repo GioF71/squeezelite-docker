@@ -241,7 +241,7 @@ services:
       # change only on the left side according to your uid
       - /run/user/1000/pulse:/run/user/1000/pulse
     environment:
-      - SQUEEZELITE_MODE=pulse
+      - SQUEEZELITE_MODE=PULSE
       - PUID=1000 #optional, default is 1000
       - PGID=1000 #optional, default is 1000
       - SQUEEZELITE_NAME=sq-pulse #optional

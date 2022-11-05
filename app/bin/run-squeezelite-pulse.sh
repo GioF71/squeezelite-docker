@@ -70,10 +70,17 @@ cmdline-timeout
 cmdline-mac-address
 cmdline-params
 cmdline-codecs
+
+if [ -z "${SQUEEZELITE_RATES}" ]; then
+  # default to 44.1kHz
+  SQUEEZELITE_RATES=44100
+fi
 cmdline-rates
 
-# dsd disabled by default on pulseaudio
-SQUEEZELITE_EXCLUDE_CODECS=dsd
+if [ -z "${SQUEEZELITE_EXCLUDE_CODECS}" ]; then
+  # dsd disabled by default on pulseaudio
+  SQUEEZELITE_EXCLUDE_CODECS=dsd
+fi
 cmdline-exclude-codecs
 
 source logging.sh

@@ -132,11 +132,11 @@ You can specify `.device`, `.upsampling`, `.rates`, `.codecs`, `.exclude-codecs`
 Just check `/app/assets/builtin-presets.conf` to understand how to create the other presets you might want to add.
 Blank lines are allowed, as well as commented lines.
 
-For example, the following file defines a preset named `fancy-usb-dac` for a specific dac:
+For example, the following file defines a preset named `my-usb-dac` for a specific dac:
 
 ```text
-# my super-fancy-hi-end dac
-super-amazing-dac.device="hw:CARD=super-amazing-dac,DEV=0"
+# my own usb dac
+my-usb-dac.device="hw:CARD=my-dac,DEV=0"
 ```
 
 ### Example docker-compose with an additional preset file

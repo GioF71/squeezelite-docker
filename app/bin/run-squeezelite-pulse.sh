@@ -69,6 +69,11 @@ cmdline-model-name
 cmdline-timeout
 cmdline-mac-address
 cmdline-params
+cmdline-codecs
+
+# dsd disabled by default on pulseaudio
+SQUEEZELITE_EXCLUDE_CODECS=dsd
+cmdline-exclude-codecs
 
 source logging.sh
 

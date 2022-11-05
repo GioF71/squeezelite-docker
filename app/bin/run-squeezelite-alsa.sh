@@ -114,6 +114,11 @@ else
   echo "Final SQUEEZELITE_EXCLUDE_CODECS = $SQUEEZELITE_EXCLUDE_CODECS"
 fi
 
+cmdline-server-port
+cmdline-player-name
+cmdline-model-name
+cmdline-timeout
+
 if [ -z "${SQUEEZELITE_AUDIO_DEVICE}" ]; then
   echo "Variable SQUEEZELITE_AUDIO_DEVICE has not been specified";
 else
@@ -135,19 +140,6 @@ else
   CMD_LINE="$CMD_LINE -m $SQUEEZELITE_MAC_ADDRESS";
 fi
 
-cmdline-server-port
-cmdline-player-name
-cmdline-model-name
-
-
-if [ -z "${SQUEEZELITE_TIMEOUT}" ]; then
-  echo "Variable SQUEEZELITE_TIMEOUT has not been specified, using default $DEFAULT_SQUEEZELITE_TIMEOUT";
-  SQUEEZELITE_TIMEOUT=$DEFAULT_SQUEEZELITE_TIMEOUT;
-else
-  echo "Variable SQUEEZELITE_TIMEOUT has been specified: $SQUEEZELITE_TIMEOUT";
-  CMD_LINE="$CMD_LINE -C $SQUEEZELITE_TIMEOUT";
-fi
-CMD_LINE="$CMD_LINE -C $SQUEEZELITE_TIMEOUT";
 
 if [ -z "${SQUEEZELITE_DELAY}" ]; then
   echo "Variable SQUEEZELITE_DELAY has not been specified, using default $DEFAULT_SQUEEZELITE_DELAY";

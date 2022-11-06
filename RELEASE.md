@@ -6,6 +6,12 @@ There is roughly a release for each entry of the following changelog. Older buil
 
 ## Changelog
 
+### 2022-11-06
+
+Date|Feature|Description
+:---|:---|:---
+2022-11-06|Bug|Launching non-existing binary when trying to show available outputs
+
 ### 2022-11-05
 
 Date|Feature|Description

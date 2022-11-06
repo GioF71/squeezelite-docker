@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "=== BEGIN Available audio devices ==="
-/usr/bin/squeezelite -l
+/app/bin/squeezelite -l
 echo "=== END-- Available audio devices ==="
 echo ""
 

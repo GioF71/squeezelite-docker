@@ -50,12 +50,13 @@ Generic Amd64|Manjaro Gnome|OK|No issues encountered
 Generic Amd64|Linux Mint 20.x|OK|No issues encountered
 Raspberry Pi 3/4|Raspberry Pi OS 32bit|OK|No issues encountered
 Raspberry Pi 4|Manjaro KDE 64bit|OK|No issues encountered
-Asus Tinkerboard|DietPi Bullseye|OK, some work to do|Was not working properly, but now it seems to be ok. See note below (last update: 2022-04-01)
+Asus Tinkerboard|DietPi Bullseye|OK|Issues solved! See [here](doc/asus-tinkerboard.md).
 
 As I test the Dockerfile on more platforms, I will update this list.  
 
 ### Asus Tinkerboard
 
+The issue appear to be solved now.  
 See [here](https://github.com/GioF71/squeezelite-docker/blob/main/doc/asus-tinkerboard.md).
 
 ## Get the image

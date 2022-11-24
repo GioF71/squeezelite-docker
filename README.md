@@ -88,6 +88,7 @@ PUID||1000|User ID for PulseAudio Mode
 PGID||1000|Group ID for PulseAudio Mode
 PRESET|||You can now choose to set variables using predefined presets. Presets can currently tune the values of `SQUEEZELITE_AUDIO_DEVICE`, `SQUEEZELITE_RATES`, `SQUEEZELITE_UPSAMPLING`, `SQUEEZELITE_CODECS` and `SQUEEZELITE_EXCLUDE_CODECS` for you. See the [Available presets](#available-presets) table for reference. Presets can be combined (the separator must be a comma `,`), but keep in mind that the first preset setting a variable has the priority: once set by a preset, a variable cannot be overwritten by subsequent presets.
 SQUEEZELITE_AUDIO_DEVICE|-o||The audio device. Common examples: `hw:CARD=x20,DEV=0` or `hw:CARD=DAC,DEV=0` for usb dac based on XMOS. If left empty, the default alsa device is used.
+SQUEEZELITE_MIXER_DEVICE|-O||Specify mixer device, defaults to `output device` (`SQUEEZELITE_AUDIO_DEVICE`)
 SQUEEZELITE_PARAMS|-a||Please refer to the squeezelite's man page for `-a`.
 SQUEEZELITE_CODECS|-c||Please refer to the squeezelite's man page for `-c`.
 SQUEEZELITE_EXCLUDE_CODECS|-e||Please refer to the squeezelite's man page for `-e`.

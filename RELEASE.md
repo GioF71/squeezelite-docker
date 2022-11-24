@@ -6,6 +6,12 @@ There is roughly a release for each entry of the following changelog. Older buil
 
 ## Changelog
 
+### 2022-11-24
+
+Date|Feature|Description
+:---|:---|:---
+2022-11-24|Improvement|All presets moved to `builtin-presets.conf`
+
 ### 2022-11-06
 
 Date|Feature|Description

@@ -6,6 +6,12 @@ There is roughly a release for each entry of the following changelog. Older buil
 
 ## Changelog
 
+### 2022-11-25
+
+Date|Feature|Description
+:---|:---|:---
+2022-11-25|Improvement|Allow mixer device and volume control in presets
+
 ### 2022-11-24
 
 Date|Feature|Description

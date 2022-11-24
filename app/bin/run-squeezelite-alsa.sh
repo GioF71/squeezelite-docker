@@ -24,6 +24,10 @@ else
   echo "Current SQUEEZELITE_AUDIO_DEVICE = $SQUEEZELITE_AUDIO_DEVICE"
   echo "Current SQUEEZELITE_RATES = $SQUEEZELITE_RATES"
   echo "Current SQUEEZELITE_UPSAMPLING = $SQUEEZELITE_UPSAMPLING"
+  echo "Current SQUEEZELITE_CODECS = $SQUEEZELITE_CODECS"
+  echo "Current SQUEEZELITE_EXCLUDE_CODECS = $SQUEEZELITE_EXCLUDE_CODECS"
+  echo "Current SQUEEZELITE_MIXER_DEVICE = $SQUEEZELITE_MIXER_DEVICE"
+  echo "Current SQUEEZELITE_VOLUME_CONTROL = $SQUEEZELITE_VOLUME_CONTROL"
 
   OLD_IFS=$IFS
   IFS=',';
@@ -47,6 +51,32 @@ else
         fi
       else
         echo "SQUEEZELITE_AUDIO_DEVICE already set to ["$SQUEEZELITE_AUDIO_DEVICE"]"
+      fi
+      # mixer-device in preset
+      if [[ -z "${SQUEEZELITE_MIXER_DEVICE}" || "${SQUEEZELITE_MIXER_DEVICE}" == "default" ]]; then
+        current_key=$current_preset".mixer-device"
+        current_value=${presets[${current_key}]}
+        if [[ -v current_value ]]; then
+          echo "Setting SQUEEZELITE_MIXER_DEVICE to ["$current_value"]"
+          SQUEEZELITE_MIXER_DEVICE=$current_value
+        else
+          echo "Key ["$current_key"] not found"
+        fi
+      else
+        echo "SQUEEZELITE_MIXER_DEVICE already set to ["$SQUEEZELITE_MIXER_DEVICE"]"
+      fi
+      # volume-control in preset
+      if [[ -z "${SQUEEZELITE_VOLUME_CONTROL}" || "${SQUEEZELITE_VOLUME_CONTROL}" == "default" ]]; then
+        current_key=$current_preset".volume-control"
+        current_value=${presets[${current_key}]}
+        if [[ -v current_value ]]; then
+          echo "Setting SQUEEZELITE_VOLUME_CONTROL to ["$current_value"]"
+          SQUEEZELITE_VOLUME_CONTROL=$current_value
+        else
+          echo "Key ["$current_key"] not found"
+        fi
+      else
+        echo "SQUEEZELITE_VOLUME_CONTROL already set to ["$SQUEEZELITE_VOLUME_CONTROL"]"
       fi
       # rates in preset
       if [[ -z "${SQUEEZELITE_RATES}" || "${SQUEEZELITE_RATES}" == "" ]]; then
@@ -112,6 +142,8 @@ else
   echo "Final SQUEEZELITE_UPSAMPLING = $SQUEEZELITE_UPSAMPLING"
   echo "Final SQUEEZELITE_CODECS = $SQUEEZELITE_CODECS"
   echo "Final SQUEEZELITE_EXCLUDE_CODECS = $SQUEEZELITE_EXCLUDE_CODECS"
+  echo "Final SQUEEZELITE_MIXER_DEVICE = $SQUEEZELITE_MIXER_DEVICE"
+  echo "Final SQUEEZELITE_VOLUME_CONTROL = $SQUEEZELITE_VOLUME_CONTROL"
 fi
 
 cmdline-server-port

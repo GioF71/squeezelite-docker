@@ -86,7 +86,7 @@ Variable|SqueezeLite corresponding option|Default|Notes
 SQUEEZELITE_MODE||ALSA|Set to PULSE for [PulseAudio](#pulseaudio) mode
 PUID||1000|User ID which will be used to run squeezelite
 PGID||1000|Group ID which will be used to run squeezelite
-AUDIO_GID||This group id is mandatory with alsa output when running in user mode. It must be set to the group id associated to the `audio` group. See more [here](https://github.com/GioF71/squeezelite-docker/blob/main/doc/example-alsa-user-mode.md).
+AUDIO_GID|||This group id is mandatory with alsa output when running in user mode. It must be set to the group id associated to the `audio` group. See more [here](https://github.com/GioF71/squeezelite-docker/blob/main/doc/example-alsa-user-mode.md).
 PRESET|||You can now choose to set variables using predefined presets. Presets can currently tune the values of `SQUEEZELITE_AUDIO_DEVICE`, `SQUEEZELITE_RATES`, `SQUEEZELITE_UPSAMPLING`, `SQUEEZELITE_CODECS` and `SQUEEZELITE_EXCLUDE_CODECS` for you. See the [Available presets](#available-presets) table for reference. Presets can be combined (the separator must be a comma `,`), but keep in mind that the first preset setting a variable has the priority: once set by a preset, a variable cannot be overwritten by subsequent presets.
 SQUEEZELITE_AUDIO_DEVICE|-o||The audio device. Common examples: `hw:CARD=x20,DEV=0` or `hw:CARD=DAC,DEV=0` for usb dac based on XMOS. If left empty, the default alsa device is used.
 SQUEEZELITE_MIXER_DEVICE|-O||Specify mixer device, defaults to `output device` (`SQUEEZELITE_AUDIO_DEVICE`)

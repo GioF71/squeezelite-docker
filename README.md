@@ -84,8 +84,9 @@ The following tables reports all the currently supported environment variables.
 Variable|SqueezeLite corresponding option|Default|Notes
 :---|:---:|:---:|:---
 SQUEEZELITE_MODE||ALSA|Set to PULSE for [PulseAudio](#pulseaudio) mode
-PUID||1000|User ID for PulseAudio Mode
-PGID||1000|Group ID for PulseAudio Mode
+PUID||1000|User ID which will be used to run squeezelite
+PGID||1000|Group ID which will be used to run squeezelite
+AUDIO_GID||This group id is mandatory with alsa output when running in user mode. It must be set to the group id associated to the `audio` group. See more [here](https://github.com/GioF71/squeezelite-docker/blob/main/doc/example-alsa-user-mode.md).
 PRESET|||You can now choose to set variables using predefined presets. Presets can currently tune the values of `SQUEEZELITE_AUDIO_DEVICE`, `SQUEEZELITE_RATES`, `SQUEEZELITE_UPSAMPLING`, `SQUEEZELITE_CODECS` and `SQUEEZELITE_EXCLUDE_CODECS` for you. See the [Available presets](#available-presets) table for reference. Presets can be combined (the separator must be a comma `,`), but keep in mind that the first preset setting a variable has the priority: once set by a preset, a variable cannot be overwritten by subsequent presets.
 SQUEEZELITE_AUDIO_DEVICE|-o||The audio device. Common examples: `hw:CARD=x20,DEV=0` or `hw:CARD=DAC,DEV=0` for usb dac based on XMOS. If left empty, the default alsa device is used.
 SQUEEZELITE_MIXER_DEVICE|-O||Specify mixer device, defaults to `output device` (`SQUEEZELITE_AUDIO_DEVICE`)
@@ -267,39 +268,9 @@ Two DACs, multiple configurations|[dual-dac-multi-config-docker-compose.yaml](ht
 
 Remember to always specify the SQUEEZELITE_SERVER_PORT for these compose files, otherwise the player discovery on Logitech Media Server with not be able to find all the configured players.
 
-## Notable changes to the configuration
+## Configuration changes
 
-A few environment variables have been deprecated, see the following table.
-
-Deprecated Variable|Deprecated Since|Comment
-:---|:---|:---
-SQUEEZELITE_SPECIFY_SERVER|2021-11-23|This variable is not required anymore: just set the `SQUEEZELITE_SERVER_PORT` variable
-SQUEEZELITE_STREAM_AND_OUTPUT_BUFFER_SIZE|2022-01-24|Variable name too long, replaced with SQUEEZELITE_BUFFER_SIZE
-
-For the new variables introduced over time, see the following table.
-
-New Variable|Availability Date|Comment
-:---|:---|:---
-SQUEEZELITE_LOG_CATEGORY_*|2022-10-07|Support for logging levels
-SQUEEZELITE_MODE|2022-09-15|Introduced support for PulseAudio
-PUID|2022-09-15|User id for PulseAudio Mode
-PGID|2022-09-15|Group id for PulseAudio Mode
-SQUEEZELITE_VISUALIZER|2022-06-09|Add support for visualizer (-v).
-SQUEEZELITE_EXCLUDE_CODECS|2022-02-14|Added support for configuration option
-SQUEEZELITE_RATES|2021-11-23|Added support for configuration option
-SQUEEZELITE_UPSAMPLING|2021-11-23|Added support for configuration option
-PRESET|2022-01-19|New feature
-SQUEEZELITE_PARAMS|2022-01-19|Added support for configuration option
-SQUEEZELITE_CODECS|2022-01-19|Added support for configuration option
-SQUEEZELITE_PRIORITY|2022-01-19|Added support for configuration option
-SQUEEZELITE_MIXER_DEVICE|2022-01-21|Added support for configuration option
-SQUEEZELITE_MAC_ADDRESS|2022-01-21|Added support for configuration option
-SQUEEZELITE_MODEL_NAME|2022-01-21|Added support for configuration option
-SQUEEZELITE_STREAM_AND_OUTPUT_BUFFER_SIZE|2022-01-21|Added support for configuration option
-SQUEEZELITE_BUFFER_SIZE|2022-01-24|Previous variable was too long.
-SQUEEZELITE_VOLUME_CONTROL|2022-02-23|Added support for configuration option
-SQUEEZELITE_UNMUTE|2022-02-23|Added support for configuration option
-SQUEEZELITE_LINEAR_VOLUME|2022-02-23|Added support for configuration option
+See [here](https://github.com/GioF71/squeezelite-docker/blob/main/doc/config-changes.md).
 
 ## A few examples
 
@@ -439,4 +410,4 @@ sourceforge-buster|debian:buster-slim|1.9.9|SourceForge|sourceforge-legacy, sque
 
 ## Release History
 
-The change log is available [here](https://github.com/GioF71/squeezelite-docker/blob/main/RELEASE.md).
+The change log is available [here](https://github.com/GioF71/squeezelite-docker/blob/main/doc/release.md).

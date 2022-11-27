@@ -85,6 +85,7 @@ ENV DISPLAY_PRESETS ""
 
 ENV PUID ""
 ENV PGID ""
+ENV AUDIO_GID ""
 
 COPY app/bin/run-squeezelite.sh /app/bin/
 COPY app/bin/run-squeezelite-alsa.sh /app/bin/
@@ -98,7 +99,6 @@ RUN chmod +x /app/bin/*.sh
 VOLUME '/app/assets/additional-presets.conf'
 
 COPY README.md /app/doc/
-COPY RELEASE.md /app/doc/
 COPY doc/* /app/doc/
 COPY app/assets/builtin-presets.conf /app/assets/
 COPY app/assets/pulse-client-template.conf /app/assets/pulse-client-template.conf

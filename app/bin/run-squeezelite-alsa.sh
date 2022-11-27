@@ -217,5 +217,72 @@ source logging.sh
 
 add_log_categories
 
+## User mode support
+if [[ "${USER_MODE^^}" == "YES" || "${USER_MODE^^}" == "Y" ]]; then
+    USE_USER_MODE="Y"
+    echo "User mode enabled"
+    echo "Creating user ...";
+    DEFAULT_UID=1000
+    DEFAULT_GID=1000
+    if [ -z "${PUID}" ]; then
+        PUID=$DEFAULT_UID;
+        echo "Setting default value for PUID: ["$PUID"]"
+    fi
+    if [ -z "${PGID}" ]; then
+        PGID=$DEFAULT_GID;
+        echo "Setting default value for PGID: ["$PGID"]"
+    fi
+    USER_NAME=sq-user
+    GROUP_NAME=sq-user
+    HOME_DIR=/home/$USER_NAME
+    ### create home directory and ancillary directories
+    if [ ! -d "$HOME_DIR" ]; then
+    echo "Home directory [$HOME_DIR] not found, creating."
+    mkdir -p $HOME_DIR
+    chown -R $PUID:$PGID $HOME_DIR
+    ls -la $HOME_DIR -d
+    ls -la $HOME_DIR
+    fi
+    ### create group
+    if [ ! $(getent group $GROUP_NAME) ]; then
+        echo "group $GROUP_NAME does not exist, creating..."
+        groupadd -g $PGID $GROUP_NAME
+    else
+        echo "group $GROUP_NAME already exists."
+    fi
+    ### create user
+    if [ ! $(getent passwd $USER_NAME) ]; then
+        echo "user $USER_NAME does not exist, creating..."
+        useradd -g $PGID -u $PUID -s /bin/bash -M -d $HOME_DIR $USER_NAME
+        id $USER_NAME
+        echo "user $USER_NAME created."
+    else
+        echo "user $USER_NAME already exists."
+    fi
+
+    if [ -z "${AUDIO_GID}" ]; then
+        echo "AUDIO_GID is mandatory for user mode and alsa output"
+        exit 3
+    fi
+    if [ $(getent group $AUDIO_GID) ]; then
+        echo "Alsa Mode - Group with gid $AUDIO_GID already exists"
+    else
+        echo "Alsa Mode - Creating group with gid $AUDIO_GID"
+        groupadd -g $AUDIO_GID mpd-audio
+    fi
+    echo "Alsa Mode - Adding $USER_NAME to gid $AUDIO_GID"
+    AUDIO_GRP=$(getent group $AUDIO_GID | cut -d: -f1)
+    echo "gid $AUDIO_GID -> group $AUDIO_GRP"
+    usermod -a -G $AUDIO_GRP $USER_NAME
+    echo "Alsa Mode - Successfully created $USER_NAME (group: $GROUP_NAME)";
+else 
+    echo "User mode disabled"
+fi
+
 echo "Command Line: ["$CMD_LINE"]"
-eval $CMD_LINE
+
+if [ $USE_USER_MODE == "Y" ]; then
+  su - $USER_NAME -c "$CMD_LINE"
+else
+  eval $CMD_LINE
+fi

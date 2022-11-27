@@ -15,6 +15,7 @@ For the new variables introduced over time, see the following table.
 
 New Variable|Availability Date|Comment
 :---|:---|:---
+AUDIO_GID|2022-11-27|Support for user mode for alsa output
 SQUEEZELITE_LOG_CATEGORY_*|2022-10-07|Support for logging levels
 SQUEEZELITE_MODE|2022-09-15|Introduced support for PulseAudio
 PUID|2022-09-15|User id for PulseAudio Mode

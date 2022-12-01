@@ -28,7 +28,7 @@ The governor settings can be set using `dietpi-config`. See the screenshot [here
 
 ### NTP Issue
 
-This issue one is mostly related to mpd with a scrobbler. See [this](https://github.com/GioF71/mpd-alsa-docker) repository.
+This issue is mostly related to mpd with a scrobbler. See [this](https://github.com/GioF71/mpd-alsa-docker) repository.
 I was experiencing this issue:
 
 ```text

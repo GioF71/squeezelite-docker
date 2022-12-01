@@ -56,8 +56,8 @@ As I test the Dockerfile on more platforms, I will update this list.
 
 ### Asus Tinkerboard
 
-The issue appear to be solved now.  
-See [here](https://github.com/GioF71/squeezelite-docker/blob/main/doc/asus-tinkerboard.md).
+The issues I was encountered are solved now.  
+See [here](https://github.com/GioF71/squeezelite-docker/blob/main/doc/asus-tinkerboard.md) for more information.
 
 ## Get the image
 

@@ -6,6 +6,12 @@ There is roughly a release for each entry of the following changelog. Older buil
 
 ## Changelog
 
+### 2022-12-27
+
+Date|Feature|Description
+:---|:---|:---
+2022-12-27|Bug|Fixed issue [#168](https://github.com/GioF71/squeezelite-docker/issues/168)
+
 ### 2022-11-27
 
 Date|Feature|Description

@@ -217,6 +217,8 @@ source logging.sh
 
 add_log_categories
 
+USE_USER_MODE="N"
+
 ## User mode support
 if [[ "${USER_MODE^^}" == "YES" || "${USER_MODE^^}" == "Y" ]]; then
     USE_USER_MODE="Y"
@@ -281,7 +283,7 @@ fi
 
 echo "Command Line: ["$CMD_LINE"]"
 
-if [ $USE_USER_MODE == "Y" ]; then
+if [[ ${USE_USER_MODE} == "Y" ]]; then
   su - $USER_NAME -c "$CMD_LINE"
 else
   eval $CMD_LINE

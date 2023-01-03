@@ -6,6 +6,13 @@ There is roughly a release for each entry of the following changelog. Older buil
 
 ## Changelog
 
+### 2023-01-03
+
+Date|Feature|Description
+:---|:---|:---
+2023-01-03|Update|Soureforge binaries version bump
+2023-01-03|Documentation|`Release.md` cleanup
+
 ### 2022-12-27
 
 Date|Feature|Description
@@ -130,143 +137,63 @@ Documentation|Mentioned PulseAudio early in Why section
 PulseAudio/SystemD|Removed my custom player name from unit, now the player name reflects the hostname
 PulseAudio/SystemD|Service now should wait for the network
 
-### 2022-09-16
-
-Feature|Description
-:---|:---
-Documentation|More documentation for PulseAudio mode
-Cleanup|Fixed use of PUID and PGID
-
-### 2022-09-15-pulse
-
-Feature|Description
-:---|:---
-PulseAudio support|Initial PulseAudio support
-
-### 2022-09-15
-
-Feature|Description
-:---|:---
-Documentation update|Fixed docker hub tag documentation
-
-### 2022-09-13
-
-Feature|Description
-:---|:---
-Removed builds|Skipped buster with sourceforge binaries
-Removed builds|Stable is bullseye with binaries from repositories
-
-### 2022-09-09
-
-Feature|Description
-:---|:---
-Routine rebuild|Routine rebuild
-Documentation update|Minor correction(s)
-
-### 2022-08-05
-
-Feature|Description
-:---|:---
-Routine rebuild|No changes, just a rebuild
-
-### 2022-06-11
-
-Feature|Description
-:---|:---
-Build process reviewed|No more base images with dates, removed some hard-coded stuff
-News Presets|Add preset for Topping DX5 and Gustard X16
-Documentation cleanup|Various errors corrected
-
-### 2022-06-10
-
-Feature|Description
-:---|:---
-Fixed ubuntu image documentation|SqueezeLite version was wrong
-Fixed ubuntu image documentation|Focal was still mentioned
-Image bump|Bump to latest debian and ubuntu base images
-
-### 2022-06-09
-
-Feature|Description
-:---|:---
-Add Visualizer support|Add support for the visualizer `-v` switch (See the `SQUEEZELITE_VISUALIZER` variable)
-
-### 2022-04-30
-
-Feature|Description
-:---|:---
-SourceForge updates|Arm 32bit client updated to version 1401
-Base debian image bump|Bump for debian buster and bullseye
-Base ubuntu image upgrade|Upgraded to jammy
-
-### 2022-04-01
-
-Feature|Description
-:---|:---
-Doc update|Asus Tinker situation apparently solved somehow
-
-### 2022-03-29
-
-Feature|Description
-:---|:---
-Doc update|Small corrections/typos
-
-### 2022-03-19
-
-Feature|Description
-:---|:---
-Add preset `pi-headphones`|Add preset for Raspberry Pi Headphone out
-Doc update|Small corrections/typos
-
-### 2022-03-14
-
-Feature|Description
-:---|:---
-Successful tests on arm64|See the Prerequisites section of the [`README.md`](https://github.com/GioF71/squeezelite-docker/blob/main/README.md) file.
-Sad DietPi Tinkerboard updates|See the Prerequisites section of the [`README.md`](https://github.com/GioF71/squeezelite-docker/blob/main/README.md) file.
-Removed old build binaries|Previously quarantined files removed
-
-### 2022-03-12
-
-Feature|Description
-:---|:---
-Base Image Bump|Bump to debian buster-20220228-slim, debian bullseye-20220228-slim, ubuntu focal-20220302
-Quarantined old build binaries|Moved to `old/bin`, will be removed soon if everything works properly
-
-### 2022-02-24
-
-Feature|Description
-:---|:---
-README.md sync|Created Action for README.md synchronization
-Releases.md|Release history moved out of README.md
-Release history inclusion|The file `RELEASE.md` file is copied to the image at the path `/app/doc/RELEASE.md`
-
 ### Older changes
 
-Date|Feature|Description
+Date|Type|Description
 :---|:---|:---
-2022-02-23|Improvement|The command `apt-get upgrade` is executed during the image build phase, so the image is up-to-date with the most current packages available at the release date
-2022-02-23|Feature|Add support for the unmute `-V` switch (See the `SQUEEZELITE_VOLUME_CONTROL` variable)
-2022-02-23|Feature|Add support for the unmute `-U` switch (See the `SQUEEZELITE_UNMUTE` variable)
-2022-02-23|Feature|Add support for linear volume adjustments using the `-X` switch (See the `SQUEEZELITE_LINEAR_VOLUME` variable)
-2022-02-16|Improvement|Reviewed the presets loading mechanism: defined a `builtin-presets.conf` file
-2022-02-16|Feature|Add DISPLAY_PRESETS environment variable: allows to see all the preset values
-2022-02-16|Feature|Allow custom preset files through the volume `/app/assets/additional-presets.conf`: You can now inject custom presets for greater customizability
-2022-02-14|Documentation|Reviewed the preset table layout on `README.md` file (docker hub compatibitily)
-2022-02-14|Improvement|Added automatic synchronization of `README.md` file with the corresponding [repository](https://hub.docker.com/r/giof71/squeezelite) on [Docker Hub](https://hub.docker.com)
-2022-02-14|Improvement|Focal tag is now `focal` instead of `ubuntu-focal`
-2022-02-14|Feature|Added preset `no-dsd` which excludes DSD codec
-2022-02-14|Feature|Added support for excluded codecs (environment variable `SQUEEZELITE_EXCLUDE_CODECS` for the `-e` option)
+2022-09-15|Documentation|More documentation for PulseAudio mode
+2022-09-15|HouseKeeping|Fixed use of PUID and PGID
+2022-09-15|Feature|Initial PulseAudio support
+2022-09-15|Documentation|Fixed docker hub tag documentation
+2022-09-13|HouseKeeping|Dropped buster on sourceforge
+2022-09-13|HouseKeeping|Stable = bullseye on repos
+2022-09-09|HouseKeeping|Routine build
+2022-09-09|Documentation|Small corrections/typos
+2022-08-05|HouseKeeping|Routine build
+2022-06-11|HouseKeeping|Removed hard-coded base image versions
+2022-06-11|Presets|Added some presets
+2022-06-11|Documentation|Small corrections/typos
+2022-06-10|Documentation|Corrected squeezelite version
+2022-06-10|Documentation|Remove reference to focal
+2022-06-10|HouseKeeping|Base image bump
+2022-06-09|Feature|Add support for the visualizer `-v` switch
+2022-04-30|HouseKeeping|Arm 32bit client updated to version 1401
+2022-04-30|HouseKeeping|Base image bump
+2022-04-30|HouseKeeping|Upgraded to ubuntu jammy
+2022-04-01|Documentation|Tinkerboard issue apparently solved
+2022-03-29|Documentation|Small corrections/typos
+2022-03-19|Presets|Add preset for Raspberry Pi Headphone out
+2022-03-19|Documentation|Small corrections/typos
+2022-03-14|Documentation|Testing documentation
+2022-03-14|Documentation|Tinkerboard issue tracked
+2022-03-14|HouseKeeping|Previously quarantined files removed
+2022-03-12|HouseKeeping|Base image bump
+2022-03-12|HouseKeeping|Binaries quarantined to `old/bin`
+2022-02-04|Automation|Created Action for README.md synchronization
+2022-02-04|Documentation|Release history moved out of README.md
+2022-02-04|Documentation|Created `RELEASE.md` file
+2022-02-23|Improvement|Packages upgrade during image build phase
+2022-02-23|Feature|Add support for volume control: `-V` switch
+2022-02-23|Feature|Add support for the unmute: `-U` switch
+2022-02-23|Feature|Add support for linear volume: `-X` switch
+2022-02-16|Improvement|Reviewed the presets loading mechanism
+2022-02-16|Feature|Add DISPLAY_PRESETS env variable
+2022-02-16|Feature|Allow custom preset files through volume
+2022-02-14|Documentation|Reviewed the preset table layout
+2022-02-14|Automation|Synchronization of `README.md` with [docker hub](https://hub.docker.com/r/giof71/squeezelite)
+2022-02-14|Improvement|Focal tag is now `focal`
+2022-02-14|Feature|Added preset `no-dsd`
+2022-02-14|Feature|Added support for excluded codecs: `-e` switch
 2022-02-05|Improvement|Automated builds thanks to [Der-Henning](https://github.com/Der-Henning/)
-2022-02-05|Improvement|Builds for arm64 now available also thanks to [Der-Henning](https://github.com/Der-Henning/)
-2022-02-05|Improvement|The `README.md` file is copied to the image at the path `/app/doc/README.md`
-2022-02-04|Improvement|Simplified build process (not multistage anymore)
-2022-02-04|Improvement|Reduced image sizes (one line installation)
+2022-02-05|Improvement|New builds for arm64 thanks to [Der-Henning](https://github.com/Der-Henning/)
+2022-02-05|Improvement|`README.md` added to image
+2022-02-04|Improvement|Simplified build process
+2022-02-04|Improvement|Reduced image sizes
 2022-02-04|Documentation|Documented the convenience build.sh script
-2022-02-04|Documentation|Corrected sourceforge tag names: sourceforge tags names were wrongly suggesting that the included SqueezeLite binary was at version 1.9.8 or 1.8 instead of version 1.9.9
-2022-02-02|Feature|Preset combination: allowed combination of presets
+2022-02-04|Automation|Corrected sourceforge tag names
+2022-02-02|Feature|Allowed combination of presets
 2022-02-02|Bugfix|Fixed incorrect mapping for SQUEEZELITE_DELAY
 2022-02-02|Feature|Added `extremus` upsample setting
 2022-02-02|Feature|Rate presets defined
-2022-01-30|Feature|Added images with SourceForge binaries (version 1.9.9)
-2022-01-30|Feature|Variable `SQUEEZELITE_STREAM_AND_OUTPUT_BUFFER_SIZE` renamed to `SQUEEZELITE_BUFFER`
+2022-01-30|Feature|Added images with SourceForge binaries
+2022-01-30|Feature|Long variable shortened

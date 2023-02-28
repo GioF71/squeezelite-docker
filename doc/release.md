@@ -1,146 +1,57 @@
-# squeezeLite-docker Release History
+# Release History
 
-## Release
+## Releases
 
-There is roughly a release for each entry of the following changelog. Older build might be dropped in order to save space on docker-hub and incur in limitations
+There is roughly a release for each set of entries on the same date of the following changelog.  
+Minor changes, especially to the documentation only, are not necessarily included in a dedicated release.  
+Older build might be dropped in order to save space on docker-hub and incur in limitations.
 
 ## Changelog
 
-### 2023-01-03
-
-Date|Feature|Description
+Date|Type|Description
 :---|:---|:---
 2023-01-03|Update|Soureforge binaries version bump
 2023-01-03|Documentation|`Release.md` cleanup
-
-### 2022-12-27
-
-Date|Feature|Description
-:---|:---|:---
 2022-12-27|Bug|Fixed issue [#168](https://github.com/GioF71/squeezelite-docker/issues/168)
-
-### 2022-11-27
-
-Date|Feature|Description
-:---|:---|:---
 2022-11-27|Improvement|User mode for alsa output
-
-### 2022-11-26
-
-Date|Feature|Description
-:---|:---|:---
 2022-11-26|Update|Soureforge binaries version bump
-
-### 2022-11-25
-
-Date|Feature|Description
-:---|:---|:---
 2022-11-25|Improvement|Allow mixer device and volume control in presets
-
-### 2022-11-24
-
-Date|Feature|Description
-:---|:---|:---
 2022-11-24|Improvement|All presets moved to `builtin-presets.conf`
-
-### 2022-11-06
-
-Date|Feature|Description
-:---|:---|:---
 2022-11-06|Bug|Launching non-existing binary when trying to show available outputs
-
-### 2022-11-05
-
-Date|Feature|Description
-:---|:---|:---
 2022-11-05|Improvement|Removed duplicate code
 2022-11-05|Build|Ubuntu `jammy` is `stable`, `kinetic` is `latest`
 2022-11-05|Build|Add support for ubuntu kinetic
-
-### 2022-11-04
-
-Date|Feature|Description
-:---|:---|:---
 2022-11-04|Build|Multistage build
-
-### 2022-11-01
-
-Date|Feature|Description
-:---|:---|:---
 2022-11-01|Update|Upgraded sourceforge binary for armhf to 1411
-
-### 2022-10-24
-
-Date|Feature|Description
-:---|:---|:---
 2022-10-24|Improvement|Updated GitHub action versions
 2022-10-13|Feature|User-level systemd service for pulseaudio renamed to squeezelite-pulse
-
-### 2022-10-07
-
-Date|Feature|Description
-:---|:---|:---
 2022-10-07|Feature|Support for logging levels
-
-### 2022-10-02
-
-Feature|Description
-:---|:---
-Build|Add apt proxy support
-PulseAudio|Download/install both alsa and pulseaudio versions of squeezelite
-PulseAudio|Support in sourceforge versions introduced
-
-### 2022-09-28.1
-
-Feature|Description
-:---|:---
-Build|Support for release, main, devel and feature tags
-Presets|Add new preset for Gustard U12 DDC
-
-### 2022-09-28
-
-Feature|Description
-:---|:---
-Documentation|Fixed typos/Cleanup
-Documentation|Track (new) image tags
-Presets|Add new presets (Aune X12 & S6, Yulong D200, Peachtree DAC-iT)
-Build|Only from tags (reduce number of builds)
-Build|Build from main and devel branch only (no dates, no timestamps)
-Build|Support for building releases from a `release` branch by pushing a tag `release/<release-version>`.
-
-### 2022-09-27
-
-Feature|Description
-:---|:---
-Documentation|PulseAudio mode works with images tagged as `latest`
-Build|Build process reviewed
-Build|Created special tags dictionary
-Build|Avoid images with timestamps for devel and branch builds
-
-### 2022-09-20
-
-Feature|Description
-:---|:---
-Documentation|PulseAudio mode instructions are possibly clearer now
-Bookwork support|Add build with debian bookworm (next stable release), using SqueezeLite version 1.9.9. Resulting images will be tagged as "edge" on Docker Hub
-Tag changes|Apply `latest` and `stable` tags to `bullseye`, without sourgeforge binary
-Tag changes|Apply `edge` tag to bookworm, without sourgeforge binary
-Tag changes|Apply `legacy` tag to buster, without sourgeforge binary
-Tag changes|Apply `sourceforge-legacy` tag to buster with sourceforge binary (if the image is generated)
-
-### 2022-09-17
-
-Feature|Description
-:---|:---
-Documentation|Fixed typo on PGID notes
-Documentation|Mentioned PulseAudio early in Why section
-PulseAudio/SystemD|Removed my custom player name from unit, now the player name reflects the hostname
-PulseAudio/SystemD|Service now should wait for the network
-
-### Older changes
-
-Date|Type|Description
-:---|:---|:---
+2022-10-02|Build|Add apt proxy support
+2022-10-02|Feature|Include both alsa and pulseaudio versions of squeezelite
+2022-10-02|Feature|PulseAudio support introduced for sourceforge versions
+2022-09-28|Build|Support for release, main, devel and feature tags
+2022-09-28|Presets|Add new preset for Gustard U12 DDC
+2022-09-28|Documentation|Fixed typos/Cleanup
+2022-09-28|Documentation|Track (new) image tags
+2022-09-28|Presets|Add new presets (Aune X12 & S6, Yulong D200, Peachtree DAC-iT)
+2022-09-28|Build|Only from tags (reduce number of builds)
+2022-09-28|Build|Build from main and devel branch only (no dates, no timestamps)
+2022-09-28|Build|Support for building releases from a `release` branch by pushing a tag `release/<release-version>`.
+2022-09-27|Feature|PulseAudio mode works with images tagged as `latest`
+2022-09-27|HouseKeeping|Build process reviewed
+2022-09-27|HouseKeeping|Created special tags dictionary
+2022-09-27|HouseKeeping|Avoid tags with timestamps for devel and branch builds
+2022-09-20|Documentation|Clarify PulseAudio mode instructions
+2022-09-20|HouseKeeping|Add debian bookworm using v1.9.9. Images are tagged as `edge`
+2022-09-20|HouseKeeping|Apply `latest` and `stable` tags to bullseye/N
+2022-09-20|HouseKeeping|Apply `edge` tag to bookworm/N
+2022-09-20|HouseKeeping|Apply `edge` tag to bookworm/N
+2022-09-20|HouseKeeping|Apply `legacy` tag to buster/N
+2022-09-20|HouseKeeping|Apply `sourceforge-legacy` tag to buster/Y
+2022-09-17|Documentation|Fixed typo on PGID notes
+2022-09-17|Documentation|Mentioned PulseAudio early in Why section
+2022-09-17|Feature|Player name default is based on the hostname
+2022-09-17|Improvement|PulseAudio systemd service now should wait for the network
 2022-09-15|Documentation|More documentation for PulseAudio mode
 2022-09-15|HouseKeeping|Fixed use of PUID and PGID
 2022-09-15|Feature|Initial PulseAudio support

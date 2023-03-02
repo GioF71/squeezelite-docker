@@ -81,40 +81,40 @@ The host network mode is generally not necessary if you specify your server (and
 
 The following tables reports all the currently supported environment variables.
 
-Variable|SqueezeLite corresponding option|Default|Notes
-:---|:---:|:---:|:---
-SQUEEZELITE_MODE||ALSA|Set to PULSE for [PulseAudio](#pulseaudio) mode
-PUID||1000|User ID which will be used to run squeezelite
-PGID||1000|Group ID which will be used to run squeezelite
-AUDIO_GID|||This group id is mandatory with alsa output when running in user mode. It must be set to the group id associated to the `audio` group. See more [here](https://github.com/GioF71/squeezelite-docker/blob/main/doc/example-alsa-user-mode.md).
-PRESET|||You can now choose to set variables using predefined presets. Presets can currently tune the values of `SQUEEZELITE_AUDIO_DEVICE`, `SQUEEZELITE_RATES`, `SQUEEZELITE_UPSAMPLING`, `SQUEEZELITE_CODECS` and `SQUEEZELITE_EXCLUDE_CODECS` for you. See the [Available presets](#available-presets) table for reference. Presets can be combined (the separator must be a comma `,`), but keep in mind that the first preset setting a variable has the priority: once set by a preset, a variable cannot be overwritten by subsequent presets.
-SQUEEZELITE_AUDIO_DEVICE|-o||The audio device. Common examples: `hw:CARD=x20,DEV=0` or `hw:CARD=DAC,DEV=0` for usb dac based on XMOS. If left empty, the default alsa device is used.
-SQUEEZELITE_MIXER_DEVICE|-O||Specify mixer device, defaults to `output device` (`SQUEEZELITE_AUDIO_DEVICE`)
-SQUEEZELITE_PARAMS|-a||Please refer to the squeezelite's man page for `-a`.
-SQUEEZELITE_CODECS|-c||Please refer to the squeezelite's man page for `-c`.
-SQUEEZELITE_EXCLUDE_CODECS|-e||Please refer to the squeezelite's man page for `-e`.
-SQUEEZELITE_PRIORITY|-p||Please refer to the squeezelite's man page for `-p`.
-SQUEEZELITE_DELAY|-D|500|Set it to maybe something like `500,dop` if your DAC supports DoP.
-SQUEEZELITE_NAME|-n||Name of the SqueezeLite player. Use an alphanumeric string without spaces and/or special characters.
-SQUEEZELITE_MODEL_NAME|-M||Name of the SqueezeLite model name. Use an alphanumeric string without spaces and/or special characters.
-SQUEEZELITE_MAC_ADDRESS|-m||Mac Address of the SqueezeLite player. The format must be colon-delimited hexadecimal, for example: `ab:cd:ef:12:34:56`.
-SQUEEZELITE_TIMEOUT|-C|2|Device timeout in seconds.
-SQUEEZELITE_SERVER_PORT|-s||Server and port of the server, for example: `squeezebox-server.local:3483` or `192.168.1.10:3483`. Do not specify the variable if you want to use the auto discovery feature. If you don't specify this variable, you will probably need to use host network mode. See the examples for some hints. The port can be omitted if not different from the default `3483`. So other possible valid values are `squeezebox-server.local` or `192.168.1.10`.
-SQUEEZELITE_RATES|-r||From squeezelite's man page for `-r`: Specify sample rates supported by the output device; this is required if the output device is switched off when squeezelite is started. The format is either a single maximum sample rate, a range of sample rates in the format `<min>-<max>`, or a comma-separated list of available rates. Delay is an optional time to wait when switching sample rates between tracks, in milliseconds. Switch back to the author of this repository: it is recommended to specify sample rates that are effectively supported by your audio device.
-SQUEEZELITE_UPSAMPLING|-u, -R||From squeezelite's man page for `-u`, same as `-R`: Enable upsampling of played audio. The argument is optional; see RESAMPLING for more information. The options `-u` and `-R` are synonymous.
-SQUEEZELITE_BUFFER_SIZE|-b||From squeezelite's man page for `-b`: Specify internal stream and output buffer sizes in kilobytes. Default is 2048:3446.
-DISPLAY_PRESETS|||Set to Y if you want to see the presets on the container output
-SQUEEZELITE_VOLUME_CONTROL|-V||From squeezelite's man page for `-V`: Use the given ALSA `control` for volume adjustment during playback. This prevents the use of software volume control within squeezelite. This option is mutually exclusive with the `-U` option. If neither `-U` nor `-V` options are provided, no ALSA controls are adjusted while running squeezelite and software volume control is used instead. Only applicable when using ALSA output.
-SQUEEZELITE_UNMUTE|-U||From squeezelite's man page for `-U`: Unmute the given ALSA `control` at daemon startup and set it to full volume. Use software volume adjustment for playback. This option is mutually exclusive with the -V option. Only applicable when using ALSA output.
-SQUEEZELITE_LINEAR_VOLUME|-X||Set to `Y` to enable. From squeezelite's man page for `-X`: Use linear volume adjustments instead of in terms of dB (only for hardware volume control).
-SQUEEZELITE_VISUALIZER|-v||Set to `Y` to enable. Unfortunately this feature does not really work from inside docker (yet?). From squeezelite's man page for `-v`: Enable visualiser support.  This creates a shared memory segment that contains some of the audio being played, so that an external visualiser can read and process this to create visualisations.
-SQUEEZELITE_LOG_CATEGORY_ALL|-d||Support for log level on category `all`
-SQUEEZELITE_LOG_CATEGORY_SLIMPROTO|-d||Support for log level on category `slimproto`
-SQUEEZELITE_LOG_CATEGORY_STREAM|-d||Support for log level on category `stream`
-SQUEEZELITE_LOG_CATEGORY_DECODE|-d||Support for log level on category `decode`
-SQUEEZELITE_LOG_CATEGORY_OUTPUT|-d||Support for log level on category `output`
-SQUEEZELITE_LOG_CATEGORY_IR|-d||Support for log level on category `ir`
-STARTUP_DELAY_SEC||0|Delay before starting the application
+Variable|SqueezeLite corresponding option|Notes
+:---|:---:|:---
+SQUEEZELITE_MODE||Set to `ALSA` for alsa mode, or to `PULSE` for [PulseAudio](#pulseaudio) mode, defaults to `ALSA`
+PUID||User ID which will be used to run squeezelite in user mode, defaults to `1000`
+PGID||Group ID which will be used to run squeezelite in user mode, defaults to `1000`
+AUDIO_GID||This group id is mandatory with alsa output when running in user mode. It must be set to the group id associated to the `audio` group. See more [here](https://github.com/GioF71/squeezelite-docker/blob/main/doc/example-alsa-user-mode.md).
+PRESET||You can now choose to set variables using predefined presets. Presets can currently tune the values of `SQUEEZELITE_AUDIO_DEVICE`, `SQUEEZELITE_RATES`, `SQUEEZELITE_UPSAMPLING`, `SQUEEZELITE_CODECS` and `SQUEEZELITE_EXCLUDE_CODECS` for you. See the [Available presets](#available-presets) table for reference. Presets can be combined (the separator must be a comma `,`), but keep in mind that the first preset setting a variable has the priority: once set by a preset, a variable cannot be overwritten by subsequent presets.
+SQUEEZELITE_AUDIO_DEVICE|-o|The audio device. Common examples: `hw:CARD=x20,DEV=0` or `hw:CARD=DAC,DEV=0` for usb dac based on XMOS. If left empty, the default alsa device is used.
+SQUEEZELITE_MIXER_DEVICE|-O|Specify mixer device, defaults to `output device` (`SQUEEZELITE_AUDIO_DEVICE`)
+SQUEEZELITE_PARAMS|-a|Please refer to the squeezelite's man page for `-a`.
+SQUEEZELITE_CODECS|-c|Please refer to the squeezelite's man page for `-c`.
+SQUEEZELITE_EXCLUDE_CODECS|-e|Please refer to the squeezelite's man page for `-e`.
+SQUEEZELITE_PRIORITY|-p|Please refer to the squeezelite's man page for `-p`.
+SQUEEZELITE_DELAY|-D|Set it to maybe something like `500,dop` if your DAC supports DoP. Defaults to `500`
+SQUEEZELITE_NAME|-n|Name of the SqueezeLite player. Use an alphanumeric string without spaces and/or special characters.
+SQUEEZELITE_MODEL_NAME|-M|Name of the SqueezeLite model name. Use an alphanumeric string without spaces and/or special characters.
+SQUEEZELITE_MAC_ADDRESS|-m|Mac Address of the SqueezeLite player. The format must be colon-delimited hexadecimal, for example: `ab:cd:ef:12:34:56`.
+SQUEEZELITE_TIMEOUT|-C|Device timeout in seconds, defaults to `2`
+SQUEEZELITE_SERVER_PORT|-s|Server and port of the server, for example: `squeezebox-server.local:3483` or `192.168.1.10:3483`. Do not specify the variable if you want to use the auto discovery feature. If you don't specify this variable, you will probably need to use host network mode. See the examples for some hints. The port can be omitted if not different from the default `3483`. So other possible valid values are `squeezebox-server.local` or `192.168.1.10`.
+SQUEEZELITE_RATES|-r|From squeezelite's man page for `-r`: Specify sample rates supported by the output device; this is required if the output device is switched off when squeezelite is started. The format is either a single maximum sample rate, a range of sample rates in the format `<min>-<max>`, or a comma-separated list of available rates. Delay is an optional time to wait when switching sample rates between tracks, in milliseconds. Switch back to the author of this repository: it is recommended to specify sample rates that are effectively supported by your audio device.
+SQUEEZELITE_UPSAMPLING|-u, -R|From squeezelite's man page for `-u`, same as `-R`: Enable upsampling of played audio. The argument is optional; see RESAMPLING for more information. The options `-u` and `-R` are synonymous.
+SQUEEZELITE_BUFFER_SIZE|-b|From squeezelite's man page for `-b`: Specify internal stream and output buffer sizes in kilobytes. Default is 2048:3446.
+DISPLAY_PRESETS||Set to Y if you want to see the presets on the container output
+SQUEEZELITE_VOLUME_CONTROL|-V|From squeezelite's man page for `-V`: Use the given ALSA `control` for volume adjustment during playback. This prevents the use of software volume control within squeezelite. This option is mutually exclusive with the `-U` option. If neither `-U` nor `-V` options are provided, no ALSA controls are adjusted while running squeezelite and software volume control is used instead. Only applicable when using ALSA output.
+SQUEEZELITE_UNMUTE|-U|From squeezelite's man page for `-U`: Unmute the given ALSA `control` at daemon startup and set it to full volume. Use software volume adjustment for playback. This option is mutually exclusive with the -V option. Only applicable when using ALSA output.
+SQUEEZELITE_LINEAR_VOLUME|-X|Set to `Y` to enable. From squeezelite's man page for `-X`: Use linear volume adjustments instead of in terms of dB (only for hardware volume control).
+SQUEEZELITE_VISUALIZER|-v|Set to `Y` to enable. Unfortunately this feature does not really work from inside docker (yet?). From squeezelite's man page for `-v`: Enable visualiser support.  This creates a shared memory segment that contains some of the audio being played, so that an external visualiser can read and process this to create visualisations.
+SQUEEZELITE_LOG_CATEGORY_ALL|-d|Support for log level on category `all`
+SQUEEZELITE_LOG_CATEGORY_SLIMPROTO|-d|Support for log level on category `slimproto`
+SQUEEZELITE_LOG_CATEGORY_STREAM|-d|Support for log level on category `stream`
+SQUEEZELITE_LOG_CATEGORY_DECODE|-d|Support for log level on category `decode`
+SQUEEZELITE_LOG_CATEGORY_OUTPUT|-d|Support for log level on category `output`
+SQUEEZELITE_LOG_CATEGORY_IR|-d|Support for log level on category `ir`
+STARTUP_DELAY_SEC||Delay before starting the application, defaults to `0`
 
 It is possible to add and additional preset configuration file using the volume `/app/assets/additional-presets.conf`.
 

@@ -9,7 +9,7 @@ Now also with support for arm64 thanks to [Der-Henning](https://github.com/Der-H
 - linux/amd64
 - linux/arm/v7
 - linux/arm64/v8
-- linux/arm/v6 (tag postfix `-armv6`)
+- linux/arm/v6
 
 ## Reference
 

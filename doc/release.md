@@ -10,6 +10,10 @@ Older build might be dropped in order to save space on docker-hub and incur in l
 
 Date|Type|Description
 :---|:---|:---
+2023-03-11|Dropped buster as the arm/v6 version of the docker image is not available
+2023-03-11|Dropped kinetic and jammy builds, as they don't include arm/v6 versions
+2023-03-11|Workflow for regular versions now includes arm/v6 see [#179](https://github.com/GioF71/squeezelite-docker/issues/179)
+2023-03-11|Workflow for sourceforge versions (for amd64, arm/v7 and arm64/v8)
 2023-01-03|Update|Soureforge binaries version bump
 2023-01-03|Documentation|`Release.md` cleanup
 2022-12-27|Bug|Fixed issue [#168](https://github.com/GioF71/squeezelite-docker/issues/168)

@@ -403,7 +403,6 @@ Tag|Base Image|SqueezeLite Version|SqueezeLite Origin|Additional Tags
 :---|:---:|:---:|:---:|:---
 bookworm|debian:bookworm-slim|1.9.9|Debian Repo|edge, squeezelite-1.9.9-bookworm, squeezelite-1.9.9-bookworm-RELEASE
 bullseye|debian:bullseye-slim|1.9.8|Debian Repo|squeezelite-1.9.8-bullseye, squeezelite-1.9.8-bullseye-RELEASE
-buster|debian:buster-slim|1.8|Debian Repositories|legacy, squeezelite-1.8-buster, squeezelite-1.8-buster-RELEASE
 sourceforge-bullseye|debian:bullseye-slim|1.9.9|SourceForge|sourceforge-latest, squeezelite-1.9.9-sourceforge-bullseye, squeezelite-1.9.9-sourceforge-bullseye-RELEASE
 sourceforge-buster|debian:buster-slim|1.9.9|SourceForge|sourceforge-legacy, squeezelite-1.9.9-sourceforge-buster, squeezelite-1.9.9-sourceforge-buster-RELEASE
 

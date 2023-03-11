@@ -1,4 +1,4 @@
-name: Publish multi-arch Docker images
+name: Publish SourceForge multi-arch Docker images
 
 on:
   push:
@@ -15,25 +15,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        base: ["unstable", "sid", "bookworm", "bullseye", "buster", "kinetic", "jammy"]
-        sourceforge: ["Y", "N"]
-        exclude:
-          - base: "kinetic"
-            sourceforge: "Y"
-          - base: "jammy"
-            sourceforge: "Y"
-          - base: "buster"
-            sourceforge: "N"
-          - base: "bookworm"
-            sourceforge: "Y"
-          - base: "sid"
-            sourceforge: "Y"
-          - base: "sid"
-            sourceforge: "N"
-          - base: "unstable"
-            sourceforge: "Y"
-          - base: "unstable"
-            sourceforge: "N"
+        base: ["bullseye", "buster"]
+        sourceforge: ["Y"]
 
     steps:
       - name: Checkout
@@ -64,62 +47,23 @@ jobs:
           fi
           echo "Select Base Image [" $select_base_image "]"
 
-          declare -A sl_versions
-
-          sl_versions[unstable]=1.9.9
-          sl_versions[sid]=1.9.9
-          sl_versions[bookworm]=1.9.9
-          sl_versions[bullseye]=1.9.8
-          sl_versions[buster]=1.8
-          sl_versions[kinetic]=1.9.9
-          sl_versions[jammy]=1.9.9
-
           image_name=${{secrets.DOCKER_USERNAME}}/squeezelite
 
           declare -A special_tags
 
-          special_tags[kinetic-N]="${image_name}:latest"
-          special_tags[jammy-N]="${image_name}:stable"
-          special_tags[bookworm-N]="${image_name}:edge"
-          special_tags[buster-N]="${image_name}:legacy"
           special_tags[bullseye-Y]="${image_name}:sourceforge-latest"
           special_tags[buster-Y]="${image_name}:sourceforge-legacy"
 
-          stable="jammy-N"
-          latest="kinetic-N"
-          edge=bookworm-N
-          legacy="buster-N"
-          sourceforge_latest="bullseye-Y"
-          sourceforge_legacy="buster-Y"
-
-          tag_stable="stable"
-          tag_latest="latest"
-          tag_edge="edge"
-          tag_legacy="legacy"
-          tag_sourceforge_latest="sourceforge-latest"
-          tag_sourceforge_legacy="sourceforge-legacy"
-
           squeezelite_version_str=""
-          select_squeezelite_version=unknown
           distro_id=${{ matrix.base }}
-          if [ "${{ matrix.sourceforge }}" = "Y" ]; then
-              select_squeezelite_version="1.9.9-sourceforge"
-          else
-              select_squeezelite_version=${sl_versions[${{ matrix.base }}]}
-              if [ -z "${select_squeezelite_version}" ]; then
-                select_squeezelite_version=unknown
-              fi
-              echo "Version from dictionary: "$select_squeezelite_version" from ["${{ matrix.base }}"]"
-          fi
-          squeezelite_version_str="squeezelite-"$select_squeezelite_version
+          squeezelite_version_str="squeezelite-1.9.9-sourceforge"
 
           tags=""
           if [ "${ref_type}" = "branch" ]; then
             echo "branch mode";
             if [ "${ref_name}" = "main" ]; then
               echo "main branch";
-              tags="${image_name}:main-${distro_id}";
-              tags="$tags,${image_name}:main-${distro_id}-${squeezelite_version_str}";
+              tags="${image_name}:main-${distro_id}-${squeezelite_version_str}";
             elif [ "${ref_name}" = "devel" ]; then
               echo "devel branch";
               tags="${image_name}:devel-${distro_id}-${squeezelite_version_str}"
@@ -148,12 +92,7 @@ jobs:
               else
                 echo "Not found special tags for ["${building_now}"]";
               fi
-              
-              if [ "${{ matrix.sourceforge }}" = "N" ]; then
-                tags="${tags},$image_name:${distro_id}";
-              else
-                tags="${tags},$image_name:sourceforge-${distro_id}";
-              fi
+              tags="${tags},$image_name:sourceforge-${distro_id}";
             elif [ "${tag_type}" = "main" ]; then
               echo "main tag";
               tags="${image_name}:main-${tag_name}-${distro_id}-${squeezelite_version_str}";
@@ -165,7 +104,6 @@ jobs:
               tags="${image_name}:feature-${tag_name}-${distro_id}-${squeezelite_version_str}";
             elif [ "${tag_type}" = "daily" ]; then
               echo "daily build";
-              tags="${tags},${image_name}:daily-${distro_id}";
               tags="${tags},${image_name}:daily-${distro_id}-${squeezelite_version_str}";
             fi
           fi

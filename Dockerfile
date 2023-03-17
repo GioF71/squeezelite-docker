@@ -17,14 +17,32 @@ RUN if [ "${USE_APT_PROXY}" = "Y" ]; then \
     echo "Building without apt proxy"; \
     fi
 
+# update indexes
+RUN apt-get update
+
+# upgrade packages
+RUN DEBIAN_FRONTEND=noninteractive apt-get upgrade -y
+
+# install pulseaudio
+RUN apt-get install pulseaudio --no-install-recommends -y
+
+# install alsa libraries
+RUN apt-get install libasound2 --no-install-recommends -y
+
+# copy installer files
 RUN mkdir -p /app/bin
 RUN mkdir -p /app/install
 COPY install/installer.sh /app/install/
+COPY install/install-script.sh /app/install/
 RUN chmod u+x /app/install/*
 
 WORKDIR /app/install
 
-RUN /app/install/installer.sh $DOWNLOAD_FROM_SOURCEFORGE
+# execute installation
+RUN ./installer.sh $DOWNLOAD_FROM_SOURCEFORGE
+
+# cleanup apt cache
+RUN rm -rf /var/lib/apt/lists/*
 
 # remove scripts
 RUN rm -Rf /app/install
@@ -37,7 +55,7 @@ FROM scratch
 COPY --from=BASE / /
 
 LABEL maintainer="GioF71"
-LABEL source="https://github.com/GioF71/upmpdcli-docker"
+LABEL source="https://github.com/GioF71/squeezelite-docker"
 
 RUN mkdir -p /app
 RUN mkdir -p /app/bin

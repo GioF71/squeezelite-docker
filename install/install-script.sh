@@ -27,13 +27,6 @@ if [ "$DOWNLOADED_BIN" == "Y" ]; then
     ARCH=`uname -m`
     mkdir /assets
     mkdir -p /assets/sourceforge
-    #URL_x86_64="https://sourceforge.net/projects/lmsclients/files/squeezelite/linux/squeezelite-1.9.9.1421-x86_64.tar.gz/download"
-    #URL_aarch64="https://sourceforge.net/projects/lmsclients/files/squeezelite/linux/squeezelite-1.9.9.1392-aarch64.tar.gz/download"
-    #URL_armv7l="https://sourceforge.net/projects/lmsclients/files/squeezelite/linux/squeezelite-1.9.9.1419-armhf.tar.gz/download"
-    #URL_x86_64_PULSE="https://sourceforge.net/projects/lmsclients/files/squeezelite/linux/squeezelite-pulse-1.9.9.1421-x86_64.tar.gz/download"
-    #URL_aarch64_PULSE="https://sourceforge.net/projects/lmsclients/files/squeezelite/linux/squeezelite-pulse-1.9.9.1392-aarch64.tar.gz/download"
-    #URL_armv7l_PULSE="https://sourceforge.net/projects/lmsclients/files/squeezelite/linux/squeezelite-pulse-1.9.9.1392-armhf.tar.gz/download"
-    #echo $ARCH
     SL_URL=${download_url_dict_alsa["${ARCH}"]};
     if [[ -n "${SL_URL}" ]]; then
         echo "Found Alsa version for architecture ${ARCH}, downloading ..."
@@ -43,7 +36,7 @@ if [ "$DOWNLOADED_BIN" == "Y" ]; then
         ls -la /assets/sourceforge/expanded/
         mv /assets/sourceforge/expanded/squeezelite $OUTPUT_FILE
     else
-        echo "NOT Found Alsa version for architecture ${ARCH}. This was mandatory, exiting"
+        echo "NOT Found Alsa version for architecture ${ARCH}. This was mandatory, exiting!"
         exit 1
     fi
     SL_URL_PULSE=${download_url_dict_pulse["${ARCH}"]};
@@ -55,7 +48,7 @@ if [ "$DOWNLOADED_BIN" == "Y" ]; then
         ls -la /assets/sourceforge/expanded-pulse/
         mv /assets/sourceforge/expanded-pulse/squeezelite $OUTPUT_FILE_PULSE
     else
-        echo "NOT Found PulseAudio version for architecture ${ARCH}. This was mandatory, exiting"
+        echo "NOT Found PulseAudio version for architecture ${ARCH}. This was not mandatory."
     fi
     # cleanup
     apt-get purge wget -y

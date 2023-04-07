@@ -15,7 +15,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        base: ["bullseye", "buster"]
+        base: ["bullseye"]
         sourceforge: ["Y"]
 
     steps:

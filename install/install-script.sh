@@ -14,13 +14,13 @@ arch_arm_v8=aarch64
 
 declare -A download_url_dict_alsa
 download_url_dict_alsa[$arch_amd64]="https://sourceforge.net/projects/lmsclients/files/squeezelite/linux/squeezelite-1.9.9.1421-x86_64.tar.gz/download"
-download_url_dict_alsa[$arch_arm_v7]="https://sourceforge.net/projects/lmsclients/files/squeezelite/linux/squeezelite-1.9.9.1419-armhf.tar.gz/download"
-download_url_dict_alsa[$arch_arm_v8]="https://sourceforge.net/projects/lmsclients/files/squeezelite/linux/squeezelite-1.9.9.1392-aarch64.tar.gz/download"
+download_url_dict_alsa[$arch_arm_v7]="https://sourceforge.net/projects/lmsclients/files/squeezelite/linux/squeezelite-1.9.9.1428-armhf.tar.gz/download"
+download_url_dict_alsa[$arch_arm_v8]="https://sourceforge.net/projects/lmsclients/files/squeezelite/linux/squeezelite-1.9.9.1428-aarch64.tar.gz/download"
 
 declare -A download_url_dict_pulse
 download_url_dict_pulse[$arch_amd64]="https://sourceforge.net/projects/lmsclients/files/squeezelite/linux/squeezelite-pulse-1.9.9.1421-x86_64.tar.gz/download"
 download_url_dict_pulse[$arch_arm_v7]="https://sourceforge.net/projects/lmsclients/files/squeezelite/linux/squeezelite-pulse-1.9.9.1392-armhf.tar.gz/download"
-download_url_dict_pulse[$arch_arm_v8]="https://sourceforge.net/projects/lmsclients/files/squeezelite/linux/squeezelite-pulse-1.9.9.1392-aarch64.tar.gz/download"
+download_url_dict_pulse[$arch_arm_v8]="https://sourceforge.net/projects/lmsclients/files/squeezelite/linux/squeezelite-pulse-1.9.9.1428-aarch64.tar.gz/download"
 
 if [ "$DOWNLOADED_BIN" == "Y" ]; then
     apt-get install wget -y    

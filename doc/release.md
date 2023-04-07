@@ -10,10 +10,12 @@ Older build might be dropped in order to save space on docker-hub and incur in l
 
 Date|Type|Description
 :---|:---|:---
-2023-03-11|Dropped buster as the arm/v6 version of the docker image is not available
-2023-03-11|Dropped kinetic and jammy builds, as they don't include arm/v6 versions
-2023-03-11|Workflow for regular versions now includes arm/v6 see [#179](https://github.com/GioF71/squeezelite-docker/issues/179)
-2023-03-11|Workflow for sourceforge versions (for amd64, arm/v7 and arm64/v8)
+2023-04-07|Update|Sourceforge binaries version bump
+2023-04-07|Update|Dropped buster sourceforge versions
+2023-03-11|Maintenance|Dropped buster as the arm/v6 version of the docker image is not available
+2023-03-11|Maintenance|Dropped kinetic and jammy builds, as they don't include arm/v6 versions
+2023-03-11|Maintenance|Workflow for regular versions now includes arm/v6 see [#179](https://github.com/GioF71/squeezelite-docker/issues/179)
+2023-03-11|Maintenance|Workflow for sourceforge versions (for amd64, arm/v7 and arm64/v8)
 2023-01-03|Update|Soureforge binaries version bump
 2023-01-03|Documentation|`Release.md` cleanup
 2022-12-27|Bug|Fixed issue [#168](https://github.com/GioF71/squeezelite-docker/issues/168)
@@ -40,7 +42,7 @@ Date|Type|Description
 2022-09-28|Presets|Add new presets (Aune X12 & S6, Yulong D200, Peachtree DAC-iT)
 2022-09-28|Build|Only from tags (reduce number of builds)
 2022-09-28|Build|Build from main and devel branch only (no dates, no timestamps)
-2022-09-28|Build|Support for building releases from a `release` branch by pushing a tag `release/<release-version>`.
+2022-09-28|Build|Support for building releases by pushing a tag `release/<release-version>`.
 2022-09-27|Feature|PulseAudio mode works with images tagged as `latest`
 2022-09-27|HouseKeeping|Build process reviewed
 2022-09-27|HouseKeeping|Created special tags dictionary

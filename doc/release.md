@@ -10,6 +10,7 @@ Older build might be dropped in order to save space on docker-hub and incur in l
 
 Date|Type|Description
 :---|:---|:---
+2023-04-14|Update|Sourceforge binaries version bump
 2023-04-07|Update|Sourceforge binaries version bump
 2023-04-07|Update|Dropped buster sourceforge versions
 2023-03-11|Maintenance|Dropped buster as the arm/v6 version of the docker image is not available

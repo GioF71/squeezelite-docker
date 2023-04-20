@@ -10,6 +10,7 @@ Older build might be dropped in order to save space on docker-hub and incur in l
 
 Date|Type|Description
 :---|:---|:---
+2023-04-20|Update|Sourceforge binaries version bump
 2023-04-14|Update|Sourceforge binaries version bump
 2023-04-07|Update|Sourceforge binaries version bump
 2023-04-07|Update|Dropped buster sourceforge versions

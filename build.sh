@@ -18,6 +18,7 @@ base_images[bionic]=ubuntu:bionic
 base_images[focal]=ubuntu:focal
 base_images[jammy]=ubuntu:jammy
 base_images[kinetic]=ubuntu:kinetic
+base_images[lunar]=ubuntu:lunar
 base_images[rolling]=ubuntu:rolling
 
 base_images[debian:bookworm]=debian:bookworm-slim
@@ -31,6 +32,7 @@ base_images[ubuntu:bionic]=ubuntu:bionic
 base_images[ubuntu:focal]=ubuntu:focal
 base_images[ubuntu:jammy]=ubuntu:jammy
 base_images[ubuntu:kinetic]=ubuntu:kinetic
+base_images[ubuntu:lunar]=ubuntu:lunar
 base_images[ubuntu:rolling]=ubuntu:rolling
 
 DEFAULT_BASE_IMAGE=bullseye

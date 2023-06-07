@@ -38,6 +38,7 @@ jobs:
           base_image_from_matrix[bookworm]=debian:bookworm-slim
           base_image_from_matrix[buster]=debian:buster-slim
           base_image_from_matrix[bullseye]=debian:bullseye-slim
+          base_image_from_matrix[lunar]=ubuntu:lunar
           base_image_from_matrix[kinetic]=ubuntu:kinetic
           base_image_from_matrix[jammy]=ubuntu:jammy
 

@@ -52,6 +52,7 @@ jobs:
           sl_versions[bookworm]=1.9.9
           sl_versions[bullseye]=1.9.8
           sl_versions[buster]=1.8
+          sl_versions[lunar]=1.9.9
           sl_versions[kinetic]=1.9.9
           sl_versions[jammy]=1.9.9
 

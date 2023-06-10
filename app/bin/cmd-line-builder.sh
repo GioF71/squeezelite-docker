@@ -17,7 +17,7 @@ function cmdline-player-name() {
         echo "Variable SQUEEZELITE_NAME has not been specified";
     else
         echo "Variable SQUEEZELITE_NAME has been specified: $SQUEEZELITE_NAME";
-        CMD_LINE="$CMD_LINE -n $SQUEEZELITE_NAME";
+        CMD_LINE="$CMD_LINE -n \"$SQUEEZELITE_NAME\"";
     fi
 }
 
@@ -26,7 +26,7 @@ function cmdline-model-name() {
       echo "Variable SQUEEZELITE_MODEL_NAME has not been specified";
     else
         echo "Variable SQUEEZELITE_MODEL_NAME has been specified: $SQUEEZELITE_MODEL_NAME";
-        CMD_LINE="$CMD_LINE -M $SQUEEZELITE_MODEL_NAME";
+        CMD_LINE="$CMD_LINE -M \"$SQUEEZELITE_MODEL_NAME\"";
     fi
 }
 

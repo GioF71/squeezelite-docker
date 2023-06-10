@@ -59,6 +59,21 @@ sed -i 's/PUID/'"$PUID"'/g' $PULSE_CLIENT_CONF
 cat $PULSE_CLIENT_CONF
 
 CMD_LINE="/app/bin/squeezelite-pulseaudio"
+
+if [[ -n "${SELECT_CUSTOM_BINARY_PULSE}" ]]; then
+  if [ -f "$SELECT_CUSTOM_BINARY_PULSE" ]; then
+      echo "Custom binary [$SELECT_CUSTOM_BINARY_PULSE] exists."
+      if [ -x "$SELECT_CUSTOM_BINARY_PULSE" ]; then
+          echo "Custom binary [$SELECT_CUSTOM_BINARY_PULSE] is executable."
+          CMD_LINE=$SELECT_CUSTOM_BINARY_PULSE
+      else
+          echo "Custom binary [$SELECT_CUSTOM_BINARY_PULSE] is not executable, using default."
+      fi
+  else
+      echo "Custom binary [$SELECT_CUSTOM_BINARY_PULSE] does not exist, using default."
+  fi
+fi
+
 echo "Initializing command line: ["$CMD_LINE"]"
 
 source cmd-line-builder.sh

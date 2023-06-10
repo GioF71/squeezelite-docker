@@ -109,6 +109,8 @@ SQUEEZELITE_VOLUME_CONTROL|-V|From squeezelite's man page for `-V`: Use the give
 SQUEEZELITE_UNMUTE|-U|From squeezelite's man page for `-U`: Unmute the given ALSA `control` at daemon startup and set it to full volume. Use software volume adjustment for playback. This option is mutually exclusive with the -V option. Only applicable when using ALSA output.
 SQUEEZELITE_LINEAR_VOLUME|-X|Set to `Y` to enable. From squeezelite's man page for `-X`: Use linear volume adjustments instead of in terms of dB (only for hardware volume control).
 SQUEEZELITE_VISUALIZER|-v|Set to `Y` to enable. Unfortunately this feature does not really work from inside docker (yet?). From squeezelite's man page for `-v`: Enable visualiser support.  This creates a shared memory segment that contains some of the audio being played, so that an external visualiser can read and process this to create visualisations.
+SELECT_CUSTOM_BINARY_ALSA||Use for selection of a custom binary for ALSA mode
+SELECT_CUSTOM_BINARY_PULSE||Use for selection of a custom binary for PULSE mode
 SQUEEZELITE_LOG_CATEGORY_ALL|-d|Support for log level on category `all`
 SQUEEZELITE_LOG_CATEGORY_SLIMPROTO|-d|Support for log level on category `slimproto`
 SQUEEZELITE_LOG_CATEGORY_STREAM|-d|Support for log level on category `stream`
@@ -128,6 +130,7 @@ Possible values for variables `SQUEEZELITE_LOG_CATEGORY_*` are `info`, `debug` o
 Volume|Description
 :---|:---
 /app/assets/additional-presets.conf|Additional preset file
+/app/assets/binaries|Custom binaries should be placed here
 
 ### Additional preset file
 

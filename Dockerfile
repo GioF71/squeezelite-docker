@@ -105,6 +105,9 @@ ENV PUID ""
 ENV PGID ""
 ENV AUDIO_GID ""
 
+ENV SELECT_CUSTOM_BINARY_ALSA ""
+ENV SELECT_CUSTOM_BINARY_PULSE ""
+
 COPY app/bin/run-squeezelite.sh /app/bin/
 COPY app/bin/run-squeezelite-alsa.sh /app/bin/
 COPY app/bin/run-squeezelite-pulse.sh /app/bin/
@@ -115,6 +118,7 @@ COPY app/bin/run-presets.sh /app/bin/
 RUN chmod +x /app/bin/*.sh
 
 VOLUME '/app/assets/additional-presets.conf'
+VOLUME '/app/assets/binaries'
 
 COPY README.md /app/doc/
 COPY doc/* /app/doc/

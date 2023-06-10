@@ -11,6 +11,21 @@ source run-presets.sh
 echo "=== END-- Loading presets ==="
 
 CMD_LINE="/app/bin/squeezelite"
+
+if [[ -n "${SELECT_CUSTOM_BINARY_ALSA}" ]]; then
+  if [ -f "$SELECT_CUSTOM_BINARY_ALSA" ]; then
+      echo "Custom binary [$SELECT_CUSTOM_BINARY_ALSA] exists."
+      if [ -x "$SELECT_CUSTOM_BINARY_ALSA" ]; then
+          echo "Custom binary [$SELECT_CUSTOM_BINARY_ALSA] is executable."
+          CMD_LINE=$SELECT_CUSTOM_BINARY_ALSA
+      else
+          echo "Custom binary [$SELECT_CUSTOM_BINARY_ALSA] is not executable, using default."
+      fi
+  else
+      echo "Custom binary [$SELECT_CUSTOM_BINARY_ALSA] does not exist, using default."
+  fi
+fi
+
 echo "Initializing command line: ["$CMD_LINE"]"
 
 source cmd-line-builder.sh

@@ -93,7 +93,6 @@ else
   exit 4
 fi
 
-
 echo "Base Image: ["$expanded_base_image"]"
 echo "Download from SourceForge: ["$download"]"
 echo "Tag: ["$tag"]"

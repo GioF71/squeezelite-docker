@@ -7,11 +7,11 @@
 
 declare -A base_images
 
-base_images[bookworm]=debian:bookworm-slim
-base_images[buster]=debian:buster-slim
-base_images[bullseye]=debian:bullseye-slim
 base_images[sid]=debian:sid-slim
 base_images[unstable]=debian:unstable-slim
+base_images[bookworm]=debian:bookworm-slim
+base_images[bullseye]=debian:bullseye-slim
+base_images[buster]=debian:buster-slim
 base_images[trusty]=ubuntu:trusty
 base_images[xenial]=ubuntu:xenial
 base_images[bionic]=ubuntu:bionic
@@ -21,11 +21,11 @@ base_images[kinetic]=ubuntu:kinetic
 base_images[lunar]=ubuntu:lunar
 base_images[rolling]=ubuntu:rolling
 
-base_images[debian:bookworm]=debian:bookworm-slim
-base_images[debian:buster]=debian:buster-slim
-base_images[debian:bullseye]=debian:bullseye-slim
 base_images[debian:sid]=debian:sid-slim
 base_images[debian:unstable]=debian:unstable-slim
+base_images[debian:bookworm]=debian:bookworm-slim
+base_images[debian:bullseye]=debian:bullseye-slim
+base_images[debian:buster]=debian:buster-slim
 base_images[ubuntu:trusty]=ubuntu:trusty
 base_images[ubuntu:xenial]=ubuntu:xenial
 base_images[ubuntu:bionic]=ubuntu:bionic
@@ -35,7 +35,7 @@ base_images[ubuntu:kinetic]=ubuntu:kinetic
 base_images[ubuntu:lunar]=ubuntu:lunar
 base_images[ubuntu:rolling]=ubuntu:rolling
 
-DEFAULT_BASE_IMAGE=bullseye
+DEFAULT_BASE_IMAGE=bookworm
 DEFAULT_SOURCEFORGE_DOWNLOAD=N
 DEFAULT_TAG=latest
 DEFAULT_USE_PROXY=N

@@ -10,6 +10,8 @@ Older build might be dropped in order to save space on docker-hub and incur in l
 
 Date|Type|Description
 :---|:---|:---
+2023-06-13|`bookworm` builds tagged as `latest`, `sid` tagged as `edge`, see [#206](https://github.com/GioF71/squeezelite-docker/issues/206)
+2023-06-13|Sourceforge builds based on `bookworm`, see [#206](https://github.com/GioF71/squeezelite-docker/issues/206)
 2023-06-10|Player name and model allow spaces, see [#202](https://github.com/GioF71/squeezelite-docker/issues/202)
 2023-06-10|Support for custom binaries, see [#181](https://github.com/GioF71/squeezelite-docker/issues/181)
 2023-04-20|Update|Sourceforge binaries version bump

@@ -15,7 +15,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        base: ["bookworm", "bullseye"]
+        base: ["sid", "bookworm", "bullseye"]
         sourceforge: ["N"]
 
     steps:
@@ -60,8 +60,9 @@ jobs:
 
           declare -A special_tags
 
-          special_tags[bullseye-N]="${image_name}:latest,${image_name}:stable"
-          special_tags[bookworm-N]="${image_name}:edge"
+          special_tags[bookworm-N]="${image_name}:latest,${image_name}:stable"
+          special_tags[bullseye-N]="${image_name}:oldstable"
+          special_tags[sid-N]="${image_name}:edge"
 
           squeezelite_version_str=""
           select_squeezelite_version=unknown

@@ -15,7 +15,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        base: ["bullseye"]
+        base: ["bookworm"]
         sourceforge: ["Y"]
 
     steps:
@@ -52,8 +52,8 @@ jobs:
 
           declare -A special_tags
 
-          special_tags[bullseye-Y]="${image_name}:sourceforge-latest"
-          special_tags[buster-Y]="${image_name}:sourceforge-legacy"
+          special_tags[bookworm-Y]="${image_name}:sourceforge-latest"
+          special_tags[bullseye-Y]="${image_name}:sourceforge-legacy"
 
           squeezelite_version_str=""
           distro_id=${{ matrix.base }}

@@ -20,9 +20,6 @@ RUN if [ "${USE_APT_PROXY}" = "Y" ]; then \
 # update indexes
 RUN apt-get update
 
-# upgrade packages
-RUN DEBIAN_FRONTEND=noninteractive apt-get upgrade -y
-
 # install pulseaudio
 RUN apt-get install pulseaudio --no-install-recommends -y
 

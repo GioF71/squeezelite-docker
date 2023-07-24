@@ -10,6 +10,7 @@ Older build might be dropped in order to save space on docker-hub and incur in l
 
 Date|Type|Description
 :---|:---|:---
+2023-07-24|Maintenance|Target arm/v5 instead of arm/v6, see [#213](https://github.com/GioF71/squeezelite-docker/issues/213)
 2023-06-27|Update|Sourceforge binaries version bump, see [#211](https://github.com/GioF71/squeezelite-docker/issues/211)
 2023-06-13|Maintenance|`bookworm` builds tagged as `latest`, `sid` tagged as `edge`, see [#206](https://github.com/GioF71/squeezelite-docker/issues/206)
 2023-06-13|Maintenance|Sourceforge builds based on `bookworm`, see [#206](https://github.com/GioF71/squeezelite-docker/issues/206)

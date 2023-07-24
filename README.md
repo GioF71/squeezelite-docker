@@ -405,8 +405,8 @@ From this repository I create all the versions of the image. Each of them featur
 Tag|Base Image|SqueezeLite Version|SqueezeLite Origin|Additional Tags
 :---|:---:|:---:|:---:|:---
 sid|debian:sid-slim|1.9.9|Debian Repo|edge, squeezelite-1.9.9-sid, squeezelite-1.9.9-sid-RELEASE
+trixie|debian:trixie-slim|1.9.9|Debian Repo|next, squeezelite-1.9.9-next, squeezelite-1.9.9-next-RELEASE
 bookworm|debian:bookworm-slim|1.9.9|Debian Repo|latest, stable, squeezelite-1.9.9-bookworm, squeezelite-1.9.9-bookworm-RELEASE
-bullseye|debian:bullseye-slim|1.9.8|Debian Repo|squeezelite-1.9.8-bullseye, squeezelite-1.9.8-bullseye-RELEASE
 sourceforge-bookworm|debian:bookworm-slim|1.9.9|SourceForge|sourceforge-latest, squeezelite-1.9.9-sourceforge-bookworm, squeezelite-1.9.9-sourceforge-bookworm-RELEASE
 
 ## Release History

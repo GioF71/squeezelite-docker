@@ -35,8 +35,8 @@ jobs:
           declare -A base_image_from_matrix
           base_image_from_matrix[unstable]=debian:unstable-slim
           base_image_from_matrix[sid]=debian:sid-slim
+          base_image_from_matrix[trixie]=debian:trixie-slim
           base_image_from_matrix[bookworm]=debian:bookworm-slim
-          base_image_from_matrix[buster]=debian:buster-slim
           base_image_from_matrix[bullseye]=debian:bullseye-slim
           base_image_from_matrix[lunar]=ubuntu:lunar
           base_image_from_matrix[kinetic]=ubuntu:kinetic
@@ -44,7 +44,7 @@ jobs:
 
           select_base_image=${base_image_from_matrix[${{ matrix.base }}]}
           if [ -z "${select_base_image}" ]; then
-            select_base_image=debian:buster-slim
+            select_base_image=debian:stable-slim
           fi
           echo "Select Base Image [" $select_base_image "]"
 
@@ -52,6 +52,8 @@ jobs:
 
           declare -A special_tags
 
+          special_tags[sid-Y]="${image_name}:sourceforge-edge"
+          special_tags[trixie-Y]="${image_name}:sourceforge-next"
           special_tags[bookworm-Y]="${image_name}:sourceforge-latest"
           special_tags[bullseye-Y]="${image_name}:sourceforge-legacy"
 

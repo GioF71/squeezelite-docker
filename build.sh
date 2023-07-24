@@ -9,6 +9,7 @@ declare -A base_images
 
 base_images[sid]=debian:sid-slim
 base_images[unstable]=debian:unstable-slim
+base_images[trixie]=debian:trixie-slim
 base_images[bookworm]=debian:bookworm-slim
 base_images[bullseye]=debian:bullseye-slim
 base_images[buster]=debian:buster-slim
@@ -23,6 +24,7 @@ base_images[rolling]=ubuntu:rolling
 
 base_images[debian:sid]=debian:sid-slim
 base_images[debian:unstable]=debian:unstable-slim
+base_images[debian:trixie]=debian:trixie-slim
 base_images[debian:bookworm]=debian:bookworm-slim
 base_images[debian:bullseye]=debian:bullseye-slim
 base_images[debian:buster]=debian:buster-slim

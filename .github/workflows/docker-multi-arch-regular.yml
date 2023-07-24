@@ -15,7 +15,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        base: ["sid", "bookworm", "bullseye"]
+        base: ["sid", "trixie", "bookworm"]
         sourceforge: ["N"]
 
     steps:
@@ -35,9 +35,10 @@ jobs:
           declare -A base_image_from_matrix
           base_image_from_matrix[unstable]=debian:unstable-slim
           base_image_from_matrix[sid]=debian:sid-slim
+          base_image_from_matrix[trixie]=debian:trixie-slim
           base_image_from_matrix[bookworm]=debian:bookworm-slim
-          base_image_from_matrix[buster]=debian:buster-slim
           base_image_from_matrix[bullseye]=debian:bullseye-slim
+          base_image_from_matrix[buster]=debian:buster-slim
 
           select_base_image=${base_image_from_matrix[${{ matrix.base }}]}
           if [ -z "${select_base_image}" ]; then
@@ -49,6 +50,7 @@ jobs:
 
           sl_versions[unstable]=1.9.9
           sl_versions[sid]=1.9.9
+          sl_versions[trixie]=1.9.9
           sl_versions[bookworm]=1.9.9
           sl_versions[bullseye]=1.9.8
           sl_versions[buster]=1.8
@@ -63,6 +65,7 @@ jobs:
           special_tags[bookworm-N]="${image_name}:latest,${image_name}:stable"
           special_tags[bullseye-N]="${image_name}:oldstable"
           special_tags[sid-N]="${image_name}:edge"
+          special_tags[trixie-N]="${image_name}:nextstable"
 
           squeezelite_version_str=""
           select_squeezelite_version=unknown

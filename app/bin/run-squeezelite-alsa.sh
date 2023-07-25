@@ -233,14 +233,22 @@ source logging.sh
 add_log_categories
 
 USE_USER_MODE="N"
+DEFAULT_UID=1000
+DEFAULT_GID=1000
+
+DEFAULT_USER_NAME=sq-user
+DEFAULT_GROUP_NAME=sq-user
+DEFAULT_HOME_DIR=/home/$DEFAULT_USER_NAME
+
+USER_NAME=$DEFAULT_USER_NAME
+GROUP_NAME=$DEFAULT_GROUP_NAME
+HOME_DIR=$DEFAULT_HOME_DIR
 
 ## User mode support
 if [[ "${USER_MODE^^}" == "YES" || "${USER_MODE^^}" == "Y" ]]; then
     USE_USER_MODE="Y"
     echo "User mode enabled"
     echo "Creating user ...";
-    DEFAULT_UID=1000
-    DEFAULT_GID=1000
     if [ -z "${PUID}" ]; then
         PUID=$DEFAULT_UID;
         echo "Setting default value for PUID: ["$PUID"]"
@@ -249,49 +257,48 @@ if [[ "${USER_MODE^^}" == "YES" || "${USER_MODE^^}" == "Y" ]]; then
         PGID=$DEFAULT_GID;
         echo "Setting default value for PGID: ["$PGID"]"
     fi
-    USER_NAME=sq-user
-    GROUP_NAME=sq-user
-    HOME_DIR=/home/$USER_NAME
-    ### create home directory and ancillary directories
-    if [ ! -d "$HOME_DIR" ]; then
-    echo "Home directory [$HOME_DIR] not found, creating."
-    mkdir -p $HOME_DIR
-    chown -R $PUID:$PGID $HOME_DIR
-    ls -la $HOME_DIR -d
-    ls -la $HOME_DIR
-    fi
-    ### create group
-    if [ ! $(getent group $GROUP_NAME) ]; then
-        echo "group $GROUP_NAME does not exist, creating..."
+    echo "Ensuring user with uid:[$PUID] gid:[$PGID] exists ...";
+    ### create group if it does not exist
+    if [ ! $(getent group $PGID) ]; then
+        echo "Group with gid [$PGID] does not exist, creating..."
         groupadd -g $PGID $GROUP_NAME
+        echo "Group [$GROUP_NAME] with gid [$PGID] created."
     else
-        echo "group $GROUP_NAME already exists."
+        GROUP_NAME=$(getent group $PGID | cut -d: -f1)
+        echo "Group with gid [$PGID] name [$GROUP_NAME] already exists."
     fi
-    ### create user
-    if [ ! $(getent passwd $USER_NAME) ]; then
-        echo "user $USER_NAME does not exist, creating..."
-        useradd -g $PGID -u $PUID -s /bin/bash -M -d $HOME_DIR $USER_NAME
-        id $USER_NAME
-        echo "user $USER_NAME created."
+    ### create user if it does not exist
+    if [ ! $(getent passwd $PUID) ]; then
+        echo "User with uid [$PUID] does not exist, creating..."
+        useradd -g $PGID -u $PUID -M $USER_NAME
+        echo "User [$USER_NAME] with uid [$PUID] created."
     else
-        echo "user $USER_NAME already exists."
+        USER_NAME=$(getent passwd $PUID | cut -d: -f1)
+        echo "user with uid [$PUID] name [$USER_NAME] already exists."
+        HOME_DIR="/home/$USER_NAME"
     fi
-
+    ### create home directory
+    if [ ! -d "$HOME_DIR" ]; then
+        echo "Home directory [$HOME_DIR] not found, creating."
+        mkdir -p $HOME_DIR
+        echo ". done."
+    fi
+    chown -R $PUID:$PGID $HOME_DIR
     if [ -z "${AUDIO_GID}" ]; then
-        echo "AUDIO_GID is mandatory for user mode and alsa output"
-        exit 3
-    fi
-    if [ $(getent group $AUDIO_GID) ]; then
-        echo "Alsa Mode - Group with gid $AUDIO_GID already exists"
+        echo "WARNING: AUDIO_GID is mandatory for user mode and alsa output"
     else
-        echo "Alsa Mode - Creating group with gid $AUDIO_GID"
-        groupadd -g $AUDIO_GID mpd-audio
+      if [ $(getent group $AUDIO_GID) ]; then
+          echo "Alsa Mode - Group with gid $AUDIO_GID already exists"
+      else
+          echo "Alsa Mode - Creating group with gid $AUDIO_GID"
+          groupadd -g $AUDIO_GID sq-audio
+      fi
+      echo "Alsa Mode - Adding $USER_NAME [$PUID] to gid [$AUDIO_GID]"
+      AUDIO_GRP=$(getent group $AUDIO_GID | cut -d: -f1)
+      echo "gid $AUDIO_GID -> group $AUDIO_GRP"
+      usermod -a -G $AUDIO_GRP $USER_NAME
+      echo "Alsa Mode - Successfully created user $USER_NAME:$GROUP_NAME [$PUID:$PGID])";
     fi
-    echo "Alsa Mode - Adding $USER_NAME to gid $AUDIO_GID"
-    AUDIO_GRP=$(getent group $AUDIO_GID | cut -d: -f1)
-    echo "gid $AUDIO_GID -> group $AUDIO_GRP"
-    usermod -a -G $AUDIO_GRP $USER_NAME
-    echo "Alsa Mode - Successfully created $USER_NAME (group: $GROUP_NAME)";
 else 
     echo "User mode disabled"
 fi

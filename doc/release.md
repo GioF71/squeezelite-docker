@@ -10,6 +10,7 @@ Older build might be dropped in order to save space on docker-hub and incur in l
 
 Date|Type|Description
 :---|:---|:---
+2023-07-25|Maintenance|Allow existing docker user, see [#223](https://github.com/GioF71/squeezelite-docker/issues/223)
 2023-07-25|Maintenance|Drop `sid` and `trixie`, see [#224](https://github.com/GioF71/squeezelite-docker/issues/224)
 2023-07-25|Maintenance|Remove apt proxy config, see [#221](https://github.com/GioF71/squeezelite-docker/issues/221)
 2023-07-24|Maintenance|Avoid deprecated features in workflows, see [#219](https://github.com/GioF71/squeezelite-docker/issues/219)

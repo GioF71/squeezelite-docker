@@ -10,6 +10,7 @@ Older build might be dropped in order to save space on docker-hub and incur in l
 
 Date|Type|Description
 :---|:---|:---
+2023-07-25|Maintenance|Remove apt proxy config, see [#221](https://github.com/GioF71/squeezelite-docker/issues/221)
 2023-07-24|Maintenance|Avoid deprecated features in workflows, see [#219](https://github.com/GioF71/squeezelite-docker/issues/219)
 2023-07-24|Maintenance|Drop bullseye and add trixie, see [#217](https://github.com/GioF71/squeezelite-docker/issues/217)
 2023-07-24|Maintenance|Target arm/v5 instead of arm/v6, see [#213](https://github.com/GioF71/squeezelite-docker/issues/213)

@@ -10,11 +10,10 @@ COPY app/conf/01-apt-proxy /app/conf/
 RUN echo "USE_APT_PROXY=["${USE_APT_PROXY}"]"
 
 RUN if [ "${USE_APT_PROXY}" = "Y" ]; then \
-    echo "Builind using apt proxy"; \
-    cp /app/conf/01-apt-proxy /etc/apt/apt.conf.d/01-apt-proxy; \
-    cat /etc/apt/apt.conf.d/01-apt-proxy; \
+        echo "Builind using apt proxy"; \
+        cp /app/conf/01-apt-proxy /etc/apt/apt.conf.d/01-apt-proxy; \
     else \
-    echo "Building without apt proxy"; \
+        echo "Building without apt proxy"; \
     fi
 
 # update indexes
@@ -37,6 +36,11 @@ WORKDIR /app/install
 
 # execute installation
 RUN ./installer.sh $DOWNLOAD_FROM_SOURCEFORGE
+
+# cleanup apt proxy config
+RUN if [ "${USE_APT_PROXY}" = "Y" ]; then \
+        rm /etc/apt/apt.conf.d/01-apt-proxy; \
+    fi
 
 # cleanup apt cache
 RUN rm -rf /var/lib/apt/lists/*

@@ -305,7 +305,7 @@ The equivalent `docker run` command should be the following:
 docker run \
     -it \
     --rm \
-    --name squeezelite \ 
+    --name squeezelite \
     --network host \
     -e SQUEEZELITE_NAME="home-pi" \
     -e SQUEEZELITE_AUDIO_DEVICE="hw:CARD=Headphones,DEV=0" \
@@ -319,7 +319,7 @@ As another example, here you can find the docker run command I use for a Fiio E1
 docker run \
     -it \
     --rm \
-    --name squeezelite \ 
+    --name squeezelite \
     -e SQUEEZELITE_NAME="FiioE18" \
     -e SQUEEZELITE_SERVER="192.168.1.10:3483" \
     -e SQUEEZELITE_AUDIO_DEVICE="hw:CARD=DACE18,DEV=0" \
@@ -335,7 +335,7 @@ Another example, with a Topping D10 USB DAC, which supports every sample rate in
 docker run \
     -it \
     --rm \
-    --name squeezelite \ 
+    --name squeezelite \
     -e SQUEEZELITE_NAME="ToppingD10" \
     -e SQUEEZELITE_SERVER="192.168.1.10:3483" \
     -e SQUEEZELITE_AUDIO_DEVICE="hw:CARD=D10,DEV=0" \

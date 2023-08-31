@@ -7,12 +7,13 @@
 
 declare -A base_images
 
-base_images[sid]=debian:sid-slim
-base_images[unstable]=debian:unstable-slim
-base_images[trixie]=debian:trixie-slim
-base_images[bookworm]=debian:bookworm-slim
-base_images[bullseye]=debian:bullseye-slim
-base_images[buster]=debian:buster-slim
+base_images[sid]=debian:sid
+base_images[stable]=debian:stable
+base_images[unstable]=debian:unstable
+base_images[trixie]=debian:trixie
+base_images[bookworm]=debian:bookworm
+base_images[bullseye]=debian:bullseye
+base_images[buster]=debian:buster
 base_images[trusty]=ubuntu:trusty
 base_images[xenial]=ubuntu:xenial
 base_images[bionic]=ubuntu:bionic
@@ -20,9 +21,11 @@ base_images[focal]=ubuntu:focal
 base_images[jammy]=ubuntu:jammy
 base_images[kinetic]=ubuntu:kinetic
 base_images[lunar]=ubuntu:lunar
+base_images[mantic]=ubuntu:mantic
 base_images[rolling]=ubuntu:rolling
 
 base_images[debian:sid]=debian:sid-slim
+base_images[debian:stable]=debian:stable-slim
 base_images[debian:unstable]=debian:unstable-slim
 base_images[debian:trixie]=debian:trixie-slim
 base_images[debian:bookworm]=debian:bookworm-slim
@@ -35,11 +38,12 @@ base_images[ubuntu:focal]=ubuntu:focal
 base_images[ubuntu:jammy]=ubuntu:jammy
 base_images[ubuntu:kinetic]=ubuntu:kinetic
 base_images[ubuntu:lunar]=ubuntu:lunar
+base_images[ubuntu:mantic]=ubuntu:mantic
 base_images[ubuntu:rolling]=ubuntu:rolling
 
-DEFAULT_BASE_IMAGE=bookworm
+DEFAULT_BASE_IMAGE=stable
 DEFAULT_SOURCEFORGE_DOWNLOAD=N
-DEFAULT_TAG=latest
+DEFAULT_TAG=local
 DEFAULT_USE_PROXY=N
 
 download=$DEFAULT_SOURCEFORGE_DOWNLOAD
@@ -55,10 +59,10 @@ do
     esac
 done
 
-echo "base_image: $base_image";
-echo "sourceforge download: $sd";
-echo "tag: $tag";
-echo "proxy: [$proxy]";
+echo "Input: base_image = [$base_image]";
+echo "Input: Download from SourceForge = [$sd]";
+echo "Input: Image Tag = [$tag]";
+echo "Input: Proxy = [$proxy]";
 
 if [ -z "${base_image}" ]; then
   base_image=$DEFAULT_BASE_IMAGE
@@ -95,10 +99,10 @@ else
   exit 4
 fi
 
-echo "Base Image: ["$expanded_base_image"]"
-echo "Download from SourceForge: ["$download"]"
-echo "Tag: ["$tag"]"
-echo "Proxy: ["$proxy"]"
+echo "Build Argument: Base Image = ["$expanded_base_image"]"
+echo "Build Argument: Download from SourceForge = ["$download"]"
+echo "Build Argument: Image Tag = ["$tag"]"
+echo "Build Argument: Proxy = ["$proxy"]"
 
 docker build . \
     --build-arg BASE_IMAGE=${expanded_base_image} \

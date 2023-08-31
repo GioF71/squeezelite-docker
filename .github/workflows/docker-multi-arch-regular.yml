@@ -4,10 +4,11 @@ on:
   push:
     tags:
       - "release/*"
-      - "main/*"
-      - "devel/*"
       - "feature/*"
       - "daily/*"
+      - "v*" # release
+      - "f*" # feature
+      - "d*" # daily
 
 jobs:
   release:
@@ -15,15 +16,18 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        base: ["bookworm"]
-        sourceforge: ["N"]
+        base: ["stable"]
+        sourceforge: ["Y", "N"]
 
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+
       - name: Prepare for docker build
         id: prepare
         run: |
+          image_name=${{secrets.DOCKER_USERNAME}}/squeezelite
+
           ref_type=${{ github.ref_type }}
           echo "REF_TYPE: ["$ref_type"]"
 
@@ -33,118 +37,127 @@ jobs:
           ref=${{ github.ref }}
           echo "REF: ["$ref"]"
 
+          build_platforms="linux/amd64,linux/arm64/v8,linux/arm/v7"
+          if [ ${{ matrix.sourceforge }} = "N" ]; then
+            build_platforms="${build_platforms},linux/arm/v5"
+          fi
+
           declare -A base_image_from_matrix
-          base_image_from_matrix[unstable]=debian:unstable-slim
           base_image_from_matrix[sid]=debian:sid-slim
           base_image_from_matrix[trixie]=debian:trixie-slim
           base_image_from_matrix[bookworm]=debian:bookworm-slim
-          base_image_from_matrix[bullseye]=debian:bullseye-slim
-          base_image_from_matrix[buster]=debian:buster-slim
 
           select_base_image=${base_image_from_matrix[${{ matrix.base }}]}
           if [ -z "${select_base_image}" ]; then
-            select_base_image=debian:buster-slim
+            select_base_image=debian:stable-slim
           fi
           echo "Select Base Image [" $select_base_image "]"
 
           declare -A sl_versions
-
-          sl_versions[unstable]=1.9.9
-          sl_versions[sid]=1.9.9
-          sl_versions[trixie]=1.9.9
+          sl_versions[stable]=1.9.9
           sl_versions[bookworm]=1.9.9
-          sl_versions[bullseye]=1.9.8
-          sl_versions[buster]=1.8
-          sl_versions[lunar]=1.9.9
-          sl_versions[kinetic]=1.9.9
-          sl_versions[jammy]=1.9.9
-
-          image_name=${{secrets.DOCKER_USERNAME}}/squeezelite
+          sl_versions[trixie]=1.9.9
+          sl_versions[sid]=1.9.9
 
           declare -A special_tags
-
+          special_tags[stable-N]="${image_name}:latest,${image_name}:stable"
+          special_tags[stable-Y]="${image_name}:sourceforge-latest,${image_name}:sourceforge-stable"
           special_tags[bookworm-N]="${image_name}:latest,${image_name}:stable"
-          special_tags[bullseye-N]="${image_name}:oldstable"
-          special_tags[sid-N]="${image_name}:edge"
+          special_tags[bookworm-Y]="${image_name}:sourceforge-latest,${image_name}:sourceforge-stable"
           special_tags[trixie-N]="${image_name}:nextstable"
+          special_tags[trixie-Y]="${image_name}:sourceforge-nextstable"
+          special_tags[sid-Y]="${image_name}:sourceforge-edge"
+          special_tags[sid-N]="${image_name}:edge"
+
+          declare -A distro_friendly_name_dict
+          distro_friendly_name_dict[stable]=debian
+
+          distro_friendly_name=${{ matrix.base }}
+          lookup_distro_name=${distro_friendly_name_dict[${{ matrix.base }}]}
+          if [ -n "${lookup_distro_name}" ]; then
+            distro_friendly_name=$lookup_distro_name
+          fi
 
           squeezelite_version_str=""
-          select_squeezelite_version=unknown
-          distro_id=${{ matrix.base }}
-          select_squeezelite_version=${sl_versions[${{ matrix.base }}]}
-          if [ -z "${select_squeezelite_version}" ]; then
+          if [ ${{ matrix.sourceforge }} = "Y" ]; then
+            squeezelite_version_str="squeezelite-1.9.9-sourceforge"
+          else
             select_squeezelite_version=unknown
+            select_squeezelite_version=${sl_versions[${{ matrix.base }}]}
+            if [ -z "${select_squeezelite_version}" ]; then
+              select_squeezelite_version=version-unknown
+            fi
+            echo "Version from dictionary: "$select_squeezelite_version" from ["${{ matrix.base }}"]"
+            squeezelite_version_str="squeezelite-"$select_squeezelite_version
           fi
-          echo "Version from dictionary: "$select_squeezelite_version" from ["${{ matrix.base }}"]"
-          squeezelite_version_str="squeezelite-"$select_squeezelite_version
 
           tags=""
-          if [ "${ref_type}" = "branch" ]; then
-            echo "branch mode";
-            if [ "${ref_name}" = "main" ]; then
-              echo "main branch";
-              tags="${image_name}:main-${distro_id}";
-              tags="$tags,${image_name}:main-${distro_id}-${squeezelite_version_str}";
-            elif [ "${ref_name}" = "devel" ]; then
-              echo "devel branch";
-              tags="${image_name}:devel-${distro_id}-${squeezelite_version_str}"
+          if [ "${ref_type}" = "tag" ]; then
+            echo "tag mode"
+            echo "tag is ["${ref_name}"]"
+            if [[ "${ref_name}" = *"/"* ]]; then
+              tag_type=$(echo ${ref_name} | cut -d '/' -f 1)
+              tag_name=$(echo ${ref_name} | cut -d '/' -f 2) 
             else
-              echo "other branch ["${ref_name}"]";
-              tags="${image_name}:branch-${ref_name}-${distro_id}-${squeezelite_version_str}";
-            fi
-          elif [ "${ref_type}" = "tag" ]; then
-            echo "tag mode";
-            echo "tag is ["${ref_name}"]";
-
-            tag_type=$(echo ${ref_name} | cut -d '/' -f 1)
-            tag_name=$(echo ${ref_name} | cut -d '/' -f 2) 
-
-            if [ "${tag_type}" = "release" ]; then
-              echo "release tag";
-              tags="$image_name:${distro_id}-${squeezelite_version_str}"
-              tags="$tags,$image_name:${distro_id}-${squeezelite_version_str}-${tag_name}"
-
-              building_now="${distro_id}-${{ matrix.sourceforge }}";
-              echo "Building now: ["$building_now"]";
-              select_special_tags=${special_tags["${building_now}"]};
-              if [[ -n "${select_special_tags}" ]]; then
-                echo "Found special tags for ["${building_now}"]=["${select_special_tags}"]";
-                tags="$tags,${select_special_tags}";
-              else
-                echo "Not found special tags for ["${building_now}"]";
+              if [[ "${ref_name}" = "v"* || "${ref_name}" = "f"* || "${ref_name}" = "d"* ]]; then
+                tag_type=${ref_name:0:1}
+                tag_name=${ref_name:1}
               fi
-              tags="${tags},$image_name:${distro_id}";
-            elif [ "${tag_type}" = "main" ]; then
-              echo "main tag";
-              tags="${image_name}:main-${tag_name}-${distro_id}-${squeezelite_version_str}";
-            elif [ "${tag_type}" = "devel" ]; then
-              echo "devel tag";
-              tags="${image_name}:devel-${tag_name}-${distro_id}-${squeezelite_version_str}";
-            elif [ "${tag_type}" = "feature" ]; then
-              echo "devel tag";
-              tags="${image_name}:feature-${tag_name}-${distro_id}-${squeezelite_version_str}";
-            elif [ "${tag_type}" = "daily" ]; then
-              echo "daily build";
-              tags="${tags},${image_name}:daily-${distro_id}";
-              tags="${tags},${image_name}:daily-${distro_id}-${squeezelite_version_str}";
+            fi
+            echo "tag_type=[$tag_type]"
+            echo "tag_name=[$tag_name]"
+            if [[ "${tag_type}" == "release" || "${tag_type}" == "v" ]]; then
+              echo "release tag"
+              tags="$image_name:${distro_friendly_name}-${squeezelite_version_str}"
+              tags="$tags,$image_name:${distro_friendly_name}-${squeezelite_version_str}-${tag_name}"
+              building_now="${distro_friendly_name}-${{ matrix.sourceforge }}"
+              echo "Building now: ["$building_now"]"
+              select_special_tags=${special_tags["${building_now}"]}
+              if [[ -n "${select_special_tags}" ]]; then
+                echo "Found special tags for ["${building_now}"]=["${select_special_tags}"]"
+                tags="$tags,${select_special_tags}"
+              else
+                echo "No special tags found for ["${building_now}"]"
+              fi
+              if [ ${{ matrix.sourceforge }} = "N" ]; then
+                tags="${tags},$image_name:${distro_friendly_name}"
+              else
+                tags="${tags},$image_name:${distro_friendly_name}-sourceforge"
+              fi
+            elif [[ "${tag_type}" == "feature" || "${tag_type}" == "f" ]]; then
+              echo "feature tag"
+              tags="${image_name}:feature-${tag_name}-${distro_friendly_name}-${squeezelite_version_str}"
+            elif [[ "${tag_type}" = "daily" || "${tag_type}" = "d" ]]; then
+              echo "daily build"
+              if [ ${{ matrix.sourceforge }} = "N" ]; then
+                tags="${tags},${image_name}:daily-${distro_friendly_name}"
+              else
+                tags="${tags},${image_name}:daily-${distro_friendly_name}-sourceforge"
+              fi
+              tags="${tags},${image_name}:daily-${distro_friendly_name}-${squeezelite_version_str}"
             fi
           fi
           echo "Building tags: ["${tags}"]"
           echo "RELEASE_TAGS=${tags}" >> $GITHUB_OUTPUT
           echo "BASE_IMAGE=${select_base_image}" >> $GITHUB_OUTPUT
           echo "DOWNLOAD_FROM_SOURCEFORGE=N" >> $GITHUB_OUTPUT
+          echo "BUILD_PLATFORMS=${build_platforms}" >> $GITHUB_OUTPUT
+
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
         with:
           platforms: all
+
       - name: Set up Docker Buildx
         id: buildx
         uses: docker/setup-buildx-action@v2
+
       - name: Login to DockerHub
         uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
+
       - name: Build and push
         uses: docker/build-push-action@v3
         with:
@@ -152,6 +165,6 @@ jobs:
           build-args: |
             BASE_IMAGE=${{ steps.prepare.outputs.BASE_IMAGE }}
             DOWNLOAD_FROM_SOURCEFORGE=${{ matrix.sourceforge }}
-          platforms: linux/amd64,linux/arm/v5,linux/arm/v7,linux/arm64/v8
+          platforms: ${{ steps.prepare.outputs.BUILD_PLATFORMS }}
           push: true
           tags: ${{ steps.prepare.outputs.RELEASE_TAGS }}

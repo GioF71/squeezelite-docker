@@ -168,6 +168,7 @@ services:
       - DISPLAY_PRESETS=Y
     volumes:
       - ./config/additional.conf:/app/assets/additional-presets.conf
+    restart: unless-stopped
 ```
 
 See the [Available presets](#available-presets) table for reference.
@@ -347,7 +348,7 @@ docker run \
 ```
 
 Note that the previous commands are interactive (`-it`) and that the container is automatically removed (`--rm`) when you kill squeezelite for example by using `CTRL-C`.
-You might want to use daemon flag (`-d`) and optionally a restart strategy (you might want to use `--restart unless-stopped` if you want your container to restart automatically, unless you explicitly stop it).
+You might want to use daemon flag (`-d`) and optionally a restart strategy (you might want to use `--restart unless-stopped` if you want your container to restart automatically, unless you explicitly stop it).  
 
 Here is my `docker-compose.yaml` file for my office-pi, using tailscale networking, equipped with an hifiberry-pro hat (the one with the headphone amp).
 Full upsampling up to 176.4/192 kHz thanks to [ArchImago](https://archimago.blogspot.com/).
@@ -373,7 +374,7 @@ services:
 ```
 
 Note that `network_mode` is not specified because we are specifying the server we want to connect to.  
-When using `SQUEEZELITE_RATES` and `SQUEEZELITE_UPSAMPLING`, please be sure to use sampling rates that are effectively supported by your DAC.
+When using `SQUEEZELITE_RATES` and `SQUEEZELITE_UPSAMPLING`, please be sure to use sampling rates that are effectively supported by your DAC.  
 
 Another `docker-compose.yaml`, this time leveraging presets. This one is for my Gustard X12, setting upsampling again.
 The file looks more concise and readable, at least IMO.
@@ -392,6 +393,7 @@ services:
       - PRESET=gustard-x12,goldilocks,rates_up_to_384k
       - SQUEEZELITE_NAME=gustard-x12-usb
       - SQUEEZELITE_SERVER_PORT="192.168.1.10"
+    restart: unless-stopped
 ```
 
 ## Build
@@ -404,10 +406,8 @@ From this repository I create all the versions of the image. Each of them featur
 
 Tag|Base Image|SqueezeLite Version|SqueezeLite Origin|Additional Tags
 :---|:---:|:---:|:---:|:---
-sid|debian:sid-slim|1.9.9|Debian Repo|edge, squeezelite-1.9.9-sid, squeezelite-1.9.9-sid-RELEASE
-trixie|debian:trixie-slim|1.9.9|Debian Repo|next, squeezelite-1.9.9-next, squeezelite-1.9.9-next-RELEASE
-bookworm|debian:bookworm-slim|1.9.9|Debian Repo|latest, stable, squeezelite-1.9.9-bookworm, squeezelite-1.9.9-bookworm-RELEASE
-sourceforge-bookworm|debian:bookworm-slim|1.9.9|SourceForge|sourceforge-latest, squeezelite-1.9.9-sourceforge-bookworm, squeezelite-1.9.9-sourceforge-bookworm-RELEASE
+debian|debian:stable-slim|1.9.9|Debian Repo|latest, stable, debian-squeezelite-1.9.9, debian-squeezelite-1.9.9-RELEASE
+debian-sourceforge|debian:stable-slim|1.9.9|SourceForge|sourceforge-latest, sourceforge-stable, debian-squeezelite-1.9.9-sourceforge, debian-squeezelite-1.9.9-sourceforge-RELEASE
 
 ## Release History
 

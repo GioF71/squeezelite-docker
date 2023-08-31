@@ -110,9 +110,10 @@ jobs:
               echo "release tag"
               tags="$image_name:${distro_friendly_name}-${squeezelite_version_str}"
               tags="$tags,$image_name:${distro_friendly_name}-${squeezelite_version_str}-${tag_name}"
+              special_tag_lookup="${{ matrix.base }}-${{ matrix.sourceforge }}"
+              select_special_tags=${special_tags["${special_tag_lookup}"]}
               building_now="${distro_friendly_name}-${{ matrix.sourceforge }}"
               echo "Building now: ["$building_now"]"
-              select_special_tags=${special_tags["${building_now}"]}
               if [[ -n "${select_special_tags}" ]]; then
                 echo "Found special tags for ["${building_now}"]=["${select_special_tags}"]"
                 tags="$tags,${select_special_tags}"

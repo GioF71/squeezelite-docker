@@ -10,6 +10,7 @@ Older build might be dropped in order to save space on docker-hub and incur in l
 
 Date|Type|Description
 :---|:---|:---
+2023-12-17|Improvement|Support output device `-o` also with PulseAudio (see [#243](https://github.com/GioF71/squeezelite-docker/issues/243))
 2023-09-23|Improvement|Add presets (Topping D10s/D10 Balanced), updated Yulong D200 (see [#239](https://github.com/GioF71/squeezelite-docker/issues/239))
 2023-09-01|Maintenance|Upsampling settings in quotes, see [#236](https://github.com/GioF71/squeezelite-docker/issues/236)
 2023-09-01|Maintenance|Rename GitHub workflow, see [#234](https://github.com/GioF71/squeezelite-docker/issues/234)

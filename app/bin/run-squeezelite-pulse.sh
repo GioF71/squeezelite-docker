@@ -88,6 +88,7 @@ cmdline-player-name
 cmdline-model-name
 cmdline-timeout
 cmdline-mac-address
+cmdline-audio-device
 cmdline-params
 cmdline-codecs
 

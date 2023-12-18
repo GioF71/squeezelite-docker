@@ -117,6 +117,7 @@ SQUEEZELITE_LOG_CATEGORY_STREAM|-d|Support for log level on category `stream`
 SQUEEZELITE_LOG_CATEGORY_DECODE|-d|Support for log level on category `decode`
 SQUEEZELITE_LOG_CATEGORY_OUTPUT|-d|Support for log level on category `output`
 SQUEEZELITE_LOG_CATEGORY_IR|-d|Support for log level on category `ir`
+CONFIG_FILE_PREFIX||Prefix for files in volume `/config`
 STARTUP_DELAY_SEC||Delay before starting the application, defaults to `0`
 
 It is possible to add and additional preset configuration file using the volume `/app/assets/additional-presets.conf`.
@@ -127,7 +128,7 @@ Possible values for variables `SQUEEZELITE_LOG_CATEGORY_*` are `info`, `debug` o
 
 ### Automatic MAC address creation
 
-If you don't provide a value to `SQUEEZELITE_MAC_ADDRESS`, a random mac address will be generated and stored (if possible) under `/config/mac-address.txt`, so it will be reloaded on next restart.  
+If you don't provide a value to `SQUEEZELITE_MAC_ADDRESS`, a random mac address will be generated and stored (if possible) under `/config/mac-address.txt`, so it will be reloaded on next restart. The file name can be prepended by the optional `CONFIG_FILE_PREFIX`.  
 Use a persistent volume in order to preserve the functionality in the event of container recreation (such as when you update to a newer image).  
 
 ## Volumes

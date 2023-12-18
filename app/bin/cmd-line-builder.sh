@@ -154,10 +154,16 @@ function cmdline-rates() {
 
 function handle_mac_address() {
     if [[ -z "${SQUEEZELITE_MAC_ADDRESS}" ]]; then
+        FILE_NAME=mac-address.txt
+        if [[ -n "${CONFIG_FILE_PREFIX}" ]]; then
+            FILE_NAME=${CONFIG_FILE_PREFIX}-${FILE_NAME}
+        fi
+        FILE_PATH="/config/${FILE_NAME}"
+        echo "File name for mac-address is [$FILE_PATH]"
         echo "No mac address, specified, try loading ..."
-        if [ -f "/config/mac-address.txt" ]; then
+        if [ -f $FILE_PATH ]; then
             echo "Found file with mac address ..."
-            mac=`cat /config/mac-address.txt`
+            mac=`cat $FILE_PATH`
             echo "Mac address is ${mac}"
             SQUEEZELITE_MAC_ADDRESS="${mac}"
         else
@@ -174,7 +180,7 @@ function handle_mac_address() {
             SQUEEZELITE_MAC_ADDRESS="${mac}"
             # write if possible
             if [ -w /config ]; then
-                echo "${mac}" > /config/mac-address.txt
+                echo "${mac}" > $FILE_PATH
                 echo "Written generated [${mac}] mac address."
             else
                 echo "Config directory is not writable"

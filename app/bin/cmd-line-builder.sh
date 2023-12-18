@@ -151,3 +151,34 @@ function cmdline-rates() {
         CMD_LINE="$CMD_LINE -r "$(quote_if_needed "${SQUEEZELITE_RATES}")
     fi
 }
+
+function handle_mac_address() {
+    if [[ -z "${SQUEEZELITE_MAC_ADDRESS}" ]]; then
+        echo "No mac address, specified, try loading ..."
+        if [ -f "/config/mac-address.txt" ]; then
+            echo "Found file with mac address ..."
+            mac=`cat /config/mac-address.txt`
+            echo "Mac address is ${mac}"
+            SQUEEZELITE_MAC_ADDRESS="${mac}"
+        else
+            echo "Mac address not found, generating ..."
+            for i in $(seq 1 6); do
+                portion=$[RANDOM%10]$[RANDOM%10]
+                if [ $i -eq 1 ]; then
+                    mac="${portion}"
+                else
+                    mac="${mac}:${portion}"
+                fi
+            done
+            echo "Generated mac address is [$mac]"
+            SQUEEZELITE_MAC_ADDRESS="${mac}"
+            # write if possible
+            if [ -w /config ]; then
+                echo "${mac}" > /config/mac-address.txt
+                echo "Written generated [${mac}] mac address."
+            else
+                echo "Config directory is not writable"
+            fi
+        fi
+    fi
+}

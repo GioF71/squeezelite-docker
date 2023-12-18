@@ -121,6 +121,8 @@ RUN chmod +x /app/bin/*.sh
 VOLUME '/app/assets/additional-presets.conf'
 VOLUME '/app/assets/binaries'
 
+VOLUME '/config'
+
 COPY README.md /app/doc/
 COPY doc/* /app/doc/
 COPY app/assets/builtin-presets.conf /app/assets/

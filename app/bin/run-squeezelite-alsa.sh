@@ -165,7 +165,6 @@ cmdline-server-port
 cmdline-player-name
 cmdline-model-name
 cmdline-timeout
-cmdline-mac-address
 cmdline-audio-device
 cmdline-mixer-device
 cmdline-delay
@@ -244,8 +243,17 @@ USER_NAME=$DEFAULT_USER_NAME
 GROUP_NAME=$DEFAULT_GROUP_NAME
 HOME_DIR=$DEFAULT_HOME_DIR
 
+current_user_id=$(id -u)
+echo "Current user id is [$current_user_id], requested USER_MODE=[${USER_MODE}]"
+actual_user_mode=0
+if [[ $curret_user_id -eq 0 ]] && [[ "${USER_MODE^^}" == "YES" || "${USER_MODE^^}" == "Y" ]]; then
+  actual_user_mode=1
+fi
+
+echo "Resulting actual_user_mode: [$actual_user_mode]"
+
 ## User mode support
-if [[ "${USER_MODE^^}" == "YES" || "${USER_MODE^^}" == "Y" ]]; then
+if [[ $actual_user_mode -eq 1 ]]; then
     USE_USER_MODE="Y"
     echo "User mode enabled"
     echo "Creating user ...";
@@ -303,9 +311,13 @@ else
     echo "User mode disabled"
 fi
 
+handle_mac_address
+cmdline-mac-address
+
 echo "Command Line: ["$CMD_LINE"]"
 
-if [[ ${USE_USER_MODE} == "Y" ]]; then
+if [[ $actual_user_mode -eq 1 ]]; then
+  chown -R $USER_NAME:$GROUP_NAME /config
   su - $USER_NAME -c "$CMD_LINE"
 else
   eval $CMD_LINE

@@ -2,6 +2,13 @@
 
 echo "Running in pulse mode"
 
+current_user_id=$(id -u)
+echo "Current user id is [$current_user_id], requested USER_MODE=[${USER_MODE}]"
+if [[ $current_user_id -ne 0 ]]; then
+  echo "Cannot run in Pulse Mode using docker user mode, you need to run as root and specify PUID/PGID"
+  exit 1 
+fi
+
 DEFAULT_UID=1000
 DEFAULT_GID=1000
 
@@ -87,7 +94,6 @@ cmdline-server-port
 cmdline-player-name
 cmdline-model-name
 cmdline-timeout
-cmdline-mac-address
 cmdline-audio-device
 cmdline-params
 cmdline-codecs
@@ -108,7 +114,11 @@ source logging.sh
 
 add_log_categories
 
+handle_mac_address
+cmdline-mac-address
+
 echo "Command Line: ["$CMD_LINE"]"
 
+chown -R $USER_NAME:$GROUP_NAME /config
 su - $USER_NAME -c "$CMD_LINE"
 

@@ -10,6 +10,7 @@ Older build might be dropped in order to save space on docker-hub and incur in l
 
 Date|Type|Description
 :---|:---|:---
+2023-12-18|Improvement|Autogen mac address (see [#247](https://github.com/GioF71/squeezelite-docker/issues/247))
 2023-12-18|Improvement|Arguments in quotes (see [#245](https://github.com/GioF71/squeezelite-docker/issues/245))
 2023-12-17|Improvement|Support output device `-o` also with PulseAudio (see [#243](https://github.com/GioF71/squeezelite-docker/issues/243))
 2023-09-23|Improvement|Add presets (Topping D10s/D10 Balanced), updated Yulong D200 (see [#239](https://github.com/GioF71/squeezelite-docker/issues/239))

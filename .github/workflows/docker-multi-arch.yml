@@ -165,6 +165,7 @@ jobs:
           build-args: |
             BASE_IMAGE=${{ steps.prepare.outputs.BASE_IMAGE }}
             DOWNLOAD_FROM_SOURCEFORGE=${{ matrix.sourceforge }}
+            BUILD_MODE=${{ matrix.build_mode }}
           platforms: ${{ steps.prepare.outputs.BUILD_PLATFORMS }}
           push: true
           tags: ${{ steps.prepare.outputs.RELEASE_TAGS }}

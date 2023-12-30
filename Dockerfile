@@ -1,6 +1,7 @@
 ARG BASE_IMAGE
 FROM ${BASE_IMAGE} AS BASE
 ARG DOWNLOAD_FROM_SOURCEFORGE
+ARG BUILD_MODE
 ARG USE_APT_PROXY
 
 RUN mkdir -p /app/conf
@@ -16,26 +17,24 @@ RUN if [ "${USE_APT_PROXY}" = "Y" ]; then \
         echo "Building without apt proxy"; \
     fi
 
-# update indexes
-RUN apt-get update
-
-# install pulseaudio
-RUN apt-get install pulseaudio --no-install-recommends -y
-
-# install alsa libraries
-RUN apt-get install libasound2 --no-install-recommends -y
-
 # copy installer files
-RUN mkdir -p /app/bin
 RUN mkdir -p /app/install
+
+COPY install/install-dep.sh /app/install/
+RUN chmod u+x /app/install/install-dep.sh
+
+RUN /app/install/install-dep.sh
+RUN rm /app/install/install-dep.sh
+
 COPY install/installer.sh /app/install/
-COPY install/install-script.sh /app/install/
 RUN chmod u+x /app/install/*
 
 WORKDIR /app/install
 
+RUN mkdir -p /app/bin
+
 # execute installation
-RUN ./installer.sh $DOWNLOAD_FROM_SOURCEFORGE
+RUN /app/install/installer.sh
 
 # cleanup apt proxy config
 RUN if [ "${USE_APT_PROXY}" = "Y" ]; then \
@@ -47,10 +46,6 @@ RUN rm -rf /var/lib/apt/lists/*
 
 # remove scripts
 RUN rm -Rf /app/install
-
-## test binary in both cases
-RUN /app/bin/squeezelite -?
-RUN /app/bin/squeezelite-pulseaudio -?
 
 FROM scratch
 COPY --from=BASE / /

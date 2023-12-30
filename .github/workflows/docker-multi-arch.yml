@@ -16,8 +16,16 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        base: ["stable"]
-        sourceforge: ["Y", "N"]
+        base: [ stable ]
+        sourceforge: [ Y, N]
+        build_mode: [ full, pulse, alsa ]
+        #exclude:
+        #  - base: stable
+        #    sourceforge: Y
+        #    build_mode: alsa
+        #  - base: stable
+        #    sourceforge: Y
+        #    build_mode: pulse
 
     steps:
       - name: Checkout
@@ -55,24 +63,20 @@ jobs:
 
           declare -A sl_versions
           sl_versions[stable]=1.9.9
-          sl_versions[bookworm]=1.9.9
-          sl_versions[trixie]=1.9.9
-          sl_versions[sid]=1.9.9
 
           declare -A special_tags
-          special_tags[stable-N]="${image_name}:latest,${image_name}:stable"
-          special_tags[stable-Y]="${image_name}:sourceforge-latest,${image_name}:sourceforge-stable"
-          special_tags[bookworm-N]="${image_name}:latest,${image_name}:stable"
-          special_tags[bookworm-Y]="${image_name}:sourceforge-latest,${image_name}:sourceforge-stable"
-          special_tags[trixie-N]="${image_name}:nextstable"
-          special_tags[trixie-Y]="${image_name}:sourceforge-nextstable"
-          special_tags[sid-Y]="${image_name}:sourceforge-edge"
-          special_tags[sid-N]="${image_name}:edge"
+          special_tags[stable-N-full]="${image_name}:latest,${image_name}:stable"
+          special_tags[stable-N-alsa]="${image_name}:latest-alsa,${image_name}:stable-alsa"
+          special_tags[stable-N-pulse]="${image_name}:latest-pulse,${image_name}:stable-pulse"
+          special_tags[stable-Y-full]="${image_name}:sourceforge-latest,${image_name}:sourceforge-stable"
+          special_tags[stable-Y-alsa]="${image_name}:sourceforge-latest-alsa,${image_name}:sourceforge-stable-alsa"
+          special_tags[stable-Y-pulse]="${image_name}:sourceforge-latest-pulse,${image_name}:sourceforge-stable-pulse"
 
           declare -A distro_friendly_name_dict
           distro_friendly_name_dict[stable]=debian
 
           distro_friendly_name=${{ matrix.base }}
+          build_mode=${{ matrix.build_mode }}
           lookup_distro_name=${distro_friendly_name_dict[${{ matrix.base }}]}
           if [ -n "${lookup_distro_name}" ]; then
             distro_friendly_name=$lookup_distro_name
@@ -108,11 +112,11 @@ jobs:
             echo "tag_name=[$tag_name]"
             if [[ "${tag_type}" == "release" || "${tag_type}" == "v" ]]; then
               echo "release tag"
-              tags="$image_name:${distro_friendly_name}-${squeezelite_version_str}"
-              tags="$tags,$image_name:${distro_friendly_name}-${squeezelite_version_str}-${tag_name}"
-              special_tag_lookup="${{ matrix.base }}-${{ matrix.sourceforge }}"
+              tags="$image_name:${distro_friendly_name}-${build_mode}-${squeezelite_version_str}"
+              tags="$tags,$image_name:${distro_friendly_name}-${build_mode}-${squeezelite_version_str}-${tag_name}"
+              special_tag_lookup="${{ matrix.base }}-${{ matrix.sourceforge }}-${{ matrix.build_mode }}"
               select_special_tags=${special_tags["${special_tag_lookup}"]}
-              building_now="${distro_friendly_name}-${{ matrix.sourceforge }}"
+              building_now="${distro_friendly_name}-${build_mode}-${{ matrix.sourceforge }}"
               echo "Building now: ["$building_now"]"
               if [[ -n "${select_special_tags}" ]]; then
                 echo "Found special tags for ["${building_now}"]=["${select_special_tags}"]"
@@ -120,22 +124,17 @@ jobs:
               else
                 echo "No special tags found for ["${building_now}"]"
               fi
-              if [ ${{ matrix.sourceforge }} = "N" ]; then
-                tags="${tags},$image_name:${distro_friendly_name}"
-              else
-                tags="${tags},$image_name:${distro_friendly_name}-sourceforge"
-              fi
             elif [[ "${tag_type}" == "feature" || "${tag_type}" == "f" ]]; then
               echo "feature tag"
-              tags="${image_name}:feature-${tag_name}-${distro_friendly_name}-${squeezelite_version_str}"
+              tags="${image_name}:feature-${tag_name}-${distro_friendly_name}-${build_mode}-${squeezelite_version_str}"
             elif [[ "${tag_type}" = "daily" || "${tag_type}" = "d" ]]; then
               echo "daily build"
               if [ ${{ matrix.sourceforge }} = "N" ]; then
-                tags="${tags},${image_name}:daily-${distro_friendly_name}"
+                tags="${tags},${image_name}:daily-${distro_friendly_name}-${build_mode}"
               else
-                tags="${tags},${image_name}:daily-${distro_friendly_name}-sourceforge"
+                tags="${tags},${image_name}:daily-${distro_friendly_name}-${build_mode}-sourceforge"
               fi
-              tags="${tags},${image_name}:daily-${distro_friendly_name}-${squeezelite_version_str}"
+              tags="${tags},${image_name}:daily-${distro_friendly_name}-${build_mode}-${squeezelite_version_str}"
             fi
           fi
           echo "Building tags: ["${tags}"]"

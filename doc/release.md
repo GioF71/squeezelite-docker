@@ -10,6 +10,7 @@ Older build might be dropped in order to save space on docker-hub and incur in l
 
 Date|Type|Description
 :---|:---|:---
+2023-12-30|Improvement|Separate builds for alsa and pulseaudio (see [#254](https://github.com/GioF71/squeezelite-docker/issues/254))
 2023-12-18|Improvement|Support for a config file prefix (see [#249](https://github.com/GioF71/squeezelite-docker/issues/249))
 2023-12-18|Improvement|Autogen mac address (see [#247](https://github.com/GioF71/squeezelite-docker/issues/247))
 2023-12-18|Improvement|Arguments in quotes (see [#245](https://github.com/GioF71/squeezelite-docker/issues/245))

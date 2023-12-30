@@ -49,13 +49,14 @@ DEFAULT_USE_PROXY=N
 download=$DEFAULT_SOURCEFORGE_DOWNLOAD
 tag=$DEFAULT_TAG
 
-while getopts b:d:t:p: flag
+while getopts b:d:t:p:m: flag
 do
     case "${flag}" in
         b) base_image=${OPTARG};;
         d) download=${OPTARG};;
         t) tag=${OPTARG};;
         p) proxy=${OPTARG};;
+        m) build_mode=${OPTARG};;
     esac
 done
 
@@ -63,6 +64,7 @@ echo "Input: base_image = [$base_image]";
 echo "Input: Download from SourceForge = [$sd]";
 echo "Input: Image Tag = [$tag]";
 echo "Input: Proxy = [$proxy]";
+echo "Input: Build mode = [$build_mode]";
 
 if [ -z "${base_image}" ]; then
   base_image=$DEFAULT_BASE_IMAGE
@@ -90,22 +92,34 @@ fi
 if [ -z "${proxy}" ]; then
   proxy="N"
 fi
-if [[ "${proxy}" == "Y" || "${proxy}" == "y" ]]; then  
+if [[ "${proxy^^}" == "Y" || "${proxy^^}" == "YES" ]]; then  
   proxy="Y"
-elif [[ "${proxy}" == "N" || "${proxy}" == "n" ]]; then  
+elif [[ "${proxy^^}" == "N" || "${proxy^^}" == "NO" ]]; then  
   proxy="N"
 else
   echo "invalid proxy parameter ["${proxy}"]"
   exit 4
 fi
 
+if [[ -z "${build_mode}" ]]; then
+  build_mode=full
+else
+  if [[ ! "${build_mode^^}" == "ALSA" ]] && [[ ! "${build_mode^^}" == "PULSE" ]] && [[ ! "${build_mode^^}" == "FULL" ]]; then
+    echo "invalid build_mode parameter ["${build_mode}"]"
+    exit 4
+  fi
+fi
+
 echo "Build Argument: Base Image = ["$expanded_base_image"]"
 echo "Build Argument: Download from SourceForge = ["$download"]"
 echo "Build Argument: Image Tag = ["$tag"]"
+echo "Build Argument: Build Mode = ["$build_mode"]"
 echo "Build Argument: Proxy = ["$proxy"]"
 
 docker build . \
     --build-arg BASE_IMAGE=${expanded_base_image} \
     --build-arg DOWNLOAD_FROM_SOURCEFORGE=${download} \
+    --build-arg BUILD_MODE=${build_mode} \
     --build-arg USE_APT_PROXY=${proxy} \
-    -t giof71/squeezelite:$tag
+    -t giof71/squeezelite:$tag \
+    --progress=plain

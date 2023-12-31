@@ -7,13 +7,13 @@
 
 declare -A base_images
 
-base_images[sid]=debian:sid
-base_images[stable]=debian:stable
-base_images[unstable]=debian:unstable
-base_images[trixie]=debian:trixie
-base_images[bookworm]=debian:bookworm
-base_images[bullseye]=debian:bullseye
-base_images[buster]=debian:buster
+base_images[sid]=debian:sid-slim
+base_images[stable]=debian:stable-slim
+base_images[unstable]=debian:unstable-slim
+base_images[trixie]=debian:trixie-slim
+base_images[bookworm]=debian:bookworm-slim
+base_images[bullseye]=debian:bullseye-slim
+base_images[buster]=debian:buster-slim
 base_images[trusty]=ubuntu:trusty
 base_images[xenial]=ubuntu:xenial
 base_images[bionic]=ubuntu:bionic
@@ -49,7 +49,7 @@ DEFAULT_USE_PROXY=N
 download=$DEFAULT_SOURCEFORGE_DOWNLOAD
 tag=$DEFAULT_TAG
 
-while getopts b:d:t:p:m: flag
+while getopts b:d:t:p:m:f: flag
 do
     case "${flag}" in
         b) base_image=${OPTARG};;
@@ -57,11 +57,13 @@ do
         t) tag=${OPTARG};;
         p) proxy=${OPTARG};;
         m) build_mode=${OPTARG};;
+        f) force_arch=${OPTARG};;
     esac
 done
 
 echo "Input: base_image = [$base_image]";
 echo "Input: Download from SourceForge = [$sd]";
+echo "Input: Force Architecture = [$force_arch]";
 echo "Input: Image Tag = [$tag]";
 echo "Input: Proxy = [$proxy]";
 echo "Input: Build mode = [$build_mode]";
@@ -112,6 +114,7 @@ fi
 
 echo "Build Argument: Base Image = ["$expanded_base_image"]"
 echo "Build Argument: Download from SourceForge = ["$download"]"
+echo "Build Argument: Force Architecture = [$force_arch]";
 echo "Build Argument: Image Tag = ["$tag"]"
 echo "Build Argument: Build Mode = ["$build_mode"]"
 echo "Build Argument: Proxy = ["$proxy"]"
@@ -120,6 +123,7 @@ docker build . \
     --build-arg BASE_IMAGE=${expanded_base_image} \
     --build-arg DOWNLOAD_FROM_SOURCEFORGE=${download} \
     --build-arg BUILD_MODE=${build_mode} \
+    --build-arg FORCE_ARCH=${force_arch} \
     --build-arg USE_APT_PROXY=${proxy} \
     -t giof71/squeezelite:$tag \
     --progress=plain

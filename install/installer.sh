@@ -6,6 +6,11 @@ set -ex
 # 1 Unsupported platform
 
 ARCH=`uname -m`
+echo "ARCH=[${ARCH}] FORCE_ARCH=[${FORCE_ARCH}]"
+if [[ -n "${FORCE_ARCH}" ]]; then
+    echo "Overriding ARCH=[${ARCH}] to [${FORCE_ARCH}]"
+    ARCH="${FORCE_ARCH}"
+fi
 
 echo "install-script.sh: BUILD_MODE=[${BUILD_MODE}]"
 echo "install-script.sh: DOWNLOAD_FROM_SOURCEFORGE=[${DOWNLOAD_FROM_SOURCEFORGE}]"
@@ -28,9 +33,9 @@ download_url_dict_pulse[$arch_amd64]="https://sourceforge.net/projects/lmsclient
 download_url_dict_pulse[$arch_arm_v7]="https://sourceforge.net/projects/lmsclients/files/squeezelite/linux/squeezelite-pulse-1.9.9.1392-armhf.tar.gz/download"
 download_url_dict_pulse[$arch_arm_v8]="https://sourceforge.net/projects/lmsclients/files/squeezelite/linux/squeezelite-pulse-1.9.9.1428-aarch64.tar.gz/download"
 
-if [ "$DOWNLOADED_BIN" == "Y" ]; then
-    apt-get install wget -y    
-    ARCH=`uname -m`
+if [[ "$DOWNLOAD_FROM_SOURCEFORGE" == "Y" ]]; then
+    apt-get install wget -y
+    #ARCH=`uname -m`
     mkdir /assets
     mkdir -p /assets/sourceforge
     if [[ "${BUILD_MODE^^}" == "FULL" ]] || [[ "${BUILD_MODE^^}" == "ALSA" ]]; then
@@ -67,12 +72,14 @@ if [ "$DOWNLOADED_BIN" == "Y" ]; then
 else
     if [[ "${BUILD_MODE^^}" == "FULL" ]] || [[ "${BUILD_MODE^^}" == "ALSA" ]]; then
         echo "Installing ALSA ..."
+        apt-get update
         apt-get install squeezelite --no-install-recommends -y
         cp /usr/bin/squeezelite /app/bin/squeezelite
         echo "Installed ALSA."
     fi
     if [[ "${BUILD_MODE^^}" == "FULL" ]] || [[ "${BUILD_MODE^^}" == "PULSE" ]]; then
         echo "Installing Pulse ..."
+        apt-get update
         apt-get install squeezelite-pulseaudio --no-install-recommends -y
         cp /usr/bin/squeezelite-pulseaudio /app/bin/squeezelite-pulseaudio
         echo "Installed PULSE."

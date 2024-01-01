@@ -153,7 +153,11 @@ function cmdline-rates() {
 }
 
 function handle_mac_address() {
-    if [[ -z "${SQUEEZELITE_MAC_ADDRESS}" ]]; then
+    mac_gen_disabled=0
+    if [[ "${DISABLE_MAC_ADDRESS_GENERATION^^}" == "YES" ]] || [[ "${DISABLE_MAC_ADDRESS_GENERATION^^}" == "Y" ]]; then
+        mac_gen_disabled=1
+    fi
+    if [[ $mac_gen_disabled -eq 0 ]] && [[ -z "${SQUEEZELITE_MAC_ADDRESS}" ]]; then
         FILE_NAME=mac-address.txt
         if [[ -n "${CONFIG_FILE_PREFIX}" ]]; then
             FILE_NAME=${CONFIG_FILE_PREFIX}-${FILE_NAME}

@@ -99,6 +99,7 @@ SQUEEZELITE_DELAY|-D|Set it to maybe something like `500,dop` if your DAC suppor
 SQUEEZELITE_NAME|-n|Name of the SqueezeLite player.
 SQUEEZELITE_MODEL_NAME|-M|Name of the SqueezeLite model name.
 SQUEEZELITE_MAC_ADDRESS|-m|Mac Address of the SqueezeLite player. The format must be colon-delimited hexadecimal, for example: `ab:cd:ef:12:34:56`. See note below.
+DISABLE_MAC_ADDRESS_GENERATION||Disables automatic mac address generation and persistency
 SQUEEZELITE_TIMEOUT|-C|Device timeout in seconds, defaults to `2`
 SQUEEZELITE_SERVER_PORT|-s|Server and port of the server, for example: `squeezebox-server.local:3483` or `192.168.1.10:3483`. Do not specify the variable if you want to use the auto discovery feature. If you don't specify this variable, you will probably need to use host network mode. See the examples for some hints. The port can be omitted if not different from the default `3483`. So other possible valid values are `squeezebox-server.local` or `192.168.1.10`.
 SQUEEZELITE_RATES|-r|From squeezelite's man page for `-r`: Specify sample rates supported by the output device; this is required if the output device is switched off when squeezelite is started. The format is either a single maximum sample rate, a range of sample rates in the format `<min>-<max>`, or a comma-separated list of available rates. Delay is an optional time to wait when switching sample rates between tracks, in milliseconds. Switch back to the author of this repository: it is recommended to specify sample rates that are effectively supported by your audio device.
@@ -130,6 +131,7 @@ Possible values for variables `SQUEEZELITE_LOG_CATEGORY_*` are `info`, `debug` o
 
 If you don't provide a value to `SQUEEZELITE_MAC_ADDRESS`, a random mac address will be generated and stored (if possible) under `/config/mac-address.txt`, so it will be reloaded on next restart. The file name can be prepended by the optional `CONFIG_FILE_PREFIX`.  
 Use a persistent volume in order to preserve the functionality in the event of container recreation (such as when you update to a newer image).  
+This feature can be disabled by setting `DISABLE_MAC_ADDRESS_GENERATION` to `yes`.  
 
 ## Volumes
 

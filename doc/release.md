@@ -10,6 +10,7 @@ Older build might be dropped in order to save space on docker-hub and incur in l
 
 Date|Type|Description
 :---|:---|:---
+2024-01-04|Maintenance|Bump binary for armhf (see [#262](https://github.com/GioF71/squeezelite-docker/issues/262))
 2024-01-01|Improvement|Allow disabling automatic mac address generation (see [#259](https://github.com/GioF71/squeezelite-docker/issues/259))
 2023-12-31|Improvement|Reduce alsa dependencies (see [#257](https://github.com/GioF71/squeezelite-docker/issues/257))
 2023-12-30|Improvement|Separate builds for alsa and pulseaudio (see [#254](https://github.com/GioF71/squeezelite-docker/issues/254))

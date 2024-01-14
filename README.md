@@ -8,7 +8,7 @@ Now also with multiplatform support thanks to [Der-Henning](https://github.com/D
 
 ### Alsa and PulseAudio variants
 
-Since 2023-12-30 (see issue [#254](https://github.com/GioF71/squeezelite-docker/issues/254)) I am building separate builds for alsa and pulseaudio only. The [alsa sourceforge version](https://hub.docker.com/r/giof71/squeezelite/tags?page=1&name=debian-alsa-sourceforge) results in a particularily small image. Maybe the pulse version can be reduced in size, but I still need to perform a few tests in order to verify if I can remove some packages.  
+Since 2023-12-30 (see issue [#254](https://github.com/GioF71/squeezelite-docker/issues/254)) I am building separate builds for alsa and pulseaudio only. The [alsa sourceforge version](https://hub.docker.com/r/giof71/squeezelite/tags?page=1&name=debian-alsa-sourceforge) results in a particularily small image. Maybe the pulse version can be reduced in size, but I still need to perform a few tests in order to verify that I can remove some packages.  
 
 ## Available Archs on Docker Hub
 

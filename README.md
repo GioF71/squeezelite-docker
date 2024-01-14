@@ -4,6 +4,12 @@ A Docker image for SqueezeLite
 Now with support for upsampling and presets for maximum convenience.  
 Now also with multiplatform support thanks to [Der-Henning](https://github.com/Der-Henning/)
 
+## News
+
+### Alsa and PulseAudio variants
+
+Since 2023-12-30 (see issue [#254](https://github.com/GioF71/squeezelite-docker/issues/254)) I am building separate builds for alsa and pulseaudio only. The [alsa sourceforge version](https://hub.docker.com/r/giof71/squeezelite/tags?page=1&name=debian-alsa-sourceforge) results in a particularily small image. Maybe the pulse version can be improved, but I need to perform further test in order to verify if I can remove some packages.  
+
 ## Available Archs on Docker Hub
 
 - linux/amd64

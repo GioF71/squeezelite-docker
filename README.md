@@ -6,6 +6,11 @@ Now also with multiplatform support thanks to [Der-Henning](https://github.com/D
 
 ## News
 
+### Squeezelite R2 variant
+
+Since 2024-01-19 (see issue [#268](https://github.com/GioF71/squeezelite-docker/issues/268)) I am building separate builds for [Squeezelite R2](https://github.com/marcoc1712/squeezelite-R2), only in alsa mode.  
+This patched version allows server-side transcoding, also to DSD format, which some user might like to use.  
+
 ### Alsa and PulseAudio variants
 
 Since 2023-12-30 (see issue [#254](https://github.com/GioF71/squeezelite-docker/issues/254)) I am building separate builds for alsa and pulseaudio only. The [alsa sourceforge version](https://hub.docker.com/r/giof71/squeezelite/tags?page=1&name=debian-alsa-sourceforge) results in a particularily small image. Maybe the pulse version can be reduced in size, but I still need to perform a few tests in order to verify that I can remove some packages.  

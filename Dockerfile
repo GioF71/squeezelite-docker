@@ -1,7 +1,7 @@
 ARG BASE_IMAGE
 FROM ${BASE_IMAGE} AS BASE
-ARG DOWNLOAD_FROM_SOURCEFORGE
 ARG BUILD_MODE
+ARG BINARY_MODE
 ARG FORCE_ARCH
 ARG USE_APT_PROXY
 
@@ -18,24 +18,29 @@ RUN if [ "${USE_APT_PROXY}" = "Y" ]; then \
         echo "Building without apt proxy"; \
     fi
 
+RUN mkdir -p /app/bin
+
 # copy installer files
 RUN mkdir -p /app/install
 
 COPY install/install-dep.sh /app/install/
-RUN chmod u+x /app/install/install-dep.sh
+COPY install/installer.sh /app/install/
+COPY install/remove-dep.sh /app/install/
+
+RUN chmod u+x /app/install/*.sh
 
 RUN /app/install/install-dep.sh
-RUN rm /app/install/install-dep.sh
-
-COPY install/installer.sh /app/install/
-RUN chmod u+x /app/install/*
 
 WORKDIR /app/install
 
-RUN mkdir -p /app/bin
-
 # execute installation
 RUN /app/install/installer.sh
+
+RUN /app/install/remove-dep.sh
+
+RUN rm /app/install/install-dep.sh
+RUN rm /app/install/installer.sh
+RUN rm /app/install/remove-dep.sh
 
 # cleanup apt proxy config
 RUN if [ "${USE_APT_PROXY}" = "Y" ]; then \

@@ -2,7 +2,7 @@
 
 # error codes
 # 2 Invalid base image
-# 3 Invalid download parameter
+# 3 Invalid build_mode parameter
 # 4 Invalid proxy parameter
 
 declare -A base_images
@@ -42,21 +42,21 @@ base_images[ubuntu:mantic]=ubuntu:mantic
 base_images[ubuntu:rolling]=ubuntu:rolling
 
 DEFAULT_BASE_IMAGE=stable
-DEFAULT_SOURCEFORGE_DOWNLOAD=N
+DEFAULT_BUILD_MODE=std
 DEFAULT_TAG=local
 DEFAULT_USE_PROXY=N
 
-download=$DEFAULT_SOURCEFORGE_DOWNLOAD
+build_mode=$DEFAULT_BUILD_MODE
 tag=$DEFAULT_TAG
 
 while getopts b:d:t:p:m:f: flag
 do
     case "${flag}" in
         b) base_image=${OPTARG};;
-        d) download=${OPTARG};;
+        d) build_mode=${OPTARG};;
         t) tag=${OPTARG};;
         p) proxy=${OPTARG};;
-        m) build_mode=${OPTARG};;
+        m) binary_mode=${OPTARG};;
         f) force_arch=${OPTARG};;
     esac
 done
@@ -66,7 +66,7 @@ echo "Input: Download from SourceForge = [$sd]";
 echo "Input: Force Architecture = [$force_arch]";
 echo "Input: Image Tag = [$tag]";
 echo "Input: Proxy = [$proxy]";
-echo "Input: Build mode = [$build_mode]";
+echo "Input: Binary mode = [$binary_mode]";
 
 if [ -z "${base_image}" ]; then
   base_image=$DEFAULT_BASE_IMAGE
@@ -78,16 +78,18 @@ if [ -z "${expanded_base_image}" ]; then
   exit 2
 fi
 
-if [ -z "${download}" ]; then
-  download="Y"
+if [ -z "${build_mode}" ]; then
+  build_mode="Y"
 fi
 
-if [[ "${download}" == "Y" || "${download}" == "y" ]]; then  
-  download="Y"
-elif [[ "${download}" == "N" || "${download}" == "n" ]]; then  
-  download="N"
+if [[ "${build_mode^^}" == "SF" ]]; then  
+  build_mode="sf"
+elif [[ "${build_mode^^}" == "STD" ]]; then  
+  build_mode="std"
+elif [[ "${build_mode^^}" == "R2" ]]; then  
+  build_mode="r2"
 else
-  echo "invalid download parameter ["${download}"]"
+  echo "invalid build_mode parameter ["${build_mode}"]"
   exit 3
 fi
 
@@ -103,26 +105,26 @@ else
   exit 4
 fi
 
-if [[ -z "${build_mode}" ]]; then
-  build_mode=full
+if [[ -z "${binary_mode}" ]]; then
+  binary_mode=full
 else
-  if [[ ! "${build_mode^^}" == "ALSA" ]] && [[ ! "${build_mode^^}" == "PULSE" ]] && [[ ! "${build_mode^^}" == "FULL" ]]; then
-    echo "invalid build_mode parameter ["${build_mode}"]"
+  if [[ ! "${binary_mode^^}" == "ALSA" ]] && [[ ! "${binary_mode^^}" == "PULSE" ]] && [[ ! "${binary_mode^^}" == "FULL" ]]; then
+    echo "invalid binary_mode parameter ["${binary_mode}"]"
     exit 4
   fi
 fi
 
 echo "Build Argument: Base Image = ["$expanded_base_image"]"
-echo "Build Argument: Download from SourceForge = ["$download"]"
+echo "Build Argument: Download from SourceForge = ["$build_mode"]"
 echo "Build Argument: Force Architecture = [$force_arch]";
 echo "Build Argument: Image Tag = ["$tag"]"
-echo "Build Argument: Build Mode = ["$build_mode"]"
+echo "Build Argument: Binary Mode = ["$binary_mode"]"
 echo "Build Argument: Proxy = ["$proxy"]"
 
 docker build . \
     --build-arg BASE_IMAGE=${expanded_base_image} \
-    --build-arg DOWNLOAD_FROM_SOURCEFORGE=${download} \
     --build-arg BUILD_MODE=${build_mode} \
+    --build-arg BINARY_MODE=${binary_mode} \
     --build-arg FORCE_ARCH=${force_arch} \
     --build-arg USE_APT_PROXY=${proxy} \
     -t giof71/squeezelite:$tag \

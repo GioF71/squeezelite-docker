@@ -17,15 +17,15 @@ jobs:
       fail-fast: false
       matrix:
         base: [ stable ]
-        sourceforge: [ Y, N]
-        build_mode: [ full, pulse, alsa ]
-        #exclude:
-        #  - base: stable
-        #    sourceforge: Y
-        #    build_mode: alsa
-        #  - base: stable
-        #    sourceforge: Y
-        #    build_mode: pulse
+        build_mode: [ std, sf, r2 ]
+        binary_mode: [ full, pulse, alsa ]
+        exclude:
+          - base: stable
+            build_mode: r2
+            binary_mode: full
+          - base: stable
+            build_mode: r2
+            binary_mode: pulse
 
     steps:
       - name: Checkout
@@ -46,7 +46,7 @@ jobs:
           echo "REF: ["$ref"]"
 
           build_platforms="linux/amd64,linux/arm64/v8,linux/arm/v7"
-          if [ ${{ matrix.sourceforge }} = "N" ]; then
+          if [[ ${{ matrix.build_mode }} = "std" ]] || [[ ${{ matrix.build_mode }} = "r2" ]]; then
             build_platforms="${build_platforms},linux/arm/v5"
           fi
 
@@ -65,26 +65,29 @@ jobs:
           sl_versions[stable]=1.9.9
 
           declare -A special_tags
-          special_tags[stable-N-full]="${image_name}:latest,${image_name}:stable"
-          special_tags[stable-N-alsa]="${image_name}:latest-alsa,${image_name}:stable-alsa"
-          special_tags[stable-N-pulse]="${image_name}:latest-pulse,${image_name}:stable-pulse"
-          special_tags[stable-Y-full]="${image_name}:sourceforge-latest,${image_name}:sourceforge-stable"
-          special_tags[stable-Y-alsa]="${image_name}:sourceforge-latest-alsa,${image_name}:sourceforge-stable-alsa"
-          special_tags[stable-Y-pulse]="${image_name}:sourceforge-latest-pulse,${image_name}:sourceforge-stable-pulse"
+          special_tags[stable-std-full]="${image_name}:latest,${image_name}:stable"
+          special_tags[stable-std-alsa]="${image_name}:latest-alsa,${image_name}:stable-alsa"
+          special_tags[stable-std-pulse]="${image_name}:latest-pulse,${image_name}:stable-pulse"
+          special_tags[stable-sf-full]="${image_name}:sourceforge-latest,${image_name}:sourceforge-stable"
+          special_tags[stable-sf-alsa]="${image_name}:sourceforge-latest-alsa,${image_name}:sourceforge-stable-alsa"
+          special_tags[stable-sf-pulse]="${image_name}:sourceforge-latest-pulse,${image_name}:sourceforge-stable-pulse"
+          special_tags[stable-r2-alsa]="${image_name}:r2-latest-alsa,${image_name}:r2-stable-alsa"
 
           declare -A distro_friendly_name_dict
           distro_friendly_name_dict[stable]=debian
 
           distro_friendly_name=${{ matrix.base }}
-          build_mode=${{ matrix.build_mode }}
+          binary_mode=${{ matrix.binary_mode }}
           lookup_distro_name=${distro_friendly_name_dict[${{ matrix.base }}]}
           if [ -n "${lookup_distro_name}" ]; then
             distro_friendly_name=$lookup_distro_name
           fi
 
           squeezelite_version_str=""
-          if [ ${{ matrix.sourceforge }} = "Y" ]; then
+          if [ ${{ matrix.build_mode }} = "sf" ]; then
             squeezelite_version_str="squeezelite-1.9.9-sourceforge"
+          elif [ ${{ matrix.build_mode }} = "r2" ]; then
+            squeezelite_version_str="squeezelite-1.8.4-r2"
           else
             select_squeezelite_version=unknown
             select_squeezelite_version=${sl_versions[${{ matrix.base }}]}
@@ -112,11 +115,11 @@ jobs:
             echo "tag_name=[$tag_name]"
             if [[ "${tag_type}" == "release" || "${tag_type}" == "v" ]]; then
               echo "release tag"
-              tags="$image_name:${distro_friendly_name}-${build_mode}-${squeezelite_version_str}"
-              tags="$tags,$image_name:${distro_friendly_name}-${build_mode}-${squeezelite_version_str}-${tag_name}"
-              special_tag_lookup="${{ matrix.base }}-${{ matrix.sourceforge }}-${{ matrix.build_mode }}"
+              tags="$image_name:${distro_friendly_name}-${binary_mode}-${squeezelite_version_str}"
+              tags="$tags,$image_name:${distro_friendly_name}-${binary_mode}-${squeezelite_version_str}-${tag_name}"
+              special_tag_lookup="${{ matrix.base }}-${{ matrix.build_mode }}-${{ matrix.binary_mode }}"
               select_special_tags=${special_tags["${special_tag_lookup}"]}
-              building_now="${distro_friendly_name}-${build_mode}-${{ matrix.sourceforge }}"
+              building_now="${distro_friendly_name}-${binary_mode}-${{ matrix.build_mode }}"
               echo "Building now: ["$building_now"]"
               if [[ -n "${select_special_tags}" ]]; then
                 echo "Found special tags for ["${building_now}"]=["${select_special_tags}"]"
@@ -126,21 +129,21 @@ jobs:
               fi
             elif [[ "${tag_type}" == "feature" || "${tag_type}" == "f" ]]; then
               echo "feature tag"
-              tags="${image_name}:feature-${tag_name}-${distro_friendly_name}-${build_mode}-${squeezelite_version_str}"
+              tags="${image_name}:feature-${tag_name}-${distro_friendly_name}-${binary_mode}-${squeezelite_version_str}"
             elif [[ "${tag_type}" = "daily" || "${tag_type}" = "d" ]]; then
               echo "daily build"
-              if [ ${{ matrix.sourceforge }} = "N" ]; then
-                tags="${tags},${image_name}:daily-${distro_friendly_name}-${build_mode}"
+              if [ ${{ matrix.build_mode }} = "N" ]; then
+                tags="${tags},${image_name}:daily-${distro_friendly_name}-${binary_mode}"
               else
-                tags="${tags},${image_name}:daily-${distro_friendly_name}-${build_mode}-sourceforge"
+                tags="${tags},${image_name}:daily-${distro_friendly_name}-${binary_mode}-sourceforge"
               fi
-              tags="${tags},${image_name}:daily-${distro_friendly_name}-${build_mode}-${squeezelite_version_str}"
+              tags="${tags},${image_name}:daily-${distro_friendly_name}-${binary_mode}-${squeezelite_version_str}"
             fi
           fi
           echo "Building tags: ["${tags}"]"
           echo "RELEASE_TAGS=${tags}" >> $GITHUB_OUTPUT
           echo "BASE_IMAGE=${select_base_image}" >> $GITHUB_OUTPUT
-          echo "DOWNLOAD_FROM_SOURCEFORGE=N" >> $GITHUB_OUTPUT
+          echo "BUILD_MODE=${{ matrix.build_mode }}" >> $GITHUB_OUTPUT
           echo "BUILD_PLATFORMS=${build_platforms}" >> $GITHUB_OUTPUT
 
       - name: Set up QEMU
@@ -164,8 +167,8 @@ jobs:
           context: .
           build-args: |
             BASE_IMAGE=${{ steps.prepare.outputs.BASE_IMAGE }}
-            DOWNLOAD_FROM_SOURCEFORGE=${{ matrix.sourceforge }}
             BUILD_MODE=${{ matrix.build_mode }}
+            BINARY_MODE=${{ matrix.binary_mode }}
           platforms: ${{ steps.prepare.outputs.BUILD_PLATFORMS }}
           push: true
           tags: ${{ steps.prepare.outputs.RELEASE_TAGS }}

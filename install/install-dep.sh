@@ -1,14 +1,14 @@
 #!/bin/bash
 
-if [[ "$DOWNLOAD_FROM_SOURCEFORGE" == "Y" ]]; then
+if [[ "$BUILD_MODE" == "sf" ]]; then
     echo "Using sourceforge binaries, installing required dependencies - BEGIN"
     apt-get update
-    if [[ -z "${BUILD_MODE^^}" ]] || [[ "${BUILD_MODE^^}" == "FULL" ]] || [[ "${BUILD_MODE^^}" == "ALSA" ]]; then
+    if [[ -z "${BINARY_MODE^^}" ]] || [[ "${BINARY_MODE^^}" == "FULL" ]] || [[ "${BINARY_MODE^^}" == "ALSA" ]]; then
         echo "Installing support for Alsa ..."
         apt-get install --no-install-recommends -y libasound2
         echo "Support for Alsa installed."
     fi
-    if [[ -z "${BUILD_MODE^^}" ]] || [[ "${BUILD_MODE^^}" == "FULL" ]] || [[ "${BUILD_MODE^^}" == "PULSE" ]]; then
+    if [[ -z "${BINARY_MODE^^}" ]] || [[ "${BINARY_MODE^^}" == "FULL" ]] || [[ "${BINARY_MODE^^}" == "PULSE" ]]; then
         echo "Installing support for PulseAudio ..."
         apt-get install --no-install-recommends -y \
             libavcodec59 \
@@ -28,4 +28,19 @@ if [[ "$DOWNLOAD_FROM_SOURCEFORGE" == "Y" ]]; then
         echo "Support for PulseAudio installed."
     fi
     echo "Using sourceforge binaries, installing required dependencies - END"
+elif [[ "$BUILD_MODE" == "std" ]]; then
+    echo "Using standard packages, no additional dependencies required."
+elif [[ "$BUILD_MODE" == "r2" ]]; then
+    echo "Preparing for Squeezelite R2 (compiling)"
+    apt-get update
+    apt-get install -y \
+        git \
+        build-essential \
+        libasound2 \
+        libasound2-dev \
+        libflac-dev \
+        libmad0-dev \
+        libfaad-dev \
+        libmpg123-dev \
+        libvorbis-dev
 fi

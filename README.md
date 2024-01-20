@@ -10,6 +10,7 @@ Now also with multiplatform support thanks to [Der-Henning](https://github.com/D
 
 Since 2024-01-19 (see issue [#268](https://github.com/GioF71/squeezelite-docker/issues/268)) I am including builds for [Squeezelite R2](https://github.com/marcoc1712/squeezelite-R2), only in alsa mode.  
 This patched version allows server-side transcoding, also to DSD format, which some users might like to use.  
+These images will inclue `r2-latest-alsa` and `r2-stable-alsa` in their tags.  
 
 ### Alsa and PulseAudio variants
 

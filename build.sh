@@ -79,7 +79,7 @@ if [ -z "${expanded_base_image}" ]; then
 fi
 
 if [ -z "${build_mode}" ]; then
-  build_mode="Y"
+  build_mode="std"
 fi
 
 if [[ "${build_mode^^}" == "SF" ]]; then  

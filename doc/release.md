@@ -10,6 +10,7 @@ Older build might be dropped in order to save space on docker-hub and incur in l
 
 Date|Type|Description
 :---|:---|:---
+2024-03-01|Update|Sourceforge binaries version bump (see [#279](https://github.com/GioF71/squeezelite-docker/issues/279))
 2024-03-01|Maintenance|Version bump for github actions (see [#278](https://github.com/GioF71/squeezelite-docker/issues/278))
 2024-01-04|Maintenance|Bump binary for armhf (see [#262](https://github.com/GioF71/squeezelite-docker/issues/262))
 2024-01-01|Improvement|Allow disabling automatic mac address generation (see [#259](https://github.com/GioF71/squeezelite-docker/issues/259))

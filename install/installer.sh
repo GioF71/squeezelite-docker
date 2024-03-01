@@ -31,7 +31,7 @@ download_url_dict_alsa[$arch_arm_v8]="https://sourceforge.net/projects/lmsclient
 
 declare -A download_url_dict_pulse
 download_url_dict_pulse[$arch_amd64]="https://sourceforge.net/projects/lmsclients/files/squeezelite/linux/squeezelite-pulse-1.9.9.1432-x86_64.tar.gz/download"
-download_url_dict_pulse[$arch_arm_v7]="https://sourceforge.net/projects/lmsclients/files/squeezelite/linux/squeezelite-pulse-2.0.0.1465-armhf.tar.gz/download"
+download_url_dict_pulse[$arch_arm_v7]="https://sourceforge.net/projects/lmsclients/files/squeezelite/linux/squeezelite-pulse-1.9.9.1392-armhf.tar.gz/download"
 download_url_dict_pulse[$arch_arm_v8]="https://sourceforge.net/projects/lmsclients/files/squeezelite/linux/squeezelite-pulse-2.0.0.1465-aarch64.tar.gz/download"
 
 if [[ "$BUILD_MODE" == "sf" ]]; then

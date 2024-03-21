@@ -10,6 +10,7 @@ Older build might be dropped in order to save space on docker-hub and incur in l
 
 Date|Type|Description
 :---|:---|:---
+2024-03-21|Update|Sourceforge binaries version bump (see [#284](https://github.com/GioF71/squeezelite-docker/issues/284))
 2024-03-05|Update|Sourceforge binaries version bump (see [#279](https://github.com/GioF71/squeezelite-docker/issues/279))
 2024-03-01|Update|Sourceforge binaries version bump (see [#279](https://github.com/GioF71/squeezelite-docker/issues/279))
 2024-03-01|Maintenance|Version bump for github actions (see [#278](https://github.com/GioF71/squeezelite-docker/issues/278))

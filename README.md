@@ -111,7 +111,7 @@ SQUEEZELITE_LOG_CATEGORY_DECODE|-d|Support for log level on category `decode`
 SQUEEZELITE_LOG_CATEGORY_OUTPUT|-d|Support for log level on category `output`
 SQUEEZELITE_LOG_CATEGORY_IR|-d|Support for log level on category `ir`
 CONFIG_FILE_PREFIX||Prefix for files in volume `/config`
-INSTALL_BLUETOOTH_LIBRARIES|Install bluetooth libraries if set to `yes`
+INSTALL_BLUETOOTH_LIBRARIES||Install bluetooth libraries if set to `yes`
 STARTUP_DELAY_SEC||Delay before starting the application, defaults to `0`
 
 It is possible to add and additional preset configuration file using the volume `/app/assets/additional-presets.conf`.

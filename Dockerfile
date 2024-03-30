@@ -112,6 +112,8 @@ ENV AUDIO_GID ""
 ENV SELECT_CUSTOM_BINARY_ALSA ""
 ENV SELECT_CUSTOM_BINARY_PULSE ""
 
+ENV INSTALL_BLUETOOTH_LIBRARIES ""
+
 COPY app/bin/run-squeezelite.sh /app/bin/
 COPY app/bin/run-squeezelite-alsa.sh /app/bin/
 COPY app/bin/run-squeezelite-pulse.sh /app/bin/

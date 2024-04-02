@@ -62,7 +62,7 @@ jobs:
           echo "Select Base Image [" $select_base_image "]"
 
           declare -A sl_versions
-          sl_versions[stable]=1.9.9
+          sl_versions[stable]=current
 
           declare -A special_tags
           special_tags[stable-std-full]="${image_name}:latest,${image_name}:stable"
@@ -85,7 +85,7 @@ jobs:
 
           squeezelite_version_str=""
           if [ ${{ matrix.build_mode }} = "sf" ]; then
-            squeezelite_version_str="squeezelite-1.9.9-sourceforge"
+            squeezelite_version_str="squeezelite-current-sourceforge"
           elif [ ${{ matrix.build_mode }} = "r2" ]; then
             squeezelite_version_str="squeezelite-1.8.4-r2"
           else

@@ -410,7 +410,7 @@ From this repository I create all the versions of the image. Each of them featur
 Tag|Base Image|SqueezeLite Version|SqueezeLite Origin|Additional Tags
 :---|:---:|:---:|:---:|:---
 debian|debian:stable-slim|1.9.9|Debian Repo|latest, stable, debian-squeezelite-1.9.9, debian-squeezelite-1.9.9-RELEASE
-debian-sourceforge|debian:stable-slim|1.9.9|SourceForge|sourceforge-latest, sourceforge-stable, debian-squeezelite-1.9.9-sourceforge, debian-squeezelite-1.9.9-sourceforge-RELEASE
+debian-sourceforge|debian:stable-slim|current|SourceForge|sourceforge-latest, sourceforge-stable, debian-squeezelite-current-sourceforge, debian-squeezelite-current-sourceforge-RELEASE
 
 ## Release History
 

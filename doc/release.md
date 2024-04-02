@@ -10,6 +10,7 @@ Older build might be dropped in order to save space on docker-hub and incur in l
 
 Date|Type|Description
 :---|:---|:---
+2024-04-02|Maintenance|Remove 1.9.9 from sf tags (see [#288](https://github.com/GioF71/squeezelite-docker/issues/288))
 2024-03-29|Update|Sourceforge binaries version bump (see [#286](https://github.com/GioF71/squeezelite-docker/issues/286))
 2024-03-21|Update|Sourceforge binaries version bump (see [#284](https://github.com/GioF71/squeezelite-docker/issues/284))
 2024-03-05|Update|Sourceforge binaries version bump (see [#279](https://github.com/GioF71/squeezelite-docker/issues/279))

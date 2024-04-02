@@ -18,7 +18,7 @@ jobs:
       matrix:
         base: [ stable ]
         build_mode: [ std, sf, r2 ]
-        binary_mode: [ full, pulse, alsa ]
+        binary_mode: [ full, pulse, alsa, alsa-bt ]
         exclude:
           - base: stable
             build_mode: r2
@@ -26,6 +26,12 @@ jobs:
           - base: stable
             build_mode: r2
             binary_mode: pulse
+          - base: stable
+            build_mode: r2
+            binary_mode: alsa-bt
+          - base: stable
+            build_mode: sf
+            binary_mode: alsa-bt
 
     steps:
       - name: Checkout

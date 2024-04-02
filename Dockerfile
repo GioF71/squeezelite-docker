@@ -1,6 +1,8 @@
 ARG BASE_IMAGE
 FROM ${BASE_IMAGE} AS BASE
+# BUILD_MODE: [ std, sf, r2, bt ]
 ARG BUILD_MODE
+# BINARY_MODE: [ "full", "pulse", "alsa", "alsa-bt" ]
 ARG BINARY_MODE
 ARG FORCE_ARCH
 ARG USE_APT_PROXY

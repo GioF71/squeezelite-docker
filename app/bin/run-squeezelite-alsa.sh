@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# exit codes
+
+# 5 root mode required
+
 echo "=== BEGIN Available audio devices ==="
 /app/bin/squeezelite -l
 echo "=== END-- Available audio devices ==="
@@ -263,6 +267,19 @@ if [[ $curret_user_id -eq 0 ]] && [[ "${USER_MODE^^}" == "YES" || "${USER_MODE^^
 fi
 
 echo "Resulting actual_user_mode: [$actual_user_mode]"
+
+if [[ "${INSTALL_BLUETOOTH_LIBRARIES^^}" == "YES" || "${INSTALL_BLUETOOTH_LIBRARIES^^}" == "Y" ]]; then
+  echo "Bluetooth libraries installation requested."
+  if [ $current_user_id -ne 0 ]; then
+    echo "Installation of additional libraries is avaialable only when running as root."
+    exit 5
+  fi
+  # this will be executed on each startup
+  # maybe we can check if packages are already installed and 
+  # avoid to install again
+  apt-get update
+  apt-get install -y bluetooth bluez-alsa-utils alsa-utils
+fi
 
 ## User mode support
 if [[ $actual_user_mode -eq 1 ]]; then

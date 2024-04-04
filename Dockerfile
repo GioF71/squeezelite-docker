@@ -1,6 +1,8 @@
 ARG BASE_IMAGE
 FROM ${BASE_IMAGE} AS BASE
+# BUILD_MODE: [ std, sf, r2, bt ]
 ARG BUILD_MODE
+# BINARY_MODE: [ "full", "pulse", "alsa", "alsa-bt" ]
 ARG BINARY_MODE
 ARG FORCE_ARCH
 ARG USE_APT_PROXY
@@ -111,6 +113,8 @@ ENV AUDIO_GID ""
 
 ENV SELECT_CUSTOM_BINARY_ALSA ""
 ENV SELECT_CUSTOM_BINARY_PULSE ""
+
+ENV INSTALL_BLUETOOTH_LIBRARIES ""
 
 COPY app/bin/run-squeezelite.sh /app/bin/
 COPY app/bin/run-squeezelite-alsa.sh /app/bin/

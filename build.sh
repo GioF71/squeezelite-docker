@@ -61,7 +61,8 @@ do
     esac
 done
 
-echo "Input: base_image = [$base_image]";
+echo "Input: Base Image = [$base_image]";
+echo "Input: Build Mode = [$build_mode]";
 echo "Input: Download from SourceForge = [$sd]";
 echo "Input: Force Architecture = [$force_arch]";
 echo "Input: Image Tag = [$tag]";
@@ -82,11 +83,11 @@ if [ -z "${build_mode}" ]; then
   build_mode="std"
 fi
 
-if [[ "${build_mode^^}" == "SF" ]]; then  
+if [[ "${build_mode}" == "sf" ]]; then  
   build_mode="sf"
-elif [[ "${build_mode^^}" == "STD" ]]; then  
+elif [[ "${build_mode}" == "std" ]]; then  
   build_mode="std"
-elif [[ "${build_mode^^}" == "R2" ]]; then  
+elif [[ "${build_mode}" == "r2" ]]; then  
   build_mode="r2"
 else
   echo "invalid build_mode parameter ["${build_mode}"]"
@@ -108,7 +109,7 @@ fi
 if [[ -z "${binary_mode}" ]]; then
   binary_mode=full
 else
-  if [[ ! "${binary_mode^^}" == "ALSA" ]] && [[ ! "${binary_mode^^}" == "PULSE" ]] && [[ ! "${binary_mode^^}" == "FULL" ]]; then
+  if [[ ! "${binary_mode}" == "alsa" ]] && [[ ! "${binary_mode}" == "pulse" ]] && [[ ! "${binary_mode}" == "full" ]] && [[ ! "${binary_mode}" == "alsa-bt" ]]; then
     echo "invalid binary_mode parameter ["${binary_mode}"]"
     exit 4
   fi

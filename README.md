@@ -9,6 +9,10 @@ A Docker image for SqueezeLite
 
 ## News
 
+### Initial support for Bluetooth
+
+See [this discussion](https://github.com/GioF71/squeezelite-docker/discussions/242) for more details.
+
 ### Squeezelite R2 variant
 
 Since 2024-01-19 (see issue [#268](https://github.com/GioF71/squeezelite-docker/issues/268)) I am including builds for [Squeezelite R2](https://github.com/marcoc1712/squeezelite-R2), only in alsa mode.  

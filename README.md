@@ -1,8 +1,10 @@
 # squeezelite-docker
 
 A Docker image for SqueezeLite  
-Now with support for upsampling and presets for maximum convenience.  
-Now also with multiplatform support thanks to [Der-Henning](https://github.com/Der-Henning/)
+
+- Support for upsampling
+- Presets for improved convenience.  
+- Multiplatform support thanks to [Der-Henning](https://github.com/Der-Henning/)
 
 ## News
 

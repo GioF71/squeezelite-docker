@@ -5,6 +5,7 @@ A Docker image for SqueezeLite
 - Support for upsampling
 - Presets for improved convenience.  
 - Multiplatform support thanks to [Der-Henning](https://github.com/Der-Henning/)
+- Initial support for bluetooth, see [this discussion](https://github.com/GioF71/squeezelite-docker/discussions/242)
 
 ## News
 

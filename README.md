@@ -166,7 +166,7 @@ version: "3"
 
 services:
   squeezelite-my-usb-dac:
-    image: giof71/squeezelite:latest
+    image: giof71/squeezelite
     container_name: squeezelite-my.usb-dac
     devices:
       - /dev/snd:/dev/snd
@@ -298,7 +298,7 @@ version: "3.3"
 
 services:
   squeezelite:
-    image: giof71/squeezelite:stable
+    image: giof71/squeezelite
     container_name: squeezelite
     network_mode: host
     devices: 
@@ -322,7 +322,7 @@ docker run \
     -e SQUEEZELITE_NAME="home-pi" \
     -e SQUEEZELITE_AUDIO_DEVICE="hw:CARD=Headphones,DEV=0" \
     --device /dev/snd \
-    giof71/squeezelite:stable
+    giof71/squeezelite
 ```
 
 As another example, here you can find the docker run command I use for a Fiio E18, which supports sampling rates up to 96kHz (but notably not 88.2kHz) enabling upsampling to 96kHz:
@@ -396,7 +396,7 @@ version: "3"
 
 services:
   squeezelite-gustard-x12:
-    image: giof71/squeezelite:bullseye
+    image: giof71/squeezelite
     container_name: squeezelite-gustard-x12
     devices:
       - /dev/snd:/dev/snd

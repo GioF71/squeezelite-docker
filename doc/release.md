@@ -10,6 +10,7 @@ Older build might be dropped in order to save space on docker-hub and incur in l
 
 Date|Type|Description
 :---|:---|:---
+2024-04-14|Update|Sourceforge binaries version bump (see [#296](https://github.com/GioF71/squeezelite-docker/issues/296))
 2024-04-02|Improvement|Add support for installing bluetooth libs (see [#277](https://github.com/GioF71/squeezelite-docker/issues/277))
 2024-04-02|Maintenance|Remove 1.9.9 from sf tags (see [#288](https://github.com/GioF71/squeezelite-docker/issues/288))
 2024-03-29|Update|Sourceforge binaries version bump (see [#286](https://github.com/GioF71/squeezelite-docker/issues/286))

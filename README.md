@@ -11,7 +11,8 @@ A Docker image for SqueezeLite
 
 ### Initial support for Bluetooth
 
-See [this discussion](https://github.com/GioF71/squeezelite-docker/discussions/242) for more details.
+Documentation available [here](https://github.com/GioF71/squeezelite-docker/blob/main/doc/bluetooth.md), thanks to [barrelltitor](https://github.com/barrelltitor).  
+See [this discussion](https://github.com/GioF71/squeezelite-docker/discussions/242) for more details.  
 
 ### Squeezelite R2 variant
 

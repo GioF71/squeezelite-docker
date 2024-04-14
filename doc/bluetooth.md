@@ -1,6 +1,6 @@
 # Bluetooth
 
-Bluetooth will first need enabled on the host. 
+Bluetooth will first need enabled on the host.
 
 ## Requirements
 
@@ -11,7 +11,7 @@ Bluetooth will first need enabled on the host.
 
 ### Bluetooth Libraries
 
-You will need to install the following dependencies: `bluetooth bluez-alsa-utils alsa-utils`, or the equivalent in your distro. 
+You will need to install the following dependencies: `bluetooth bluez-alsa-utils alsa-utils`, or the equivalent in your distro.
 
 Example for debian:
 `apt -y update && apt -y install bluetooth bluez-alsa-utils alsa-utils`
@@ -20,16 +20,19 @@ Example for debian:
 
 Make sure your device has pairing enabled, then use `bluetoothctl scan on` until you see its MAC. If you do not know its MAC, look for its name or a name that looks like a speaker, or like the manufacturer's name. Note this down.
 
-```
+```text
 bluetoothctl trust YOUR_MAC
 bluetoothctl pair YOUR_MAC
 bluetoothctl connect YOUR_MAC
 ```
+
 Replace `YOUR_MAC` with the speaker's MAC.
 
 ### Configuration file
+
 To easily test and to actually use your bluetooth speaker inside the container you will need to make an asound configuration file. Here's a handy template:
-```
+
+```text
 pcm.!default {
     type plug
     slave {
@@ -45,6 +48,7 @@ pcm.!default {
     }
  }
 ```
+
 Replace `YOUR_MAC` and `A_DESCRIPTION` with the speaker's MAC and with any description you want, or remove the hint if you do not want a description.
 
 To quickly test if it works, start bluealsa with
@@ -52,12 +56,13 @@ To quickly test if it works, start bluealsa with
 Then you can move this file to `~/.asoundrc` and use aplay normally
 `aplay /path/to/your/file.wav`
 
-## Auto-starting bluealsa 
+## Auto-starting bluealsa
 
-Bluealsa needs to always run for this to work. The easiest way to assure this is to add the line to `/etc/rc.local` before `exit 0`. 
+Bluealsa needs to always run for this to work. The easiest way to assure this is to add the line to `/etc/rc.local` before `exit 0`.
 
 Example rc.local
-```
+
+```text
 #!/bin/sh -e
 #
 # rc.local
@@ -80,16 +85,19 @@ bluealsa -p a2dp-source -p a2dp-sink --a2dp-volume &
 exit 0
 ```
 
-Then mount it inside your container, and use the special bluetooth image 
-```
+Then mount it inside your container, and use the special bluetooth image:
 
+```text
 image: giof71/squeezelite:debian-alsa-bt-squeezelite-current
 volumes:
       - /path/to/asound.conf:/etc/asound.conf:ro
       - /run/dbus/system_bus_socket:/run/dbus/system_bus_socket  
 ```
+
 ## Bonus: Auto-connecting the speaker on startup
+
 Replace `YOUR_MAC_HERE` with the MAC of your bluetooth speakers. There's also commented out examples of how to add more speakers. On a Pi4B+ 3 speakers were successfully connected and playing different streams at once, though your mileage may vary.
+
 ```bash
 #!/bin/bash
 ## Usage: bash speaker.sh <speaker> <action>
@@ -145,6 +153,4 @@ for MAC in ${MACs[@]}; do
     ;;
   esac
 done
-
 ```
-

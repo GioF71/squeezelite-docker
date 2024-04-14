@@ -1,6 +1,6 @@
 # Bluetooth
 
-Bluetooth will first need enabled on the host.
+Bluetooth will first need to be enabled on the host system.
 
 ## Requirements
 

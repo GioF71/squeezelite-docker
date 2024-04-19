@@ -63,7 +63,7 @@ done
 
 echo "Input: Base Image = [$base_image]";
 echo "Input: Build Mode = [$build_mode]";
-echo "Input: Download from SourceForge = [$sd]";
+echo "Input: Download from SourceForge = [$d]";
 echo "Input: Force Architecture = [$force_arch]";
 echo "Input: Image Tag = [$tag]";
 echo "Input: Proxy = [$proxy]";

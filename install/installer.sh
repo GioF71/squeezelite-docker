@@ -46,7 +46,7 @@ if [[ "${BUILD_MODE}" == "sf" ]]; then
         SL_URL=${url_middle_alsa_dict["${ARCH}"]};
         if [[ -n "${url_left}${SL_URL}${url_right}" ]]; then
             echo "Found Alsa version for architecture ${ARCH}, downloading ..."
-            wget $SL_URL -O /assets/sourceforge/squeezelite.tar.gz
+            wget "${url_left}${SL_URL}${url_right}" -O /assets/sourceforge/squeezelite.tar.gz
             mkdir /assets/sourceforge/expanded
             tar xzvf /assets/sourceforge/squeezelite.tar.gz -C /assets/sourceforge/expanded
             ls -la /assets/sourceforge/expanded/
@@ -60,7 +60,7 @@ if [[ "${BUILD_MODE}" == "sf" ]]; then
         SL_URL_PULSE=${url_middle_pulse_dict["${ARCH}"]};
         if [[ -n "${url_left}${SL_URL_PULSE}${url_right}" ]]; then
             echo "Found PulseAudio version for architecture ${ARCH}, downloading ..."
-            wget $SL_URL_PULSE -O /assets/sourceforge/squeezelite-pulse.tar.gz
+            wget "${url_left}${SL_URL_PULSE}${url_right}" -O /assets/sourceforge/squeezelite-pulse.tar.gz
             mkdir /assets/sourceforge/expanded-pulse
             tar xzvf /assets/sourceforge/squeezelite-pulse.tar.gz -C /assets/sourceforge/expanded-pulse
             ls -la /assets/sourceforge/expanded-pulse/

@@ -24,15 +24,18 @@ arch_amd64=x86_64
 arch_arm_v7=armv7l
 arch_arm_v8=aarch64
 
-declare -A download_url_dict_alsa
-download_url_dict_alsa[$arch_amd64]="https://sourceforge.net/projects/lmsclients/files/squeezelite/linux/squeezelite-2.0.0.1481-x86_64.tar.gz/download"
-download_url_dict_alsa[$arch_arm_v7]="https://sourceforge.net/projects/lmsclients/files/squeezelite/linux/squeezelite-2.0.0.1480-armhf.tar.gz/download"
-download_url_dict_alsa[$arch_arm_v8]="https://sourceforge.net/projects/lmsclients/files/squeezelite/linux/squeezelite-2.0.0.1465-aarch64.tar.gz/download"
+url_left="https://sourceforge.net/projects/lmsclients/files/squeezelite/linux/"
+url_right="/download"
 
-declare -A download_url_dict_pulse
-download_url_dict_pulse[$arch_amd64]="https://sourceforge.net/projects/lmsclients/files/squeezelite/linux/squeezelite-pulse-2.0.0.1481-x86_64.tar.gz/download"
-download_url_dict_pulse[$arch_arm_v7]="https://sourceforge.net/projects/lmsclients/files/squeezelite/linux/squeezelite-pulse-1.9.9.1392-armhf.tar.gz/download"
-download_url_dict_pulse[$arch_arm_v8]="https://sourceforge.net/projects/lmsclients/files/squeezelite/linux/squeezelite-pulse-2.0.0.1465-aarch64.tar.gz/download"
+declare -A url_middle_alsa_dict
+url_middle_alsa_dict[$arch_amd64]="squeezelite-2.0.0.1481-x86_64.tar.gz"
+url_middle_alsa_dict[$arch_arm_v7]="squeezelite-2.0.0.1486-armhf.tar.gz"
+url_middle_alsa_dict[$arch_arm_v8]="squeezelite-2.0.0.1465-aarch64.tar.gz"
+
+declare -A url_middle_pulse_dict
+url_middle_pulse_dict[$arch_amd64]="squeezelite-pulse-2.0.0.1481-x86_64.tar.gz"
+url_middle_pulse_dict[$arch_arm_v7]="squeezelite-pulse-1.9.9.1392-armhf.tar.gz"
+url_middle_pulse_dict[$arch_arm_v8]="squeezelite-pulse-2.0.0.1465-aarch64.tar.gz"
 
 if [[ "${BUILD_MODE}" == "sf" ]]; then
     apt-get install wget -y
@@ -40,8 +43,8 @@ if [[ "${BUILD_MODE}" == "sf" ]]; then
     mkdir /assets
     mkdir -p /assets/sourceforge
     if [[ "${BINARY_MODE}" == "full" ]] || [[ "${BINARY_MODE}" == "alsa" ]]; then
-        SL_URL=${download_url_dict_alsa["${ARCH}"]};
-        if [[ -n "${SL_URL}" ]]; then
+        SL_URL=${url_middle_alsa_dict["${ARCH}"]};
+        if [[ -n "${url_left}${SL_URL}${url_right}" ]]; then
             echo "Found Alsa version for architecture ${ARCH}, downloading ..."
             wget $SL_URL -O /assets/sourceforge/squeezelite.tar.gz
             mkdir /assets/sourceforge/expanded
@@ -54,8 +57,8 @@ if [[ "${BUILD_MODE}" == "sf" ]]; then
         fi
     fi
     if [[ "${BINARY_MODE}" == "full" ]] || [[ "${BINARY_MODE}" == "pulse" ]]; then
-        SL_URL_PULSE=${download_url_dict_pulse["${ARCH}"]};
-        if [[ -n "${SL_URL_PULSE}" ]]; then
+        SL_URL_PULSE=${url_middle_pulse_dict["${ARCH}"]};
+        if [[ -n "${url_left}${SL_URL_PULSE}${url_right}" ]]; then
             echo "Found PulseAudio version for architecture ${ARCH}, downloading ..."
             wget $SL_URL_PULSE -O /assets/sourceforge/squeezelite-pulse.tar.gz
             mkdir /assets/sourceforge/expanded-pulse

@@ -79,7 +79,6 @@ elif [[ "${BUILD_MODE}" == "r2" ]]; then
     cd /app/r2-src
     git clone https://github.com/marcoc1712/squeezelite-R2.git
     cd squeezelite-R2
-    mkdir Bin
     make -f Makefile.debian
     mv squeezelite-R2-deb /app/bin/squeezelite
     chmod 755 /app/bin/squeezelite

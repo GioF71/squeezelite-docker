@@ -81,7 +81,7 @@ elif [[ "${BUILD_MODE}" == "r2" ]]; then
     cd squeezelite-R2
     mkdir Bin
     make -f Makefile.debian
-    mv Bin/squeezelite-R2-deb /app/bin/squeezelite
+    mv squeezelite-R2-deb /app/bin/squeezelite
     chmod 755 /app/bin/squeezelite
     cd /app
     rm -Rf /app/r2-src

@@ -10,7 +10,7 @@ A Docker image for SqueezeLite
 ## Support
 
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/H2H7UIN5D)  
-Please see the [Goal](https://ko-fi.com/giof71/goal?g=0)  
+Please see the [Goal](https://ko-fi.com/giof71/goal?g=0).  
 Please note that support goal is limited to cover running costs for subscriptions to music services.
 
 ## News

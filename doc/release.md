@@ -10,6 +10,7 @@ Older build might be dropped in order to save space on docker-hub and incur in l
 
 Date|Type|Description
 :---|:---|:---
+2024-09-21|Improvement|Use exec instead of eval, avoid bash process
 2024-06-01|Update|Sourceforge binaries version bump (see [#313](https://github.com/GioF71/squeezelite-docker/issues/313))
 2024-06-01|Update|Sourceforge binaries version bump (see [#311](https://github.com/GioF71/squeezelite-docker/issues/311))
 2024-04-20|Maintenance|Fix R2 build (see [#306](https://github.com/GioF71/squeezelite-docker/issues/306))

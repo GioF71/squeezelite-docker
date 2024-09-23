@@ -341,13 +341,13 @@ else
 fi
 
 handle_mac_address
-cmdline-mac-address
+cmdline_mac_address
 
 echo "Command Line: ["$CMD_LINE"]"
 
 if [[ $actual_user_mode -eq 1 ]]; then
   chown -R $USER_NAME:$GROUP_NAME /config
-  su - $USER_NAME -c "$CMD_LINE"
+  exec su - $USER_NAME -c "$CMD_LINE"
 else
-  eval $CMD_LINE
+  eval "exec $CMD_LINE"
 fi

@@ -49,7 +49,7 @@ function cmdline-timeout() {
     CMD_LINE="$CMD_LINE -C "$(quote_if_needed "${SQUEEZELITE_TIMEOUT}")
 }
 
-function cmdline-mac-address() {
+function cmdline_mac_address() {
     if [ -z "${SQUEEZELITE_MAC_ADDRESS}" ]; then
         echo "Variable SQUEEZELITE_MAC_ADDRESS not specified"
     else

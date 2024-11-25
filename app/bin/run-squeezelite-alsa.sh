@@ -178,6 +178,8 @@ cmdline-linear-volume
 cmdline-codecs
 cmdline-exclude-codecs
 cmdline-rates
+cmdline-power-script
+cmdline-rpi-gpio
 
 if [ -z "${SQUEEZELITE_PRIORITY}" ]; then
   echo "Variable SQUEEZELITE_PRIORITY has not been specified";

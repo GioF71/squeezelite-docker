@@ -97,6 +97,8 @@ cmdline-timeout
 cmdline-audio-device
 cmdline-params
 cmdline-codecs
+cmdline-power-script
+cmdline-rpi-gpio
 
 if [ -z "${SQUEEZELITE_RATES}" ]; then
   # default to 44.1kHz
@@ -113,6 +115,9 @@ cmdline-exclude-codecs
 source logging.sh
 
 add_log_categories
+
+cmdline-power-script
+cmdline-rpi-gpio
 
 handle_mac_address
 cmdline_mac_address

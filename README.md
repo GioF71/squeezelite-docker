@@ -116,6 +116,8 @@ SQUEEZELITE_UNMUTE|-U|From squeezelite's man page for `-U`: Unmute the given ALS
 SQUEEZELITE_LINEAR_VOLUME|-X|Set to `Y` to enable. From squeezelite's man page for `-X`: Use linear volume adjustments instead of in terms of dB (only for hardware volume control).
 SQUEEZELITE_VISUALIZER|-v|Set to `Y` to enable. Unfortunately this feature does not really work from inside docker (yet?). From squeezelite's man page for `-v`: Enable visualiser support.  This creates a shared memory segment that contains some of the audio being played, so that an external visualiser can read and process this to create visualisations.
 SQUEEZELITE_READ_FORMATS_FROM_HEADER|-W|Set to `Y` to read wave and aiff format from header, ignoring server parameters
+SQUEEZELITE_POWER_SCRIPT|-S|Absolute path to script to launch on power commands from LMS. This cannot be used in combination with the SQUEEZELITE_RPI_GPIO variable
+SQUEEZELITE_RPI_GPIO|-G|Specify the BCM GPIO# to use for Amp Power Relay and if the output should be Active High or Low. This cannot be used in combination with SQUEEZELITE_POWER_SCRIPT
 SELECT_CUSTOM_BINARY_ALSA||Use for selection of a custom binary for ALSA mode
 SELECT_CUSTOM_BINARY_PULSE||Use for selection of a custom binary for PULSE mode
 SQUEEZELITE_LOG_CATEGORY_ALL|-d|Support for log level on category `all`

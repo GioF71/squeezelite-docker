@@ -152,6 +152,36 @@ function cmdline-rates() {
     fi
 }
 
+function cmdline-power-script() {
+    if [ -z "${SQUEEZELITE_POWER_SCRIPT}" ]; then
+        echo "Variable SQUEEZELITE_POWER_SCRIPT not specified"
+    else
+        # cannot combine with SQUEEZELITE_RPI_GPIO
+        if [ -n "${SQUEEZELITE_RPI_GPIO}" ]; then
+            echo "Cannot use SQUEEZELITE_POWER_SCRIPT along with SQUEEZELITE_RPI_GPIO"
+            exit 1
+        else
+            echo "Variable SQUEEZELITE_POWER_SCRIPT specified: ${SQUEEZELITE_POWER_SCRIPT}"
+            CMD_LINE="$CMD_LINE -S "$(quote_if_needed "${SQUEEZELITE_POWER_SCRIPT}")
+        fi
+    fi
+}
+
+function cmdline-rpi-gpio() {
+    if [ -z "${SQUEEZELITE_RPI_GPIO}" ]; then
+        echo "Variable SQUEEZELITE_RPI_GPIO not specified"
+    else
+        # cannot combine with SQUEEZELITE_RPI_GPIO
+        if [ -n "${SQUEEZELITE_POWER_SCRIPT}" ]; then
+            echo "Cannot use SQUEEZELITE_RPI_GPIO along with SQUEEZELITE_POWER_SCRIPT"
+            exit 1
+        else
+            echo "Variable SQUEEZELITE_RPI_GPIO specified: ${SQUEEZELITE_RPI_GPIO}"
+            CMD_LINE="$CMD_LINE -G "$(quote_if_needed "${SQUEEZELITE_RPI_GPIO}")
+        fi
+    fi
+}
+
 function handle_mac_address() {
     mac_gen_disabled=0
     if [[ "${DISABLE_MAC_ADDRESS_GENERATION^^}" == "YES" ]] || [[ "${DISABLE_MAC_ADDRESS_GENERATION^^}" == "Y" ]]; then

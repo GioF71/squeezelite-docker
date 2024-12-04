@@ -10,6 +10,7 @@ Older build might be dropped in order to save space on docker-hub and incur in l
 
 Date|Type|Description
 :---|:---|:---
+2024-12-03|Update|Sourceforge binaries version bump (see [#323](https://github.com/GioF71/squeezelite-docker/issues/323))
 2024-11-25|Improvement|Add support for -S and -G (see [#317](https://github.com/GioF71/squeezelite-docker/discussions/317))
 2024-09-21|Improvement|Use exec instead of eval, avoid bash process
 2024-06-01|Update|Sourceforge binaries version bump (see [#313](https://github.com/GioF71/squeezelite-docker/issues/313))

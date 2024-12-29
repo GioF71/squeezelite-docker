@@ -29,7 +29,7 @@ url_right="/download"
 
 declare -A url_middle_alsa_dict
 url_middle_alsa_dict[$arch_amd64]="squeezelite-2.0.0.1504-x86_64.tar.gz"
-url_middle_alsa_dict[$arch_arm_v7]="squeezelite-2.0.0.1486-armhf.tar.gz"
+url_middle_alsa_dict[$arch_arm_v7]="squeezelite-2.0.0.1517-armhf.tar.gz"
 url_middle_alsa_dict[$arch_arm_v8]="squeezelite-2.0.0.1488-aarch64.tar.gz"
 
 declare -A url_middle_pulse_dict

@@ -209,8 +209,8 @@ The `SQUEEZELITE_RATES` displayed here are provided just as an example. You stil
 
 Preset name|Availability date|Set Properties|Comment
 :---|:---:|:---:|:---
-topping-d10-balanced|2023-09-23|Sets device for Topping D10 Balanced
-topping-d10s|2023-09-23|Sets device for Topping D10s
+topping-d10-balanced|2023-09-23|Device|Sets device for Topping D10 Balanced
+topping-d10s|2023-09-23|Device|Sets device for Topping D10s
 gustard-12|2022-09-28|Device|Sets device for Gustard U12 DDC
 yulong-d200|2022-09-27|Device|Sets device for Yulong D200 (updated 2023-09-23)
 aune-s6|2022-09-27|Device|Sets device for Aune S6

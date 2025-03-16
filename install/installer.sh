@@ -29,13 +29,13 @@ url_right="/download"
 
 declare -A url_middle_alsa_dict
 url_middle_alsa_dict[$arch_amd64]="squeezelite-2.0.0.1504-x86_64.tar.gz"
-url_middle_alsa_dict[$arch_arm_v7]="squeezelite-2.0.0.1517-armhf.tar.gz"
-url_middle_alsa_dict[$arch_arm_v8]="squeezelite-2.0.0.1518-aarch64.tar.gz"
+url_middle_alsa_dict[$arch_arm_v7]="squeezelite-2.0.0.1524-armhf.tar.gz"
+url_middle_alsa_dict[$arch_arm_v8]="squeezelite-2.0.0.1524-aarch64.tar.gz"
 
 declare -A url_middle_pulse_dict
 url_middle_pulse_dict[$arch_amd64]="squeezelite-pulse-2.0.0.1504-x86_64.tar.gz"
 url_middle_pulse_dict[$arch_arm_v7]="squeezelite-pulse-1.9.9.1392-armhf.tar.gz"
-url_middle_pulse_dict[$arch_arm_v8]="squeezelite-pulse-2.0.0.1518-aarch64.tar.gz"
+url_middle_pulse_dict[$arch_arm_v8]="squeezelite-pulse-2.0.0.1524-aarch64.tar.gz"
 
 if [[ "${BUILD_MODE}" == "sf" ]]; then
     apt-get install wget -y

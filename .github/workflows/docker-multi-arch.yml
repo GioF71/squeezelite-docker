@@ -27,6 +27,9 @@ jobs:
             build_mode: r2
             binary_mode: pulse
           - base: stable
+            build_mode: sf
+            binary_mode: pulse
+          - base: stable
             build_mode: r2
             binary_mode: alsa-bt
           - base: stable

@@ -51,9 +51,13 @@ jobs:
           ref=${{ github.ref }}
           echo "REF: ["$ref"]"
 
-          build_platforms="linux/amd64,linux/arm64/v8,linux/arm/v7"
-          if [[ ${{ matrix.build_mode }} = "std" ]] || [[ ${{ matrix.build_mode }} = "r2" ]]; then
-            build_platforms="${build_platforms},linux/arm/v5"
+          build_platforms="linux/amd64,linux/arm64/v8"
+          if [[ ${{ matrix.build_mode }} = "sf" ]]; then
+            if [[ ${{ matrix.binary_mode }} != "full" ]] && [[ ${{ matrix.binary_mode }} != "pulse" ]]; then
+              build_platforms="${build_platforms},linux/arm/v7"
+            fi
+          elif [[ ${{ matrix.build_mode }} = "std" ]] || [[ ${{ matrix.build_mode }} = "r2" ]]; then
+            build_platforms="${build_platforms},linux/arm/v7,linux/arm/v5"
           fi
 
           declare -A base_image_from_matrix

@@ -30,7 +30,7 @@ if [[ "${BUILD_MODE}" == "sf" ]]; then
     apt-get update
     if [[ -z "${BINARY_MODE}" ]] || [[ "${BINARY_MODE}" == "full" ]] || [[ "${BINARY_MODE}" == "alsa" ]]; then
         echo "Installing support for Alsa ..."
-        apt-get install --no-install-recommends -y libasound2
+        apt-get install --no-install-recommends -y libasound2 libasound2-plugin-equal
         echo "Support for Alsa installed."
     fi
     if [[ -z "${BINARY_MODE}" ]] || [[ "${BINARY_MODE}" == "full" ]] || [[ "${BINARY_MODE}" == "pulse" ]]; then
@@ -70,6 +70,7 @@ elif [[ "${BUILD_MODE}" == "r2" ]]; then
         git \
         build-essential \
         libasound2 \
+        libasound2-plugin-equal \
         libasound2-dev \
         libflac-dev \
         libmad0-dev \

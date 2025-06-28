@@ -60,8 +60,11 @@ elif [[ "${BUILD_MODE}" == "std" ]]; then
         apt-get update
         apt-get install -y bluetooth bluez-alsa-utils alsa-utils
         echo "Finished installing packages for bluetooth ..."
-    else
-        echo "No additional packages to install."
+    elif [[ "${BINARY_MODE}" == "full" ]] || [[ "${BINARY_MODE}" == "alsa" ]]; then
+        echo "Installing packages for alsa mode ..."
+        apt-get update
+        apt-get install -y libasound2-plugin-equal
+        echo "Finished installing packages for alsa mode ..."
     fi
 elif [[ "${BUILD_MODE}" == "r2" ]]; then
     echo "Preparing for Squeezelite R2 (compiling)"

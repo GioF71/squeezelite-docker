@@ -30,7 +30,7 @@ if [[ "${BUILD_MODE}" == "sf" ]]; then
     apt-get update
     if [[ -z "${BINARY_MODE}" ]] || [[ "${BINARY_MODE}" == "full" ]] || [[ "${BINARY_MODE}" == "alsa" ]]; then
         echo "Installing support for Alsa ..."
-        apt-get install --no-install-recommends -y libasound2
+        apt-get install --no-install-recommends -y libasound2 libasound2-plugin-equal alsa-utils
         echo "Support for Alsa installed."
     fi
     if [[ -z "${BINARY_MODE}" ]] || [[ "${BINARY_MODE}" == "full" ]] || [[ "${BINARY_MODE}" == "pulse" ]]; then
@@ -60,8 +60,11 @@ elif [[ "${BUILD_MODE}" == "std" ]]; then
         apt-get update
         apt-get install -y bluetooth bluez-alsa-utils alsa-utils
         echo "Finished installing packages for bluetooth ..."
-    else
-        echo "No additional packages to install."
+    elif [[ "${BINARY_MODE}" == "full" ]] || [[ "${BINARY_MODE}" == "alsa" ]]; then
+        echo "Installing packages for alsa mode ..."
+        apt-get update
+        apt-get install -y libasound2-plugin-equal alsa-utils
+        echo "Finished installing packages for alsa mode ..."
     fi
 elif [[ "${BUILD_MODE}" == "r2" ]]; then
     echo "Preparing for Squeezelite R2 (compiling)"
@@ -70,6 +73,8 @@ elif [[ "${BUILD_MODE}" == "r2" ]]; then
         git \
         build-essential \
         libasound2 \
+        libasound2-plugin-equal \
+        alsa-utils \
         libasound2-dev \
         libflac-dev \
         libmad0-dev \

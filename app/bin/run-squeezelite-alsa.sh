@@ -359,12 +359,10 @@ cmdline_mac_address
 if [[ -n "${SQUEEZELITE_EQ_AUDIO_DEVICE}" ]]; then
     echo "SQUEEZELITE_EQ_AUDIO_DEVICE has been set to [${SQUEEZELITE_EQ_AUDIO_DEVICE}], creating custom asound file"
     ASOUND_FILE_NAME=/etc/asound.conf
-    if [[ $current_user_id == 0 ]]; then
-        # root mode, file will be /etc/asound.conf
-        ASOUND_FILE_NAME=/etc/asound.conf
-    else
+    if [[ $current_user_id != 0 ]]; then
         # user mode, file will be ~/.asoundrc
-        ASOUND_FILE_NAME="${HOME_DIR}/.asoundrc"
+        echo "Cannot create custom asound.conf file when running with user [$current_user_id] ..."
+        exit 5
     fi
     echo "ASOUND_FILE_NAME=${ASOUND_FILE_NAME}"
     # write content
@@ -376,7 +374,6 @@ if [[ -n "${SQUEEZELITE_EQ_AUDIO_DEVICE}" ]]; then
     echo "  type equal;" >> $ASOUND_FILE_NAME
     echo "  slave.pcm \"${SQUEEZELITE_EQ_AUDIO_DEVICE}\";" >> $ASOUND_FILE_NAME
     echo "}" >>  $ASOUND_FILE_NAME
-
     echo "pcm.equal {" >> $ASOUND_FILE_NAME
     echo "type plug;" >> $ASOUND_FILE_NAME
     echo "slave.pcm plugequal;" >> $ASOUND_FILE_NAME

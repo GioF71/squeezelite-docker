@@ -41,7 +41,6 @@ else
   echo "Explicitly set properties will not be overridden"
   echo "Presets are executed in order of appearance"
   echo "Current SQUEEZELITE_AUDIO_DEVICE = $SQUEEZELITE_AUDIO_DEVICE"
-  echo "Current SQUEEZELITE_EQ_AUDIO_DEVICE = $SQUEEZELITE_EQ_AUDIO_DEVICE"
   echo "Current SQUEEZELITE_RATES = $SQUEEZELITE_RATES"
   echo "Current SQUEEZELITE_UPSAMPLING = $SQUEEZELITE_UPSAMPLING"
   echo "Current SQUEEZELITE_CODECS = $SQUEEZELITE_CODECS"

@@ -165,6 +165,15 @@ else
   echo "Final SQUEEZELITE_VOLUME_CONTROL = $SQUEEZELITE_VOLUME_CONTROL"
 fi
 
+if [[ -n "${SQUEEZELITE_EQ_AUDIO_DEVICE}" ]]; then
+    echo "SQUEEZELITE_EQ_AUDIO_DEVICE has been set to [${SQUEEZELITE_EQ_AUDIO_DEVICE}]"
+    if [[ -z "${SQUEEZELITE_AUDIO_DEVICE}" ]]; then
+        echo "SQUEEZELITE_AUDIO_DEVICE empty, setting to 'equal'"
+        SQUEEZELITE_AUDIO_DEVICE=equal
+    fi
+fi
+
+
 cmdline-server-port
 cmdline-player-name
 cmdline-model-name
@@ -344,6 +353,35 @@ fi
 
 handle_mac_address
 cmdline_mac_address
+
+# write /etc/asound.conf or ~/.asoundrc if needed
+if [[ -n "${SQUEEZELITE_EQ_AUDIO_DEVICE}" ]]; then
+    echo "SQUEEZELITE_EQ_AUDIO_DEVICE has been set to [${SQUEEZELITE_EQ_AUDIO_DEVICE}], creating custom asound file"
+    ASOUND_FILE_NAME=/etc/asound.conf
+    if [[ $current_user_id != 0 ]]; then
+        # user mode, file will be ~/.asoundrc
+        echo "Cannot create custom asound.conf file when running with user [$current_user_id] ..."
+        exit 5
+    fi
+    echo "ASOUND_FILE_NAME=${ASOUND_FILE_NAME}"
+    # write content
+    echo "# custom asound file for eq mode" > $ASOUND_FILE_NAME
+    echo "ctl.equal {" >> $ASOUND_FILE_NAME
+    echo "type equal" >> $ASOUND_FILE_NAME
+    echo "}" >> $ASOUND_FILE_NAME
+    echo "pcm.plugequal {" >> $ASOUND_FILE_NAME
+    echo "  type equal;" >> $ASOUND_FILE_NAME
+    echo "  slave.pcm \"${SQUEEZELITE_EQ_AUDIO_DEVICE}\";" >> $ASOUND_FILE_NAME
+    echo "}" >>  $ASOUND_FILE_NAME
+    echo "pcm.equal {" >> $ASOUND_FILE_NAME
+    echo "type plug;" >> $ASOUND_FILE_NAME
+    echo "slave.pcm plugequal;" >> $ASOUND_FILE_NAME
+    echo "}" >> $ASOUND_FILE_NAME
+    # show the generated file
+    echo "--- BEGIN $ASOUND_FILE_NAME ---"
+    cat $ASOUND_FILE_NAME
+    echo "--- END $ASOUND_FILE_NAME ---"
+fi
 
 echo "Command Line: ["$CMD_LINE"]"
 

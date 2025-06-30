@@ -41,6 +41,7 @@ else
   echo "Explicitly set properties will not be overridden"
   echo "Presets are executed in order of appearance"
   echo "Current SQUEEZELITE_AUDIO_DEVICE = $SQUEEZELITE_AUDIO_DEVICE"
+  echo "Current SQUEEZELITE_EQ_AUDIO_DEVICE = $SQUEEZELITE_EQ_AUDIO_DEVICE"
   echo "Current SQUEEZELITE_RATES = $SQUEEZELITE_RATES"
   echo "Current SQUEEZELITE_UPSAMPLING = $SQUEEZELITE_UPSAMPLING"
   echo "Current SQUEEZELITE_CODECS = $SQUEEZELITE_CODECS"
@@ -164,6 +165,15 @@ else
   echo "Final SQUEEZELITE_MIXER_DEVICE = $SQUEEZELITE_MIXER_DEVICE"
   echo "Final SQUEEZELITE_VOLUME_CONTROL = $SQUEEZELITE_VOLUME_CONTROL"
 fi
+
+if [[ -n "${SQUEEZELITE_EQ_AUDIO_DEVICE}" ]]; then
+    echo "SQUEEZELITE_EQ_AUDIO_DEVICE has been set to [${SQUEEZELITE_EQ_AUDIO_DEVICE}]"
+    if [[ -z "${SQUEEZELITE_AUDIO_DEVICE}" ]]; then
+        echo "SQUEEZELITE_AUDIO_DEVICE empty, setting to 'equal'"
+        SQUEEZELITE_AUDIO_DEVICE=equal
+    fi
+fi
+
 
 cmdline-server-port
 cmdline-player-name
@@ -344,6 +354,37 @@ fi
 
 handle_mac_address
 cmdline_mac_address
+
+# write /etc/asound.conf or ~/.asoundrc if needed
+if [[ -n "${SQUEEZELITE_EQ_AUDIO_DEVICE}" ]]; then
+    echo "SQUEEZELITE_EQ_AUDIO_DEVICE has been set to [${SQUEEZELITE_EQ_AUDIO_DEVICE}], creating custom asound file"
+    ASOUND_FILE_NAME=/etc/asound.conf
+    if [[ $current_user_id == 0 ]]; then
+        # root mode, file will be /etc/asound.conf
+        ASOUND_FILE_NAME=/etc/asound.conf
+    else
+        # user mode, file will be ~/.asoundrc
+        ASOUND_FILE_NAME="${HOME_DIR}/.asoundrc"
+    fi
+    echo "ASOUND_FILE_NAME=${ASOUND_FILE_NAME}"
+    # write content
+    echo "# custom asound file for eq mode" > $ASOUND_FILE_NAME
+    echo "ctl.equal {" >>  $ASOUND_FILE_NAME
+    echo "type equal" >>  $ASOUND_FILE_NAME
+    echo "}" >>  $ASOUND_FILE_NAME
+
+    echo "pcm.plugequal {" >>  $ASOUND_FILE_NAME
+    echo "  type equal;" >>  $ASOUND_FILE_NAME
+    echo "  slave.pcm \"${SQUEEZELITE_EQ_AUDIO_DEVICE}\";" >>  $ASOUND_FILE_NAME
+    echo "}" >>  $ASOUND_FILE_NAME
+
+    echo "pcm.equal {" >>  $ASOUND_FILE_NAME
+    echo "type plug;" >>  $ASOUND_FILE_NAME
+    echo "slave.pcm plugequal;" >>  $ASOUND_FILE_NAME
+    echo "}" >>  $ASOUND_FILE_NAME
+fi
+
+
 
 echo "Command Line: ["$CMD_LINE"]"
 

@@ -72,7 +72,6 @@ elif [[ "${BUILD_MODE}" == "r2" ]]; then
     apt-get install -y \
         git \
         build-essential \
-        libasound2 \
         libasound2-plugin-equal \
         alsa-utils \
         libasound2-dev \

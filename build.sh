@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -ex
+
 # error codes
 # 2 Invalid base image
 # 3 Invalid build_mode parameter

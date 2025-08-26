@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -ex
+
 # exit codes
 # 6 unsupported build type
 

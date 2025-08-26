@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -ex
+
 echo "Running in pulse mode"
 
 current_user_id=$(id -u)

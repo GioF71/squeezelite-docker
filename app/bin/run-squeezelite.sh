@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -ex
+
 #errors
 # 2 invalid mode
 

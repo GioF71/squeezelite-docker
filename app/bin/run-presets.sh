@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -ex
+
 declare -A presets
 
 function load_preset_file() {

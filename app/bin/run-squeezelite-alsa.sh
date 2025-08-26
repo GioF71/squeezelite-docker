@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -ex
+
 # exit codes
 
 # 5 root mode required

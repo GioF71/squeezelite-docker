@@ -10,7 +10,7 @@ Older build might be dropped in order to save space on docker-hub and incur in l
 
 Date|Type|Description
 :---|:---|:---
-2025-08-26|Bugfix|Stick to bookworm until bugs are addressed, also avoid silent errors (see [#344](https://github.com/GioF71/squeezelite-docker/issues/344))
+2025-08-26|Bugfix|Stick to bookworm until bugs are addressed, also avoid silent errors (see [#345](https://github.com/GioF71/squeezelite-docker/issues/345) and [#344](https://github.com/GioF71/squeezelite-docker/issues/344))
 2025-08-10|Maintenance|Fixed r2 build, would not find libasound2
 2025-06-30|Improvement|Complete support for alsa equalizer plugin, we do not require to create a custom asound.conf file anymore (see [#338](https://github.com/GioF71/squeezelite-docker/issues/338))
 2025-06-28|Improvement|Add support for alsa equalizer plugin (see [#338](https://github.com/GioF71/squeezelite-docker/issues/338))

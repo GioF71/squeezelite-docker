@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -ex
+
 function add_log_categories() {
     if [ -n "${SQUEEZELITE_LOG_CATEGORY_ALL}" ]; then
         CMD_LINE="$CMD_LINE -d all=${SQUEEZELITE_LOG_CATEGORY_ALL}"

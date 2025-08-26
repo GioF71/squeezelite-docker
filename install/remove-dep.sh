@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -ex
+
 if [[ "${BUILD_MODE}" == "r2" ]]; then
     echo "Removing packages for Squeezelite R2"
     apt-get remove -y git build-essential

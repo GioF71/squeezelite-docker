@@ -14,14 +14,12 @@ base_images[stable]=debian:stable-slim
 base_images[unstable]=debian:unstable-slim
 base_images[trixie]=debian:trixie-slim
 base_images[bookworm]=debian:bookworm-slim
-base_images[bullseye]=debian:bullseye-slim
 
 base_images[debian:sid]=debian:sid-slim
 base_images[debian:stable]=debian:stable-slim
 base_images[debian:unstable]=debian:unstable-slim
 base_images[debian:trixie]=debian:trixie-slim
 base_images[debian:bookworm]=debian:bookworm-slim
-base_images[debian:bullseye]=debian:bullseye-slim
 
 DEFAULT_BASE_IMAGE=stable
 DEFAULT_BUILD_MODE=std

@@ -32,7 +32,7 @@ if [[ "${BUILD_MODE}" == "sf" ]]; then
     apt-get update
     if [[ -z "${BINARY_MODE}" ]] || [[ "${BINARY_MODE}" == "full" ]] || [[ "${BINARY_MODE}" == "alsa" ]]; then
         echo "Installing support for Alsa ..."
-        apt-get install --no-install-recommends -y libasound2 libasound2-plugin-equal alsa-utils
+        apt-get install --no-install-recommends -y libasound2t64 libasound2-plugin-equal alsa-utils
         echo "Support for Alsa installed."
     fi
     if [[ -z "${BINARY_MODE}" ]] || [[ "${BINARY_MODE}" == "full" ]] || [[ "${BINARY_MODE}" == "pulse" ]]; then

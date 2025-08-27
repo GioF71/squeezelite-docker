@@ -10,7 +10,7 @@ set -ex
 declare -A base_images
 
 base_images[sid]=debian:sid-slim
-base_images[stable]=debian:bookworm-slim
+base_images[stable]=debian:stable-slim
 base_images[unstable]=debian:unstable-slim
 base_images[trixie]=debian:trixie-slim
 base_images[bookworm]=debian:bookworm-slim
@@ -27,7 +27,7 @@ base_images[mantic]=ubuntu:mantic
 base_images[rolling]=ubuntu:rolling
 
 base_images[debian:sid]=debian:sid-slim
-base_images[debian:stable]=debian:bookworm-slim
+base_images[debian:stable]=debian:stable-slim
 base_images[debian:unstable]=debian:unstable-slim
 base_images[debian:trixie]=debian:trixie-slim
 base_images[debian:bookworm]=debian:bookworm-slim

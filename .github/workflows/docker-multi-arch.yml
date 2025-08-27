@@ -67,7 +67,7 @@ jobs:
 
           select_base_image=${base_image_from_matrix[${{ matrix.base }}]}
           if [ -z "${select_base_image}" ]; then
-            select_base_image=debian:bookworm-slim
+            select_base_image=debian:stable-slim
           fi
           echo "Select Base Image [" $select_base_image "]"
 

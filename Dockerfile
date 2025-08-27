@@ -1,5 +1,5 @@
 ARG BASE_IMAGE
-FROM ${BASE_IMAGE:-debian:bookworm-slim} AS base
+FROM ${BASE_IMAGE:-debian:stable-slim} AS base
 # BUILD_MODE: [ std, sf, r2, bt ]
 ARG BUILD_MODE
 # BINARY_MODE: [ "full", "pulse", "alsa", "alsa-bt" ]

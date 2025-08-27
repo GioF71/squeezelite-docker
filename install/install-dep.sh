@@ -38,11 +38,11 @@ if [[ "${BUILD_MODE}" == "sf" ]]; then
     if [[ -z "${BINARY_MODE}" ]] || [[ "${BINARY_MODE}" == "full" ]] || [[ "${BINARY_MODE}" == "pulse" ]]; then
         echo "Installing support for PulseAudio ..."
         apt-get install --no-install-recommends -y \
-            libavcodec59 \
-            libavformat59 \
-            libavutil57 \
+            libavcodec61 \
+            libavformat61 \
+            libavutil59 \
             libfaad2 \
-            libflac12 \
+            libflac14 \
             liblirc-client0 \
             libmad0 \
             libmpg123-0 \

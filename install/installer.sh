@@ -24,53 +24,43 @@ arch_amd64=x86_64
 arch_arm_v7=armv7l
 arch_arm_v8=aarch64
 
-url_left="https://sourceforge.net/projects/lmsclients/files/squeezelite/linux/"
-url_right="/download"
+declare -A alsa_file_dict
+alsa_file_dict[$arch_amd64]="squeezelite-2.0.0.1541-x86_64.tar.gz"
+alsa_file_dict[$arch_arm_v8]="squeezelite-2.0.0.1541-aarch64.tar.gz"
+alsa_file_dict[$arch_arm_v7]="squeezelite-2.0.0.1541-armhf.tar.gz"
 
-declare -A url_middle_alsa_dict
-url_middle_alsa_dict[$arch_amd64]="squeezelite-2.0.0.1541-x86_64.tar.gz"
-url_middle_alsa_dict[$arch_arm_v7]="squeezelite-2.0.0.1541-armhf.tar.gz"
-url_middle_alsa_dict[$arch_arm_v8]="squeezelite-2.0.0.1541-aarch64.tar.gz"
-
-declare -A url_middle_pulse_dict
-url_middle_pulse_dict[$arch_amd64]="squeezelite-pulse-2.0.0.1541-x86_64.tar.gz"
-url_middle_pulse_dict[$arch_arm_v7]="squeezelite-pulse-1.9.9.1392-armhf.tar.gz"
-url_middle_pulse_dict[$arch_arm_v8]="squeezelite-pulse-2.0.0.1541-aarch64.tar.gz"
+declare -A pulse_file_dict
+pulse_file_dict[$arch_amd64]="squeezelite-pulse-2.0.0.1541-x86_64.tar.gz"
+pulse_file_dict[$arch_arm_v8]="squeezelite-pulse-2.0.0.1541-aarch64.tar.gz"
 
 if [[ "${BUILD_MODE}" == "sf" ]]; then
-    apt-get install wget -y
-    #ARCH=`uname -m`
-    mkdir /assets
-    mkdir -p /assets/sourceforge
     if [[ "${BINARY_MODE}" == "full" ]] || [[ "${BINARY_MODE}" == "alsa" ]]; then
-        SL_URL=${url_middle_alsa_dict["${ARCH}"]};
-        if [[ -n "${url_left}${SL_URL}${url_right}" ]]; then
-            echo "Found Alsa version for architecture ${ARCH}, downloading ..."
-            wget "${url_left}${SL_URL}${url_right}" -O /assets/sourceforge/squeezelite.tar.gz
-            mkdir /assets/sourceforge/expanded
-            tar xzvf /assets/sourceforge/squeezelite.tar.gz -C /assets/sourceforge/expanded
-            ls -la /assets/sourceforge/expanded/
-            mv /assets/sourceforge/expanded/squeezelite $OUTPUT_FILE
+        SL_ALSA_FILENAME=${alsa_file_dict["${ARCH}"]};
+        if [[ -n "${SL_ALSA_FILENAME}" ]]; then
+            echo "Found Alsa version for architecture ${ARCH}, decompressing ..."
+            mkdir -p /app/assets/sourceforge/expanded
+            tar xzvf "/app/assets/sourceforge/${SL_ALSA_FILENAME}" -C /app/assets/sourceforge/expanded
+            ls -la /app/assets/sourceforge/expanded/
+            mv /app/assets/sourceforge/expanded/squeezelite $OUTPUT_FILE
         else
-            echo "NOT Found Alsa version for architecture ${ARCH}. This was mandatory, exiting!"
+            echo "NOT Found Alsa version for architecture ${ARCH}, exiting!"
             exit 1
         fi
     fi
     if [[ "${BINARY_MODE}" == "full" ]] || [[ "${BINARY_MODE}" == "pulse" ]]; then
-        SL_URL_PULSE=${url_middle_pulse_dict["${ARCH}"]};
-        if [[ -n "${url_left}${SL_URL_PULSE}${url_right}" ]]; then
-            echo "Found PulseAudio version for architecture ${ARCH}, downloading ..."
-            wget "${url_left}${SL_URL_PULSE}${url_right}" -O /assets/sourceforge/squeezelite-pulse.tar.gz
-            mkdir /assets/sourceforge/expanded-pulse
-            tar xzvf /assets/sourceforge/squeezelite-pulse.tar.gz -C /assets/sourceforge/expanded-pulse
-            ls -la /assets/sourceforge/expanded-pulse/
-            mv /assets/sourceforge/expanded-pulse/squeezelite $OUTPUT_FILE_PULSE
+        SL_PULSE_FILENAME=${pulse_file_dict["${ARCH}"]};
+        if [[ -n "${SL_PULSE_FILENAME}" ]]; then
+            echo "Found PulseAudio version for architecture ${ARCH}, decompressing ..."
+            mkdir -p /app/assets/sourceforge/expanded-pulse
+            tar xzvf "/app/assets/sourceforge/${SL_PULSE_FILENAME}" -C /app/assets/sourceforge/expanded-pulse
+            ls -la /app/assets/sourceforge/expanded-pulse/
+            mv /app/assets/sourceforge/expanded-pulse/squeezelite $OUTPUT_FILE_PULSE
         else
-            echo "NOT Found PulseAudio version for architecture ${ARCH}. This was not mandatory."
+            echo "NOT Found PulseAudio version for architecture ${ARCH}, exiting!"
+            exit 1
         fi
     fi
     # cleanup
-    apt-get purge wget -y
     apt-get autoremove -y
     rm -Rf /assets
 elif [[ "${BUILD_MODE}" == "r2" ]]; then

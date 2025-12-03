@@ -121,6 +121,7 @@ SQUEEZELITE_POWER_SCRIPT|-S|Absolute path to script to launch on power commands 
 SQUEEZELITE_RPI_GPIO|-G|Specify the BCM GPIO# to use for Amp Power Relay and if the output should be Active High or Low. This cannot be used in combination with SQUEEZELITE_POWER_SCRIPT
 SELECT_CUSTOM_BINARY_ALSA||Use for selection of a custom binary for ALSA mode
 SELECT_CUSTOM_BINARY_PULSE||Use for selection of a custom binary for PULSE mode
+CUSTOM_PULSEAUDIO_SERVER||Use a specific pulseaudio server instead of the default `unix:/run/user/$PUID/pulse/native`
 SQUEEZELITE_LOG_CATEGORY_ALL|-d|Support for log level on category `all`
 SQUEEZELITE_LOG_CATEGORY_SLIMPROTO|-d|Support for log level on category `slimproto`
 SQUEEZELITE_LOG_CATEGORY_STREAM|-d|Support for log level on category `stream`

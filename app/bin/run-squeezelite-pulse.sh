@@ -64,12 +64,17 @@ echo "Pulse Mode - Successfully created user $USER_NAME:$GROUP_NAME [$PUID:$PGID
 
 PULSE_CLIENT_CONF="/etc/pulse/client.conf"
 
-echo "cat /app/assets/pulse-client-template.conf"
-cat /app/assets/pulse-client-template.conf
-
 echo "Creating pulseaudio configuration file $PULSE_CLIENT_CONF..."
-cp /app/assets/pulse-client-template.conf $PULSE_CLIENT_CONF
-sed -i 's/PUID/'"$PUID"'/g' $PULSE_CLIENT_CONF
+if [[ -n ${CUSTOM_PULSEAUDIO_SERVER} ]]; then
+    echo "Using custom pulseaudio server [${CUSTOM_PULSEAUDIO_SERVER}]"
+    echo "default-server = ${CUSTOM_PULSEAUDIO_SERVER}" > $PULSE_CLIENT_CONF
+else
+    echo "Using standard pulseaudio server"
+    echo "default-server = unix:/run/user/${PUID}/pulse/native" > $PULSE_CLIENT_CONF
+fi
+echo "autospawn = no" >> $PULSE_CLIENT_CONF
+echo "daemon-binary = /bin/true" >> $PULSE_CLIENT_CONF
+echo "enable-shm = false" >> $PULSE_CLIENT_CONF
 cat $PULSE_CLIENT_CONF
 
 CMD_LINE="/app/bin/squeezelite-pulseaudio"

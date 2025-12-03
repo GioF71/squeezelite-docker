@@ -145,7 +145,6 @@ VOLUME '/config'
 COPY README.md /app/doc/
 COPY doc/* /app/doc/
 COPY app/assets/builtin-presets.conf /app/assets/
-COPY app/assets/pulse-client-template.conf /app/assets/pulse-client-template.conf
 
 WORKDIR /app/bin
 

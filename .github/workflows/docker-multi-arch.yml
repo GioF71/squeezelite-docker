@@ -157,7 +157,7 @@ jobs:
           echo "BUILD_PLATFORMS=${build_platforms}" >> $GITHUB_OUTPUT
 
       - name: Set up QEMU
-        uses: docker/setup-qemu-action@v7
+        uses: docker/setup-qemu-action@v4
         with:
           platforms: all
 

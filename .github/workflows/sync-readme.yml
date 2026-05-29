@@ -13,7 +13,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
       - name: Docker Hub README & description sync
         uses: meeDamian/sync-readme@v1.0.6
         with:

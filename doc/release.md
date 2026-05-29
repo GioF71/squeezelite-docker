@@ -10,6 +10,7 @@ Older build might be dropped in order to save space on docker-hub and incur in l
 
 Date|Type|Description
 :---|:---|:---
+2026-05-29|Maintenance|Bump github actions (see [#352](https://github.com/GioF71/squeezelite-docker/issues/352))
 2026-05-29|Maintenance|Update sourceforge squeezelite binary for armhf (see [#351](https://github.com/GioF71/squeezelite-docker/issues/351))
 2025-11-10|Maintenance|Avoid download errors by including sf binaries (see [#348](https://github.com/GioF71/squeezelite-docker/issues/348))
 2025-08-26|Bugfix|Stick to bookworm until bugs are addressed, also avoid silent errors (see [#345](https://github.com/GioF71/squeezelite-docker/issues/345) and [#344](https://github.com/GioF71/squeezelite-docker/issues/344))

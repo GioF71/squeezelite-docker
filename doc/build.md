@@ -1,15 +1,28 @@
 # Build
 
+## Using build arguments
+
+A table of the build arguments:
+
+NAME|DESCRIPTION
+:---|:---
+BASE_IMAGE|Base image, e.g. `debian:stable-slim` (default), `debian:trixie-slim`, `debian:bookworm-slim`
+BUILD_MODE|Build mode, you can choose among `std` (repository versions, default), `sf` (for sourceforge binaries) and `r2` (compiles the r2 fork)
+BINARY_MODE|Binary mode, you can choose among `full` (default), `alsa`, `pulse` and `alsa-bt`
+FORCE_ARCH|Force build using the specified architecture, empty by default
+
+## Using the provided script
+
 You can build (or rebuild) the image by opening a terminal and using the convenience script `build.sh`.
 This script accepts a few parameters:
 
 Parameter|Default|Description
 :---:|:---:|:---
--d|N|Use repository (`N`) or download from SourceForge (`Y`)
 -b|trixie|Base image, you can choose among `stable`, `trixie`, `bookworm`
+-d|std|See build argument `BUILD_MODE`
+-m|full|See build argument `BINARY_MODE`
+-f||See build argument `FORCE_ARCH`
 -t|local|The last part of the tag, by default it will be giof71/squeezelite:latest
--d|std|Build mode, you can choose among `std` (repository versions), `sf` (for sourceforge binaries) and `r2` (compiles the r2 fork)
--m|full|Binary mode, you can choose among `full` , `pulse` and `alsa-bt`
 
 A few examples:
 

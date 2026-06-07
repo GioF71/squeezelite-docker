@@ -33,9 +33,9 @@ do
     case "${flag}" in
         b) base_image=${OPTARG};;
         d) build_mode=${OPTARG};;
-        t) tag=${OPTARG};;
         m) binary_mode=${OPTARG};;
         f) force_arch=${OPTARG};;
+        t) tag=${OPTARG};;
     esac
 done
 
@@ -69,18 +69,6 @@ elif [[ "${build_mode}" == "r2" ]]; then
 else
   echo "invalid build_mode parameter ["${build_mode}"]"
   exit 3
-fi
-
-if [ -z "${proxy}" ]; then
-  proxy="N"
-fi
-if [[ "${proxy^^}" == "Y" || "${proxy^^}" == "YES" ]]; then  
-  proxy="Y"
-elif [[ "${proxy^^}" == "N" || "${proxy^^}" == "NO" ]]; then  
-  proxy="N"
-else
-  echo "invalid proxy parameter ["${proxy}"]"
-  exit 4
 fi
 
 if [[ -z "${binary_mode}" ]]; then

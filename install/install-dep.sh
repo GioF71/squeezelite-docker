@@ -3,7 +3,33 @@
 set -ex
 
 # exit codes
+# 1 Invalid build mode
+# 2 Invalid binary mode
 # 6 unsupported build type
+
+case "$BUILD_MODE" in
+  "std" | "sf" | "r2")
+    echo "Valid build mode: $BUILD_MODE"
+    # Your build logic goes here
+    ;;
+  *)
+    echo "Error: BUILD_MODE must be one of: std, sf, r2" >&2
+    echo "Current value: '$BUILD_MODE'" >&2
+    exit 1
+    ;;
+esac
+
+case "$BINARY_MODE" in
+  "full" | "alsa" | "pulse" | "alsa-bt")
+    echo "Valid mode: $BINARY_MODE"
+    # Your code for valid modes goes here
+    ;;
+  *)
+    echo "Error: BINARY_MODE must be one of: full, alsa, pulse, alsa-bt" >&2
+    echo "Current value: '$BINARY_MODE'" >&2
+    exit 2
+    ;;
+esac
 
 invalid_combination=0
 
@@ -32,17 +58,17 @@ if [[ "${BUILD_MODE}" == "sf" ]]; then
     apt-get update
     if [[ -z "${BINARY_MODE}" ]] || [[ "${BINARY_MODE}" == "full" ]] || [[ "${BINARY_MODE}" == "alsa" ]]; then
         echo "Installing support for Alsa ..."
-        apt-get install --no-install-recommends -y libasound2 libasound2-plugin-equal alsa-utils
+        apt-get install --no-install-recommends -y libasound2t64 libasound2-plugin-equal alsa-utils
         echo "Support for Alsa installed."
     fi
     if [[ -z "${BINARY_MODE}" ]] || [[ "${BINARY_MODE}" == "full" ]] || [[ "${BINARY_MODE}" == "pulse" ]]; then
         echo "Installing support for PulseAudio ..."
         apt-get install --no-install-recommends -y \
-            libavcodec59 \
-            libavformat59 \
-            libavutil57 \
+            libavcodec61 \
+            libavformat61 \
+            libavutil59 \
             libfaad2 \
-            libflac12 \
+            libflac14 \
             liblirc-client0 \
             libmad0 \
             libmpg123-0 \

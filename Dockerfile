@@ -1,24 +1,17 @@
 ARG BASE_IMAGE
-FROM ${BASE_IMAGE:-debian:bookworm-slim} AS base
+FROM ${BASE_IMAGE:-debian:stable-slim} AS base
+
 # BUILD_MODE: [ std, sf, r2, bt ]
-ARG BUILD_MODE
+ARG BUILD_MODE=std
+
 # BINARY_MODE: [ "full", "pulse", "alsa", "alsa-bt" ]
-ARG BINARY_MODE
+ARG BINARY_MODE=full
+
 ARG FORCE_ARCH
+
 ARG USE_APT_PROXY
 
 RUN mkdir -p /app/conf
-
-COPY app/conf/01-apt-proxy /app/conf/
-
-RUN echo "USE_APT_PROXY=["${USE_APT_PROXY}"]"
-
-RUN if [ "${USE_APT_PROXY}" = "Y" ]; then \
-        echo "Builind using apt proxy"; \
-        cp /app/conf/01-apt-proxy /etc/apt/apt.conf.d/01-apt-proxy; \
-    else \
-        echo "Building without apt proxy"; \
-    fi
 
 # copy assets
 RUN mkdir -p /app/assets/sourceforge
@@ -48,11 +41,6 @@ RUN /app/install/remove-dep.sh
 RUN rm /app/install/install-dep.sh
 RUN rm /app/install/installer.sh
 RUN rm /app/install/remove-dep.sh
-
-# cleanup apt proxy config
-RUN if [ "${USE_APT_PROXY}" = "Y" ]; then \
-        rm /etc/apt/apt.conf.d/01-apt-proxy; \
-    fi
 
 # cleanup apt cache
 RUN rm -rf /var/lib/apt/lists/*

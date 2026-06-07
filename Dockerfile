@@ -20,24 +20,29 @@ RUN if [ "${USE_APT_PROXY}" = "Y" ]; then \
         echo "Building without apt proxy"; \
     fi
 
+# copy assets
+RUN mkdir -p /app/assets/sourceforge
+COPY app/assets/sourceforge/*tar.gz /app/assets/sourceforge/
+
 RUN mkdir -p /app/bin
 
-# copy installer files
+# create install directory and set if as workdir
 RUN mkdir -p /app/install
-
-COPY install/install-dep.sh /app/install/
-COPY install/installer.sh /app/install/
-COPY install/remove-dep.sh /app/install/
-
-RUN chmod u+x /app/install/*.sh
-
-RUN /app/install/install-dep.sh
-
 WORKDIR /app/install
 
+# install dependencies
+COPY install/install-dep.sh /app/install/
+RUN chmod u+x /app/install/install-dep.sh
+RUN /app/install/install-dep.sh
+
 # execute installation
+COPY install/installer.sh /app/install/
+RUN chmod u+x /app/install/installer.sh
 RUN /app/install/installer.sh
 
+# remove unnecessary dependencies
+COPY install/remove-dep.sh /app/install/
+RUN chmod u+x /app/install/remove-dep.sh
 RUN /app/install/remove-dep.sh
 
 RUN rm /app/install/install-dep.sh
@@ -54,6 +59,9 @@ RUN rm -rf /var/lib/apt/lists/*
 
 # remove scripts
 RUN rm -Rf /app/install
+
+# remove sourceforge assets
+RUN rm -Rf /app/assets/sourceforge
 
 FROM scratch
 COPY --from=base / /

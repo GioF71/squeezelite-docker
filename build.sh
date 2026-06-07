@@ -24,7 +24,6 @@ base_images[debian:bookworm]=debian:bookworm-slim
 DEFAULT_BASE_IMAGE=stable
 DEFAULT_BUILD_MODE=std
 DEFAULT_TAG=local
-DEFAULT_USE_PROXY=N
 
 build_mode=$DEFAULT_BUILD_MODE
 tag=$DEFAULT_TAG
@@ -35,7 +34,6 @@ do
         b) base_image=${OPTARG};;
         d) build_mode=${OPTARG};;
         t) tag=${OPTARG};;
-        p) proxy=${OPTARG};;
         m) binary_mode=${OPTARG};;
         f) force_arch=${OPTARG};;
     esac
@@ -46,7 +44,6 @@ echo "Input: Build Mode = [$build_mode]";
 echo "Input: Download from SourceForge = [$d]";
 echo "Input: Force Architecture = [$force_arch]";
 echo "Input: Image Tag = [$tag]";
-echo "Input: Proxy = [$proxy]";
 echo "Input: Binary mode = [$binary_mode]";
 
 if [ -z "${base_image}" ]; then
@@ -100,13 +97,11 @@ echo "Build Argument: Download from SourceForge = ["$build_mode"]"
 echo "Build Argument: Force Architecture = [$force_arch]";
 echo "Build Argument: Image Tag = ["$tag"]"
 echo "Build Argument: Binary Mode = ["$binary_mode"]"
-echo "Build Argument: Proxy = ["$proxy"]"
 
 docker build . \
     --build-arg BASE_IMAGE=${expanded_base_image} \
     --build-arg BUILD_MODE=${build_mode} \
     --build-arg BINARY_MODE=${binary_mode} \
     --build-arg FORCE_ARCH=${force_arch} \
-    --build-arg USE_APT_PROXY=${proxy} \
     -t giof71/squeezelite:$tag \
     --progress=plain

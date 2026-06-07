@@ -7,14 +7,13 @@ Parameter|Default|Description
 :---:|:---:|:---
 -d|N|Use repository (`N`) or download from SourceForge (`Y`)
 -b|trixie|Base image, you can choose among `stable`, `trixie`, `bookworm`
--t|latest|The last part of the tag, by default it will be giof71/squeezelite:latest
--p|N|Use apt-proxy specified in app/conf/01-apt-proxy
+-t|local|The last part of the tag, by default it will be giof71/squeezelite:latest
 
 Example:
 
 Command|Expected Result
 :---|:---
-./build.sh|Builds from Debian `bookworm`, using the binary version from the repos, use the `latest` tag
+./build.sh|Builds from Debian `bookworm`, using the binary version from the repos, use the `local` tag
 ./build.sh -d N -b trixie -t latest|Same as above, but everything is explicitly specified
 ./build.sh -d N -b trixie -t local|Builds from Debian `trixie`, will not download from SourceForge, use `local` as the tag.
 ./build.sh -d Y -b bookworm -t bookworm-sf|Builds from Debian `bookworm`, download from SourceForge, use `bookworm-sf` as the tag.

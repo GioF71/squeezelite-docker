@@ -8,8 +8,10 @@ Parameter|Default|Description
 -d|N|Use repository (`N`) or download from SourceForge (`Y`)
 -b|trixie|Base image, you can choose among `stable`, `trixie`, `bookworm`
 -t|local|The last part of the tag, by default it will be giof71/squeezelite:latest
+-d|std|Build mode, you can choose among `std` (repository versions), `sf` (for sourceforge binaries) and `r2` (compiles the r2 fork)
+-m|full|Binary mode, you can choose among `full` , `pulse` and `alsa-bt`
 
-Example:
+A few examples:
 
 Command|Expected Result
 :---|:---

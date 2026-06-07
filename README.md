@@ -419,7 +419,7 @@ services:
 
 ## Build
 
-See build instructions [here](https://github.com/GioF71/squeezelite-docker/blob/main/doc/build.md).
+See build instructions [here](doc/build.md).
 
 ## Docker Hub tags
 

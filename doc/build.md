@@ -30,8 +30,8 @@ Command|Expected Result
 :---|:---
 ./build.sh|Builds from Debian `bookworm`, using the binary version from the repos, use the `local` tag
 ./build.sh -d N -b trixie -t latest|Same as above, but everything is explicitly specified
-./build.sh -d N -b trixie -t local|Builds from Debian `trixie`, will not download from SourceForge, use `local` as the tag.
-./build.sh -d Y -b bookworm -t bookworm-sf|Builds from Debian `bookworm`, download from SourceForge, use `bookworm-sf` as the tag.
+./build.sh -d N -b trixie -t local|Builds from Debian `trixie`, will not use SourceForge binaries, use `local` as the tag.
+./build.sh -d Y -b bookworm -t bookworm-sf|Builds from Debian `bookworm`, use SourceForge binaries, use `bookworm-sf` as the tag.
 
 It will take a few minutes of your time even on a Raspberry Pi. When it's finished, you can run the container following the previous instructions.  
 Just be careful to use the tag you have built.

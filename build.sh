@@ -41,7 +41,7 @@ done
 
 echo "Input: Base Image = [$base_image]";
 echo "Input: Build Mode = [$build_mode]";
-echo "Input: Download from SourceForge = [$d]";
+echo "Input: Use sourceforge binaries = [$d]";
 echo "Input: Force Architecture = [$force_arch]";
 echo "Input: Image Tag = [$tag]";
 echo "Input: Binary mode = [$binary_mode]";
@@ -81,7 +81,7 @@ else
 fi
 
 echo "Build Argument: Base Image = ["$expanded_base_image"]"
-echo "Build Argument: Download from SourceForge = ["$build_mode"]"
+echo "Build Argument: Use SourceForge Binaries = ["$build_mode"]"
 echo "Build Argument: Force Architecture = [$force_arch]";
 echo "Build Argument: Image Tag = ["$tag"]"
 echo "Build Argument: Binary Mode = ["$binary_mode"]"

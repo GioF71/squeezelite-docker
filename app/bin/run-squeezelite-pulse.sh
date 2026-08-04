@@ -128,6 +128,19 @@ if [ -z "${SQUEEZELITE_EXCLUDE_CODECS}" ]; then
 fi
 cmdline-exclude-codecs
 
+if [ -z "${SQUEEZELITE_BUFFER_SIZE}" ]; then
+  echo "Variable SQUEEZELITE_BUFFER_SIZE not specified";
+  if [ -z "${SQUEEZELITE_STREAM_AND_OUTPUT_BUFFER_SIZE}" ]; then
+    echo "Variable SQUEEZELITE_STREAM_AND_OUTPUT_BUFFER_SIZE (DEPRECATED) not specified";
+  else
+    echo "Variable SQUEEZELITE_STREAM_AND_OUTPUT_BUFFER_SIZE (DEPRECATED) specified: $SQUEEZELITE_STREAM_AND_OUTPUT_BUFFER_SIZE";
+    CMD_LINE="$CMD_LINE -b $(quote_if_needed $SQUEEZELITE_STREAM_AND_OUTPUT_BUFFER_SIZE)"
+  fi
+else
+  echo "Variable SQUEEZELITE_BUFFER_SIZE specified: $SQUEEZELITE_BUFFER_SIZE";
+  CMD_LINE="$CMD_LINE -b $(quote_if_needed $SQUEEZELITE_BUFFER_SIZE)"
+fi
+
 source logging.sh
 
 add_log_categories

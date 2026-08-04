@@ -25,12 +25,12 @@ arch_arm_v7=armv7l
 arch_arm_v8=aarch64
 
 declare -A alsa_file_dict
-alsa_file_dict[$arch_amd64]="squeezelite-2.0.0.1577-x86_64.tar.gz"
+alsa_file_dict[$arch_amd64]="squeezelite-2.0.0.1584-x86_64.tar.gz"
 alsa_file_dict[$arch_arm_v8]="squeezelite-2.0.0.1584-aarch64.tar.gz"
 alsa_file_dict[$arch_arm_v7]="squeezelite-2.0.0.1584-armhf.tar.gz"
 
 declare -A pulse_file_dict
-pulse_file_dict[$arch_amd64]="squeezelite-pulse-2.0.0.1577-x86_64.tar.gz"
+pulse_file_dict[$arch_amd64]="squeezelite-pulse-2.0.0.1584-x86_64.tar.gz"
 pulse_file_dict[$arch_arm_v8]="squeezelite-pulse-2.0.0.1584-aarch64.tar.gz"
 
 if [[ "${BUILD_MODE}" == "sf" ]]; then

@@ -22,7 +22,7 @@ echo "REF_NAME: [$ref_name]"
 echo "REF: [$ref]"
 
 build_platforms="linux/amd64,linux/arm64/v8"
-if [[ "$build_mode" = "sf" ]] || [[ "$build_mode" = "sf_ffmpeg" ]]; then
+if [[ "$build_mode" = "sf" ]] || [[ "$build_mode" = "sf-ffmpeg" ]]; then
   if [[ "$binary_mode" != "full" ]] && [[ "$binary_mode" != "pulse" ]]; then
     build_platforms="${build_platforms},linux/arm/v7"
   fi
@@ -49,8 +49,8 @@ special_tags[stable-sf-full]="${image_name}:sourceforge-latest,${image_name}:sou
 special_tags[stable-sf-alsa]="${image_name}:sourceforge-latest-alsa,${image_name}:sourceforge-stable-alsa"
 special_tags[stable-sf-pulse]="${image_name}:sourceforge-latest-pulse,${image_name}:sourceforge-stable-pulse"
 special_tags[stable-r2-alsa]="${image_name}:r2-latest-alsa,${image_name}:r2-stable-alsa"
-special_tags[stable-sf_ffmpeg-alsa]="${image_name}:sourceforge-latest-ffmpeg-alsa,${image_name}:sourceforge-stable-ffmpeg-alsa"
-special_tags[stable-sf_ffmpeg-pulse]="${image_name}:sourceforge-latest-ffmpeg-pulse,${image_name}:sourceforge-stable-ffmpeg-pulse"
+special_tags[stable-sf-ffmpeg-alsa]="${image_name}:sourceforge-latest-ffmpeg-alsa,${image_name}:sourceforge-stable-ffmpeg-alsa"
+special_tags[stable-sf-ffmpeg-pulse]="${image_name}:sourceforge-latest-ffmpeg-pulse,${image_name}:sourceforge-stable-ffmpeg-pulse"
 
 declare -A distro_friendly_name_dict
 distro_friendly_name_dict[stable]=debian
@@ -64,7 +64,7 @@ fi
 squeezelite_version_str=""
 if [[ "$build_mode" = "sf" ]]; then
   squeezelite_version_str="squeezelite-current-sourceforge"
-elif [[ "$build_mode" = "sf_ffmpeg" ]]; then
+elif [[ "$build_mode" = "sf-ffmpeg" ]]; then
   squeezelite_version_str="squeezelite-current-sourceforge-ffmpeg"
 elif [[ "$build_mode" = "r2" ]]; then
   squeezelite_version_str="squeezelite-1.8.4-r2"

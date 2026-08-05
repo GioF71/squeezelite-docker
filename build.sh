@@ -60,21 +60,17 @@ if [ -z "${build_mode}" ]; then
   build_mode="std"
 fi
 
-if [[ "${build_mode}" == "sf" ]]; then  
-  build_mode="sf"
-elif [[ "${build_mode}" == "std" ]]; then  
-  build_mode="std"
-elif [[ "${build_mode}" == "r2" ]]; then  
-  build_mode="r2"
-else
+valid_build_modes=(sf std r2)
+if [[ ! " ${valid_build_modes[*]} " =~ " ${build_mode} " ]]; then
   echo "invalid build_mode parameter ["${build_mode}"]"
   exit 3
 fi
 
+valid_binary_modes=(alsa pulse full alsa-bt)
 if [[ -z "${binary_mode}" ]]; then
   binary_mode=full
 else
-  if [[ ! "${binary_mode}" == "alsa" ]] && [[ ! "${binary_mode}" == "pulse" ]] && [[ ! "${binary_mode}" == "full" ]] && [[ ! "${binary_mode}" == "alsa-bt" ]]; then
+  if [[ ! " ${valid_binary_modes[*]} " =~ " ${binary_mode} " ]]; then
     echo "invalid binary_mode parameter ["${binary_mode}"]"
     exit 4
   fi

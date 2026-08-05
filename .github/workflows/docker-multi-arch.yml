@@ -17,7 +17,7 @@ jobs:
       fail-fast: false
       matrix:
         base: [ stable ]
-        build_mode: [ std, sf, r2 ]
+        build_mode: [ std, sf, sf_ffmpeg, r2 ]
         binary_mode: [ full, pulse, alsa, alsa-bt ]
         exclude:
           - base: stable
@@ -32,6 +32,12 @@ jobs:
           - base: stable
             build_mode: sf
             binary_mode: alsa-bt
+          - base: stable
+            build_mode: sf_ffmpeg
+            binary_mode: full
+          - base: stable
+            build_mode: sf_ffmpeg
+            binary_mode: alsa-bt
 
     steps:
       - name: Checkout
@@ -40,121 +46,15 @@ jobs:
       - name: Prepare for docker build
         id: prepare
         run: |
-          image_name=${{secrets.DOCKER_USERNAME}}/squeezelite
-
-          ref_type=${{ github.ref_type }}
-          echo "REF_TYPE: ["$ref_type"]"
-
-          ref_name=${{ github.ref_name }}
-          echo "REF_NAME: ["$ref_name"]"
-
-          ref=${{ github.ref }}
-          echo "REF: ["$ref"]"
-
-          build_platforms="linux/amd64,linux/arm64/v8"
-          if [[ ${{ matrix.build_mode }} = "sf" ]]; then
-            if [[ ${{ matrix.binary_mode }} != "full" ]] && [[ ${{ matrix.binary_mode }} != "pulse" ]]; then
-              build_platforms="${build_platforms},linux/arm/v7"
-            fi
-          elif [[ ${{ matrix.build_mode }} = "std" ]] || [[ ${{ matrix.build_mode }} = "r2" ]]; then
-            build_platforms="${build_platforms},linux/arm/v7,linux/arm/v5"
-          fi
-
-          declare -A base_image_from_matrix
-          base_image_from_matrix[sid]=debian:sid-slim
-          base_image_from_matrix[trixie]=debian:trixie-slim
-          base_image_from_matrix[bookworm]=debian:bookworm-slim
-
-          select_base_image=${base_image_from_matrix[${{ matrix.base }}]}
-          if [ -z "${select_base_image}" ]; then
-            select_base_image=debian:stable-slim
-          fi
-          echo "Select Base Image [" $select_base_image "]"
-
-          declare -A sl_versions
-          sl_versions[stable]=current
-
-          declare -A special_tags
-          special_tags[stable-std-full]="${image_name}:latest,${image_name}:stable"
-          special_tags[stable-std-alsa]="${image_name}:latest-alsa,${image_name}:stable-alsa"
-          special_tags[stable-std-pulse]="${image_name}:latest-pulse,${image_name}:stable-pulse"
-          special_tags[stable-sf-full]="${image_name}:sourceforge-latest,${image_name}:sourceforge-stable"
-          special_tags[stable-sf-alsa]="${image_name}:sourceforge-latest-alsa,${image_name}:sourceforge-stable-alsa"
-          special_tags[stable-sf-pulse]="${image_name}:sourceforge-latest-pulse,${image_name}:sourceforge-stable-pulse"
-          special_tags[stable-r2-alsa]="${image_name}:r2-latest-alsa,${image_name}:r2-stable-alsa"
-
-          declare -A distro_friendly_name_dict
-          distro_friendly_name_dict[stable]=debian
-
-          distro_friendly_name=${{ matrix.base }}
-          binary_mode=${{ matrix.binary_mode }}
-          lookup_distro_name=${distro_friendly_name_dict[${{ matrix.base }}]}
-          if [ -n "${lookup_distro_name}" ]; then
-            distro_friendly_name=$lookup_distro_name
-          fi
-
-          squeezelite_version_str=""
-          if [ ${{ matrix.build_mode }} = "sf" ]; then
-            squeezelite_version_str="squeezelite-current-sourceforge"
-          elif [ ${{ matrix.build_mode }} = "r2" ]; then
-            squeezelite_version_str="squeezelite-1.8.4-r2"
-          else
-            select_squeezelite_version=unknown
-            select_squeezelite_version=${sl_versions[${{ matrix.base }}]}
-            if [ -z "${select_squeezelite_version}" ]; then
-              select_squeezelite_version=version-unknown
-            fi
-            echo "Version from dictionary: "$select_squeezelite_version" from ["${{ matrix.base }}"]"
-            squeezelite_version_str="squeezelite-"$select_squeezelite_version
-          fi
-
-          tags=""
-          if [ "${ref_type}" = "tag" ]; then
-            echo "tag mode"
-            echo "tag is ["${ref_name}"]"
-            if [[ "${ref_name}" = *"/"* ]]; then
-              tag_type=$(echo ${ref_name} | cut -d '/' -f 1)
-              tag_name=$(echo ${ref_name} | cut -d '/' -f 2) 
-            else
-              if [[ "${ref_name}" = "v"* || "${ref_name}" = "f"* || "${ref_name}" = "d"* ]]; then
-                tag_type=${ref_name:0:1}
-                tag_name=${ref_name:1}
-              fi
-            fi
-            echo "tag_type=[$tag_type]"
-            echo "tag_name=[$tag_name]"
-            if [[ "${tag_type}" == "release" || "${tag_type}" == "v" ]]; then
-              echo "release tag"
-              tags="$image_name:${distro_friendly_name}-${binary_mode}-${squeezelite_version_str}"
-              tags="$tags,$image_name:${distro_friendly_name}-${binary_mode}-${squeezelite_version_str}-${tag_name}"
-              special_tag_lookup="${{ matrix.base }}-${{ matrix.build_mode }}-${{ matrix.binary_mode }}"
-              select_special_tags=${special_tags["${special_tag_lookup}"]}
-              building_now="${distro_friendly_name}-${binary_mode}-${{ matrix.build_mode }}"
-              echo "Building now: ["$building_now"]"
-              if [[ -n "${select_special_tags}" ]]; then
-                echo "Found special tags for ["${building_now}"]=["${select_special_tags}"]"
-                tags="$tags,${select_special_tags}"
-              else
-                echo "No special tags found for ["${building_now}"]"
-              fi
-            elif [[ "${tag_type}" == "feature" || "${tag_type}" == "f" ]]; then
-              echo "feature tag"
-              tags="${image_name}:feature-${tag_name}-${distro_friendly_name}-${binary_mode}-${squeezelite_version_str}"
-            elif [[ "${tag_type}" = "daily" || "${tag_type}" = "d" ]]; then
-              echo "daily build"
-              if [ ${{ matrix.build_mode }} = "N" ]; then
-                tags="${tags},${image_name}:daily-${distro_friendly_name}-${binary_mode}"
-              else
-                tags="${tags},${image_name}:daily-${distro_friendly_name}-${binary_mode}-sourceforge"
-              fi
-              tags="${tags},${image_name}:daily-${distro_friendly_name}-${binary_mode}-${squeezelite_version_str}"
-            fi
-          fi
-          echo "Building tags: ["${tags}"]"
-          echo "RELEASE_TAGS=${tags}" >> $GITHUB_OUTPUT
-          echo "BASE_IMAGE=${select_base_image}" >> $GITHUB_OUTPUT
-          echo "BUILD_MODE=${{ matrix.build_mode }}" >> $GITHUB_OUTPUT
-          echo "BUILD_PLATFORMS=${build_platforms}" >> $GITHUB_OUTPUT
+          chmod +x .github/scripts/prepare-docker-build.sh
+          ./.github/scripts/prepare-docker-build.sh \
+            "${{ secrets.DOCKER_USERNAME }}/squeezelite" \
+            "${{ github.ref_type }}" \
+            "${{ github.ref_name }}" \
+            "${{ github.ref }}" \
+            "${{ matrix.base }}" \
+            "${{ matrix.build_mode }}" \
+            "${{ matrix.binary_mode }}"
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v4

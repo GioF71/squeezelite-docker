@@ -8,12 +8,12 @@ set -ex
 # 6 unsupported build type
 
 case "$BUILD_MODE" in
-  "std" | "sf" | "r2")
+  "std" | "sf" | "sf-ffmpeg" | "r2")
     echo "Valid build mode: $BUILD_MODE"
     # Your build logic goes here
     ;;
   *)
-    echo "Error: BUILD_MODE must be one of: std, sf, r2" >&2
+    echo "Error: BUILD_MODE must be one of: std, sf, sf-ffmpeg, r2" >&2
     echo "Current value: '$BUILD_MODE'" >&2
     exit 1
     ;;
@@ -53,7 +53,7 @@ if [ $invalid_combination -eq 1 ]; then
     exit 6
 fi
 
-if [[ "${BUILD_MODE}" == "sf" ]]; then
+if [[ "${BUILD_MODE}" == "sf" ]] || [[ "${BUILD_MODE}" == "sf-ffmpeg" ]]; then
     echo "Using sourceforge binaries, installing required dependencies - BEGIN"
     apt-get update
     if [[ -z "${BINARY_MODE}" ]] || [[ "${BINARY_MODE}" == "full" ]] || [[ "${BINARY_MODE}" == "alsa" ]]; then

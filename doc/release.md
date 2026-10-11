@@ -10,6 +10,7 @@ Older build might be dropped in order to save space on docker-hub and incur in l
 
 Date|Type|Description
 :---|:---|:---
+2026-10-11|Improvement|Updated actions (avoid warnings)
 2026-10-11|Improvement|New binaries from sourceforge (released on 2026-10-11)
 2026-10-05|Improvement|New binaries from sourceforge (released on 2026-10-04)
 2026-08-05|Improvement|Add images for sourceforge mpeg builds (see [#367](https://github.com/GioF71/squeezelite-docker/issues/367))

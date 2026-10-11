@@ -35,22 +35,22 @@ arch_arm_v7=armv7l
 arch_arm_v8=aarch64
 
 declare -A sf_alsa_file_dict
-sf_alsa_file_dict[$arch_amd64]="squeezelite-2.0.0.1584-x86_64.tar.gz"
-sf_alsa_file_dict[$arch_arm_v8]="squeezelite-2.0.0.1609-aarch64.tar.gz"
-sf_alsa_file_dict[$arch_arm_v7]="squeezelite-2.0.0.1609-armhf.tar.gz"
+sf_alsa_file_dict[$arch_amd64]="squeezelite-2.0.0.1610-x86_64.tar.gz"
+sf_alsa_file_dict[$arch_arm_v8]="squeezelite-2.0.0.1610-aarch64.tar.gz"
+sf_alsa_file_dict[$arch_arm_v7]="squeezelite-2.0.0.1610-armhf.tar.gz"
 
 declare -A sf_ffmpeg_alsa_file_dict
-sf_ffmpeg_alsa_file_dict[$arch_amd64]="squeezelite-ffmpeg-2.0.0.1584-x86_64.tar.gz"
-sf_ffmpeg_alsa_file_dict[$arch_arm_v8]="squeezelite-ffmpeg-2.0.0.1609-aarch64.tar.gz"
-sf_ffmpeg_alsa_file_dict[$arch_arm_v7]="squeezelite-ffmpeg-2.0.0.1609-armhf.tar.gz"
+sf_ffmpeg_alsa_file_dict[$arch_amd64]="squeezelite-ffmpeg-2.0.0.1610-x86_64.tar.gz"
+sf_ffmpeg_alsa_file_dict[$arch_arm_v8]="squeezelite-ffmpeg-2.0.0.1610-aarch64.tar.gz"
+sf_ffmpeg_alsa_file_dict[$arch_arm_v7]="squeezelite-ffmpeg-2.0.0.1610-armhf.tar.gz"
 
 declare -A sf_pulse_file_dict
-sf_pulse_file_dict[$arch_amd64]="squeezelite-pulse-2.0.0.1584-x86_64.tar.gz"
-sf_pulse_file_dict[$arch_arm_v8]="squeezelite-pulse-2.0.0.1609-aarch64.tar.gz"
+sf_pulse_file_dict[$arch_amd64]="squeezelite-pulse-2.0.0.1610-x86_64.tar.gz"
+sf_pulse_file_dict[$arch_arm_v8]="squeezelite-pulse-2.0.0.1610-aarch64.tar.gz"
 
 declare -A sf_ffmpeg_pulse_file_dict
-sf_ffmpeg_pulse_file_dict[$arch_amd64]="squeezelite-ffmpeg-pulse-2.0.0.1584-x86_64.tar.gz"
-sf_ffmpeg_pulse_file_dict[$arch_arm_v8]="squeezelite-ffmpeg-pulse-2.0.0.1609-aarch64.tar.gz"
+sf_ffmpeg_pulse_file_dict[$arch_amd64]="squeezelite-ffmpeg-pulse-2.0.0.1610-x86_64.tar.gz"
+sf_ffmpeg_pulse_file_dict[$arch_arm_v8]="squeezelite-ffmpeg-pulse-2.0.0.1610-aarch64.tar.gz"
 
 if [[ "${BUILD_MODE}" == "${BUILD_MODE_SOURCEFORGE}" ]]; then
     if [[ "${BINARY_MODE}" == "${BINARY_MODE_FULL}" ]] || [[ "${BINARY_MODE}" == "${BINARY_MODE_ALSA}" ]]; then

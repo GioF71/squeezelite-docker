@@ -3,22 +3,24 @@ name: Sync README.md to Docker Hub
 on:
   push:
     branches:
-      - "main"
+      - main
+    paths:
+      - README.dockerhub.md
+      - .github/workflows/sync-readme.yml
 
 jobs:
   sync-readme:
     runs-on: ubuntu-24.04
-    strategy:
-      fail-fast: false
 
     steps:
       - name: Checkout
         uses: actions/checkout@v6
-      - name: Docker Hub README & description sync
-        uses: meeDamian/sync-readme@v1.0.6
+      - name: Update Docker Hub description
+        uses: peter-evans/dockerhub-description@v5
         with:
-          user: ${{ secrets.DOCKER_USERNAME }}
-          pass: ${{ secrets.DOCKER_PASSWORD }}
-          slug: ${{ secrets.DOCKER_USERNAME }}/squeezelite
-          readme: ./README.dockerhub.md
-          description: Run squeezelite on docker
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+          repository: ${{ secrets.DOCKER_USERNAME }}/squeezelite
+          readme-filepath: ./README.dockerhub.md
+          short-description: Run squeezelite on docker
+          enable-url-completion: true

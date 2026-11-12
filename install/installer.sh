@@ -42,7 +42,7 @@ sf_alsa_file_dict[$arch_arm_v7]="squeezelite-2.0.0.1612-armhf.tar.gz"
 declare -A sf_ffmpeg_alsa_file_dict
 sf_ffmpeg_alsa_file_dict[$arch_amd64]="squeezelite-ffmpeg-2.0.0.1610-x86_64.tar.gz"
 sf_ffmpeg_alsa_file_dict[$arch_arm_v8]="squeezelite-ffmpeg-2.0.0.1612-aarch64.tar.gz"
-sf_ffmpeg_alsa_file_dict[$arch_arm_v7]="squeezelite-ffmpeg-2.0.0.1613-armhf.tar.gz"
+sf_ffmpeg_alsa_file_dict[$arch_arm_v7]="squeezelite-ffmpeg-2.0.0.1612-armhf.tar.gz"
 
 declare -A sf_pulse_file_dict
 sf_pulse_file_dict[$arch_amd64]="squeezelite-pulse-2.0.0.1610-x86_64.tar.gz"
